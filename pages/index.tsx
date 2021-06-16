@@ -1,5 +1,6 @@
 import { GetStaticProps } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { FC } from "react";
 import { useAuth, User } from "../lib/auth";
 import { getAllUsers } from "../lib/db-admin";
@@ -20,6 +21,7 @@ const Home: FC<Props> = ({ users }) => {
 
       <main>
         <h1 className="text-indigo-500 text-4xl font-semibold">Hello World!</h1>
+        <Link href="/docs">go to docs made with mdx</Link>
         <div className="space-x-4">
           <button
             className="shadow-sm rounded-md bg-gray-800 text-white hover:bg-gray-900 px-2 py-1"
