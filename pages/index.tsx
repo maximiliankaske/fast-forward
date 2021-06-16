@@ -1,7 +1,14 @@
+import { GetStaticProps } from "next";
 import Head from "next/head";
-import { useAuth } from "../lib/auth";
+import { FC } from "react";
+import { useAuth, User } from "../lib/auth";
+import { getAllUsers } from "../lib/db-admin";
 
-export default function Home() {
+interface Props {
+  users?: User[];
+}
+
+const Home: FC<Props> = ({ users }) => {
   const auth = useAuth();
   return (
     <div className="flex justify-center items-center min-h-screen min-w-screen">
@@ -34,7 +41,26 @@ export default function Home() {
             <button onClick={auth.signout}>log out</button>
           </div>
         ) : null}
+        <div>
+          <h1 className="text-indigo-500 text-4xl font-semibold">All Users</h1>
+          {users?.map((user) => (
+            <div key={user.uid}>
+              {user.name} | {user.email} | {user.provider}
+            </div>
+          ))}
+        </div>
       </main>
     </div>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const { users } = await getAllUsers();
+  return {
+    props: {
+      users,
+    },
+  };
+};
+
+export default Home;
