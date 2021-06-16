@@ -1,3 +1,4 @@
+import { BeakerIcon } from "@heroicons/react/solid";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -20,7 +21,10 @@ const Home: FC<Props> = ({ users }) => {
       </Head>
 
       <main>
-        <h1 className="text-indigo-500 text-4xl font-semibold">Hello World!</h1>
+        <h1 className="flex text-indigo-500 text-4xl font-semibold">
+          Hello World!
+          <BeakerIcon className="h-10 w-10" />
+        </h1>
         <Link href="/docs">go to docs made with mdx</Link>
         <div className="space-x-4">
           <button
