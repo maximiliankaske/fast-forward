@@ -14,7 +14,12 @@ const Header: FC = () => {
         </Link>
         <div className="space-x-4">
           <Link href="/docs">Docs</Link>
-          {auth.user && <Button onClick={auth.signout}>log out</Button>}
+          {auth.user && (
+            <>
+              <Link href="/sites">Sites</Link>
+              <Button onClick={auth.signout}>log out</Button>
+            </>
+          )}
         </div>
       </div>
     </header>
