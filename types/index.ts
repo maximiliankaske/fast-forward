@@ -14,6 +14,7 @@ export type Site = {
 
 export type Post = {
   title: string;
+  excerpt: string;
   date: string;
   slug: string;
   coverImage: string;

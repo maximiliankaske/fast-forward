@@ -12,14 +12,16 @@ interface Props {
 const AllPosts: FC<Props> = ({ posts }) => {
   return (
     <DefaultLayout>
-      {posts.map((post) => (
-        <div key={post.slug}>
-          <Link href={`/posts/${post.slug}`}>
-            <p>{post.slug}</p>
-          </Link>
-          <p>{post.authorName}</p>
-        </div>
-      ))}
+      <div className="flex flex-col justify-center space-y-8">
+        {posts.map((post) => (
+          <div key={post.slug}>
+            <Link href={`/posts/${post.slug}`}>
+              <p className="text-xl font-semibold text-gray-900">{post.slug}</p>
+            </Link>
+            <p className="text-base text-gray-500">{post.authorName}</p>
+          </div>
+        ))}
+      </div>
     </DefaultLayout>
   );
 };

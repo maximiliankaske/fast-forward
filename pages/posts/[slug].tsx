@@ -8,6 +8,8 @@ import MDXLayout from "../../components/layout/MDXLayout";
 import markdownToHtml from "../../lib/markdownToHtml";
 import { getPostBySlug, getAllPosts } from "../../lib/api";
 import type { Post } from "../../types";
+import Header from "../../components/blog/Header";
+import PostLayout from "../../components/layout/PostLayout";
 
 interface Props {
   post: Post;
@@ -19,7 +21,7 @@ const Posts: FC<Props> = ({ post }) => {
     return <ErrorPage statusCode={404} />;
   }
   return (
-    <MDXLayout>
+    <PostLayout>
       <Head>
         <title>{post.title} | Fast Forward Blog</title>
         <meta property="og:image" content={post.ogImageUrl} />
@@ -28,22 +30,29 @@ const Posts: FC<Props> = ({ post }) => {
         <div>Loading…</div>
       ) : (
         <div>
-          <Image
-            src={post.coverImage}
-            height={150}
-            width={150}
-            alt="cover image"
+          <div className="flex justify-center items-center">
+            <Image
+              src={post.coverImage}
+              height={150}
+              width={150}
+              alt="cover image"
+            />
+          </div>
+          <Header post={post} />
+          <div
+            className="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto"
+            dangerouslySetInnerHTML={{ __html: post.content }}
           />
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
       )}
-    </MDXLayout>
+    </PostLayout>
   );
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = getPostBySlug(params?.slug as string, [
     "title",
+    "excerpt",
     "date",
     "slug",
     "authorName",

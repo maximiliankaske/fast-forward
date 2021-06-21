@@ -3,7 +3,7 @@ import Link from "../ui/Link";
 
 const Footer: FC = () => {
   return (
-    <footer className="flex justify-center items-center space-x-4">
+    <footer className="flex justify-center items-center space-x-4 my-8">
       <Link href="/docs">Privacy</Link>
       <Link href="/docs">Terms</Link>
       <Link href="/">Home</Link>
