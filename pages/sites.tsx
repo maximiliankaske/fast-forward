@@ -3,7 +3,7 @@ import useSWR, { mutate } from "swr";
 import DefaultLayout from "../components/layout/DefaultLayout";
 import Button from "../components/ui/Button";
 import { useAuth } from "../lib/auth";
-import { createSite } from "../lib/db";
+import { createSite, deleteSite, updateSite } from "../lib/db";
 import { Site, WithId } from "../types";
 import fetcher from "../utils/fetcher";
 
@@ -14,19 +14,35 @@ const Sites: FC = () => {
     fetcher
   );
 
-  const handleCreateSite = () => {
+  const handleCreateSite = async () => {
     const newSite = {
       authorId: user!.uid,
-      url: `${Math.random() * 100} test`,
+      url: `${Math.random() * 100}`,
     };
-    const { id } = createSite(newSite);
-    mutate(
-      ["/api/sites", user!.token],
-      async (data: { sites: WithId<Site>[] }) => ({
-        sites: [{ id, ...newSite }, ...data.sites],
-      }),
-      false
-    );
+    try {
+      await createSite(newSite);
+      mutate(["/api/sites", user!.token]);
+    } catch {
+      throw new Error("create Site failed");
+    }
+  };
+
+  const handleUpdateSite = async (id: string) => {
+    try {
+      await updateSite(id, { url: `${Math.random() * 100}` });
+      mutate(["/api/sites", user!.token]);
+    } catch {
+      throw new Error("update Site failed");
+    }
+  };
+
+  const handleDeleteSite = async (id: string) => {
+    try {
+      await deleteSite(id);
+      mutate(["/api/sites", user!.token]);
+    } catch {
+      throw new Error("delete Site failed");
+    }
   };
 
   return (
@@ -37,7 +53,11 @@ const Sites: FC = () => {
           <Button onClick={handleCreateSite}>Add random Site</Button>
           <h1>My Sites</h1>
           {data?.sites.map((i, idx) => (
-            <p key={idx}>{i.url}</p>
+            <div key={idx} className="flex space-x-3">
+              <p>{i.url}</p>
+              <button onClick={() => handleUpdateSite(i.id)}>update</button>
+              <button onClick={() => handleDeleteSite(i.id)}>delete</button>
+            </div>
           ))}
         </>
       )}

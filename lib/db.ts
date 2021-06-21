@@ -15,11 +15,18 @@ export function createUser(uid: string, data: Omit<User, "token">) {
 }
 
 export function createSite(data: Site) {
-  const site = firebase
+  return firebase
     .firestore()
     .collection("sites")
     .withConverter(converter<Site>())
-    .doc();
-  site.set(data);
-  return site;
+    .doc()
+    .set(data);
+}
+
+export function deleteSite(id: string) {
+  return firebase.firestore().collection("sites").doc(id).delete();
+}
+
+export function updateSite(id: string, data: Partial<Site>) {
+  return firebase.firestore().collection("sites").doc(id).update(data);
 }
