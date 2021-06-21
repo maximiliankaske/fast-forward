@@ -9,8 +9,7 @@ import Router from "next/router";
 import firebase from "./firebase";
 import "firebase/auth";
 import { createUser } from "./db";
-
-export type User = ReturnType<typeof formatUser>;
+import type { User } from "../types";
 
 // @ts-expect-error
 const authContext = createContext<ReturnType<typeof useProvideAuth>>();
@@ -29,19 +28,20 @@ const useAuth = () => {
 };
 
 function useProvideAuth() {
-  const [user, setUser] = useState<null | User>(null);
+  const [user, setUser] = useState<null | (User & { token: string })>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(handleUser);
+    const unsubscribe = firebase.auth().onIdTokenChanged(handleUser);
     return () => unsubscribe();
   }, []);
 
-  const handleUser = (rawUser: firebase.User | null) => {
+  const handleUser = async (rawUser: firebase.User | null) => {
     if (rawUser) {
-      const user = formatUser(rawUser);
+      const user = await formatUser(rawUser);
+      const { token, ...userWithoutToken } = user;
       setLoading(false);
-      createUser(user.uid, user);
+      createUser(user.uid, userWithoutToken);
       setUser(user);
       return user;
     } else {
@@ -87,13 +87,15 @@ function useProvideAuth() {
     signout,
   };
 }
-const formatUser = (user: firebase.User) => {
+const formatUser = async (user: firebase.User) => {
+  const token = await user.getIdToken();
   return {
     uid: user.uid,
     email: user.email,
     name: user.displayName,
     provider: user.providerData[0]?.providerId,
     photoUrl: user.photoURL,
+    token,
   };
 };
 
