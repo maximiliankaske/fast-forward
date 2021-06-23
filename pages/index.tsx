@@ -3,8 +3,6 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 import { FC } from "react";
 import DefaultLayout from "../components/layout/DefaultLayout";
-import Footer from "../components/layout/Footer";
-import Header from "../components/layout/Header";
 import Button from "../components/ui/Button";
 import Link from "../components/ui/Link";
 import { useAuth } from "../lib/auth";
