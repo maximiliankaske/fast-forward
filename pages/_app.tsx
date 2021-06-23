@@ -1,5 +1,6 @@
 import { MDXProvider } from "@mdx-js/react";
 import type { AppProps } from "next/app";
+import { ThemeProvider } from "next-themes";
 import "tailwindcss/tailwind.css";
 import { AuthProvider } from "../lib/auth";
 
@@ -13,9 +14,11 @@ const components = {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <MDXProvider components={components}>
-        <Component {...pageProps} />
-      </MDXProvider>
+      <ThemeProvider attribute="class">
+        <MDXProvider components={components}>
+          <Component {...pageProps} />
+        </MDXProvider>
+      </ThemeProvider>
     </AuthProvider>
   );
 }

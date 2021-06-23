@@ -5,7 +5,7 @@ const MDXLayout: FC = ({ children }) => {
   console.log(children);
   return (
     <DefaultLayout>
-      <div className="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
+      <div className="mt-6 prose dark:prose-dark prose-lg mx-auto">
         {children}
       </div>
     </DefaultLayout>

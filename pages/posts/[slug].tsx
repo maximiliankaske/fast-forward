@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { GetStaticProps } from "next";
 import React, { FC } from "react";
-import MDXLayout from "../../components/layout/MDXLayout";
 import markdownToHtml from "../../lib/markdownToHtml";
 import { getPostBySlug, getAllPosts } from "../../lib/api";
 import type { Post } from "../../types";
@@ -40,7 +39,7 @@ const Posts: FC<Props> = ({ post }) => {
           </div>
           <Header post={post} />
           <div
-            className="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto"
+            className="mt-6 prose dark:prose-dark prose-lg mx-auto"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </div>

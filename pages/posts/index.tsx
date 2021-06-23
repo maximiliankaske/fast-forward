@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
+import Link from "next/link";
 import React, { FC } from "react";
 import DefaultLayout from "../../components/layout/DefaultLayout";
-import Link from "../../components/ui/Link";
 import { getAllPosts } from "../../lib/api";
 import { Post } from "../../types";
 
@@ -16,7 +16,9 @@ const AllPosts: FC<Props> = ({ posts }) => {
         {posts.map((post) => (
           <div key={post.slug}>
             <Link href={`/posts/${post.slug}`}>
-              <p className="text-xl font-semibold text-gray-900">{post.slug}</p>
+              <a className="text-xl font-semibold text-gray-900 dark:text-gray-300">
+                {post.slug}
+              </a>
             </Link>
             <p className="text-base text-gray-500">{post.authorName}</p>
           </div>

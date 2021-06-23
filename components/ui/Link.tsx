@@ -1,10 +1,15 @@
+import cn from "classnames";
 import React, { FC } from "react";
 import NextLink, { LinkProps } from "next/link";
 
-const Link: FC<LinkProps> = ({ children, ...props }) => {
+interface Props extends LinkProps {
+  className?: string;
+}
+
+const Link: FC<Props> = ({ children, className, ...props }) => {
   return (
     <NextLink {...props}>
-      <a className="text-gray-900 hover:underline hover:text-indigo-500">
+      <a className={cn(className, "hover:underline hover:text-indigo-500")}>
         {children}
       </a>
     </NextLink>
