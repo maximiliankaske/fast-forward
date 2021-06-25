@@ -1,4 +1,5 @@
-const { spacing } = require("tailwindcss/defaultTheme");
+const defaultTheme = require("tailwindcss/defaultTheme");
+const { spacing, fontFamily } = defaultTheme;
 
 module.exports = {
   mode: "jit",
@@ -6,6 +7,9 @@ module.exports = {
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Oxygen", ...fontFamily.sans],
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
