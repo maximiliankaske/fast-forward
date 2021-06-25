@@ -1,12 +1,12 @@
 import { GetStaticProps } from "next";
-import Link from "next/link";
 import React, { FC } from "react";
+import Thumbnail from "../../components/blog/Thumbnail";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import { getAllPosts } from "../../lib/api";
 import { Post } from "../../types";
 
 interface Props {
-  posts: Record<keyof Pick<Post, "slug" | "authorName">, string>[];
+  posts: Post[];
 }
 
 const AllPosts: FC<Props> = ({ posts }) => {
@@ -14,14 +14,7 @@ const AllPosts: FC<Props> = ({ posts }) => {
     <DefaultLayout>
       <div className="flex flex-col justify-center space-y-8">
         {posts.map((post) => (
-          <div key={post.slug}>
-            <Link href={`/posts/${post.slug}`}>
-              <a className="text-xl font-semibold text-gray-900 dark:text-gray-300">
-                {post.slug}
-              </a>
-            </Link>
-            <p className="text-base text-gray-500">{post.authorName}</p>
-          </div>
+          <Thumbnail key={post.slug} post={post} />
         ))}
       </div>
     </DefaultLayout>
@@ -29,7 +22,17 @@ const AllPosts: FC<Props> = ({ posts }) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const posts = await getAllPosts(["slug", "authorName"]);
+  const posts = await getAllPosts([
+    "title",
+    "excerpt",
+    "date",
+    "slug",
+    "authorName",
+    "authorPicture",
+    "content",
+    "ogImageUrl",
+    "coverImage",
+  ]);
   return {
     props: {
       posts,

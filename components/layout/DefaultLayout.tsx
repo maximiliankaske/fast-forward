@@ -6,7 +6,7 @@ const DefaultLayout: FC = ({ children }) => {
   return (
     <div>
       <Header />
-      <main className="py-16 container mx-auto">{children}</main>
+      <main className="py-16 px-4 container mx-auto max-w-4xl">{children}</main>
       <Footer />
     </div>
   );
