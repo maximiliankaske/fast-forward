@@ -1,6 +1,7 @@
 import { GetStaticProps } from "next";
 import React, { FC } from "react";
 import Thumbnail from "../../components/blog/Thumbnail";
+import TimelinePath from "../../components/blog/TimelinePath";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import { getAllPosts } from "../../lib/api";
 import { Post } from "../../types";
@@ -12,11 +13,21 @@ interface Props {
 const AllPosts: FC<Props> = ({ posts }) => {
   return (
     <DefaultLayout>
-      <div className="flex flex-col justify-center space-y-8">
-        {posts.map((post) => (
-          <Thumbnail key={post.slug} post={post} />
+      <ul>
+        {posts.map((post, idx) => (
+          <li key={post.slug} className="p-5 overflow-hidden">
+            <div className="flex group">
+              <TimelinePath
+                first={idx === 0}
+                className="group-hover:text-indigo-500"
+              />
+              <div className="ml-4">
+                <Thumbnail post={post} />
+              </div>
+            </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </DefaultLayout>
   );
 };

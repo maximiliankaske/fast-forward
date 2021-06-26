@@ -4,7 +4,7 @@ excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo
 coverImage: "/assets/blog/preview/Data_Arranging_Flatline.png"
 date: "2020-03-16T05:35:07.322Z"
 authorName: Max Kaske
-authorPicture: "/assets/blog/authors/Designer_Outline.png"
+authorPicture: "/assets/blog/authors/max_profile.jpg"
 ogImageUrl: "/assets/blog/preview/Watermelon_Two_Color.png"
 ---
 
