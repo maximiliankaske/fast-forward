@@ -10,7 +10,8 @@ interface Props {
 
 const LeftCol: FC<Props> = ({ post }) => {
   return (
-    <div className="mb-8 sticky">
+    // self-start because in flexbox
+    <div className="mb-4 lg:sticky top-8 self-start">
       <Link href="/posts">
         <a className="flex items-center text-gray-500 hover:text-gray-600 dark:text-gray-200 dark:hover:text-gray-300">
           <ChevronLeftIcon className="h-4 w-4 mr-1" />
