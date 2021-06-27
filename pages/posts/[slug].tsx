@@ -7,8 +7,10 @@ import React, { FC } from "react";
 import markdownToHtml from "../../lib/markdownToHtml";
 import { getPostBySlug, getAllPosts } from "../../lib/api";
 import type { Post } from "../../types";
-import Header from "../../components/blog/Header";
+import Header from "../../components/post/Header";
 import PostLayout from "../../components/layout/PostLayout";
+import LeftCol from "../../components/post/LeftCol";
+import Divider from "../../components/ui/Divider";
 
 interface Props {
   post: Post;
@@ -38,10 +40,14 @@ const Posts: FC<Props> = ({ post }) => {
             />
           </div>
           <Header post={post} />
-          <div
-            className="mt-6 prose dark:prose-dark prose-lg mx-auto"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <Divider className="my-8" />
+          <div className="flex flex-col lg:flex-row">
+            <LeftCol post={post} />
+            <div
+              className="prose dark:prose-dark prose-lg mx-auto"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          </div>
         </div>
       )}
     </PostLayout>
