@@ -23,6 +23,7 @@ const Header: FC = () => {
           <CubeIcon className="h-8 w-8 text-indigo-500" />
         </Link>
         <div className="space-x-4">
+          <Link href="/playground">Playground</Link>
           <Link href="/docs">Docs</Link>
           <Link href="/posts">Posts</Link>
           {auth.user && (
