@@ -34,13 +34,13 @@ const Posts: FC<Props> = ({ post }) => {
           <div className="flex justify-center items-center">
             <Image
               src={post.coverImage}
-              height={150}
-              width={150}
+              height={200}
+              width={200}
               alt="cover image"
             />
           </div>
           <Header post={post} />
-          <Divider className="my-8" />
+          <Divider className="py-8" />
           <div className="flex flex-col lg:flex-row">
             <LeftCol post={post} />
             <div

@@ -21,6 +21,11 @@ const Header: FC<Props> = ({ post }) => {
           {title}
         </span>
       </h1>
+      <div className="pt-1 flex justify-center space-x-1 text-sm text-gray-500">
+        <time dateTime="2020-03-16">Mar 16, 2020</time>
+        <span aria-hidden="true">&middot;</span>
+        <span>6 min read</span>
+      </div>
     </div>
   );
 };

@@ -15,7 +15,7 @@ interface Props {
 
 const Thumbnail: FC<Props> = ({ post }) => {
   return (
-    <article className="flex flex-col md:flex-row rounded-lg hover:shadow-lg border border-transparent hover:border-gray-50 p-4">
+    <article className="flex flex-col md:flex-row rounded-lg hover:shadow-lg border border-transparent hover:border-gray-50 hover:bg-gray-100 p-4">
       <div className="w-full md:w-48 mr-6 mb-3">
         <h1 className="pb-2">{format(new Date(post.date), "dd.MM.yyyy")}</h1>
         <div className="flex flex-1 items-center space-x-2">
@@ -52,15 +52,13 @@ const Thumbnail: FC<Props> = ({ post }) => {
       </div>
       <div className="flex-1">
         <Heading as="h2">{post.slug}</Heading>
-        <p className="pb-3">{post.excerpt}</p>
-        <div className="text-right">
-          <Link href={`/posts/${post.slug}`}>
-            <a className="inline-flex items-center text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400">
-              Read more
-              <ChevronRightIcon className="h-4 w-4" />
-            </a>
-          </Link>
-        </div>
+        <p className="pb-2">{post.excerpt}</p>
+        <Link href={`/posts/${post.slug}`}>
+          <a className="inline-flex items-center text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+            Read more
+            <ChevronRightIcon className="h-4 w-4" />
+          </a>
+        </Link>
       </div>
     </article>
   );
