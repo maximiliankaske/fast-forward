@@ -15,7 +15,7 @@ interface Props {
 
 const Thumbnail: FC<Props> = ({ post }) => {
   return (
-    <article className="flex flex-col md:flex-row rounded-lg hover:shadow-lg border border-transparent hover:border-gray-50 hover:bg-gray-100 p-4">
+    <article className="flex flex-col md:flex-row rounded-lg hover:shadow-lg border border-transparent hover:border-gray-50 dark:hover:border-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800  p-4">
       <div className="w-full md:w-48 mr-6 mb-3">
         <h1 className="pb-2">{format(new Date(post.date), "dd.MM.yyyy")}</h1>
         <div className="flex flex-1 items-center space-x-2">

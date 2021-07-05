@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 import type { Post } from "../../types";
+import Avatar from "../ui/Avatar";
 
 interface Props {
   post: Post;
@@ -11,7 +12,7 @@ interface Props {
 const Header: FC<Props> = ({ post }) => {
   const { title, authorName, authorPicture } = post;
   return (
-    <div className="text-lg mx-auto">
+    <div className="text-lg flex flex-col mx-auto">
       <h1>
         <span className="block text-base text-center text-indigo-600 font-semibold tracking-wide uppercase">
           {/* sequence of multiple posts */}
@@ -26,6 +27,12 @@ const Header: FC<Props> = ({ post }) => {
         <span aria-hidden="true">&middot;</span>
         <span>6 min read</span>
       </div>
+      <Avatar
+        imgSrc={post.authorPicture}
+        name={post.authorName}
+        some="@twitter"
+        className="mt-5 self-center block xl:hidden"
+      />
     </div>
   );
 };

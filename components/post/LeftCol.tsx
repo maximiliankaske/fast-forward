@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 import type { Post } from "../../types";
+import Avatar from "../ui/Avatar";
 import Badge from "../ui/Badge";
 import Divider from "../ui/Divider";
 
@@ -15,27 +16,13 @@ interface Props {
 const LeftCol: FC<Props> = ({ post }) => {
   return (
     // self-start because in flexbox
-    <div className="mb-4 lg:sticky top-8 self-start">
-      <div className="mt-4 flex items-center">
-        <div className="flex-shrink-0">
-          <span className="sr-only">{post.authorName}</span>
-          <Image
-            className="h-10 w-10 rounded-full bg-gray-200"
-            src={post.authorPicture}
-            alt="author picture"
-            height={40}
-            width={40}
-          />
-        </div>
-        <div className="ml-3">
-          <p className="text-sm font-medium text-gray-900 dark:text-gray-300">
-            {post.authorName}
-          </p>
-          <div className="flex space-x-1 text-sm text-gray-500">
-            <span>@celeska</span>
-          </div>
-        </div>
-      </div>
+    <div className="mb-4 xl:sticky top-8 self-start hidden xl:block">
+      <Avatar
+        imgSrc={post.authorPicture}
+        name={post.authorName}
+        some="@twitter"
+        className="mt-4"
+      />
       <Divider className="py-6" />
       <p className="text-xs leading-5 tracking-wide uppercase text-gray-500">
         Previous article

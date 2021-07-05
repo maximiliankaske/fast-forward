@@ -11,6 +11,7 @@ import Header from "../../components/post/Header";
 import PostLayout from "../../components/layout/PostLayout";
 import LeftCol from "../../components/post/LeftCol";
 import Divider from "../../components/ui/Divider";
+import BottomRow from "../../components/post/BottomRow";
 
 interface Props {
   post: Post;
@@ -41,13 +42,17 @@ const Posts: FC<Props> = ({ post }) => {
           </div>
           <Header post={post} />
           <Divider className="py-8" />
-          <div className="flex flex-col lg:flex-row">
+          <div className="xl:grid xl:grid-cols-4 xl:gap-x-6">
             <LeftCol post={post} />
-            <div
-              className="prose dark:prose-dark prose-lg mx-auto"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+
+            <div className="xl:pb-0 xl:col-span-3 xl:row-span-2">
+              <div
+                className="prose dark:prose-dark prose-lg max-w-none mx-auto"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+            </div>
           </div>
+          <BottomRow />
         </div>
       )}
     </PostLayout>
