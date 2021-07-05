@@ -23,7 +23,7 @@ const BottomRow: FC = () => {
           </Link>
         </div>
         <div>
-          <p className="text-xs leading-5 tracking-wide uppercase text-gray-500">
+          <p className="text-xs text-right leading-5 tracking-wide uppercase text-gray-500">
             Next article
           </p>
           <Link href="/">

@@ -17,8 +17,8 @@ const Header: FC = () => {
 
   const isDarkMode = mounted && resolvedTheme === "dark";
   return (
-    <header>
-      <div className="container mx-auto h-16 flex justify-between items-center">
+    <header className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+      <div className="h-16 flex justify-between items-center">
         <Link href="/">
           <CubeIcon className="h-8 w-8 text-indigo-500" />
         </Link>
