@@ -1,16 +1,13 @@
-import { GetStaticProps } from "next";
-import React, { FC } from "react";
+import { InferGetStaticPropsType } from "next";
+import React from "react";
 import Thumbnail from "../../components/blog/Thumbnail";
 import TimelinePath from "../../components/blog/TimelinePath";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import { getAllPosts } from "../../lib/api";
-import { Post } from "../../types";
 
-interface Props {
-  posts: Post[];
-}
-
-const AllPosts: FC<Props> = ({ posts }) => {
+const AllPosts = ({
+  posts,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <DefaultLayout>
       <ul>
@@ -32,7 +29,7 @@ const AllPosts: FC<Props> = ({ posts }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps = async () => {
   const posts = await getAllPosts([
     "title",
     "excerpt",

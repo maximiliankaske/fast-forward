@@ -2,22 +2,17 @@ import ErrorPage from "next/error";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { GetStaticProps } from "next";
-import React, { FC } from "react";
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import React from "react";
 import markdownToHtml from "../../lib/markdownToHtml";
 import { getPostBySlug, getAllPosts } from "../../lib/api";
-import type { Post } from "../../types";
 import Header from "../../components/post/Header";
 import PostLayout from "../../components/layout/PostLayout";
 import LeftCol from "../../components/post/LeftCol";
 import Divider from "../../components/ui/Divider";
 import BottomRow from "../../components/post/BottomRow";
 
-interface Props {
-  post: Post;
-}
-
-const Posts: FC<Props> = ({ post }) => {
+const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
@@ -59,7 +54,7 @@ const Posts: FC<Props> = ({ post }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const post = getPostBySlug(params?.slug as string, [
     "title",
     "excerpt",
