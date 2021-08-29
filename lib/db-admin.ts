@@ -43,3 +43,10 @@ export async function getUserProjects(uid: string) {
 
   return { projects };
 }
+
+export async function getProject(uid: string) {
+  const project = await db.collection("projects").doc(uid).get();
+  return {
+    project: { id: project.id, ...(project.data() as Project) },
+  };
+}
