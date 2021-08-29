@@ -1,5 +1,5 @@
 import { db } from "./firebase-admin";
-import type { User, Site, WithId } from "../types";
+import type { User, Site, WithId, Project } from "../types";
 
 export async function getAllUsers() {
   try {
@@ -27,4 +27,19 @@ export async function getUserSites(uid: string) {
   });
 
   return { sites };
+}
+
+export async function getUserProjects(uid: string) {
+  const snapshot = await db
+    .collection("projects")
+    .where("authorId", "==", uid)
+    .get();
+
+  const projects: WithId<Project>[] = [];
+
+  snapshot.forEach((doc) => {
+    projects.push({ id: doc.id, ...(doc.data() as Project) });
+  });
+
+  return { projects };
 }

@@ -1,3 +1,5 @@
+// TODO: discuss `authorId => userId` change
+
 export type User = {
   uid: string;
   email: string | null;
@@ -23,6 +25,11 @@ export type Post = {
   authorPicture: string;
   content: string;
   ogImageUrl: string;
+};
+
+export type Project = {
+  authorId: string;
+  name: string;
 };
 
 export type WithId<T> = T & { id: string };
