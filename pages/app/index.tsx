@@ -3,6 +3,7 @@ import useSWR, { mutate } from "swr";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import Button from "../../components/ui/Button";
 import Heading from "../../components/ui/Heading";
+import Link from "../../components/ui/Link";
 import { useAuth } from "../../lib/auth";
 import { createProject, deleteProject, updateProject } from "../../lib/db";
 import { Project, WithId } from "../../types";
@@ -57,6 +58,7 @@ const App: FC = () => {
               <p>{i.name}</p>
               <button onClick={() => handleUpdateProject(i.id)}>update</button>
               <button onClick={() => handleDeleteProject(i.id)}>delete</button>
+              <Link href={`/app/${i.id}`}>view</Link>
             </div>
           ))}
         </>
