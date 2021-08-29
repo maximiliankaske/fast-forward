@@ -47,7 +47,7 @@ const BottomRow: FC = () => {
         </div>
       </div>
       <Divider className="py-6" />
-      <Link href="/posts">
+      <Link href="/blog">
         <a className="flex items-center text-gray-500 hover:text-gray-600 dark:text-gray-200 dark:hover:text-gray-300">
           <ChevronLeftIcon className="h-4 w-4 mr-1" />
           go back

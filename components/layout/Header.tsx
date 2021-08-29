@@ -25,7 +25,7 @@ const Header: FC = () => {
         <div className="space-x-4">
           <Link href="/playground">Playground</Link>
           <Link href="/docs">Docs</Link>
-          <Link href="/posts">Posts</Link>
+          <Link href="/blog">Blog</Link>
           {auth.user && (
             <>
               <Link href="/sites">Sites</Link>

@@ -53,7 +53,7 @@ const Thumbnail: FC<Props> = ({ post }) => {
       <div className="flex-1">
         <Heading as="h2">{post.slug}</Heading>
         <p className="pb-2">{post.excerpt}</p>
-        <Link href={`/posts/${post.slug}`}>
+        <Link href={`/blog/${post.slug}`}>
           <a className="inline-flex items-center text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400">
             Read more
             <ChevronRightIcon className="h-4 w-4" />
