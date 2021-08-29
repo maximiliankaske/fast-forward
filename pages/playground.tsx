@@ -1,21 +1,38 @@
-import React, { FC } from "react";
+import React, { FC, FormEvent } from "react";
 import DefaultLayout from "../components/layout/DefaultLayout";
-import Heading from "../components/ui/Heading";
+import Button from "../components/ui/Button";
+import firebase from "../lib/firebase";
+import { createFeedback } from "../lib/db";
+import Input from "../components/ui/Input";
+
+const PROJECT_ID = "Ew4LeJPapRhOjmSFvI9I";
 
 const Playground: FC = () => {
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const target = event.target as typeof event.target & {
+      text: { value: string };
+    };
+    try {
+      createFeedback({
+        text: target.text.value,
+        projectId: PROJECT_ID,
+        createdAt: firebase.firestore.Timestamp.now(),
+      });
+      event.currentTarget.reset();
+    } catch {
+      throw new Error("create Project failed");
+    }
+  };
+
   return (
     <DefaultLayout>
-      <div className="relative">
-        <Heading>
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-indigo-500">
-            Hello world
-          </span>
-        </Heading>
-        <Heading as="h1">Hello world</Heading>
-        <Heading as="h2">Hello world</Heading>
-        <Heading as="h3">Hello world</Heading>
-        <div className="absolute bottom-0 -left-4 w-full h-32 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-60" />
-      </div>
+      <form onSubmit={onSubmit}>
+        <Input label="Comment" name="text" />
+        <Button reverse type="submit">
+          Submit
+        </Button>
+      </form>
     </DefaultLayout>
   );
 };

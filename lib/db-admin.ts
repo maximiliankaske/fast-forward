@@ -1,5 +1,5 @@
 import { db } from "./firebase-admin";
-import type { User, Site, WithId, Project } from "../types";
+import type { User, Site, WithId, Project, Feedback } from "../types";
 
 export async function getAllUsers() {
   try {
@@ -49,4 +49,20 @@ export async function getProject(uid: string) {
   return {
     project: { id: project.id, ...(project.data() as Project) },
   };
+}
+
+export async function getProjectFeedback(id: string) {
+  const snapshot = await db
+    .collection("projects")
+    .doc(id)
+    .collection("feedbacks")
+    .get();
+
+  const feedbacks: WithId<Feedback>[] = [];
+
+  snapshot.forEach((doc) => {
+    feedbacks.push({ id: doc.id, ...(doc.data() as Feedback) });
+  });
+
+  return { feedbacks };
 }

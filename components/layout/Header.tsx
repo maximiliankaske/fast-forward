@@ -28,7 +28,7 @@ const Header: FC = () => {
           <Link href="/blog">Blog</Link>
           {auth.user && (
             <>
-              <Link href="/sites">Sites</Link>
+              <Link href="/app">App</Link>
               <Button onClick={auth.signout}>log out</Button>
             </>
           )}

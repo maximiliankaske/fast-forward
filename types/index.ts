@@ -1,4 +1,5 @@
 // TODO: discuss `authorId => userId` change
+import firebase from "firebase/app";
 
 export type User = {
   uid: string;
@@ -30,6 +31,12 @@ export type Post = {
 export type Project = {
   authorId: string;
   name: string;
+};
+
+export type Feedback = {
+  text: string;
+  createdAt: firebase.firestore.Timestamp;
+  projectId: string;
 };
 
 export type WithId<T> = T & { id: string };

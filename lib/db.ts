@@ -1,5 +1,5 @@
 import firebase from "./firebase";
-import type { User, Site, Project } from "../types";
+import type { User, Site, Project, Feedback } from "../types";
 import converter from "../utils/converter";
 
 export function updateUser(uid: string, data: Omit<User, "token">) {
@@ -47,3 +47,25 @@ export function deleteProject(id: string) {
 export function updateProject(id: string, data: Partial<Project>) {
   return firebase.firestore().collection("projects").doc(id).update(data);
 }
+
+export function createFeedback(data: Feedback) {
+  return firebase
+    .firestore()
+    .collection("projects")
+    .doc(data.projectId)
+    .collection("feedbacks")
+    .withConverter(converter<Feedback>())
+    .doc()
+    .set(data);
+}
+
+export function deleteFeedback(id: string) {
+  return firebase.firestore().collection("feedbacks").doc(id).delete();
+}
+
+// export function updateFeedback(
+//   id: string,
+//   data: Required<Partial<Feedback>, "projectId">
+// ) {
+//   return firebase.firestore().collection("feedbacks").doc(id).update(data);
+// }
