@@ -1,3 +1,4 @@
+import { DuplicateIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import React from "react";
 import useSWR from "swr";
@@ -24,7 +25,15 @@ const ProjectPage = () => {
 
   return (
     <DefaultLayout>
-      <Heading>{projectData?.project.name}</Heading>
+      <Heading className="text-center">{projectData?.project.name}</Heading>
+      <p className="text-gray-500 text-center my-6">
+        <span className="inline-flex items-center">
+          Project ID: {projectId}
+          <button className="ml-2">
+            <DuplicateIcon className="h-5 w-5" />
+          </button>
+        </span>
+      </p>
       <div className="grid grid-cols-4 gap-6 mt-12">
         <div className="col-span-4 md:col-span-1">
           <Filter
