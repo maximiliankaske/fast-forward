@@ -37,6 +37,8 @@ export type Feedback = {
   text: string;
   createdAt: firebase.firestore.Timestamp;
   projectId: string;
+  userAgent: string;
+  location: string;
 };
 
 export type WithId<T> = T & { id: string };
