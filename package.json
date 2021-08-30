@@ -16,6 +16,7 @@
     "@mdx-js/react": "^1.6.22",
     "@next/mdx": "^11.0.0",
     "@tailwindcss/forms": "^0.3.3",
+    "@tailwindcss/line-clamp": "^0.2.1",
     "@tailwindcss/typography": "^0.4.1",
     "classnames": "^2.3.1",
     "date-fns": "^2.22.1",
@@ -28,11 +29,13 @@
     "react-dom": "17.0.2",
     "remark": "^13.0.0",
     "remark-html": "^13.0.1",
-    "swr": "^0.5.6"
+    "swr": "^0.5.6",
+    "ua-parser-js": "^0.7.28"
   },
   "devDependencies": {
     "@types/mdx-js__react": "^1.5.3",
     "@types/react": "17.0.11",
+    "@types/ua-parser-js": "^0.7.36",
     "autoprefixer": "^10.0.4",
     "eslint": "7.28.0",
     "eslint-config-next": "11.0.0",
