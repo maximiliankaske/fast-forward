@@ -24,9 +24,11 @@ const ProjectPage = () => {
   return (
     <DefaultLayout>
       <Heading>{projectData?.project.name}</Heading>
-      {data?.feedbacks.map((feedback) => (
-        <Card key={feedback.id} feedback={feedback} />
-      ))}
+      <div className="space-y-6">
+        {data?.feedbacks.map((feedback) => (
+          <Card key={feedback.id} feedback={feedback} />
+        ))}
+      </div>
     </DefaultLayout>
   );
 };
