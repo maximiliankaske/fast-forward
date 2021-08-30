@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import useSWR from "swr";
+import Card from "../../components/feedback/Card";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import Heading from "../../components/ui/Heading";
 import { useAuth } from "../../lib/auth";
@@ -23,8 +24,8 @@ const ProjectPage = () => {
   return (
     <DefaultLayout>
       <Heading>{projectData?.project.name}</Heading>
-      {data?.feedbacks.map((i) => (
-        <p key={i.id}>{i.text}</p>
+      {data?.feedbacks.map((feedback) => (
+        <Card key={feedback.id} feedback={feedback} />
       ))}
     </DefaultLayout>
   );
