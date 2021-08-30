@@ -41,4 +41,11 @@ export type Feedback = {
   location: string;
 };
 
+export enum FeedbackType {
+  All = "All",
+  Issue = "Issue",
+  Idea = "Idea",
+  Other = "Other",
+}
+
 export type WithId<T> = T & { id: string };
