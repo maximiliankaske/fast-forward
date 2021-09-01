@@ -5,7 +5,7 @@ import { FeedbackType } from "../../types";
 interface Props {
   types: {
     name: FeedbackType;
-    count: number;
+    count?: number;
   }[];
 }
 
@@ -26,7 +26,7 @@ const Filter = ({ types }: Props) => {
               )}
               onClick={() => setCurrent(item.name)}
             >
-              <span className="truncate">{item.name}</span>
+              <span className="truncate capitalize">{item.name}</span>
               <span
                 className={cn(
                   "ml-auto inline-block py-0.5 px-3 text-xs rounded-full",
@@ -35,7 +35,7 @@ const Filter = ({ types }: Props) => {
                     : "bg-gray-100 text-gray-500 group-hover:bg-gray-200"
                 )}
               >
-                {item.count}
+                {item.count || 0}
               </span>
             </button>
           </li>

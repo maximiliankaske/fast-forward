@@ -15,7 +15,7 @@ const Card = ({ feedback }: Props) => {
   return (
     <div className="border rounded-md shadow-box p-6 space-y-3">
       <div className="flex items-center justify-between">
-        <Badge>Other</Badge>
+        <Badge className="capitalize">{feedback.type}</Badge>
         <p className="text-gray-500 text-sm">39 minutes ago</p>
       </div>
       <div className="grid grid-cols-2 gap-4">
