@@ -40,6 +40,7 @@ export type Feedback = {
   userAgent: string;
   location: string;
   type: FeedbackType;
+  archived?: boolean;
 };
 
 export enum FeedbackType {

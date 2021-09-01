@@ -59,13 +59,26 @@ export function createFeedback(data: Feedback) {
     .set(data);
 }
 
-export function deleteFeedback(id: string) {
-  return firebase.firestore().collection("feedbacks").doc(id).delete();
+export function deleteFeedback(id: string, projectId: string) {
+  return firebase
+    .firestore()
+    .collection("projects")
+    .doc(projectId)
+    .collection("feedbacks")
+    .doc(id)
+    .delete();
 }
 
-// export function updateFeedback(
-//   id: string,
-//   data: Required<Partial<Feedback>, "projectId">
-// ) {
-//   return firebase.firestore().collection("feedbacks").doc(id).update(data);
-// }
+export function updateFeedback(
+  id: string,
+  // FIXME: find a better way to make the projectId required
+  data: Partial<Feedback> & { projectId: string }
+) {
+  return firebase
+    .firestore()
+    .collection("projects")
+    .doc(data.projectId)
+    .collection("feedbacks")
+    .doc(id)
+    .update(data);
+}

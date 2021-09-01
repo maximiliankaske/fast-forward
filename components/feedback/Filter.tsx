@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import cn from "classnames";
 import { FeedbackType } from "../../types";
 
@@ -7,14 +7,15 @@ interface Props {
     name: FeedbackType;
     count?: number;
   }[];
+  value: FeedbackType;
+  onChange: (type: FeedbackType) => void;
 }
 
-const Filter = ({ types }: Props) => {
-  const [current, setCurrent] = useState(FeedbackType.All);
+const Filter = ({ types, value, onChange }: Props) => {
   return (
     <ul className="space-y-1">
       {types.map((item) => {
-        const active = current === item.name;
+        const active = value === item.name;
         return (
           <li key={item.name}>
             <button
@@ -24,7 +25,7 @@ const Filter = ({ types }: Props) => {
                   ? "bg-gray-100 text-gray-900"
                   : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
               )}
-              onClick={() => setCurrent(item.name)}
+              onClick={() => onChange(item.name)}
             >
               <span className="truncate capitalize">{item.name}</span>
               <span

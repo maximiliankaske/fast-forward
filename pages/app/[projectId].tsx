@@ -1,16 +1,18 @@
 import { DuplicateIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
-import React, { useCallback } from "react";
-import useSWR from "swr";
+import React, { useCallback, useState } from "react";
+import useSWR, { mutate } from "swr";
 import Card from "../../components/feedback/Card";
 import Filter from "../../components/feedback/Filter";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import Heading from "../../components/ui/Heading";
 import { useAuth } from "../../lib/auth";
+import { updateFeedback } from "../../lib/db";
 import { Feedback, FeedbackType, Project, WithId } from "../../types";
 import fetcher from "../../utils/fetcher";
 
 const ProjectPage = () => {
+  const [type, setType] = useState<FeedbackType>(FeedbackType.All);
   const router = useRouter();
   const { user } = useAuth();
   const { projectId } = router.query;
@@ -29,6 +31,17 @@ const ProjectPage = () => {
     [data]
   );
 
+  const handleArchive = useCallback(
+    async (id: string, data: Partial<Feedback> & { projectId: string }) => {
+      try {
+        await updateFeedback(id, data);
+        mutate(`/api/feedback/${projectId}`);
+      } catch {
+        throw new Error("update Feedback failed");
+      }
+    },
+    [projectId]
+  );
   return (
     <DefaultLayout>
       <Heading className="text-center">{projectData?.project.name}</Heading>
@@ -58,12 +71,25 @@ const ProjectPage = () => {
                 count: getLength(FeedbackType.Other),
               },
             ]}
+            value={type}
+            onChange={setType}
           />
         </div>
         <div className="space-y-6 col-span-4 md:col-span-3">
-          {data?.feedbacks.map((feedback) => (
-            <Card key={feedback.id} feedback={feedback} />
-          ))}
+          {data?.feedbacks
+            .filter((f) => type === FeedbackType.All || f.type === type)
+            .map((feedback) => (
+              <Card
+                key={feedback.id}
+                feedback={feedback}
+                handleArchive={() =>
+                  handleArchive(feedback.id, {
+                    projectId: feedback.projectId,
+                    archived: !feedback.archived,
+                  })
+                }
+              />
+            ))}
         </div>
       </div>
     </DefaultLayout>

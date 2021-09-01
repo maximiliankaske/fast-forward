@@ -1,17 +1,20 @@
 import React from "react";
 import parser from "ua-parser-js";
-import { Feedback } from "../../types";
+import { Feedback, WithId } from "../../types";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
+import { updateFeedback } from "../../lib/db";
 
 // TODO: hard coded minutes
 
 interface Props {
-  feedback: Feedback;
+  feedback: WithId<Feedback>;
+  handleArchive: () => void;
 }
 
-const Card = ({ feedback }: Props) => {
+const Card = ({ feedback, handleArchive }: Props) => {
   const ua = parser(feedback.userAgent);
+
   return (
     <div className="border rounded-md shadow-box p-6 space-y-3">
       <div className="flex items-center justify-between">
@@ -34,7 +37,9 @@ const Card = ({ feedback }: Props) => {
         </div>
       </div>
       <div className="flex items-center justify-end space-x-3">
-        <Button>Archive</Button>
+        <Button onClick={handleArchive}>
+          {feedback.archived ? "Unarchive" : "Archive"}
+        </Button>
         <Button reverse>Reply with Mail</Button>
       </div>
     </div>
