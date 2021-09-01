@@ -1,6 +1,6 @@
 import { DuplicateIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useCallback } from "react";
 import useSWR from "swr";
 import Card from "../../components/feedback/Card";
 import Filter from "../../components/feedback/Filter";
@@ -23,6 +23,12 @@ const ProjectPage = () => {
     fetcher
   );
 
+  const getLength = useCallback(
+    (type: FeedbackType) =>
+      data?.feedbacks.filter((i) => i.type === type).length,
+    [data]
+  );
+
   return (
     <DefaultLayout>
       <Heading className="text-center">{projectData?.project.name}</Heading>
@@ -38,9 +44,19 @@ const ProjectPage = () => {
         <div className="col-span-4 md:col-span-1">
           <Filter
             types={[
-              { name: FeedbackType.All, count: 10 },
-              { name: FeedbackType.Issue, count: 10 },
-              { name: FeedbackType.Idea, count: 10 },
+              {
+                name: FeedbackType.All,
+                count: data?.feedbacks.length,
+              },
+              {
+                name: FeedbackType.Issue,
+                count: getLength(FeedbackType.Issue),
+              },
+              { name: FeedbackType.Idea, count: getLength(FeedbackType.Idea) },
+              {
+                name: FeedbackType.Other,
+                count: getLength(FeedbackType.Other),
+              },
             ]}
           />
         </div>

@@ -39,13 +39,14 @@ export type Feedback = {
   projectId: string;
   userAgent: string;
   location: string;
+  type: FeedbackType;
 };
 
 export enum FeedbackType {
-  All = "All",
-  Issue = "Issue",
-  Idea = "Idea",
-  Other = "Other",
+  All = "all",
+  Issue = "issue",
+  Idea = "idea",
+  Other = "other",
 }
 
 export type WithId<T> = T & { id: string };
