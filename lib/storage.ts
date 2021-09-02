@@ -1,6 +1,9 @@
 import firebase from "./firebase";
 import { v4 as uuidv4 } from "uuid";
 
+// Connecting your domain to Cloud Storage
+// https://cloud.google.com/storage/docs/hosting-static-website-http#cname
+
 export function uploadDataURL(v: string) {
   return firebase
     .storage()

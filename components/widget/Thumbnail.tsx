@@ -33,7 +33,9 @@ const Thumbnail: FC = () => {
         if (!thumbnail) return null;
         return (
           <>
-            <Image layout="fill" src={thumbnail} alt="" objectFit="cover" />
+            <a href={thumbnail} target="_blank" rel="noreferrer">
+              <Image layout="fill" src={thumbnail} alt="" objectFit="cover" />
+            </a>
             <button onClick={() => setUploadState(undefined)}>
               <XIcon className="absolute -right-2 -top-2 h-4 w-4 text-white bg-red-500 rounded-full" />
             </button>
