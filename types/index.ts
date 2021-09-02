@@ -41,6 +41,7 @@ export type Feedback = {
   location: string;
   type: FeedbackType;
   archived?: boolean;
+  screenshot?: string;
 };
 
 export enum FeedbackType {
