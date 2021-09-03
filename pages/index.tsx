@@ -1,19 +1,13 @@
 import { BeakerIcon } from "@heroicons/react/solid";
-import { GetStaticProps } from "next";
+import { InferGetStaticPropsType } from "next";
 import Head from "next/head";
-import { FC } from "react";
 import DefaultLayout from "../components/layout/DefaultLayout";
 import Button from "../components/ui/Button";
 import Link from "../components/ui/Link";
 import { useAuth } from "../lib/auth";
 import { getAllUsers } from "../lib/db-admin";
-import type { User } from "../types";
 
-interface Props {
-  users?: User[];
-}
-
-const Home: FC<Props> = ({ users }) => {
+const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const auth = useAuth();
   return (
     <DefaultLayout>
@@ -53,11 +47,11 @@ const Home: FC<Props> = ({ users }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticProps = async () => {
   const { users } = await getAllUsers();
   return {
     props: {
-      users,
+      users: users || null,
     },
   };
 };
