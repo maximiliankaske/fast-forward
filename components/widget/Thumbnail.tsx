@@ -6,8 +6,13 @@ import Image from "next/image";
 import { handleUploadState, uploadDataURL } from "../../lib/storage";
 import LoadingIcon from "../icon/Loading";
 import { XIcon } from "@heroicons/react/solid";
+import { v4 as uuidv4 } from "uuid";
 
-const Thumbnail: FC = () => {
+// TODO: Understand why error state is not set when page is offline
+
+interface Props {}
+
+const Thumbnail = ({}: Props) => {
   const [thumbnail, setThumbnail] = useState<string>();
   const [uploadState, setUploadState] =
     useState<firebase.storage.UploadTaskSnapshot["state"]>();
@@ -21,12 +26,15 @@ const Thumbnail: FC = () => {
           setThumbnail(downloadURL);
           setUploadState(firebase.storage.TaskState.SUCCESS);
         },
+        onError: () => setUploadState(firebase.storage.TaskState.ERROR),
       });
     });
   };
 
   const renderState = () => {
     switch (uploadState) {
+      case firebase.storage.TaskState.ERROR:
+        return <XIcon className="h-5 w-5 text-white bg-red-500 rounded-full" />;
       case firebase.storage.TaskState.RUNNING:
         return <LoadingIcon className="animate-spin h-5 w-5 text-gray-500" />;
       case firebase.storage.TaskState.SUCCESS:
