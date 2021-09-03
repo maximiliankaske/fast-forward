@@ -11,6 +11,8 @@ export function uploadDataURL(v: string) {
     .putString(v, "data_url");
 }
 
+// TODO: replace onComplete (downloadURL: string) => void to (ref: firebase.storage.Reference) => void
+
 export function handleUploadState(
   uploadRef: firebase.storage.UploadTask,
   {
@@ -26,9 +28,11 @@ export function handleUploadState(
   uploadRef.on(
     "state_changed",
     (snapshot) => {
+      console.log(snapshot.state);
       onSnapshot?.(snapshot);
     },
     (error) => {
+      console.log(error);
       onError?.(error);
     },
     () => {
