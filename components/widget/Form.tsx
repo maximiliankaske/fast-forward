@@ -9,10 +9,10 @@ import { FeedbackType } from "../../types";
 const PROJECT_ID = "bSyoWqKaC9kFEFzpYFpB";
 
 interface Props {
-  screenshotPath?: string;
+  screenshotURL?: string;
 }
 
-const Form = ({ screenshotPath }: Props) => {
+const Form = ({ screenshotURL }: Props) => {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as typeof event.target & {
@@ -27,7 +27,7 @@ const Form = ({ screenshotPath }: Props) => {
         createdAt: firebase.firestore.Timestamp.now(),
         userAgent: window.navigator.userAgent,
         location: window.document.location.href,
-        screenshotPath,
+        screenshotURL,
       });
       event.currentTarget.reset();
     } catch {

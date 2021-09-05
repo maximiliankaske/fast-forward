@@ -5,12 +5,12 @@ import Thumbnail from "../components/widget/Thumbnail";
 import Widget from "../components/widget/Widget";
 
 const Playground: FC = () => {
-  const [screenshotPath, setScreenshotPath] = useState<string>();
+  const [screenshotURL, setScreenshotURL] = useState<string>();
   return (
     <DefaultLayout>
       <div className="space-y-6 max-w-xl p-6 border rounded shadow">
-        <Form screenshotPath={screenshotPath} />
-        <Thumbnail setScreenshotPath={setScreenshotPath} />
+        <Form screenshotURL={screenshotURL} />
+        <Thumbnail setScreenshotURL={setScreenshotURL} />
       </div>
       <div className="mt-6">
         <Widget />

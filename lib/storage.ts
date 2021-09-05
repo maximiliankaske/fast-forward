@@ -11,6 +11,10 @@ export function uploadDataURL(v: string) {
     .putString(v, "data_url");
 }
 
+export function getStorageRef(ref: string) {
+  return firebase.storage().ref().child(ref);
+}
+
 // TODO: replace onComplete (downloadURL: string) => void to (ref: firebase.storage.Reference) => void
 
 export function handleUploadState(

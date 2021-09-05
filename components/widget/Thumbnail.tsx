@@ -12,10 +12,10 @@ import { v4 as uuidv4 } from "uuid";
 // html2canvas move from then to async await
 
 interface Props {
-  setScreenshotPath: (value?: string) => void;
+  setScreenshotURL: (value?: string) => void;
 }
 
-const Thumbnail = ({ setScreenshotPath }: Props) => {
+const Thumbnail = ({ setScreenshotURL }: Props) => {
   const [thumbnail, setThumbnail] = useState<string>();
   const [uploadState, setUploadState] =
     useState<firebase.storage.UploadTaskSnapshot["state"]>();
@@ -26,8 +26,10 @@ const Thumbnail = ({ setScreenshotPath }: Props) => {
       handleUploadState(ref, {
         onSnapshot: (snapshot) => setUploadState(snapshot.state),
         onComplete: (ref) => {
-          setScreenshotPath(ref.fullPath);
-          ref.getDownloadURL().then((downloadURL) => setThumbnail(downloadURL));
+          ref.getDownloadURL().then((downloadURL) => {
+            setThumbnail(downloadURL);
+            setScreenshotURL(downloadURL);
+          });
           setUploadState(firebase.storage.TaskState.SUCCESS);
         },
         onError: () => setUploadState(firebase.storage.TaskState.ERROR),
@@ -51,7 +53,7 @@ const Thumbnail = ({ setScreenshotPath }: Props) => {
             <button
               onClick={() => {
                 setUploadState(undefined);
-                setScreenshotPath(undefined);
+                setScreenshotURL(undefined);
               }}
             >
               <XIcon className="absolute -right-2 -top-2 h-4 w-4 text-white bg-red-500 rounded-full" />
