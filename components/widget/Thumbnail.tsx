@@ -9,10 +9,13 @@ import { XIcon } from "@heroicons/react/solid";
 import { v4 as uuidv4 } from "uuid";
 
 // TODO: Understand why error state is not set when page is offline
+// html2canvas move from then to async await
 
-interface Props {}
+interface Props {
+  setScreenshotPath: (value?: string) => void;
+}
 
-const Thumbnail = ({}: Props) => {
+const Thumbnail = ({ setScreenshotPath }: Props) => {
   const [thumbnail, setThumbnail] = useState<string>();
   const [uploadState, setUploadState] =
     useState<firebase.storage.UploadTaskSnapshot["state"]>();
@@ -22,8 +25,9 @@ const Thumbnail = ({}: Props) => {
       const ref = uploadDataURL(`${canvas.toDataURL()}`);
       handleUploadState(ref, {
         onSnapshot: (snapshot) => setUploadState(snapshot.state),
-        onComplete: (downloadURL) => {
-          setThumbnail(downloadURL);
+        onComplete: (ref) => {
+          setScreenshotPath(ref.fullPath);
+          ref.getDownloadURL().then((downloadURL) => setThumbnail(downloadURL));
           setUploadState(firebase.storage.TaskState.SUCCESS);
         },
         onError: () => setUploadState(firebase.storage.TaskState.ERROR),
@@ -44,7 +48,12 @@ const Thumbnail = ({}: Props) => {
             <a href={thumbnail} target="_blank" rel="noreferrer">
               <Image layout="fill" src={thumbnail} alt="" objectFit="cover" />
             </a>
-            <button onClick={() => setUploadState(undefined)}>
+            <button
+              onClick={() => {
+                setUploadState(undefined);
+                setScreenshotPath(undefined);
+              }}
+            >
               <XIcon className="absolute -right-2 -top-2 h-4 w-4 text-white bg-red-500 rounded-full" />
             </button>
           </>

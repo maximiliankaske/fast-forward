@@ -8,7 +8,11 @@ import { FeedbackType } from "../../types";
 
 const PROJECT_ID = "bSyoWqKaC9kFEFzpYFpB";
 
-const Form: FC = () => {
+interface Props {
+  screenshotPath?: string;
+}
+
+const Form = ({ screenshotPath }: Props) => {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as typeof event.target & {
@@ -23,6 +27,7 @@ const Form: FC = () => {
         createdAt: firebase.firestore.Timestamp.now(),
         userAgent: window.navigator.userAgent,
         location: window.document.location.href,
+        screenshotPath,
       });
       event.currentTarget.reset();
     } catch {
