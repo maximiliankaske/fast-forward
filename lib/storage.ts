@@ -21,24 +21,14 @@ export function handleUploadState(
     onSnapshot,
   }: {
     onError?: (error: firebase.storage.FirebaseStorageError) => void;
-    onComplete?: (downloadURL: string) => void;
+    onComplete?: (ref: firebase.storage.Reference) => void;
     onSnapshot?: (snapshot: firebase.storage.UploadTaskSnapshot) => void;
   } = {}
 ) {
   uploadRef.on(
     "state_changed",
-    (snapshot) => {
-      console.log(snapshot.state);
-      onSnapshot?.(snapshot);
-    },
-    (error) => {
-      console.log(error);
-      onError?.(error);
-    },
-    () => {
-      uploadRef.snapshot.ref
-        .getDownloadURL()
-        .then((downloadURL) => onComplete?.(downloadURL));
-    }
+    (snapshot) => onSnapshot?.(snapshot),
+    (error) => onError?.(error),
+    () => onComplete?.(uploadRef.snapshot.ref)
   );
 }
