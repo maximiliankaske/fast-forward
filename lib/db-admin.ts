@@ -56,6 +56,7 @@ export async function getProjectFeedback(id: string) {
     .collection("projects")
     .doc(id)
     .collection("feedbacks")
+    .orderBy("createdAt", "desc")
     .get();
 
   const feedbacks: WithId<Feedback>[] = [];
