@@ -27,7 +27,12 @@ const ProjectPage = () => {
 
   const getLength = useCallback(
     (type: FeedbackType) =>
-      data?.feedbacks.filter((i) => i.type === type).length,
+      data?.feedbacks.filter((i) => i.type === type && !i.archived).length,
+    [data]
+  );
+
+  const getArchiveLength = useCallback(
+    () => data?.feedbacks.filter((i) => i.archived).length,
     [data]
   );
 
@@ -70,6 +75,7 @@ const ProjectPage = () => {
                 name: FeedbackType.Other,
                 count: getLength(FeedbackType.Other),
               },
+              { name: FeedbackType.Archive, count: getArchiveLength() },
             ]}
             value={type}
             onChange={setType}
@@ -77,7 +83,11 @@ const ProjectPage = () => {
         </div>
         <div className="space-y-6 col-span-4 md:col-span-3">
           {data?.feedbacks
-            .filter((f) => type === FeedbackType.All || f.type === type)
+            .filter((f) =>
+              type === FeedbackType.Archive
+                ? f.archived
+                : !f.archived && (type === FeedbackType.All || f.type === type)
+            )
             .map((feedback) => (
               <Card
                 key={feedback.id}

@@ -17,7 +17,7 @@ const Filter = ({ types, value, onChange }: Props) => {
       {types.map((item) => {
         const active = value === item.name;
         return (
-          <li key={item.name}>
+          <li key={item.name} className="last:border-t last:pt-1">
             <button
               className={cn(
                 "group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md",

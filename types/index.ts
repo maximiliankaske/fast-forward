@@ -50,6 +50,7 @@ export enum FeedbackType {
   Issue = "issue",
   Idea = "idea",
   Other = "other",
+  Archive = "archive",
 }
 
 export type WithId<T> = T & { id: string };
