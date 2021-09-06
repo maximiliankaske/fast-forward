@@ -40,6 +40,12 @@ const Card = ({ feedback, handleArchive }: Props) => {
               {`${ua.browser.name}, ${ua.os.name} ${ua.os.version}`}
             </p>
           </div>
+          {feedback?.userId ? (
+            <div className="col-span-1">
+              <h4 className="uppercase font-semibold">User</h4>
+              <p className="text-gray-500">{feedback.userId}</p>
+            </div>
+          ) : null}
           {feedback?.screenshotURL ? (
             <>
               <div className="col-span-1">

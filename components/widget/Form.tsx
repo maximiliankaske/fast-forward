@@ -10,9 +10,10 @@ const PROJECT_ID = "bSyoWqKaC9kFEFzpYFpB";
 
 interface Props {
   screenshotURL?: string;
+  userId?: string;
 }
 
-const Form = ({ screenshotURL }: Props) => {
+const Form = ({ screenshotURL, userId }: Props) => {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as typeof event.target & {
@@ -20,14 +21,19 @@ const Form = ({ screenshotURL }: Props) => {
       type: { value: FeedbackType };
     };
     try {
-      createFeedback({
+      const baseFeedback = {
         text: target.text.value,
         type: target.type.value,
         projectId: PROJECT_ID,
         createdAt: firebase.firestore.Timestamp.now(),
         userAgent: window.navigator.userAgent,
         location: window.document.location.href,
-        screenshotURL,
+      };
+      createFeedback({
+        ...baseFeedback,
+        // Append to Object only if !undefined
+        ...(screenshotURL && { screenshotURL }),
+        ...(userId && { userId }),
       });
       event.currentTarget.reset();
     } catch {

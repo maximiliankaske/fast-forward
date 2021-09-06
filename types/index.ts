@@ -37,6 +37,7 @@ export type Feedback = {
   text: string;
   createdAt: firebase.firestore.Timestamp;
   projectId: string;
+  userId?: string;
   userAgent: string;
   location: string;
   type: FeedbackType;
