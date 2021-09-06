@@ -1,5 +1,6 @@
 import { ExternalLinkIcon } from "@heroicons/react/outline";
 import { PhotographIcon } from "@heroicons/react/solid";
+import { formatDistance, subDays } from "date-fns";
 import Image from "next/image";
 import React, { useState } from "react";
 import parser from "ua-parser-js";
@@ -8,8 +9,6 @@ import Modal from "../common/Modal";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
 
-// TODO: hard coded minutes
-
 interface Props {
   feedback: WithId<Feedback>;
   handleArchive: () => void;
@@ -17,14 +16,19 @@ interface Props {
 
 const Card = ({ feedback, handleArchive }: Props) => {
   const [open, setOpen] = useState(false);
+  // @ts-ignore FIXME: firebase Timestamp.toDate() not a function
+  const createdAtSeconds = feedback.createdAt._seconds * 1000;
   const ua = parser(feedback.userAgent);
-
   return (
     <>
       <div className="border rounded-md shadow-box p-6 space-y-3">
         <div className="flex items-center justify-between">
           <Badge className="capitalize">{feedback.type}</Badge>
-          <p className="text-gray-500 text-sm">39 minutes ago</p>
+          <p className="text-gray-500 text-sm">
+            {formatDistance(new Date(createdAtSeconds), new Date(), {
+              addSuffix: true,
+            })}
+          </p>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-2">
