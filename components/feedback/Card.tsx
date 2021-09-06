@@ -30,25 +30,25 @@ const Card = ({ feedback, handleArchive }: Props) => {
           <div className="col-span-2">
             <p>{feedback.text}</p>
           </div>
-          <div className="col-span-1">
+          <div className="col-span-2 md:col-span-1">
             <h4 className="uppercase font-semibold">Page</h4>
             <p className="text-gray-500">{feedback.location}</p>
           </div>
-          <div className="col-span-1">
+          <div className="col-span-2 md:col-span-1">
             <h4 className="uppercase font-semibold">User Agent</h4>
             <p className="text-gray-500">
               {`${ua.browser.name}, ${ua.os.name} ${ua.os.version}`}
             </p>
           </div>
           {feedback?.userId ? (
-            <div className="col-span-1">
+            <div className="col-span-2 md:col-span-1">
               <h4 className="uppercase font-semibold">User</h4>
               <p className="text-gray-500">{feedback.userId}</p>
             </div>
           ) : null}
           {feedback?.screenshotURL ? (
             <>
-              <div className="col-span-1">
+              <div className="col-span-2 md:col-span-1">
                 <h4 className="uppercase font-semibold">Screenshot</h4>
                 <div className="flex space-x-2 items-center">
                   <button onClick={() => setOpen(true)}>
