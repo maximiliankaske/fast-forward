@@ -1,22 +1,17 @@
-import React, { Fragment, useRef, useState, useCallback } from "react";
+import React, { Fragment, useRef, useCallback } from "react";
 import { Dialog, Transition, Popover } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
-import Button from "../ui/Button";
+import { useWidget } from "./WidgetProvider";
 
-// TODO: Check how Feedback.fish handles the click on "Give us Feedback" in their React API
-// - Do they have it static or do they include it in the Widget logic?
 // TODO: Replace Dialog by Popover
 
 const Widget = () => {
-  const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
-
-  const onClose = useCallback(() => setOpen(false), []);
-  const onOpen = useCallback(() => setOpen(true), []);
+  const { toggle, open } = useWidget();
+  const onClose = useCallback(() => toggle(false), [toggle]);
 
   return (
     <>
-      <Button onClick={onOpen}>Give us Feedback</Button>
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
