@@ -4,7 +4,6 @@ import cn from "classnames";
 import { useTheme } from "next-themes";
 import React, { FC, useEffect, useState } from "react";
 import { useAuth } from "../../lib/auth";
-import Button from "../ui/Button";
 import Link from "../ui/Link";
 
 const Header: FC = () => {
@@ -29,7 +28,7 @@ const Header: FC = () => {
           {auth.user && (
             <>
               <Link href="/app">App</Link>
-              <Button onClick={auth.signout}>log out</Button>
+              <Link href="/logout">Logout</Link>
             </>
           )}
           <Switch
