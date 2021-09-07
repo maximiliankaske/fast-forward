@@ -1,12 +1,10 @@
 import React, { FC, useState } from "react";
-import Button from "../ui/Button";
 import firebase from "firebase/app";
 import html2canvas from "html2canvas";
 import Image from "next/image";
 import { handleUploadState, uploadDataURL } from "../../lib/storage";
 import LoadingIcon from "../icon/Loading";
-import { XIcon } from "@heroicons/react/solid";
-import { v4 as uuidv4 } from "uuid";
+import { CameraIcon, XIcon } from "@heroicons/react/solid";
 
 // TODO: Understand why error state is not set when page is offline
 // html2canvas move from then to async await
@@ -60,17 +58,20 @@ const Thumbnail = ({ setScreenshotURL }: Props) => {
             </button>
           </>
         );
+      case undefined:
+        return (
+          <button onClick={onScreenShot} className="w-full h-full">
+            <CameraIcon className="h-5 w-5 text-gray-500 mx-auto" />
+          </button>
+        );
       default:
         return null;
     }
   };
 
   return (
-    <div className="flex items-center space-x-6">
-      <div className="relative h-16 w-16 bg-gray-50 rounded-lg shadow flex items-center justify-center">
-        {renderState()}
-      </div>
-      <Button onClick={onScreenShot}>Take ScreenShot</Button>
+    <div className="h-10 w-10 bg-gray-100 rounded-lg shadow relative flex items-center justify-center">
+      {renderState()}
     </div>
   );
 };
