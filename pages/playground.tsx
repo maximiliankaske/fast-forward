@@ -15,7 +15,7 @@ const Playground: FC = () => {
           Give us Feedback
         </button>
       </Widget>
-      <div className="prose space-y-4">
+      <div className="prose dark:prose-dark space-y-4">
         <p>{faker.lorem.paragraphs(2)}</p>
         <p>{faker.lorem.paragraphs(3)}</p>
         <p>{faker.lorem.paragraphs(2)}</p>
