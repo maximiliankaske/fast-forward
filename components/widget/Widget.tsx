@@ -29,7 +29,7 @@ const Widget: FC<WidgetProps> = ({ children, ...props }) => {
               data-html2canvas-ignore
             >
               {({ close }) => (
-                <div className="relative bg-gray-50 border border-gray-100 rounded-md p-4 w-64">
+                <div className="relative bg-gray-50 border border-gray-100 rounded-md shadow-lg p-4 w-64">
                   <button
                     onClick={() => close()}
                     className="absolute right-2 top-2"

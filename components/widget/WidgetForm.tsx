@@ -2,11 +2,11 @@ import React, { FC, FormEvent, useState } from "react";
 import Button from "../ui/Button";
 import firebase from "firebase/app";
 import { createFeedback } from "../../lib/db";
-import Input from "../ui/Input";
 import Radios from "../ui/Radios";
 import { FeedbackType } from "../../types";
 import Thumbnail from "./Thumbnail";
 import { WidgetProps } from "./Widget";
+import TextArea from "../ui/Textarea";
 
 const WidgetForm = ({ userId, projectId }: WidgetProps) => {
   const [screenshotURL, setScreenshotURL] = useState<string>();
@@ -51,8 +51,16 @@ const WidgetForm = ({ userId, projectId }: WidgetProps) => {
           idea: { label: "Idea" },
           other: { label: "Other" },
         }}
+        srOnly
       />
-      <Input label="Comment" name="text" />
+      <TextArea
+        label="Comment"
+        name="text"
+        className="resize-none"
+        placeholder="Tell us about..."
+        rows={3}
+        srOnly
+      />
       <div className="flex space-x-4">
         <Thumbnail setScreenshotURL={setScreenshotURL} />
         <Button reverse type="submit" className="flex-1">
