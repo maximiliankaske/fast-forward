@@ -1,9 +1,9 @@
-import { BeakerIcon } from "@heroicons/react/solid";
 import { InferGetStaticPropsType } from "next";
 import Head from "next/head";
+import Features from "../components/landing/Features";
 import DefaultLayout from "../components/layout/DefaultLayout";
 import Button from "../components/ui/Button";
-import Link from "../components/ui/Link";
+import Heading from "../components/ui/Heading";
 import WidgetExample from "../components/widget/WidgetExample";
 import { useAuth } from "../lib/auth";
 import { getAllUsers } from "../lib/db-admin";
@@ -17,11 +17,6 @@ const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
         <meta name="description" content="Fast-Forward" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 className="flex text-indigo-500 text-4xl font-semibold">
-        Hello World!
-        <BeakerIcon className="h-10 w-10" />
-      </h1>
-      <Link href="/docs">go to docs made with mdx</Link>
       <div className="space-x-4">
         <Button onClick={() => auth.signinWithGitHub()} reverse>
           Log In with GitHub
@@ -30,13 +25,20 @@ const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
           Log In with Google
         </Button>
       </div>
-      <WidgetExample />
+      <div className="flex flex-col items-center p-16 my-6 w-full bg-indigo-700 rounded-lg">
+        <Heading as="h2" className="text-white">
+          How does it work?
+        </Heading>
+        <WidgetExample reverse />
+      </div>
+      <Features />
       {auth.user ? (
-        <div>
+        <div className="mt-8">
           <p>Email: {auth.user.email}</p>
           <p>Provider: {auth.user.provider}</p>
         </div>
       ) : null}
+      <hr className="my-10" />
       <div>
         <h1 className="text-indigo-500 text-4xl font-semibold">All Users</h1>
         {users?.map((user) => (
