@@ -3,7 +3,7 @@ import faker from "faker";
 import React from "react";
 import { GlobeAltIcon } from "@heroicons/react/outline";
 import { CameraIcon, CloudIcon } from "@heroicons/react/solid";
-import GitHubIcon from "../icon/Github";
+import GitHubIcon from "../icon/GitHub";
 
 const features = [
   {
