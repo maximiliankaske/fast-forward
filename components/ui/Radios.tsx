@@ -31,7 +31,7 @@ const Radios = <
       </label>
       <div className="flex flex-wrap">
         {Object.keys(options).map((key) => {
-          const { label, value, ...props } = options[key];
+          const { label, value, className, ...props } = options[key];
           return (
             <div key={key} className="mt-1 mr-3">
               <input
@@ -40,7 +40,10 @@ const Radios = <
                 id={key}
                 // key works as value very good!
                 value={value || key}
-                className="text-gray-900 dark:text-gray-500 mr-2"
+                className={cn(
+                  "text-gray-900 dark:text-gray-500 mr-2",
+                  className
+                )}
                 {...props}
               />
               <label htmlFor={key} className="text-gray-700 dark:text-gray-300">

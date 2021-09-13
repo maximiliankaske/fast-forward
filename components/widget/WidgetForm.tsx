@@ -47,6 +47,7 @@ const WidgetForm = ({ userId, projectId }: WidgetProps) => {
           issue: {
             label: "Issue",
             defaultChecked: true,
+            className: "text-sm",
           },
           idea: { label: "Idea" },
           other: { label: "Other" },
@@ -56,7 +57,7 @@ const WidgetForm = ({ userId, projectId }: WidgetProps) => {
       <TextArea
         label="Comment"
         name="text"
-        className="resize-none"
+        className="resize-none text-sm"
         placeholder="Tell us about..."
         rows={3}
         srOnly

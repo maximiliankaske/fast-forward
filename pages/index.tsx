@@ -4,6 +4,7 @@ import Head from "next/head";
 import DefaultLayout from "../components/layout/DefaultLayout";
 import Button from "../components/ui/Button";
 import Link from "../components/ui/Link";
+import WidgetExample from "../components/widget/WidgetExample";
 import { useAuth } from "../lib/auth";
 import { getAllUsers } from "../lib/db-admin";
 
@@ -29,6 +30,7 @@ const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
           Log In with Google
         </Button>
       </div>
+      <WidgetExample />
       {auth.user ? (
         <div>
           <p>Email: {auth.user.email}</p>
