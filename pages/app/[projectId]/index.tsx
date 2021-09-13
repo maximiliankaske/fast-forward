@@ -2,14 +2,14 @@ import { DuplicateIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
 import useSWR, { mutate } from "swr";
-import Card from "../../components/feedback/Card";
-import Filter from "../../components/feedback/Filter";
-import DefaultLayout from "../../components/layout/DefaultLayout";
-import Heading from "../../components/ui/Heading";
-import { useAuth } from "../../lib/auth";
-import { updateFeedback } from "../../lib/db";
-import { Feedback, FeedbackType, Project, WithId } from "../../types";
-import fetcher from "../../utils/fetcher";
+import Card from "../../../components/feedback/Card";
+import Filter from "../../../components/feedback/Filter";
+import DefaultLayout from "../../../components/layout/DefaultLayout";
+import Heading from "../../../components/ui/Heading";
+import { useAuth } from "../../../lib/auth";
+import { updateFeedback } from "../../../lib/db";
+import { Feedback, FeedbackType, Project, WithId } from "../../../types";
+import fetcher from "../../../utils/fetcher";
 
 const ProjectPage = () => {
   const [type, setType] = useState<FeedbackType>(FeedbackType.All);

@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import useSWR, { mutate } from "swr";
+import Thumbnail from "../../components/app/Thumbnail";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import Button from "../../components/ui/Button";
 import Heading from "../../components/ui/Heading";
@@ -16,7 +17,7 @@ const App: FC = () => {
     fetcher
   );
 
-  const handleCreateProject = async () => {
+  const handleCreate = async () => {
     const newSite = {
       authorId: user!.uid,
       name: `${Math.random() * 100}`,
@@ -46,13 +47,22 @@ const App: FC = () => {
       throw new Error("delete Project failed");
     }
   };
+
   return (
     <DefaultLayout>
       <Heading>App</Heading>
       {user && (
         <>
-          <Button onClick={handleCreateProject}>Add random Project</Button>
-          <h1>My Projects</h1>
+          <Button onClick={handleCreate}>Add random Project</Button>
+          <Heading as="h3" className="mt-6">
+            My Projects
+          </Heading>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {data?.projects.map((project, idx) => (
+              <Thumbnail key={idx} {...project} />
+            ))}
+          </div>
+          <hr className="my-10" />
           {data?.projects.map((i, idx) => (
             <div key={idx} className="flex space-x-3">
               <p>{i.name}</p>
