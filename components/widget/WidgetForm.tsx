@@ -10,6 +10,7 @@ import TextArea from "../ui/Textarea";
 
 const WidgetForm = ({ userId, projectId }: WidgetProps) => {
   const [screenshotURL, setScreenshotURL] = useState<string>();
+  const [text, setText] = useState<string>("");
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -61,10 +62,12 @@ const WidgetForm = ({ userId, projectId }: WidgetProps) => {
         placeholder="Tell us about..."
         rows={3}
         srOnly
+        value={text}
+        onChange={(event) => setText(event.target.value)}
       />
       <div className="flex space-x-4">
         <Thumbnail setScreenshotURL={setScreenshotURL} />
-        <Button reverse type="submit" className="flex-1">
+        <Button reverse type="submit" className="flex-1" disabled={text === ""}>
           Submit
         </Button>
       </div>
