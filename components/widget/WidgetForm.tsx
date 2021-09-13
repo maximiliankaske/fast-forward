@@ -6,7 +6,7 @@ import Radios from "../ui/Radios";
 import { FeedbackType } from "../../types";
 import Thumbnail from "./Thumbnail";
 import { WidgetProps } from "./Widget";
-import TextArea from "../ui/Textarea";
+import TextArea from "../ui/TextArea";
 
 const WidgetForm = ({ userId, projectId }: WidgetProps) => {
   const [screenshotURL, setScreenshotURL] = useState<string>();
