@@ -33,7 +33,9 @@ const WidgetForm = ({ userId, projectId }: WidgetProps) => {
         ...(screenshotURL && { screenshotURL }),
         ...(userId && { userId }),
       });
+      // Resets only the type, as the text is opinionated through a state
       event.currentTarget.reset();
+      setText("");
     } catch {
       throw new Error("create Project failed");
     }
@@ -48,7 +50,6 @@ const WidgetForm = ({ userId, projectId }: WidgetProps) => {
           issue: {
             label: "Issue",
             defaultChecked: true,
-            className: "text-sm",
           },
           idea: { label: "Idea" },
           other: { label: "Other" },
