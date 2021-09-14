@@ -32,7 +32,8 @@ const ProjectPage = () => {
   );
 
   const getArchiveLength = useCallback(
-    () => data?.feedbacks.filter((i) => i.archived).length,
+    (value: boolean = true) =>
+      data?.feedbacks.filter((i) => (value ? i.archived : !i.archived)).length,
     [data]
   );
 
@@ -64,7 +65,7 @@ const ProjectPage = () => {
             types={[
               {
                 name: FeedbackType.All,
-                count: data?.feedbacks.length,
+                count: getArchiveLength(false),
               },
               {
                 name: FeedbackType.Issue,
