@@ -53,6 +53,7 @@ const Thumbnail = ({ setScreenshotURL }: Props) => {
                 setUploadState(undefined);
                 setScreenshotURL(undefined);
               }}
+              type="button"
             >
               <XIcon className="absolute -right-2 -top-2 h-4 w-4 text-white bg-red-500 rounded-full" />
             </button>
@@ -60,7 +61,11 @@ const Thumbnail = ({ setScreenshotURL }: Props) => {
         );
       case undefined:
         return (
-          <button onClick={onScreenShot} className="w-full h-full">
+          <button
+            onClick={onScreenShot}
+            className="w-full h-full"
+            type="button"
+          >
             <CameraIcon className="h-5 w-5 text-gray-500 mx-auto" />
           </button>
         );
