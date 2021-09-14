@@ -3,7 +3,7 @@ import Widget from "../../components/widget/Widget";
 import cn from "classnames";
 import { useAuth } from "../../lib/auth";
 
-const PROJECT_ID = "bSyoWqKaC9kFEFzpYFpB";
+const PROJECT_ID = "VWJU7eJdIEYGmoyKW4rp";
 
 interface Props {
   reverse?: boolean;

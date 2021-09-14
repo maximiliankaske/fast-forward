@@ -88,7 +88,11 @@ const Settings = () => {
                 Please note that this is not reversable. Be certain.
               </p>
             </div>
-            <Button onClick={handleDelete} className="bg-red-500" reverse>
+            <Button
+              onClick={handleDelete}
+              className="bg-red-500 hover:bg-red-600"
+              reverse
+            >
               Delete
             </Button>
           </div>

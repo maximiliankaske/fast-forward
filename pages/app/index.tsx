@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import useSWR, { mutate } from "swr";
+import EmptyState from "../../components/app/EmptyState";
 import Thumbnail from "../../components/app/Thumbnail";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import Button from "../../components/ui/Button";
@@ -8,7 +9,6 @@ import { useAuth } from "../../lib/auth";
 import { createProject } from "../../lib/db";
 import { Project, WithId } from "../../types";
 import fetcher from "../../utils/fetcher";
-import faker from "faker";
 
 const App: FC = () => {
   const { user } = useAuth();
@@ -20,7 +20,7 @@ const App: FC = () => {
   const handleCreate = async () => {
     const newSite = {
       authorId: user!.uid,
-      name: faker.name.firstName(),
+      name: `Project #${data?.projects ? data.projects.length + 1 : 1}`,
     };
     try {
       await createProject(newSite);
@@ -34,17 +34,20 @@ const App: FC = () => {
     <DefaultLayout>
       <Heading>App</Heading>
       {user && (
-        <>
-          <Button onClick={handleCreate}>Add Project</Button>
-          <Heading as="h3" className="mt-6">
-            My Projects
-          </Heading>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {data?.projects.map((project, idx) => (
-              <Thumbnail key={idx} {...project} />
-            ))}
-          </div>
-        </>
+        <div className="space-y-6 mt-6">
+          {data?.projects ? (
+            <>
+              <Button onClick={handleCreate}>Add Project</Button>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {data?.projects.map((project, idx) => (
+                  <Thumbnail key={idx} {...project} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <EmptyState onClick={handleCreate} />
+          )}
+        </div>
       )}
     </DefaultLayout>
   );

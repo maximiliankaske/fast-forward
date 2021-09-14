@@ -14,7 +14,6 @@ const TextArea = ({
   srOnly = false,
   ...props
 }: Props) => {
-  console.log(srOnly);
   return (
     <div>
       <label

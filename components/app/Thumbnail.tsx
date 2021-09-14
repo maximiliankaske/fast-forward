@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Project, WithId } from "../../types";
-import { CogIcon } from "@heroicons/react/solid";
+import { CogIcon } from "@heroicons/react/outline";
 
 const Thumbnail = ({ id, name, authorId }: WithId<Project>) => {
   return (
@@ -14,13 +14,13 @@ const Thumbnail = ({ id, name, authorId }: WithId<Project>) => {
           <a className="flex-1 focus:outline-none">
             <span className="absolute inset-0" aria-hidden="true" />
             <p className="text-sm font-medium text-gray-900">{name}</p>
-            <p className="text-sm text-gray-500 truncate">{authorId}</p>
+            <p className="text-sm text-gray-500 truncate">{`ID: ${id}`}</p>
           </a>
         </Link>
       </div>
       <Link href={`/app/${id}/settings`}>
-        <a className="self-center focus:outline-none z-10">
-          <CogIcon className="h-6 w-6 text-gray-700 hover:text-gray-900" />
+        <a className="self-center z-10 hover:bg-gray-50 text-gray-700 hover:text-gray-900 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <CogIcon className="h-6 w-6" />
         </a>
       </Link>
     </div>
