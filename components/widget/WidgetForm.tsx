@@ -36,6 +36,7 @@ const WidgetForm = ({ userId, projectId }: WidgetProps) => {
       // Resets only the type, as the text is opinionated through a state
       event.currentTarget.reset();
       setText("");
+      setScreenshotURL(undefined);
     } catch {
       throw new Error("create Project failed");
     }
@@ -67,7 +68,7 @@ const WidgetForm = ({ userId, projectId }: WidgetProps) => {
         onChange={(event) => setText(event.target.value)}
       />
       <div className="flex space-x-4">
-        <Thumbnail setScreenshotURL={setScreenshotURL} />
+        <Thumbnail {...{ setScreenshotURL, screenshotURL }} />
         <Button reverse type="submit" className="flex-1" disabled={text === ""}>
           Submit
         </Button>

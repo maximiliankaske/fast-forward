@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import firebase from "firebase/app";
 import html2canvas from "html2canvas";
 import Image from "next/image";
@@ -10,11 +10,11 @@ import { CameraIcon, XIcon } from "@heroicons/react/solid";
 // html2canvas move from then to async await
 
 interface Props {
+  screenshotURL?: string;
   setScreenshotURL: (value?: string) => void;
 }
 
-const Thumbnail = ({ setScreenshotURL }: Props) => {
-  const [thumbnail, setThumbnail] = useState<string>();
+const Thumbnail = ({ screenshotURL, setScreenshotURL }: Props) => {
   const [uploadState, setUploadState] =
     useState<firebase.storage.UploadTaskSnapshot["state"]>();
 
@@ -25,7 +25,6 @@ const Thumbnail = ({ setScreenshotURL }: Props) => {
         onSnapshot: (snapshot) => setUploadState(snapshot.state),
         onComplete: (ref) => {
           ref.getDownloadURL().then((downloadURL) => {
-            setThumbnail(downloadURL);
             setScreenshotURL(downloadURL);
           });
           setUploadState(firebase.storage.TaskState.SUCCESS);
@@ -42,11 +41,16 @@ const Thumbnail = ({ setScreenshotURL }: Props) => {
       case firebase.storage.TaskState.RUNNING:
         return <LoadingIcon className="animate-spin h-5 w-5 text-gray-500" />;
       case firebase.storage.TaskState.SUCCESS:
-        if (!thumbnail) return null;
+        if (!screenshotURL) return null;
         return (
           <>
-            <a href={thumbnail} target="_blank" rel="noreferrer">
-              <Image layout="fill" src={thumbnail} alt="" objectFit="cover" />
+            <a href={screenshotURL} target="_blank" rel="noreferrer">
+              <Image
+                layout="fill"
+                src={screenshotURL}
+                alt=""
+                objectFit="cover"
+              />
             </a>
             <button
               onClick={() => {
