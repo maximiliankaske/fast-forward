@@ -25,11 +25,13 @@ const Header: FC = () => {
           <Link href="/playground">Playground</Link>
           <Link href="/docs">Docs</Link>
           <Link href="/blog">Blog</Link>
-          {auth.user && (
+          {auth.user ? (
             <>
               <Link href="/app">App</Link>
               <Link href="/logout">Logout</Link>
             </>
+          ) : (
+            <Link href="/login">Login</Link>
           )}
           <Switch
             checked={isDarkMode}

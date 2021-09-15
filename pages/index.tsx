@@ -17,14 +17,6 @@ const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
         <meta name="description" content="Fast-Forward" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="space-x-4">
-        <Button onClick={() => auth.signinWithGitHub()} reverse>
-          Log In with GitHub
-        </Button>
-        <Button onClick={() => auth.signinWithGoogle()}>
-          Log In with Google
-        </Button>
-      </div>
       <div className="flex flex-col items-center p-16 my-6 w-full bg-indigo-700 rounded-lg">
         <Heading as="h2" className="text-white">
           How does it work?
