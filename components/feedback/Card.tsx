@@ -1,6 +1,6 @@
 import { ExternalLinkIcon } from "@heroicons/react/outline";
 import { PhotographIcon } from "@heroicons/react/solid";
-import { formatDistance, subDays } from "date-fns";
+import { formatDistance } from "date-fns";
 import Image from "next/image";
 import React, { useState } from "react";
 import parser from "ua-parser-js";
@@ -82,10 +82,12 @@ const Card = ({ feedback, handleArchive }: Props) => {
           ) : null}
         </div>
         <div className="flex items-center justify-end space-x-3">
-          <Button onClick={handleArchive}>
+          <Button onClick={handleArchive} reverse>
             {feedback.archived ? "Unarchive" : "Archive"}
           </Button>
-          <Button reverse>Reply with Mail</Button>
+          {feedback.userId && (
+            <a href={`mailto:${feedback.userId}`}>Reply with Mail</a>
+          )}
         </div>
       </div>
     </>

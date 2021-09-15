@@ -1,3 +1,4 @@
+import { PlusIcon } from "@heroicons/react/solid";
 import React, { FC } from "react";
 import useSWR, { mutate } from "swr";
 import EmptyState from "../../components/app/EmptyState";
@@ -37,7 +38,14 @@ const App: FC = () => {
         <div className="space-y-6 mt-6">
           {data?.projects ? (
             <>
-              <Button onClick={handleCreate}>Add Project</Button>
+              <Button
+                onClick={handleCreate}
+                className="inline-flex items-center"
+                reverse
+              >
+                <PlusIcon className="-ml-1 mr-1 h-5 w-5" aria-hidden="true" />
+                New Project
+              </Button>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {data?.projects.map((project, idx) => (
                   <Thumbnail key={idx} {...project} />

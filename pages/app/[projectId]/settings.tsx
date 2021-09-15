@@ -8,8 +8,8 @@ import { useAuth } from "../../../lib/auth";
 import { deleteProject, updateProject } from "../../../lib/db";
 import { Project, WithId } from "../../../types";
 import fetcher from "../../../utils/fetcher";
-import faker from "faker";
 import Input from "../../../components/ui/Input";
+import Badge from "../../../components/ui/Badge";
 
 const Settings = () => {
   const [name, setName] = useState("");
@@ -80,6 +80,31 @@ const Settings = () => {
             </Button>
           </div>
         </form>
+        {/* TODO: Missing functionality */}
+        <div className="border rounded-md">
+          <div className="p-5 space-y-1">
+            <h2 className="text-lg leading-6 font-medium">Team settings</h2>
+            <p className="text-sm text-gray-500">
+              Add team members to access the project.
+            </p>
+            <div>
+              <div className="flex justify-between mt-2">
+                <p className="truncate">{user?.email}</p>
+                <Badge>Member</Badge>
+              </div>
+            </div>
+          </div>
+          <div className="py-3 px-5 bg-gray-50 border-t flex justify-between items-end">
+            <Input
+              label="Email"
+              name="email"
+              placeholder="collegue@company.com"
+              className="w-72 text-sm"
+              srOnly
+            />
+            <Button reverse>Save</Button>
+          </div>
+        </div>
         <div className="border rounded-md border-red-500">
           <div className="py-3 px-5 flex justify-between items-center">
             <div>
