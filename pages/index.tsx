@@ -2,14 +2,21 @@ import { InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import Features from "../components/landing/Features";
 import DefaultLayout from "../components/layout/DefaultLayout";
-import Button from "../components/ui/Button";
 import Heading from "../components/ui/Heading";
-import WidgetExample from "../components/widget/WidgetExample";
+import WidgetButtonExample from "../components/widget/WidgetButtonExample";
 import { useAuth } from "../lib/auth";
 import { getAllUsers } from "../lib/db-admin";
 
+const PROJECT_ID = "VWJU7eJdIEYGmoyKW4rp";
+
 const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const auth = useAuth();
+
+  const buttonProps = {
+    projectId: PROJECT_ID,
+    userId: auth.user?.email || undefined,
+  };
+
   return (
     <DefaultLayout>
       <Head>
@@ -21,7 +28,17 @@ const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
         <Heading as="h2" className="text-white">
           How does it work?
         </Heading>
-        <WidgetExample reverse />
+        <div className="text-center space-y-4 pt-4">
+          <WidgetButtonExample reverse {...buttonProps}>
+            Give us Feedback
+          </WidgetButtonExample>
+          <WidgetButtonExample lang="de" reverse {...buttonProps}>
+            Geben Sie Feedback
+          </WidgetButtonExample>
+          <WidgetButtonExample lang="fr" reverse {...buttonProps}>
+            Donnez-nous vos commentaires
+          </WidgetButtonExample>
+        </div>
       </div>
       <Features />
       {auth.user ? (

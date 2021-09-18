@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Button from "../ui/Button";
 import firebase from "firebase/app";
 import { createFeedback } from "../../lib/db";
@@ -7,8 +7,9 @@ import { FeedbackType } from "../../types";
 import Thumbnail from "./Thumbnail";
 import { WidgetProps } from "./Widget";
 import TextArea from "../ui/TextArea";
+import { formattedMessages } from "./translations";
 
-const WidgetForm = ({ userId, projectId }: WidgetProps) => {
+const WidgetForm = ({ userId, projectId, lang: defaultLang }: WidgetProps) => {
   const [screenshotURL, setScreenshotURL] = useState<string>();
   const [text, setText] = useState<string>("");
 
@@ -42,26 +43,30 @@ const WidgetForm = ({ userId, projectId }: WidgetProps) => {
     }
   };
 
+  const messages = formattedMessages(
+    defaultLang || document.documentElement.lang || "en"
+  );
+
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <Radios
-        label="Type"
+        label={messages.type.label}
         name="type"
         options={{
           issue: {
-            label: "Issue",
+            label: messages.type.options.issue.label,
             defaultChecked: true,
           },
-          idea: { label: "Idea" },
-          other: { label: "Other" },
+          idea: { label: messages.type.options.idea.label },
+          other: { label: messages.type.options.other.label },
         }}
         srOnly
       />
       <TextArea
-        label="Comment"
+        label={messages.comment.label}
         name="text"
         className="resize-none text-sm"
-        placeholder="Tell us about..."
+        placeholder={messages.comment.placeholder}
         rows={3}
         srOnly
         value={text}
@@ -70,7 +75,7 @@ const WidgetForm = ({ userId, projectId }: WidgetProps) => {
       <div className="flex space-x-4">
         <Thumbnail {...{ setScreenshotURL, screenshotURL }} />
         <Button reverse type="submit" className="flex-1" disabled={text === ""}>
-          Submit
+          {messages.submit.label}
         </Button>
       </div>
     </form>

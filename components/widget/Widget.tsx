@@ -2,10 +2,12 @@ import React, { Fragment, FC } from "react";
 import { Transition, Popover } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import WidgetForm from "./WidgetForm";
+import { LanguageCode } from "./translations";
 
 export interface WidgetProps {
   projectId: string;
   userId?: string;
+  lang?: LanguageCode;
 }
 
 const Widget: FC<WidgetProps> = ({ children, ...props }) => {
