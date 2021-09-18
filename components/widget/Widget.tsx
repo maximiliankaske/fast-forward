@@ -3,10 +3,10 @@ import { Transition, Popover } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import WidgetForm from "./WidgetForm";
 import { LanguageCode } from "./translations";
+import { Feedback } from "../../types";
 
-export interface WidgetProps {
-  projectId: string;
-  userId?: string;
+export interface WidgetProps
+  extends Pick<Feedback, "userId" | "projectId" | "metadata"> {
   lang?: LanguageCode;
 }
 

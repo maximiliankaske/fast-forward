@@ -19,9 +19,10 @@ const Card = ({ feedback, handleArchive }: Props) => {
   // @ts-ignore FIXME: firebase Timestamp.toDate() not a function
   const createdAtSeconds = feedback.createdAt._seconds * 1000;
   const ua = parser(feedback.userAgent);
+  console.log(feedback?.metadata);
   return (
-    <>
-      <div className="border rounded-md shadow-box p-6 space-y-3">
+    <div className="border rounded-md shadow-box overflow-hidden">
+      <div className="p-6 space-y-3">
         <div className="flex items-center justify-between">
           <Badge className="capitalize">{feedback.type}</Badge>
           <p className="text-gray-500 text-sm">
@@ -90,7 +91,27 @@ const Card = ({ feedback, handleArchive }: Props) => {
           )}
         </div>
       </div>
-    </>
+      {feedback?.metadata ? (
+        <div className="relative px-6 pt-4 pb-2 bg-gray-100 dark:bg-gray-800 border-t">
+          <div className="absolute -top-4 left-0 right-0 text-center">
+            <Badge color="pink" className="text-base">
+              Metadata
+            </Badge>
+          </div>
+          {Object.keys(feedback.metadata).map((key) => (
+            <div
+              key={key}
+              className="border rounded overflow-hidden inline-flex text-sm mb-2 mr-2"
+            >
+              <span className="py-px px-3 bg-gray-700 text-white">{key}</span>
+              <span className="py-px px-3 bg-indigo-200 text-indigo-700">
+                {feedback.metadata![key]}
+              </span>
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </div>
   );
 };
 

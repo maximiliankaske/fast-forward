@@ -32,10 +32,20 @@ const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
           <WidgetButtonExample reverse {...buttonProps}>
             Give us Feedback
           </WidgetButtonExample>
-          <WidgetButtonExample lang="de" reverse {...buttonProps}>
+          <WidgetButtonExample
+            lang="de"
+            metadata={{ lang: "de" }}
+            reverse
+            {...buttonProps}
+          >
             Geben Sie Feedback
           </WidgetButtonExample>
-          <WidgetButtonExample lang="fr" reverse {...buttonProps}>
+          <WidgetButtonExample
+            lang="fr"
+            metadata={{ lang: "fr", test: "true" }}
+            reverse
+            {...buttonProps}
+          >
             Donnez-nous vos commentaires
           </WidgetButtonExample>
         </div>

@@ -43,6 +43,7 @@ export type Feedback = {
   type: FeedbackType;
   archived?: boolean;
   screenshotURL?: string;
+  metadata?: Record<string, string | number>;
 };
 
 export enum FeedbackType {

@@ -9,7 +9,12 @@ import { WidgetProps } from "./Widget";
 import TextArea from "../ui/TextArea";
 import { formattedMessages } from "./translations";
 
-const WidgetForm = ({ userId, projectId, lang: defaultLang }: WidgetProps) => {
+const WidgetForm = ({
+  userId,
+  projectId,
+  lang: defaultLang,
+  metadata,
+}: WidgetProps) => {
   const [screenshotURL, setScreenshotURL] = useState<string>();
   const [text, setText] = useState<string>("");
 
@@ -33,6 +38,7 @@ const WidgetForm = ({ userId, projectId, lang: defaultLang }: WidgetProps) => {
         // Append to Object only if !undefined
         ...(screenshotURL && { screenshotURL }),
         ...(userId && { userId }),
+        ...(metadata && { metadata }),
       });
       // Resets only the type, as the text is opinionated through a state
       event.currentTarget.reset();
