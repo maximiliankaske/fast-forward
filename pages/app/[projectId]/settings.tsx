@@ -10,6 +10,7 @@ import { Project, WithId } from "../../../types";
 import fetcher from "../../../utils/fetcher";
 import Input from "../../../components/ui/Input";
 import Badge from "../../../components/ui/Badge";
+import Image from "next/image";
 
 const Settings = () => {
   const [name, setName] = useState("");
@@ -89,7 +90,14 @@ const Settings = () => {
             </p>
             <div>
               <div className="flex justify-between mt-2">
-                <p className="truncate">{user?.email}</p>
+                <div className="flex items-center space-x-2">
+                  <div className="relative h-6 w-6 rounded-full overflow-hidden bg-gray-100">
+                    {user?.photoUrl && (
+                      <Image src={user.photoUrl} alt="profile" layout="fill" />
+                    )}
+                  </div>
+                  <p className="truncate">{user?.email}</p>
+                </div>
                 <Badge>Member</Badge>
               </div>
             </div>
@@ -99,7 +107,7 @@ const Settings = () => {
               label="Email"
               name="email"
               placeholder="collegue@company.com"
-              className="w-72 text-sm"
+              className="w-56 sm:w-72 text-sm"
               srOnly
             />
             <Button reverse>Save</Button>
