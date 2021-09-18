@@ -4,6 +4,7 @@ import Features from "../components/landing/Features";
 import DefaultLayout from "../components/layout/DefaultLayout";
 import Heading from "../components/ui/Heading";
 import WidgetButtonExample from "../components/widget/WidgetButtonExample";
+import WidgetFABExample from "../components/widget/WidgetFABExample";
 import { useAuth } from "../lib/auth";
 import { getAllUsers } from "../lib/db-admin";
 
@@ -66,6 +67,7 @@ const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
           </div>
         ))}
       </div>
+      <WidgetFABExample />
     </DefaultLayout>
   );
 };
