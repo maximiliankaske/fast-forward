@@ -7,14 +7,13 @@ import WidgetButtonExample from "../components/widget/WidgetButtonExample";
 import WidgetFABExample from "../components/widget/WidgetFABExample";
 import { useAuth } from "../lib/auth";
 import { getAllUsers } from "../lib/db-admin";
-
-const PROJECT_ID = "VWJU7eJdIEYGmoyKW4rp";
+import feedbackConfig from "../fast-feedback.json";
 
 const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const auth = useAuth();
 
   const buttonProps = {
-    projectId: PROJECT_ID,
+    projectId: feedbackConfig.projects.main,
     userId: auth.user?.email || undefined,
   };
 
