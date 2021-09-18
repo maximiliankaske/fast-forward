@@ -1,10 +1,11 @@
 import { Switch } from "@headlessui/react";
-import { CubeIcon } from "@heroicons/react/outline";
+import { FastForwardIcon } from "@heroicons/react/solid";
 import cn from "classnames";
 import { useTheme } from "next-themes";
 import React, { FC, useEffect, useState } from "react";
 import { useAuth } from "../../lib/auth";
 import Link from "../ui/Link";
+import NextLink from "next/link";
 
 const Header: FC = () => {
   const auth = useAuth();
@@ -18,9 +19,12 @@ const Header: FC = () => {
   return (
     <header className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-5xl xl:px-0">
       <div className="h-16 flex justify-between items-center">
-        <Link href="/">
-          <CubeIcon className="h-8 w-8 text-indigo-500" />
-        </Link>
+        <NextLink href="/">
+          <a className="inline-flex text-xs items-end font-extrabold tracking-wider text-pink-500 group hover:text-indigo-500">
+            <FastForwardIcon className="h-8 w-8 text-indigo-500 group-hover:text-pink-500" />
+            fast-forward
+          </a>
+        </NextLink>
         <div className="space-x-4">
           <Link href="/docs">Docs</Link>
           <Link href="/blog">Blog</Link>
