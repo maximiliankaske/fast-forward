@@ -2,16 +2,19 @@ import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState, FormEvent } from "react";
 import useSWR, { mutate } from "swr";
 import DefaultLayout from "../../../components/layout/DefaultLayout";
-import Button from "../../../components/ui/Button";
 import Heading from "../../../components/ui/Heading";
 import { useAuth } from "../../../lib/auth";
 import { deleteProject, updateProject } from "../../../lib/db";
 import { Project, WithId } from "../../../types";
 import fetcher from "../../../utils/fetcher";
+import { feedbackErrorToast } from "../../../utils/toasts";
+import Link from "../../../components/ui/Link";
 import Input from "../../../components/ui/Input";
+import Button from "../../../components/ui/Button";
 import Badge from "../../../components/ui/Badge";
-import Image from "next/image";
 import Switch from "../../../components/ui/Switch";
+import { ArrowLeftIcon } from "@heroicons/react/solid";
+import Image from "next/image";
 
 const Settings = () => {
   const [publically, setPublically] = useState(true);
@@ -28,10 +31,11 @@ const Settings = () => {
   useEffect(() => {
     if (data?.project) {
       setName(data.project.name);
+      setPublically(!data.project.private);
     }
   }, [data]);
 
-  const handleUpdate = useCallback(
+  const handleUpdateName = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       try {
@@ -39,11 +43,22 @@ const Settings = () => {
         await updateProject(data!.project.id, { name });
         mutate([`/api/project/${projectId}`, user!.token]);
       } catch {
-        throw new Error("update Project failed");
+        feedbackErrorToast();
       }
     },
     [projectId, user, data, name]
   );
+
+  const handleUpdateAccessibility = useCallback(async () => {
+    try {
+      await updateProject(data!.project.id, {
+        private: publically,
+      });
+      mutate([`/api/project/${projectId}`, user!.token]);
+    } catch {
+      feedbackErrorToast();
+    }
+  }, [publically, data, projectId, user]);
 
   const handleDelete = useCallback(async () => {
     try {
@@ -51,17 +66,21 @@ const Settings = () => {
       await deleteProject(data!.project.id);
       router.replace("/app");
     } catch {
-      throw new Error("delete Project failed");
+      feedbackErrorToast();
     }
   }, [router, data]);
 
   return (
     <DefaultLayout>
       <Heading as="h2">Settings</Heading>
-      <div className="space-y-8 mt-8">
+      <Link href="/app" className="inline-flex items-center text-sm mt-4 mb-8">
+        <ArrowLeftIcon className="h-3 w-3 mr-2" />
+        Back to the list
+      </Link>
+      <div className="space-y-8">
         <form
           className="border rounded-md overflow-hidden"
-          onSubmit={handleUpdate}
+          onSubmit={handleUpdateName}
         >
           <div className="p-5 space-y-1">
             <h2 className="text-lg leading-6 font-medium">Project settings</h2>
@@ -124,7 +143,7 @@ const Settings = () => {
           <div className="py-3 px-5 flex justify-between items-center">
             <div>
               <h2 className="text-lg leading-6 font-medium">
-                Project Accessibility (alpha)
+                Project Accessibility
               </h2>
               <p className="text-sm text-gray-500">
                 Your project is currently set to:{" "}
@@ -137,7 +156,7 @@ const Settings = () => {
             </div>
             <Switch
               checked={publically}
-              onChange={() => setPublically((prev) => !prev)}
+              onChange={handleUpdateAccessibility}
               label="Enable public project"
             />
           </div>

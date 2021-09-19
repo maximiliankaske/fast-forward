@@ -11,6 +11,7 @@ import { updateFeedback } from "../../../lib/db";
 import { Feedback, FeedbackType, Project, WithId } from "../../../types";
 import fetcher from "../../../utils/fetcher";
 import Link from "../../../components/ui/Link";
+import { feedbackErrorToast } from "../../../utils/toasts";
 
 const ProjectPage = () => {
   const [type, setType] = useState<FeedbackType>(FeedbackType.All);
@@ -46,7 +47,7 @@ const ProjectPage = () => {
         await updateFeedback(id, data);
         mutate(`/api/feedback/${projectId}`);
       } catch {
-        throw new Error("update Feedback failed");
+        feedbackErrorToast();
       }
     },
     [projectId]
