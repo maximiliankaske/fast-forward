@@ -24,7 +24,7 @@ const ProjectPage = () => {
   );
 
   // fetch data after loading (even though user might be unauthentificated)
-  const { data } = useSWR<{ feedbacks: WithId<Feedback>[] }>(
+  const { data, mutate } = useSWR<{ feedbacks: WithId<Feedback>[] }>(
     !loading && projectId ? [`/api/feedback/${projectId}`, user?.token] : null,
     fetcher
   );
@@ -45,12 +45,12 @@ const ProjectPage = () => {
     async (id: string, data: Partial<Feedback> & { projectId: string }) => {
       try {
         await updateFeedback(id, data);
-        mutate(`/api/feedback/${projectId}`);
+        mutate();
       } catch {
         feedbackErrorToast();
       }
     },
-    [projectId]
+    [mutate]
   );
 
   return (

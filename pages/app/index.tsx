@@ -1,6 +1,6 @@
 import { PlusIcon } from "@heroicons/react/solid";
 import React, { FC } from "react";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import EmptyState from "../../components/app/EmptyState";
 import Thumbnail from "../../components/app/Thumbnail";
 import DefaultLayout from "../../components/layout/DefaultLayout";
@@ -13,7 +13,7 @@ import fetcher from "../../utils/fetcher";
 
 const App: FC = () => {
   const { user } = useAuth();
-  const { data } = useSWR<{ projects: WithId<Project>[] }>(
+  const { data, mutate } = useSWR<{ projects: WithId<Project>[] }>(
     user ? ["/api/projects", user.token] : null,
     fetcher
   );
@@ -26,7 +26,7 @@ const App: FC = () => {
     };
     try {
       await createProject(newSite);
-      mutate(["/api/projects", user!.token]);
+      mutate();
     } catch {
       throw new Error("create Project failed");
     }

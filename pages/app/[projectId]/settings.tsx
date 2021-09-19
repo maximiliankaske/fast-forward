@@ -23,7 +23,7 @@ const Settings = () => {
   const { user } = useAuth();
   const { projectId } = router.query;
 
-  const { data } = useSWR<{ project: WithId<Project> }>(
+  const { data, mutate } = useSWR<{ project: WithId<Project> }>(
     user && projectId ? [`/api/project/${projectId}`, user.token] : null,
     fetcher
   );
@@ -41,12 +41,12 @@ const Settings = () => {
       try {
         // FIXME: make sure that the page is accessed only if data exist
         await updateProject(data!.project.id, { name });
-        mutate([`/api/project/${projectId}`, user!.token]);
+        mutate();
       } catch {
         feedbackErrorToast();
       }
     },
-    [projectId, user, data, name]
+    [mutate, data, name]
   );
 
   const handleUpdateAccessibility = useCallback(async () => {
@@ -54,11 +54,11 @@ const Settings = () => {
       await updateProject(data!.project.id, {
         private: publically,
       });
-      mutate([`/api/project/${projectId}`, user!.token]);
+      mutate();
     } catch {
       feedbackErrorToast();
     }
-  }, [publically, data, projectId, user]);
+  }, [publically, data, mutate]);
 
   const handleDelete = useCallback(async () => {
     try {
