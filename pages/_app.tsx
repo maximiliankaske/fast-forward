@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
 import "tailwindcss/tailwind.css";
 import { AuthProvider } from "../lib/auth";
+import { Toaster } from "react-hot-toast";
 
 const components = {
   // img: Image,
@@ -17,6 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider attribute="class">
         <MDXProvider components={components}>
           <Component {...pageProps} />
+          <Toaster position="top-right" />
         </MDXProvider>
       </ThemeProvider>
     </AuthProvider>
