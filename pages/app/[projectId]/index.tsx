@@ -1,10 +1,9 @@
 import { ArrowLeftIcon, DuplicateIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
-import React, { useCallback, useState } from "react";
+import React, { Suspense, useCallback, useState } from "react";
 import useSWR, { mutate } from "swr";
 import Card from "../../../components/feedback/Card";
 import Filter from "../../../components/feedback/Filter";
-import DefaultLayout from "../../../components/layout/DefaultLayout";
 import Heading from "../../../components/ui/Heading";
 import { useAuth } from "../../../lib/auth";
 import { updateFeedback } from "../../../lib/db";
@@ -12,16 +11,25 @@ import { Feedback, FeedbackType, Project, WithId } from "../../../types";
 import fetcher from "../../../utils/fetcher";
 import Link from "../../../components/ui/Link";
 import { feedbackErrorToast } from "../../../utils/toasts";
+import isSSR from "../../../utils/is-ssr";
+import DefaultUserLayout from "../../../components/layout/DefaultUserLayout";
+
+const Title = () => {
+  const { user } = useAuth();
+  const router = useRouter();
+  const { data } = useSWR<{ project: WithId<Project> }>(
+    [`/api/project/${router.query.projectId}`, user?.token],
+    fetcher,
+    { suspense: true }
+  );
+  return <Heading className="text-center">{data?.project.name}</Heading>;
+};
 
 const ProjectPage = () => {
   const [type, setType] = useState<FeedbackType>(FeedbackType.All);
   const router = useRouter();
   const { user, loading } = useAuth();
   const { projectId } = router.query;
-  const { data: projectData } = useSWR<{ project: WithId<Project> }>(
-    !loading && projectId ? [`/api/project/${projectId}`, user?.token] : null,
-    fetcher
-  );
 
   // fetch data after loading (even though user might be unauthentificated)
   const { data, mutate } = useSWR<{ feedbacks: WithId<Feedback>[] }>(
@@ -54,8 +62,18 @@ const ProjectPage = () => {
   );
 
   return (
-    <DefaultLayout>
-      <Heading className="text-center">{projectData?.project.name}</Heading>
+    <DefaultUserLayout>
+      {!isSSR && (
+        <Suspense
+          fallback={
+            <Heading className="text-center" suspense>
+              &nbsp;
+            </Heading>
+          }
+        >
+          <Title />
+        </Suspense>
+      )}
       <p className="text-gray-500 text-center my-6">
         <span className="inline-flex items-center">
           Project ID: {projectId}
@@ -112,7 +130,7 @@ const ProjectPage = () => {
             ))}
         </div>
       </div>
-    </DefaultLayout>
+    </DefaultUserLayout>
   );
 };
 

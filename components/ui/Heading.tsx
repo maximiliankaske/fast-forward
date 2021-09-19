@@ -3,10 +3,12 @@ import React, { FC, HTMLAttributes } from "react";
 
 interface Props extends HTMLAttributes<HTMLHeadingElement> {
   as?: "h1" | "h2" | "h3";
+  suspense?: boolean;
 }
 
 const Heading: FC<Props> = ({
   as: element = "h1",
+  suspense = false,
   children,
   className,
   ...props
@@ -21,6 +23,7 @@ const Heading: FC<Props> = ({
       "text-2xl tracking-tight font-bold sm:text-3xl md:text-4xl mb-2":
         element === "h2",
       "text-lg font-semibold sm:text-xl md:text-2xl mb-1": element === "h3",
+      "animate-pulse rounded-md bg-gray-100": suspense,
     },
     className
   );
