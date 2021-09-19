@@ -33,7 +33,7 @@ const Radios = <
         {Object.keys(options).map((key) => {
           const { label, value, className, ...props } = options[key];
           return (
-            <div key={key} className="mt-1 mr-3">
+            <div key={key} className="mr-3">
               <input
                 type={"radio"}
                 name={name}
@@ -41,12 +41,15 @@ const Radios = <
                 // key works as value very good!
                 value={value || key}
                 className={cn(
-                  "text-gray-900 dark:text-gray-500 mr-2",
+                  "text-gray-900 dark:text-gray-500 mr-2 focus:outline-none focus:ring-2 focus:ring-indigo-500",
                   className
                 )}
                 {...props}
               />
-              <label htmlFor={key} className="text-gray-700 dark:text-gray-300">
+              <label
+                htmlFor={key}
+                className="text-gray-700 dark:text-gray-300 text-sm font-medium"
+              >
                 {label}
               </label>
             </div>

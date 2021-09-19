@@ -3,17 +3,19 @@ import cn from "classnames";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   reverse?: true;
+  size?: "sm" | "md";
 }
 
 const Button: FC<Props> = ({
   children,
   reverse = false,
+  size = "md",
   className,
   disabled,
   ...props
 }) => {
   const rootClassName = cn(
-    "shadow-sm rounded-md border px-2 py-1",
+    "shadow-sm rounded-md border",
     { "bg-white text-gray-900": !reverse },
     { "hover:bg-gray-50": !reverse && !disabled },
     {
@@ -21,6 +23,8 @@ const Button: FC<Props> = ({
     },
     { "hover:bg-gray-900": reverse && !disabled },
     { "bg-opacity-50 cursor-default": disabled },
+    { "px-2 py-1": size === "md" },
+    { "px-1 py-px": size === "sm" },
     className
   );
   return (

@@ -54,7 +54,7 @@ const WidgetForm = ({
   );
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form onSubmit={onSubmit} className="space-y-3">
       <Radios
         label={messages.type.label}
         name="type"
@@ -71,16 +71,22 @@ const WidgetForm = ({
       <TextArea
         label={messages.comment.label}
         name="text"
-        className="resize-none text-sm"
+        className="resize-none text-sm px-2 py-1"
         placeholder={messages.comment.placeholder}
         rows={3}
         srOnly
         value={text}
         onChange={(event) => setText(event.target.value)}
       />
-      <div className="flex space-x-4">
+      <div className="flex space-x-3">
         <Thumbnail {...{ setScreenshotURL, screenshotURL }} />
-        <Button reverse type="submit" className="flex-1" disabled={text === ""}>
+        <Button
+          reverse
+          type="submit"
+          className="flex-1"
+          disabled={text === ""}
+          size="sm"
+        >
           {messages.submit.label}
         </Button>
       </div>

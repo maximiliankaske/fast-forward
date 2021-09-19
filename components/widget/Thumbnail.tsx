@@ -37,9 +37,9 @@ const Thumbnail = ({ screenshotURL, setScreenshotURL }: Props) => {
   const renderState = () => {
     switch (uploadState) {
       case firebase.storage.TaskState.ERROR:
-        return <XIcon className="h-5 w-5 text-white bg-red-500 rounded-full" />;
+        return <XIcon className="h-4 w-4 text-white bg-red-500 rounded-full" />;
       case firebase.storage.TaskState.RUNNING:
-        return <LoadingIcon className="animate-spin h-5 w-5 text-gray-500" />;
+        return <LoadingIcon className="animate-spin h-4 w-4 text-gray-500" />;
       case firebase.storage.TaskState.SUCCESS:
         if (!screenshotURL) return null;
         return (
@@ -59,7 +59,7 @@ const Thumbnail = ({ screenshotURL, setScreenshotURL }: Props) => {
               }}
               type="button"
             >
-              <XIcon className="absolute -right-2 -top-2 h-4 w-4 text-white bg-red-500 rounded-full" />
+              <XIcon className="absolute -right-1 -top-1 h-3 w-3 text-white bg-red-500 rounded-full" />
             </button>
           </>
         );
@@ -67,7 +67,7 @@ const Thumbnail = ({ screenshotURL, setScreenshotURL }: Props) => {
         return (
           <button
             onClick={onScreenShot}
-            className="w-full h-full"
+            className="w-full h-full rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             type="button"
           >
             <CameraIcon className="h-5 w-5 text-gray-500 mx-auto" />
@@ -79,7 +79,7 @@ const Thumbnail = ({ screenshotURL, setScreenshotURL }: Props) => {
   };
 
   return (
-    <div className="h-10 w-10 bg-gray-100 rounded-lg shadow relative flex items-center justify-center">
+    <div className="h-[26px] w-[26px] bg-gray-100 rounded shadow border relative flex items-center justify-center">
       {renderState()}
     </div>
   );

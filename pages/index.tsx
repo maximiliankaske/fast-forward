@@ -1,4 +1,3 @@
-import { InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import Features from "../components/landing/Features";
 import DefaultLayout from "../components/layout/DefaultLayout";
@@ -6,10 +5,12 @@ import Heading from "../components/ui/Heading";
 import WidgetButtonExample from "../components/widget/WidgetButtonExample";
 import WidgetFABExample from "../components/widget/WidgetFABExample";
 import { useAuth } from "../lib/auth";
-import { getAllUsers } from "../lib/db-admin";
 import feedbackConfig from "../fast-feedback.json";
+import Link from "next/link";
+import React from "react";
+import { ExternalLinkIcon } from "@heroicons/react/solid";
 
-const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home = () => {
   const auth = useAuth();
 
   const buttonProps = {
@@ -50,34 +51,30 @@ const Home = ({ users }: InferGetStaticPropsType<typeof getStaticProps>) => {
           </WidgetButtonExample>
         </div>
       </div>
-      <Features />
-      {auth.user ? (
-        <div className="mt-8">
-          <p>Email: {auth.user.email}</p>
-          <p>Provider: {auth.user.provider}</p>
-        </div>
-      ) : null}
-      <hr className="my-10" />
-      <div>
-        <h1 className="text-indigo-500 text-4xl font-semibold">All Users</h1>
-        {users?.map((user) => (
-          <div key={user.uid}>
-            {user.name} | {user.email} | {user.provider}
-          </div>
-        ))}
+      <div className="my-10 text-center">
+        <Link href="/app/VWJU7eJdIEYGmoyKW4rp">
+          <a
+            target="_blank"
+            className="inline-flex items-center text-white bg-gray-900 rounded-full px-4 py-2"
+          >
+            Back to the list
+            <ExternalLinkIcon className="h-5 w-5 ml-2" />
+          </a>
+        </Link>
       </div>
+      <Features />
       <WidgetFABExample />
     </DefaultLayout>
   );
 };
 
-export const getStaticProps = async () => {
-  const { users } = await getAllUsers();
-  return {
-    props: {
-      users: users || null,
-    },
-  };
-};
+// export const getStaticProps = async () => {
+//   const { users } = await getAllUsers();
+//   return {
+//     props: {
+//       users: users || null,
+//     },
+//   };
+// };
 
 export default Home;
