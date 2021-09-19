@@ -1,4 +1,4 @@
-import { DuplicateIcon } from "@heroicons/react/solid";
+import { ArrowLeftIcon, DuplicateIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
 import useSWR, { mutate } from "swr";
@@ -10,18 +10,21 @@ import { useAuth } from "../../../lib/auth";
 import { updateFeedback } from "../../../lib/db";
 import { Feedback, FeedbackType, Project, WithId } from "../../../types";
 import fetcher from "../../../utils/fetcher";
+import Link from "../../../components/ui/Link";
 
 const ProjectPage = () => {
   const [type, setType] = useState<FeedbackType>(FeedbackType.All);
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const { projectId } = router.query;
   const { data: projectData } = useSWR<{ project: WithId<Project> }>(
-    user && projectId ? [`/api/project/${projectId}`, user.token] : null,
+    !loading && projectId ? [`/api/project/${projectId}`, user?.token] : null,
     fetcher
   );
+
+  // fetch data after loading (even though user might be unauthentificated)
   const { data } = useSWR<{ feedbacks: WithId<Feedback>[] }>(
-    projectId ? `/api/feedback/${projectId}` : null,
+    !loading && projectId ? [`/api/feedback/${projectId}`, user?.token] : null,
     fetcher
   );
 
@@ -48,6 +51,7 @@ const ProjectPage = () => {
     },
     [projectId]
   );
+
   return (
     <DefaultLayout>
       <Heading className="text-center">{projectData?.project.name}</Heading>
@@ -60,7 +64,7 @@ const ProjectPage = () => {
         </span>
       </p>
       <div className="grid grid-cols-4 gap-6 mt-12">
-        <div className="col-span-4 md:col-span-1">
+        <div className="col-span-4 md:col-span-1 self-start md:sticky md:top-20 space-y-4 md:space-y-8">
           <Filter
             types={[
               {
@@ -81,6 +85,10 @@ const ProjectPage = () => {
             value={type}
             onChange={setType}
           />
+          <Link href="/app" className="inline-flex items-center text-sm">
+            <ArrowLeftIcon className="h-3 w-3 mr-2" />
+            Back to the list
+          </Link>
         </div>
         <div className="space-y-6 col-span-4 md:col-span-3">
           {data?.feedbacks

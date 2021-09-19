@@ -22,6 +22,7 @@ const App: FC = () => {
     const newSite = {
       authorId: user!.uid,
       name: `Project #${data?.projects ? data.projects.length + 1 : 1}`,
+      private: true,
     };
     try {
       await createProject(newSite);
@@ -33,7 +34,7 @@ const App: FC = () => {
 
   return (
     <DefaultLayout>
-      <Heading>App</Heading>
+      <Heading as="h2">Dashboard</Heading>
       {user && (
         <div className="space-y-6 mt-6">
           {data?.projects ? (
