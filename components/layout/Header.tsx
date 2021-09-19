@@ -1,11 +1,10 @@
-import { Switch } from "@headlessui/react";
 import { FastForwardIcon } from "@heroicons/react/solid";
-import cn from "classnames";
 import { useTheme } from "next-themes";
 import React, { FC, useEffect, useState } from "react";
 import { useAuth } from "../../lib/auth";
 import Link from "../ui/Link";
 import NextLink from "next/link";
+import Switch from "../ui/Switch";
 
 const Header: FC = () => {
   const auth = useAuth();
@@ -40,25 +39,8 @@ const Header: FC = () => {
             <Switch
               checked={isDarkMode}
               onChange={() => setTheme(isDarkMode ? "light" : "dark")}
-              className={cn(
-                "relative inline-flex items-center h-6 rounded-full w-11",
-                {
-                  "bg-indigo-600": isDarkMode,
-                  "bg-gray-200": !isDarkMode,
-                }
-              )}
-            >
-              <span className="sr-only">Enable Dark Mode</span>
-              <span
-                className={cn(
-                  "inline-block w-4 h-4 transform bg-white rounded-full",
-                  {
-                    "translate-x-6": isDarkMode,
-                    "translate-x-1": !isDarkMode,
-                  }
-                )}
-              />
-            </Switch>
+              label="Enable Dark Mode"
+            />
           </div>
         </div>
       </div>
