@@ -30,6 +30,7 @@ export type Post = {
 
 export type Project = {
   authorId: string;
+  private: boolean;
   name: string;
 };
 
