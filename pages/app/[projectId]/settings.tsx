@@ -11,8 +11,10 @@ import fetcher from "../../../utils/fetcher";
 import Input from "../../../components/ui/Input";
 import Badge from "../../../components/ui/Badge";
 import Image from "next/image";
+import Switch from "../../../components/ui/Switch";
 
 const Settings = () => {
+  const [publically, setPublically] = useState(true);
   const [name, setName] = useState("");
   const router = useRouter();
   const { user } = useAuth();
@@ -57,7 +59,10 @@ const Settings = () => {
     <DefaultLayout>
       <Heading as="h2">Settings</Heading>
       <div className="space-y-8 mt-8">
-        <form className="border rounded-md" onSubmit={handleUpdate}>
+        <form
+          className="border rounded-md overflow-hidden"
+          onSubmit={handleUpdate}
+        >
           <div className="p-5 space-y-1">
             <h2 className="text-lg leading-6 font-medium">Project settings</h2>
             <p className="text-sm text-gray-500">
@@ -71,7 +76,7 @@ const Settings = () => {
               onChange={(event) => setName(event.target.value)}
             />
           </div>
-          <div className="py-3 px-5 bg-gray-50 border-t text-right">
+          <div className="py-3 px-5 bg-gray-50 dark:bg-gray-900 border-t text-right">
             <Button
               type="submit"
               disabled={data?.project.name === name}
@@ -82,9 +87,11 @@ const Settings = () => {
           </div>
         </form>
         {/* TODO: Missing functionality */}
-        <div className="border rounded-md">
+        <div className="border rounded-md overflow-hidden">
           <div className="p-5 space-y-1">
-            <h2 className="text-lg leading-6 font-medium">Team settings</h2>
+            <h2 className="text-lg leading-6 font-medium">
+              Team settings (alpha)
+            </h2>
             <p className="text-sm text-gray-500">
               Add team members to access the project.
             </p>
@@ -102,7 +109,7 @@ const Settings = () => {
               </div>
             </div>
           </div>
-          <div className="py-3 px-5 bg-gray-50 border-t flex justify-between items-end">
+          <div className="py-3 px-5 bg-gray-50 dark:bg-gray-900 border-t flex justify-between items-end">
             <Input
               label="Email"
               name="email"
@@ -113,7 +120,29 @@ const Settings = () => {
             <Button reverse>Save</Button>
           </div>
         </div>
-        <div className="border rounded-md border-red-500">
+        <div className="border rounded-md border-indigo-500 dark:bg-gray-900">
+          <div className="py-3 px-5 flex justify-between items-center">
+            <div>
+              <h2 className="text-lg leading-6 font-medium">
+                Project Accessibility (alpha)
+              </h2>
+              <p className="text-sm text-gray-500">
+                Your project is currently set to:{" "}
+                <span className="font-medium text-gray-900 dark:text-white">
+                  {publically
+                    ? "public (everyone with the link can access it)"
+                    : "private (only member have access)"}
+                </span>
+              </p>
+            </div>
+            <Switch
+              checked={publically}
+              onChange={() => setPublically((prev) => !prev)}
+              label="Enable public project"
+            />
+          </div>
+        </div>
+        <div className="border rounded-md border-red-500 dark:bg-gray-900">
           <div className="py-3 px-5 flex justify-between items-center">
             <div>
               <h2 className="text-lg leading-6 font-medium">Delete Project</h2>
