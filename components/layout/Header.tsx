@@ -17,7 +17,7 @@ const Header: FC = () => {
 
   const isDarkMode = mounted && resolvedTheme === "dark";
   return (
-    <header className="sticky top-0 z-20 w-full bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg">
+    <header className="sticky top-0 z-20 w-full bg-white dark:bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-lg">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-5xl xl:px-0">
         <div className="h-16 flex justify-between items-center">
           <NextLink href="/">
