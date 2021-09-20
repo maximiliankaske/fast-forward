@@ -1,10 +1,10 @@
 import { ArrowLeftIcon, DuplicateIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import Card from "../../../components/feedback/Card";
 import Filter from "../../../components/feedback/Filter";
-import DefaultLayout from "../../../components/layout/DefaultLayout";
+import DefaultUserLayout from "../../../components/layout/DefaultUserLayout";
 import Heading from "../../../components/ui/Heading";
 import { useAuth } from "../../../lib/auth";
 import { updateFeedback } from "../../../lib/db";
@@ -54,7 +54,7 @@ const ProjectPage = () => {
   );
 
   return (
-    <DefaultLayout>
+    <DefaultUserLayout>
       <Heading className="text-center">{projectData?.project.name}</Heading>
       <p className="text-gray-500 text-center my-6">
         <span className="inline-flex items-center">
@@ -112,7 +112,7 @@ const ProjectPage = () => {
             ))}
         </div>
       </div>
-    </DefaultLayout>
+    </DefaultUserLayout>
   );
 };
 

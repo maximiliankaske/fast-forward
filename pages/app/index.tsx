@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import useSWR from "swr";
 import EmptyState from "../../components/app/EmptyState";
 import Thumbnail from "../../components/app/Thumbnail";
-import DefaultLayout from "../../components/layout/DefaultLayout";
+import DefaultUserLayout from "../../components/layout/DefaultUserLayout";
 import Button from "../../components/ui/Button";
 import Heading from "../../components/ui/Heading";
 import { useAuth } from "../../lib/auth";
@@ -33,7 +33,7 @@ const App: FC = () => {
   };
 
   return (
-    <DefaultLayout>
+    <DefaultUserLayout>
       <Heading as="h2">Dashboard</Heading>
       {user && (
         <div className="space-y-6 mt-6">
@@ -58,7 +58,7 @@ const App: FC = () => {
           )}
         </div>
       )}
-    </DefaultLayout>
+    </DefaultUserLayout>
   );
 };
 

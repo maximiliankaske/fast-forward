@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState, FormEvent } from "react";
-import useSWR, { mutate } from "swr";
-import DefaultLayout from "../../../components/layout/DefaultLayout";
+import useSWR from "swr";
+import DefaultUserLayout from "../../../components/layout/DefaultUserLayout";
 import Heading from "../../../components/ui/Heading";
 import { useAuth } from "../../../lib/auth";
 import { deleteProject, updateProject } from "../../../lib/db";
@@ -71,7 +71,7 @@ const Settings = () => {
   }, [router, data]);
 
   return (
-    <DefaultLayout>
+    <DefaultUserLayout>
       <Heading as="h2">Settings</Heading>
       <Link href="/app" className="inline-flex items-center text-sm mt-4 mb-8">
         <ArrowLeftIcon className="h-3 w-3 mr-2" />
@@ -179,7 +179,7 @@ const Settings = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </DefaultUserLayout>
   );
 };
 
