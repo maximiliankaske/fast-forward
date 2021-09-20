@@ -26,7 +26,7 @@ const features = [
   },
   {
     name: "Screenshots",
-    backgroundColor: "bg-yellow-500",
+    backgroundColor: "bg-pink-500",
     description: faker.lorem.paragraph(),
     icon: CameraIcon,
   },

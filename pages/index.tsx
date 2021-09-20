@@ -9,6 +9,7 @@ import feedbackConfig from "../fast-feedback.json";
 import Link from "next/link";
 import React from "react";
 import { ExternalLinkIcon } from "@heroicons/react/solid";
+import Newsletter from "../components/landing/Newsletter";
 
 const Home = () => {
   const auth = useAuth();
@@ -62,7 +63,10 @@ const Home = () => {
           </a>
         </Link>
       </div>
-      <Features />
+      <div className="space-y-10">
+        <Features />
+        <Newsletter />
+      </div>
       <WidgetFABExample />
     </DefaultLayout>
   );
