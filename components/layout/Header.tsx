@@ -1,4 +1,4 @@
-import { FastForwardIcon } from "@heroicons/react/solid";
+import { FastForwardIcon, MoonIcon, SunIcon } from "@heroicons/react/solid";
 import { useTheme } from "next-themes";
 import React, { FC, useEffect, useState } from "react";
 import { useAuth } from "../../lib/auth";
@@ -25,7 +25,7 @@ const Header: FC = () => {
               fast-forward
             </a>
           </NextLink>
-          <div className="space-x-4">
+          <div className="space-x-4 flex items-center">
             <Link href="/docs">Docs</Link>
             <Link href="/blog">Blog</Link>
             {auth.user ? (
@@ -36,11 +36,16 @@ const Header: FC = () => {
             ) : (
               <Link href="/login">Login</Link>
             )}
-            <Switch
-              checked={isDarkMode}
-              onChange={() => setTheme(isDarkMode ? "light" : "dark")}
-              label="Enable Dark Mode"
-            />
+            <button
+              className="p-2 rounded-md bg-gray-50 hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={() => setTheme(isDarkMode ? "light" : "dark")}
+            >
+              {isDarkMode ? (
+                <SunIcon className="h-5 w-5" />
+              ) : (
+                <MoonIcon className="h-5 w-5" />
+              )}
+            </button>
           </div>
         </div>
       </div>

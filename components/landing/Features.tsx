@@ -50,7 +50,7 @@ const Features = () => {
               {feature.name}
             </p>
           </dt>
-          <dd className="mt-2 text-base text-gray-500">
+          <dd className="mt-2 text-base text-gray-600 dark:text-gray-400">
             {feature.description}
           </dd>
         </div>

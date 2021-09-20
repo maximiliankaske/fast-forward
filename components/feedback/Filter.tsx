@@ -1,6 +1,8 @@
 import React from "react";
 import cn from "classnames";
 import { FeedbackType } from "../../types";
+import Badge from "../ui/Badge";
+import { getBadgeColor } from "../../utils/feedback";
 
 interface Props {
   types: {
@@ -22,22 +24,18 @@ const Filter = ({ types, value, onChange }: Props) => {
               className={cn(
                 "group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
                 active
-                  ? "bg-gray-100 text-gray-900"
-                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                  ? "bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-white"
               )}
               onClick={() => onChange(item.name)}
             >
               <span className="truncate capitalize">{item.name}</span>
-              <span
-                className={cn(
-                  "ml-auto inline-block py-0.5 px-3 text-xs rounded-full",
-                  active
-                    ? "bg-white"
-                    : "bg-gray-100 text-gray-500 group-hover:bg-gray-200"
-                )}
+              <Badge
+                className="ml-auto inline-block"
+                color={getBadgeColor(item.name)}
               >
                 {item.count || 0}
-              </span>
+              </Badge>
             </button>
           </li>
         );

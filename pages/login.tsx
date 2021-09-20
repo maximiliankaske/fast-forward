@@ -12,8 +12,17 @@ const Login = () => {
   const router = useRouter();
   return (
     <DefaultLayout>
-      <div className="my-16 space-y-6 text-center">
+      <div className="mx-auto max-w-xl my-16 space-y-6 text-center">
         <Heading as="h2">Login Options</Heading>
+        <div className="text-gray-600 dark:text-gray-400 space-y-4">
+          <p>
+            Lets be serious, why would you want to create a new account with
+            email and password just to let either your password manager handle
+            it or to forget the credentials after the logout. Let the providers
+            to their work!
+          </p>
+          <p className="font-medium">Choose yours:</p>
+        </div>
         <div>
           <Button
             onClick={() =>
