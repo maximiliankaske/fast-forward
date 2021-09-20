@@ -1,6 +1,5 @@
 import { ChevronLeftIcon } from "@heroicons/react/solid";
-import Image from "next/image";
-import Link from "next/link";
+import Link from "../ui/Link";
 import React, { FC } from "react";
 import type { Post } from "../../types";
 import Avatar from "../ui/Avatar";
@@ -16,7 +15,7 @@ interface Props {
 const LeftCol: FC<Props> = ({ post }) => {
   return (
     // self-start because in flexbox
-    <div className="mb-4 xl:sticky top-8 self-start hidden xl:block">
+    <div className="mb-4 xl:sticky top-20 self-start hidden xl:block">
       <Avatar
         imgSrc={post.authorPicture}
         name={post.authorName}
@@ -24,24 +23,7 @@ const LeftCol: FC<Props> = ({ post }) => {
         className="mt-4"
       />
       <Divider className="py-6" />
-      <p className="text-xs leading-5 tracking-wide uppercase text-gray-500">
-        Previous article
-      </p>
-      <Link href="/">
-        <a className="mb-4 flex items-center text-gray-500 hover:text-gray-600 dark:text-gray-200 dark:hover:text-gray-300">
-          Previous steps for OpenOxyen
-        </a>
-      </Link>
-      <p className="text-xs leading-5 tracking-wide uppercase text-gray-500">
-        Next article
-      </p>
-      <Link href="/">
-        <a className="flex items-center text-gray-500 hover:text-gray-600 dark:text-gray-200 dark:hover:text-gray-300">
-          Next steps for OpenOxyen
-        </a>
-      </Link>
-      <Divider className="py-6" />
-      <p className="text-xs leading-5 tracking-wide uppercase text-gray-500 pb-2">
+      <p className="text-xs leading-5 tracking-wide uppercase text-gray-600 dark:text-gray-400 pb-2">
         Defined Tags
       </p>
       <div className="w-full flex flex-wrap">
@@ -52,11 +34,9 @@ const LeftCol: FC<Props> = ({ post }) => {
         ))}
       </div>
       <Divider className="py-6" />
-      <Link href="/blog">
-        <a className="flex items-center text-gray-500 hover:text-gray-600 dark:text-gray-200 dark:hover:text-gray-300">
-          <ChevronLeftIcon className="h-4 w-4 mr-1" />
-          go back
-        </a>
+      <Link href="/blog" className="inline-flex items-center">
+        <ChevronLeftIcon className="h-4 w-4 mr-1" />
+        go back
       </Link>
     </div>
   );

@@ -1,8 +1,9 @@
 import { InferGetStaticPropsType } from "next";
 import React from "react";
 import Thumbnail from "../../components/blog/Thumbnail";
-import TimelinePath from "../../components/blog/TimelinePath";
 import DefaultLayout from "../../components/layout/DefaultLayout";
+import Divider from "../../components/ui/Divider";
+import Heading from "../../components/ui/Heading";
 import { getAllPosts } from "../../lib/api";
 
 const AllPosts = ({
@@ -10,18 +11,14 @@ const AllPosts = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <DefaultLayout>
-      <ul>
-        {posts.map((post, idx) => (
-          <li key={post.slug} className="p-5 overflow-hidden">
-            <div className="flex group">
-              <TimelinePath
-                first={idx === 0}
-                className="group-hover:text-indigo-500"
-              />
-              <div className="ml-4">
-                <Thumbnail post={post} />
-              </div>
-            </div>
+      <Heading>Blog</Heading>
+      <p className="text-gray-600 dark:text-gray-400 mb-10">
+        All the latest Fast Forward news, straight from the team.
+      </p>
+      <ul className="space-y-6">
+        {posts.map((post) => (
+          <li key={post.slug}>
+            <Thumbnail post={post} />
           </li>
         ))}
       </ul>
