@@ -32,7 +32,7 @@ const Input = ({
           id={name}
           name={name}
           className={cn(
-            "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900",
+            "shadow-sm focus:ring-indigo-500 focus:outline-none focus:ring-offset-2 focus:ring-2 focus:border-gray-300 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900",
             className
           )}
           {...props}

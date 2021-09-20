@@ -20,7 +20,7 @@ const Filter = ({ types, value, onChange }: Props) => {
           <li key={item.name} className="last:border-t last:pt-1">
             <button
               className={cn(
-                "group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md",
+                "group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
                 active
                   ? "bg-gray-100 text-gray-900"
                   : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"

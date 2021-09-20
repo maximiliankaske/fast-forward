@@ -68,7 +68,12 @@ const Card = ({ feedback, handleArchive }: Props) => {
             {feedback.archived ? "Unarchive" : "Archive"}
           </Button>
           {feedback.userId && (
-            <a href={`mailto:${feedback.userId}`}>Reply with Mail</a>
+            <a
+              href={`mailto:${feedback.userId}`}
+              className="rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Reply with Mail
+            </a>
           )}
         </div>
       </div>

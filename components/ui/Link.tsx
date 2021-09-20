@@ -9,7 +9,12 @@ interface Props extends LinkProps {
 const Link: FC<Props> = ({ children, className, ...props }) => {
   return (
     <NextLink {...props}>
-      <a className={cn(className, "hover:underline hover:text-indigo-500")}>
+      <a
+        className={cn(
+          className,
+          "hover:underline hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:rounded"
+        )}
+      >
         {children}
       </a>
     </NextLink>
