@@ -80,7 +80,7 @@ const ProjectPage = () => {
               },
               { name: FeedbackType.Archive, count: getArchiveLength() },
             ]}
-            value={type}
+            activeType={type}
             onChange={setType}
           />
           <Link href="/app" className="inline-flex items-center text-sm">

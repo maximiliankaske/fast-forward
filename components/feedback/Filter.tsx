@@ -4,20 +4,20 @@ import { FeedbackType } from "../../types";
 import Badge from "../ui/Badge";
 import { getBadgeColor } from "../../utils/feedback";
 
-interface Props {
+interface Props<T = FeedbackType> {
   types: {
-    name: FeedbackType;
+    name: T;
     count?: number;
   }[];
-  value: FeedbackType;
-  onChange: (type: FeedbackType) => void;
+  activeType: T;
+  onChange: (type: T) => void;
 }
 
-const Filter = ({ types, value, onChange }: Props) => {
+const Filter = ({ types, activeType, onChange }: Props) => {
   return (
     <ul className="space-y-1">
       {types.map((item) => {
-        const active = value === item.name;
+        const active = activeType === item.name;
         return (
           <li key={item.name} className="last:border-t last:pt-1">
             <button
