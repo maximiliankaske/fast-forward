@@ -1,5 +1,7 @@
 // TODO: discuss `authorId => userId` change
 import firebase from "firebase/app";
+import { Describe } from "superstruct";
+import { FeedbackType } from "./superstruct";
 
 export type User = {
   uid: string;
@@ -47,12 +49,9 @@ export type Feedback = {
   metadata?: Record<string, string | number>;
 };
 
-export enum FeedbackType {
-  All = "all",
-  Issue = "issue",
-  Idea = "idea",
-  Other = "other",
-  Archive = "archive",
-}
+export type FeedbackType = "all" | "issue" | "idea" | "other" | "archive";
+
+// Check if superstruct object equals type
+const type: Describe<FeedbackType> = FeedbackType;
 
 export type WithId<T> = T & { id: string };

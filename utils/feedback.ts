@@ -2,13 +2,13 @@ import { FeedbackType } from "../types";
 
 function getBadgeColor(type: FeedbackType) {
   switch (type) {
-    case FeedbackType.All:
+    case "all":
       return "red";
-    case FeedbackType.Idea:
+    case "idea":
       return "green";
-    case FeedbackType.Issue:
+    case "issue":
       return "purple";
-    case FeedbackType.Other:
+    case "other":
       return "blue";
     default:
       return "gray";

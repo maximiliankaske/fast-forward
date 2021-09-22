@@ -14,7 +14,7 @@ import Link from "../../../components/ui/Link";
 import { feedbackErrorToast } from "../../../utils/toasts";
 
 const ProjectPage = () => {
-  const [type, setType] = useState<FeedbackType>(FeedbackType.All);
+  const [type, setType] = useState<FeedbackType>("all");
   const router = useRouter();
   const { user, loading } = useAuth();
   const { projectId } = router.query;
@@ -66,19 +66,19 @@ const ProjectPage = () => {
           <Filter
             types={[
               {
-                name: FeedbackType.All,
+                name: "all",
                 count: getArchiveLength(false),
               },
               {
-                name: FeedbackType.Issue,
-                count: getLength(FeedbackType.Issue),
+                name: "issue",
+                count: getLength("issue"),
               },
-              { name: FeedbackType.Idea, count: getLength(FeedbackType.Idea) },
+              { name: "idea", count: getLength("idea") },
               {
-                name: FeedbackType.Other,
-                count: getLength(FeedbackType.Other),
+                name: "other",
+                count: getLength("other"),
               },
-              { name: FeedbackType.Archive, count: getArchiveLength() },
+              { name: "archive", count: getArchiveLength() },
             ]}
             activeType={type}
             onChange={setType}
@@ -91,9 +91,9 @@ const ProjectPage = () => {
         <div className="space-y-6 col-span-4 md:col-span-3">
           {data?.feedbacks
             .filter((f) =>
-              type === FeedbackType.Archive
+              type === "archive"
                 ? f.archived
-                : !f.archived && (type === FeedbackType.All || f.type === type)
+                : !f.archived && (type === "all" || f.type === type)
             )
             .map((feedback) => (
               <Card
