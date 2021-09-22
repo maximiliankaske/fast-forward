@@ -1,4 +1,5 @@
 import { db } from "./firebase-admin";
+import * as admin from "firebase-admin";
 import type { User, Site, WithId, Project, Feedback } from "../types";
 
 export async function getAllUsers() {
@@ -49,6 +50,16 @@ export async function getProject(uid: string) {
   return {
     project: { id: project.id, ...(project.data() as Project) },
   };
+}
+
+// Widget API - create feedback
+export async function createFeedback(data: Omit<Feedback, "createdAt">) {
+  const feedback = await db
+    .collection("projects")
+    .doc(data.projectId)
+    .collection("feedbacks")
+    .add({ ...data, createdAt: admin.firestore.Timestamp.now() });
+  return { feedback: { id: feedback.id } };
 }
 
 export async function getProjectFeedback(id: string) {

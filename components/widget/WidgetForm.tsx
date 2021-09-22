@@ -1,7 +1,5 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useCallback, useRef, useState } from "react";
 import Button from "../ui/Button";
-import firebase from "firebase/app";
-import { createFeedback } from "../../lib/db";
 import Radios from "../ui/Radios";
 import { FeedbackType } from "../../types";
 import Thumbnail from "./Thumbnail";
@@ -15,35 +13,42 @@ const WidgetForm = ({
   lang: defaultLang,
   metadata,
 }: WidgetProps) => {
+  const formRef = useRef<HTMLFormElement>(null);
   const [screenshotURL, setScreenshotURL] = useState<string>();
   const [text, setText] = useState<string>("");
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleReset = useCallback(() => {
+    formRef.current?.reset();
+    setText("");
+    setScreenshotURL(undefined);
+  }, []);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as typeof event.target & {
       text: { value: string };
       type: { value: FeedbackType };
     };
     try {
-      const baseFeedback = {
-        text: target.text.value,
-        type: target.type.value,
-        projectId,
-        createdAt: firebase.firestore.Timestamp.now(),
-        userAgent: window.navigator.userAgent,
-        location: window.document.location.href,
-      };
-      createFeedback({
-        ...baseFeedback,
-        // Append to Object only if !undefined
-        ...(screenshotURL && { screenshotURL }),
-        ...(userId && { userId }),
-        ...(metadata && { metadata }),
+      await fetch("/api/feedback", {
+        method: "POST",
+        headers: new Headers({ "Content-Type": "application/json" }),
+        body: JSON.stringify({
+          text: target.text.value,
+          type: target.type.value,
+          projectId,
+          userAgent: window.navigator.userAgent,
+          location: window.document.location.href,
+          metadata,
+          userId,
+          screenshotURL,
+          // Append to Object only if !undefined
+          // ...(screenshotURL && { screenshotURL }),
+          // ...(userId && { userId }),
+          // ...(metadata && { metadata }),
+        }),
       });
-      // Resets only the type, as the text is opinionated through a state
-      event.currentTarget.reset();
-      setText("");
-      setScreenshotURL(undefined);
+      handleReset();
     } catch {
       throw new Error("create Project failed");
     }
@@ -54,7 +59,7 @@ const WidgetForm = ({
   );
 
   return (
-    <form onSubmit={onSubmit} className="space-y-3">
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
       <Radios
         label={messages.type.label}
         name="type"
