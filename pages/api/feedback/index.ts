@@ -8,12 +8,13 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
     console.log("body", req.body);
     const [error, feedback] = validate(req.body, Feedback);
     console.log(feedback, error);
-    if (feedback) {
-      const { feedback: f } = await createFeedback(feedback);
-      return res.status(200).json({ ...f });
-    } else {
-      return res.status(422).json({ error });
-    }
+    // if (feedback) {
+    //   const { feedback: f } = await createFeedback(feedback);
+    //   return res.status(200).json({ ...f });
+    // } else {
+    //   return res.status(422).json({ error });
+    // }
+    return res.status(200).json({});
   } catch (error) {
     return res.status(500).json({ error });
   }
