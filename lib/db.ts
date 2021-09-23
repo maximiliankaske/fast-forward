@@ -44,6 +44,19 @@ export function deleteProject(id: string) {
   return firebase.firestore().collection("projects").doc(id).delete();
 }
 
+export function resetProject(id: string) {
+  const ref = firebase
+    .firestore()
+    .collection("projects")
+    .doc(id)
+    .collection("feedbacks");
+  return ref.onSnapshot((snapshot) => {
+    snapshot.docs.forEach((doc) => {
+      ref.doc(doc.id).delete();
+    });
+  });
+}
+
 export function updateProject(id: string, data: Partial<Project>) {
   return firebase.firestore().collection("projects").doc(id).update(data);
 }

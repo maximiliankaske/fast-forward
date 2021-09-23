@@ -4,10 +4,10 @@ import useSWR from "swr";
 import DefaultUserLayout from "../../../components/layout/DefaultUserLayout";
 import Heading from "../../../components/ui/Heading";
 import { useAuth } from "../../../lib/auth";
-import { deleteProject, updateProject } from "../../../lib/db";
+import { deleteProject, updateProject, resetProject } from "../../../lib/db";
 import { Project, WithId } from "../../../types";
 import fetcher from "../../../utils/fetcher";
-import { feedbackErrorToast } from "../../../utils/toasts";
+import { feedbackErrorToast, feedbackResetToast } from "../../../utils/toasts";
 import Link from "../../../components/ui/Link";
 import Input from "../../../components/ui/Input";
 import Button from "../../../components/ui/Button";
@@ -70,6 +70,11 @@ const Settings = () => {
     }
   }, [router, data]);
 
+  const handleReset = useCallback(() => {
+    resetProject(data!.project.id);
+    feedbackResetToast();
+  }, [data]);
+
   return (
     <DefaultUserLayout>
       <Heading as="h2">Settings</Heading>
@@ -84,7 +89,7 @@ const Settings = () => {
         >
           <div className="p-5 space-y-1">
             <h2 className="text-lg leading-6 font-medium">Project settings</h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               Update your billing information. Please note that updating your
               location could affect your tax rates.
             </p>
@@ -111,7 +116,7 @@ const Settings = () => {
             <h2 className="text-lg leading-6 font-medium">
               Team settings (alpha)
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               Add team members to access the project.
             </p>
             <div>
@@ -145,7 +150,7 @@ const Settings = () => {
               <h2 className="text-lg leading-6 font-medium">
                 Project Accessibility
               </h2>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Your project is currently set to:{" "}
                 <span className="font-medium text-gray-900 dark:text-white">
                   {publically
@@ -161,19 +166,26 @@ const Settings = () => {
             />
           </div>
         </div>
-        <div className="border rounded-md border-red-500 dark:bg-gray-900">
-          <div className="py-3 px-5 flex justify-between items-center">
+        <div className="border rounded-md border-red-500 dark:bg-gray-900 py-3 px-5 divide-y space-y-3">
+          <div className="flex justify-between items-center">
+            <div>
+              <h2 className="text-lg leading-6 font-medium">Reset Project</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Removes all feedbacks but keeps the configuration.
+              </p>
+            </div>
+            <Button onClick={handleReset} deconstruct>
+              Reset
+            </Button>
+          </div>
+          <div className="flex justify-between items-center pt-3">
             <div>
               <h2 className="text-lg leading-6 font-medium">Delete Project</h2>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Please note that this is not reversable. Be certain.
               </p>
             </div>
-            <Button
-              onClick={handleDelete}
-              className="bg-red-500 hover:bg-red-600"
-              reverse
-            >
+            <Button onClick={handleDelete} deconstruct reverse>
               Delete
             </Button>
           </div>
