@@ -9,6 +9,7 @@ import { usePopper } from "react-popper";
 export interface WidgetProps
   extends Pick<Feedback, "userId" | "projectId" | "metadata"> {
   lang?: LanguageCode;
+  domain?: string;
 }
 
 const Widget: FC<WidgetProps> = ({ children, ...props }) => {
