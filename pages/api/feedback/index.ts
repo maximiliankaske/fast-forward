@@ -16,6 +16,9 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
         } else {
           return res.status(422).json({ error });
         }
+      case "OPTIONS": {
+        return res.status(204).end();
+      }
       default:
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
