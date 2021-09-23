@@ -4,6 +4,7 @@ import { createFeedback } from "../../../lib/db-admin";
 import { Feedback } from "../../../types/superstruct";
 
 const handle = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log(req, res);
   try {
     const [error, feedback] = validate(req.body, Feedback);
     if (feedback) {
