@@ -7,7 +7,6 @@ import { useAuth } from "../../../lib/auth";
 import { deleteProject, updateProject, resetProject } from "../../../lib/db";
 import { Project, WithId } from "../../../types";
 import fetcher from "../../../utils/fetcher";
-import { feedbackErrorToast, feedbackResetToast } from "../../../utils/toasts";
 import Link from "../../../components/ui/Link";
 import Input from "../../../components/ui/Input";
 import Button from "../../../components/ui/Button";
@@ -15,6 +14,7 @@ import Badge from "../../../components/ui/Badge";
 import Switch from "../../../components/ui/Switch";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import Image from "next/image";
+import toasts from "../../../utils/toast";
 
 const Settings = () => {
   const [publically, setPublically] = useState(true);
@@ -39,11 +39,10 @@ const Settings = () => {
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       try {
-        // FIXME: make sure that the page is accessed only if data exist
-        await updateProject(data!.project.id, { name });
+        await toasts.promise(updateProject(data!.project.id, { name }));
         mutate();
       } catch {
-        feedbackErrorToast();
+        console.warn("Something went wrong");
       }
     },
     [mutate, data, name]
@@ -51,12 +50,14 @@ const Settings = () => {
 
   const handleUpdateAccessibility = useCallback(async () => {
     try {
-      await updateProject(data!.project.id, {
-        private: publically,
-      });
+      await toasts.promise(
+        updateProject(data!.project.id, {
+          private: publically,
+        })
+      );
       mutate();
     } catch {
-      feedbackErrorToast();
+      console.warn("Something went wrong");
     }
   }, [publically, data, mutate]);
 
@@ -66,13 +67,13 @@ const Settings = () => {
       await deleteProject(data!.project.id);
       router.replace("/app");
     } catch {
-      feedbackErrorToast();
+      console.warn("Something went wrong");
     }
   }, [router, data]);
 
   const handleReset = useCallback(() => {
     resetProject(data!.project.id);
-    feedbackResetToast();
+    toasts.success();
   }, [data]);
 
   return (

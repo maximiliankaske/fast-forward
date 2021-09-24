@@ -10,6 +10,7 @@ import { useAuth } from "../../lib/auth";
 import { createProject } from "../../lib/db";
 import { Project, WithId } from "../../types";
 import fetcher from "../../utils/fetcher";
+import toasts from "../../utils/toast";
 
 const App: FC = () => {
   const { user } = useAuth();
@@ -25,10 +26,10 @@ const App: FC = () => {
       private: true,
     };
     try {
-      await createProject(newSite);
+      await toasts.promise(createProject(newSite));
       mutate();
     } catch {
-      throw new Error("create Project failed");
+      console.warn("Something went wrong");
     }
   };
 

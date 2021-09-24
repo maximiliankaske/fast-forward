@@ -12,9 +12,9 @@ import Thumbnail from "./Thumbnail";
 import { WidgetProps } from "./Widget";
 import TextArea from "../ui/TextArea";
 import { formattedMessages } from "./translations";
-import { sendFeedbackPromiseToast } from "../../utils/toasts";
 import LoadingIcon from "../icon/Loading";
 import { CheckIcon } from "@heroicons/react/solid";
+import toasts from "../../utils/toast";
 
 const WidgetForm = ({
   userId,
@@ -52,7 +52,7 @@ const WidgetForm = ({
     };
     try {
       // REMINDER: remove sendFeedbackPromiseToast later
-      await sendFeedbackPromiseToast(
+      await toasts.promise(
         fetch(`${domain || ""}/api/feedback`, {
           method: "POST",
           headers: new Headers({

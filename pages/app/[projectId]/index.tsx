@@ -11,7 +11,7 @@ import { updateFeedback } from "../../../lib/db";
 import { Feedback, FeedbackType, Project, WithId } from "../../../types";
 import fetcher from "../../../utils/fetcher";
 import Link from "../../../components/ui/Link";
-import { feedbackErrorToast } from "../../../utils/toasts";
+import toasts from "../../../utils/toast";
 
 const ProjectPage = () => {
   const [type, setType] = useState<FeedbackType>("all");
@@ -44,10 +44,10 @@ const ProjectPage = () => {
   const handleArchive = useCallback(
     async (id: string, data: Partial<Feedback> & { projectId: string }) => {
       try {
-        await updateFeedback(id, data);
+        await toasts.promise(updateFeedback(id, data));
         mutate();
       } catch {
-        feedbackErrorToast();
+        console.warn("Probably unsufficient authorization");
       }
     },
     [mutate]
