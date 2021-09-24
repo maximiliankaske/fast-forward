@@ -3,7 +3,8 @@ import React, { FC } from "react";
 import useSWR from "swr";
 import EmptyState from "../../components/app/EmptyState";
 import Thumbnail from "../../components/app/Thumbnail";
-import DefaultUserLayout from "../../components/layout/DefaultUserLayout";
+import type { ComponentWithAuth } from "../../components/auth/Auth";
+import DefaultLayout from "../../components/layout/DefaultLayout";
 import Button from "../../components/ui/Button";
 import Heading from "../../components/ui/Heading";
 import { useAuth } from "../../lib/auth";
@@ -12,7 +13,7 @@ import { Project, WithId } from "../../types";
 import fetcher from "../../utils/fetcher";
 import toasts from "../../utils/toast";
 
-const App: FC = () => {
+const App: ComponentWithAuth = () => {
   const { user } = useAuth();
   const { data, mutate } = useSWR<{ projects: WithId<Project>[] }>(
     user ? ["/api/projects", user.token] : null,
@@ -34,7 +35,7 @@ const App: FC = () => {
   };
 
   return (
-    <DefaultUserLayout>
+    <DefaultLayout>
       <Heading as="h2">Dashboard</Heading>
       {user && (
         <div className="space-y-6 mt-6">
@@ -59,8 +60,10 @@ const App: FC = () => {
           )}
         </div>
       )}
-    </DefaultUserLayout>
+    </DefaultLayout>
   );
 };
+
+App.auth = {};
 
 export default App;

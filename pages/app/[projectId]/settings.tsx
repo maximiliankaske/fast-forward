@@ -15,8 +15,9 @@ import Switch from "../../../components/ui/Switch";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import toasts from "../../../utils/toast";
+import { ComponentWithAuth } from "../../../components/auth/Auth";
 
-const Settings = () => {
+const Settings: ComponentWithAuth = () => {
   const [publically, setPublically] = useState(true);
   const [name, setName] = useState("");
   const router = useRouter();
@@ -195,5 +196,7 @@ const Settings = () => {
     </DefaultUserLayout>
   );
 };
+
+// Settings.auth = {};
 
 export default Settings;
