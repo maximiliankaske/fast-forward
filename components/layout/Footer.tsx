@@ -7,7 +7,7 @@ import Header from "./Header";
 
 const Footer: FC = () => {
   return (
-    <footer className="w-full max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+    <footer className="w-full max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-4xl xl:px-0">
       <div className="pt-8 pb-16 grid grid-cols-2 border-t">
         <div className="space-y-4">
           <div>
