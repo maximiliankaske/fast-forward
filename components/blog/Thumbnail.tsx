@@ -14,7 +14,7 @@ interface Props {
 
 const Thumbnail: FC<Props> = ({ post }) => {
   return (
-    <article className="rounded-md border hover:border-gray-300 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 px-6 py-4">
+    <article className="rounded-md border hover:border-gray-300 bg-gray-50 dark:bg-gray-900 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 px-6 py-4">
       <Link href={`/blog/${post.slug}`}>
         <a className="focus:outline-none">
           <div className="md:flex justify-between">

@@ -131,7 +131,7 @@ const Settings: ComponentWithAuth = () => {
                   </div>
                   <p className="truncate">{user?.email}</p>
                 </div>
-                <Badge>Member</Badge>
+                <Badge color="pink">Member</Badge>
               </div>
             </div>
           </div>
@@ -143,7 +143,9 @@ const Settings: ComponentWithAuth = () => {
               className="w-56 sm:w-72 text-sm"
               srOnly
             />
-            <Button reverse>Save</Button>
+            <Button reverse disabled>
+              Save
+            </Button>
           </div>
         </div>
         <div className="border rounded-md border-indigo-500 dark:bg-gray-900">

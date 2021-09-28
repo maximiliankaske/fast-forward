@@ -15,32 +15,50 @@ interface Props<T = FeedbackType> {
 
 const Filter = ({ types, activeType, onChange }: Props) => {
   return (
-    <ul className="space-y-1">
-      {types.map((item) => {
-        const active = activeType === item.name;
-        return (
-          <li key={item.name} className="last:border-t last:pt-1">
-            <button
-              className={cn(
-                "group w-full flex items-center px-3 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-                active
-                  ? "bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white"
-                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-white"
-              )}
-              onClick={() => onChange(item.name)}
-            >
-              <span className="truncate capitalize">{item.name}</span>
-              <Badge
-                className="ml-auto inline-block"
-                color={getBadgeColor(item.name)}
+    <div>
+      <div className="sm:hidden">
+        <label htmlFor="tabs" className="sr-only">
+          Select a feedback type
+        </label>
+        <select
+          id="tabs"
+          name="tabs"
+          className="block w-full pl-3 pr-10 py-2 text-base text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          defaultValue={activeType}
+          onChange={(event) => onChange(event.target.value as FeedbackType)}
+        >
+          {types.map(({ name }) => (
+            <option key={name} value={name}>
+              {name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="hidden sm:block">
+        <div className="border-b">
+          <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+            {types.map(({ name, count }) => (
+              <button
+                key={name}
+                className={cn(
+                  name === activeType
+                    ? "border-gray-700 dark:border-gray-200 text-gray-900 dark:text-white"
+                    : "border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300",
+                  "whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm focus:rounded-md focus:outline-none focus:ring-indigo-500  focus:ring-2 focus:ring-offset-2"
+                )}
+                onClick={() => onChange(name)}
               >
-                {item.count || 0}
-              </Badge>
-            </button>
-          </li>
-        );
-      })}
-    </ul>
+                {name}
+
+                <Badge color={getBadgeColor(name)} className="ml-3">
+                  {count || 0}
+                </Badge>
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
+    </div>
   );
 };
 

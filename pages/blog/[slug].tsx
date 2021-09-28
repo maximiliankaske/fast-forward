@@ -11,6 +11,7 @@ import PostLayout from "../../components/layout/PostLayout";
 import LeftCol from "../../components/post/LeftCol";
 import Divider from "../../components/ui/Divider";
 import BottomRow from "../../components/post/BottomRow";
+import WidgetFABExample from "../../components/widget/WidgetFABExample";
 
 const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
@@ -50,6 +51,7 @@ const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
           <BottomRow />
         </div>
       )}
+      <WidgetFABExample />
     </PostLayout>
   );
 };

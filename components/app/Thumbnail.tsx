@@ -3,12 +3,9 @@ import Link from "next/link";
 import { Project, WithId } from "../../types";
 import { CogIcon } from "@heroicons/react/outline";
 
-const Thumbnail = ({ id, name, authorId }: WithId<Project>) => {
+const Thumbnail = ({ id, name }: WithId<Project>) => {
   return (
-    <div className="relative rounded-lg border bg-white dark:bg-gray-900 px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-      <div className="flex-shrink-0">
-        <div className="h-10 w-10 bg-gray-100 rounded-full" />
-      </div>
+    <div className="relative rounded-lg border hover:border-gray-300 bg-gray-50 dark:bg-gray-900 px-6 py-5 shadow-sm flex items-center space-x-3 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
       <div className="flex-1 min-w-0">
         <Link href={`/app/${id}`}>
           <a className="flex-1 focus:outline-none">

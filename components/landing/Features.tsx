@@ -20,7 +20,7 @@ const features = [
   },
   {
     name: "Translation",
-    backgroundColor: "bg-green-500",
+    backgroundColor: "bg-yellow-400",
     description: faker.lorem.paragraph(),
     icon: GlobeAltIcon,
   },
