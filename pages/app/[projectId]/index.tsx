@@ -54,61 +54,55 @@ const ProjectPage = () => {
   );
 
   return (
-    <DefaultLayout>
+    <DefaultLayout className="space-y-6">
       <Heading className="text-center">{projectData?.project.name}</Heading>
-      <p className="text-gray-600 dark:text-gray-400 text-center my-6">
+      <p className="text-gray-600 dark:text-gray-400 text-center">
         <span className="inline-flex items-center">
           Project ID: {projectId}
         </span>
       </p>
-      <div className="grid grid-cols-4 gap-6 mt-12">
-        <div className="col-span-4 md:col-span-1 self-start md:sticky md:top-20 space-y-4 md:space-y-8">
-          <Filter
-            types={[
-              {
-                name: "all",
-                count: getArchiveLength(false),
-              },
-              {
-                name: "issue",
-                count: getLength("issue"),
-              },
-              { name: "idea", count: getLength("idea") },
-              {
-                name: "other",
-                count: getLength("other"),
-              },
-              { name: "archive", count: getArchiveLength() },
-            ]}
-            activeType={type}
-            onChange={setType}
+      <Link href="/app" className="inline-flex items-center text-sm">
+        <ArrowLeftIcon className="h-3 w-3 mr-2" />
+        Back to the list
+      </Link>
+      <Filter
+        types={[
+          {
+            name: "all",
+            count: getArchiveLength(false),
+          },
+          {
+            name: "issue",
+            count: getLength("issue"),
+          },
+          { name: "idea", count: getLength("idea") },
+          {
+            name: "other",
+            count: getLength("other"),
+          },
+          { name: "archive", count: getArchiveLength() },
+        ]}
+        activeType={type}
+        onChange={setType}
+      />
+      {data?.feedbacks
+        .filter((f) =>
+          type === "archive"
+            ? f.archived
+            : !f.archived && (type === "all" || f.type === type)
+        )
+        .map((feedback) => (
+          <Card
+            key={feedback.id}
+            feedback={feedback}
+            handleArchive={() =>
+              handleArchive(feedback.id, {
+                projectId: feedback.projectId,
+                archived: !feedback.archived,
+              })
+            }
           />
-          <Link href="/app" className="inline-flex items-center text-sm">
-            <ArrowLeftIcon className="h-3 w-3 mr-2" />
-            Back to the list
-          </Link>
-        </div>
-        <div className="space-y-6 col-span-4 md:col-span-3">
-          {data?.feedbacks
-            .filter((f) =>
-              type === "archive"
-                ? f.archived
-                : !f.archived && (type === "all" || f.type === type)
-            )
-            .map((feedback) => (
-              <Card
-                key={feedback.id}
-                feedback={feedback}
-                handleArchive={() =>
-                  handleArchive(feedback.id, {
-                    projectId: feedback.projectId,
-                    archived: !feedback.archived,
-                  })
-                }
-              />
-            ))}
-        </div>
-      </div>
+        ))}
     </DefaultLayout>
   );
 };

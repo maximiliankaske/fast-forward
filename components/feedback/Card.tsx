@@ -18,7 +18,7 @@ const Card = ({ feedback, handleArchive }: Props) => {
   const ua = parser(feedback.userAgent);
 
   return (
-    <div className="border rounded-md shadow-box overflow-hidden">
+    <div className="border rounded-md shadow-box overflow-hidden bg-gray-50 dark:bg-gray-900">
       <div className="p-6 space-y-3">
         <div className="flex items-center justify-between">
           <Badge className="capitalize" color={getBadgeColor(feedback.type)}>
