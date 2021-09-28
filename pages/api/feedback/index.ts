@@ -10,8 +10,15 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
       case "POST":
         const [error, feedback] = validate(req.body, Feedback);
+        const location = req.headers.referer;
+        const userAgent = req.headers["user-agent"];
         if (feedback) {
-          const { feedback: f } = await createFeedback(feedback);
+          // REMINDER: eather include location / userAgent in req.body or check server side
+          const { feedback: f } = await createFeedback({
+            ...(location && { location }),
+            ...(userAgent && { userAgent }),
+            ...feedback,
+          });
           return res.status(200).json({ ...f });
         } else {
           return res.status(422).json({ error });

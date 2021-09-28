@@ -11,12 +11,14 @@ import {
 
 export const FeedbackType = enums(["all", "issue", "idea", "other", "archive"]);
 
+// REMINDER: userAgent & location will added from server side
+
 export const Feedback = object({
   text: string(),
   projectId: string(),
   userId: optional(string()),
-  userAgent: string(),
-  location: string(),
+  userAgent: optional(string()),
+  location: optional(string()),
   type: FeedbackType,
   archived: optional(boolean()),
   screenshotURL: optional(string()),

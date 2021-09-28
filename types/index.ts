@@ -41,8 +41,8 @@ export type Feedback = {
   createdAt: firebase.firestore.Timestamp;
   projectId: string;
   userId?: string;
-  userAgent: string;
-  location: string;
+  userAgent?: string;
+  location?: string;
   type: FeedbackType;
   archived?: boolean;
   screenshotURL?: string;
