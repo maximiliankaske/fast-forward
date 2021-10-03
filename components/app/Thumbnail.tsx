@@ -2,16 +2,22 @@ import React from "react";
 import Link from "next/link";
 import { Project, WithId } from "../../types";
 import { CogIcon } from "@heroicons/react/outline";
+import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 
-const Thumbnail = ({ id, name }: WithId<Project>) => {
+const Thumbnail = ({ id, name, private: privatly }: WithId<Project>) => {
   return (
     <div className="relative rounded-lg border hover:border-gray-300 bg-gray-50 dark:bg-gray-900 px-6 py-5 shadow-sm flex items-center space-x-3 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
       <div className="flex-1 min-w-0">
         <Link href={`/app/${id}`}>
           <a className="flex-1 focus:outline-none">
             <span className="absolute inset-0" aria-hidden="true" />
-            <p className="text-sm font-medium text-gray-900 dark:text-white">
+            <p className="inline-flex items-center text-sm font-medium text-gray-900 dark:text-white">
               {name}
+              {privatly ? (
+                <EyeOffIcon className="h-3 w-3 ml-3" />
+              ) : (
+                <EyeIcon className="h-3 w-3 ml-3" />
+              )}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400 truncate">{`ID: ${id}`}</p>
           </a>

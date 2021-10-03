@@ -1,33 +1,33 @@
 import cn from "classnames";
-import faker from "faker";
 import React from "react";
 import { GlobeAltIcon } from "@heroicons/react/outline";
-import { CameraIcon, CloudIcon } from "@heroicons/react/solid";
+import { CameraIcon } from "@heroicons/react/solid";
 import GitHubIcon from "../icon/GitHub";
 
 const features = [
   {
     name: "Open Source",
     backgroundColor: "bg-black",
-    description: faker.lorem.paragraph(),
+    description:
+      "The entire project can be seen on GitHub. Used stack:<br/><b>Next.js</b> + <b>TailwindCSS</b> + <b>Firebase</b>.",
     icon: GitHubIcon,
-  },
-  {
-    name: "On premises",
-    backgroundColor: "bg-indigo-500",
-    description: faker.lorem.paragraph(),
-    icon: CloudIcon,
+    link: {
+      label: "Have a look",
+      href: "https://github.com/maximiliankaske/fast-feedback",
+    },
   },
   {
     name: "Translation",
     backgroundColor: "bg-yellow-400",
-    description: faker.lorem.paragraph(),
+    description:
+      "It is very easy to change the language depending on the locales you support. Locales supported: <b>en</b>, <b>de</b>, <b>fr</b>.",
     icon: GlobeAltIcon,
   },
   {
     name: "Screenshots",
     backgroundColor: "bg-pink-500",
-    description: faker.lorem.paragraph(),
+    description:
+      "Let the user append a browser screenshot with only one click.",
     icon: CameraIcon,
   },
 ];
@@ -50,9 +50,10 @@ const Features = () => {
               {feature.name}
             </p>
           </dt>
-          <dd className="mt-2 text-base text-gray-600 dark:text-gray-400">
-            {feature.description}
-          </dd>
+          <dd
+            className="mt-2 text-base text-gray-600 dark:text-gray-400"
+            dangerouslySetInnerHTML={{ __html: feature.description }}
+          />
         </div>
       ))}
     </dl>

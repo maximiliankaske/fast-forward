@@ -10,6 +10,7 @@ import Link from "next/link";
 import React from "react";
 import { ExternalLinkIcon } from "@heroicons/react/solid";
 import Newsletter from "../components/landing/Newsletter";
+import Banner from "../components/common/Banner";
 
 const Home = () => {
   const auth = useAuth();
@@ -26,6 +27,7 @@ const Home = () => {
         <meta name="description" content="Fast-Forward" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Banner>This is an experimental project.</Banner>
       <div className="flex flex-col items-center p-16 my-6 w-full bg-indigo-700 rounded-lg">
         <Heading as="h2" className="text-white">
           How does it work?

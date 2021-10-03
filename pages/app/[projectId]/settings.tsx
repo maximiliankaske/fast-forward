@@ -17,6 +17,10 @@ import Image from "next/image";
 import toasts from "../../../utils/toast";
 import { ComponentWithAuth } from "../../../components/auth/Auth";
 
+// TODO: remove publically as state - use the data.project.private boolean
+// Problem: on first render of the Switch Component - it will have no data and so the wrong value
+// Create Indicator and fetch dat first
+
 const Settings: ComponentWithAuth = () => {
   const [publically, setPublically] = useState(true);
   const [name, setName] = useState("");
@@ -80,10 +84,12 @@ const Settings: ComponentWithAuth = () => {
   return (
     <DefaultUserLayout>
       <Heading as="h2">Settings</Heading>
-      <Link href="/app" className="inline-flex items-center text-sm mt-4 mb-8">
-        <ArrowLeftIcon className="h-3 w-3 mr-2" />
-        Back to the list
-      </Link>
+      <div className="mb-8 mt-4">
+        <Link href="/app" className="inline-flex items-center text-sm">
+          <ArrowLeftIcon className="h-3 w-3 mr-2" />
+          Back to the list
+        </Link>
+      </div>
       <div className="space-y-8">
         <form
           className="border rounded-md overflow-hidden"
@@ -148,8 +154,8 @@ const Settings: ComponentWithAuth = () => {
             </Button>
           </div>
         </div>
-        <div className="border rounded-md border-indigo-500 dark:bg-gray-900">
-          <div className="py-3 px-5 flex justify-between items-center">
+        <div className="border rounded-md border-indigo-500 dark:bg-gray-900 py-3 px-5 divide-y space-y-3">
+          <div className="flex justify-between items-center">
             <div>
               <h2 className="text-lg leading-6 font-medium">
                 Project Accessibility
