@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import DefaultLayout from "../components/layout/DefaultLayout";
 import Button from "../components/ui/Button";
 import { useAuth } from "../lib/auth";
@@ -9,7 +9,7 @@ import fetcher from "../utils/fetcher";
 
 const Sites: FC = () => {
   const { user } = useAuth();
-  const { data } = useSWR<{ sites: WithId<Site>[] }>(
+  const { data, mutate } = useSWR<{ sites: WithId<Site>[] }>(
     user ? ["/api/sites", user.token] : null,
     fetcher
   );
@@ -21,7 +21,7 @@ const Sites: FC = () => {
     };
     try {
       await createSite(newSite);
-      mutate(["/api/sites", user!.token]);
+      mutate();
     } catch {
       throw new Error("create Site failed");
     }
@@ -30,7 +30,7 @@ const Sites: FC = () => {
   const handleUpdateSite = async (id: string) => {
     try {
       await updateSite(id, { url: `${Math.random() * 100}` });
-      mutate(["/api/sites", user!.token]);
+      mutate();
     } catch {
       throw new Error("update Site failed");
     }
@@ -39,7 +39,7 @@ const Sites: FC = () => {
   const handleDeleteSite = async (id: string) => {
     try {
       await deleteSite(id);
-      mutate(["/api/sites", user!.token]);
+      mutate();
     } catch {
       throw new Error("delete Site failed");
     }

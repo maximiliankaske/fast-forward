@@ -1,20 +1,25 @@
-import { BeakerIcon } from "@heroicons/react/solid";
-import { GetStaticProps } from "next";
 import Head from "next/head";
-import { FC } from "react";
+import Features from "../components/landing/Features";
 import DefaultLayout from "../components/layout/DefaultLayout";
-import Button from "../components/ui/Button";
-import Link from "../components/ui/Link";
+import Heading from "../components/ui/Heading";
+import WidgetButtonExample from "../components/widget/WidgetButtonExample";
+import WidgetFABExample from "../components/widget/WidgetFABExample";
 import { useAuth } from "../lib/auth";
-import { getAllUsers } from "../lib/db-admin";
-import type { User } from "../types";
+import feedbackConfig from "../fast-forward.json";
+import Link from "next/link";
+import React from "react";
+import { ExternalLinkIcon } from "@heroicons/react/solid";
+import Newsletter from "../components/landing/Newsletter";
+import Banner from "../components/common/Banner";
 
-interface Props {
-  users?: User[];
-}
-
-const Home: FC<Props> = ({ users }) => {
+const Home = () => {
   const auth = useAuth();
+
+  const buttonProps = {
+    projectId: feedbackConfig.projects.main,
+    userId: auth.user?.email || undefined,
+  };
+
   return (
     <DefaultLayout>
       <Head>
@@ -22,44 +27,60 @@ const Home: FC<Props> = ({ users }) => {
         <meta name="description" content="Fast-Forward" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 className="flex text-indigo-500 text-4xl font-semibold">
-        Hello World!
-        <BeakerIcon className="h-10 w-10" />
-      </h1>
-      <Link href="/docs">go to docs made with mdx</Link>
-      <div className="space-x-4">
-        <Button onClick={() => auth.signinWithGitHub()} reverse>
-          Log In with GitHub
-        </Button>
-        <Button onClick={() => auth.signinWithGoogle()}>
-          Log In with Google
-        </Button>
-      </div>
-      {auth.user ? (
-        <div>
-          <p>Email: {auth.user.email}</p>
-          <p>Provider: {auth.user.provider}</p>
+      <Banner>This is an experimental project.</Banner>
+      <div className="flex flex-col items-center p-16 my-6 w-full bg-indigo-700 rounded-lg">
+        <Heading as="h2" className="text-white">
+          How does it work?
+        </Heading>
+        <div className="text-center space-y-4 pt-4">
+          <WidgetButtonExample reverse {...buttonProps}>
+            Give us Feedback
+          </WidgetButtonExample>
+          <WidgetButtonExample
+            lang="de"
+            metadata={{ lang: "de" }}
+            reverse
+            {...buttonProps}
+          >
+            Geben Sie Feedback
+          </WidgetButtonExample>
+          <WidgetButtonExample
+            lang="fr"
+            metadata={{ lang: "fr", test: "true" }}
+            reverse
+            {...buttonProps}
+          >
+            Donnez-nous vos commentaires
+          </WidgetButtonExample>
         </div>
-      ) : null}
-      <div>
-        <h1 className="text-indigo-500 text-4xl font-semibold">All Users</h1>
-        {users?.map((user) => (
-          <div key={user.uid}>
-            {user.name} | {user.email} | {user.provider}
-          </div>
-        ))}
       </div>
+      <div className="my-10 text-center">
+        <Link href="/app/VWJU7eJdIEYGmoyKW4rp">
+          <a
+            target="_blank"
+            className="inline-flex items-center text-white bg-gray-900 rounded-full border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
+          >
+            Try the Demo
+            <ExternalLinkIcon className="h-5 w-5 ml-2" />
+          </a>
+        </Link>
+      </div>
+      <div className="space-y-10">
+        <Features />
+        <Newsletter />
+      </div>
+      <WidgetFABExample />
     </DefaultLayout>
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const { users } = await getAllUsers();
-  return {
-    props: {
-      users,
-    },
-  };
-};
+// export const getStaticProps = async () => {
+//   const { users } = await getAllUsers();
+//   return {
+//     props: {
+//       users: users || null,
+//     },
+//   };
+// };
 
 export default Home;

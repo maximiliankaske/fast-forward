@@ -1,34 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Fast Forward
 
-## Getting Started
+**An easy way to allow your users to give feedback**
 
-First, run the development server:
+> This project is in the experimental stage. If you have any questions, please contact: maximilian@kaske.org
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Demo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[fast-forward.vercel.app](https://fast-forward.vercel.app)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Todo
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.tsx`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [ ] Check TODO: in Code and resolve it
+- [ ] Move Thumbnail into Form Component (to better reset image on successful submit)
+- [x] I18n (pass lang="de" to Widget Component of check `<html lang="de">`)
+- [x] metadata - [feedback.fish example](https://feedback.fish/help/metadata)
+- [ ] Replace Firebase with Supabase (Vercel Integration?)
+- [ ] Slack Channel + Vercel Integration
+- [ ] Create a `fast-forward-[widget]` npm package for easy integration
+- [x] Write middleware on api to only access allowed resources (similar to firebase rules)
+- [x] Create a Switch button to make the feedbacks open to everyone
+- [ ] Remove unnecessary `packages` as _faker_, and move _@tailwind_ to `devDep`
+- [ ] self-hosted documentation - [plausible.io example](https://plausible.io/docs/self-hosting)
+- [x] Danger Zone - reset feedbacks!
+- [x] Access `userAgent` and `location` from server site! No need to pass it with request
+- [x] Checkout [next-auth](https://next-auth.js.org/getting-started/client#custom-client-session-handling) about how to create role based paths with params.
+- [x] Replace feedback/Filter Component with Tabs (TailwindUI) to move from feedback.fish design
+- [ ] Inside project accessibility -> add active/inactive status + show it on thumbnail

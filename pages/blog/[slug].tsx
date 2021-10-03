@@ -2,19 +2,18 @@ import ErrorPage from "next/error";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { GetStaticProps } from "next";
-import React, { FC } from "react";
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import React from "react";
 import markdownToHtml from "../../lib/markdownToHtml";
 import { getPostBySlug, getAllPosts } from "../../lib/api";
-import type { Post } from "../../types";
-import Header from "../../components/blog/Header";
+import Header from "../../components/post/Header";
 import PostLayout from "../../components/layout/PostLayout";
+import LeftCol from "../../components/post/LeftCol";
+import Divider from "../../components/ui/Divider";
+import BottomRow from "../../components/post/BottomRow";
+import WidgetFABExample from "../../components/widget/WidgetFABExample";
 
-interface Props {
-  post: Post;
-}
-
-const Posts: FC<Props> = ({ post }) => {
+const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
@@ -32,23 +31,32 @@ const Posts: FC<Props> = ({ post }) => {
           <div className="flex justify-center items-center">
             <Image
               src={post.coverImage}
-              height={150}
-              width={150}
+              height={200}
+              width={200}
               alt="cover image"
             />
           </div>
           <Header post={post} />
-          <div
-            className="mt-6 prose dark:prose-dark prose-lg mx-auto"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <Divider className="py-8" />
+          <div className="xl:grid xl:grid-cols-4 xl:gap-x-6">
+            <LeftCol post={post} />
+
+            <div className="xl:pb-0 xl:col-span-3 xl:row-span-2">
+              <div
+                className="prose dark:prose-dark prose-lg max-w-none mx-auto"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+            </div>
+          </div>
+          <BottomRow />
         </div>
       )}
+      <WidgetFABExample />
     </PostLayout>
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const post = getPostBySlug(params?.slug as string, [
     "title",
     "excerpt",
