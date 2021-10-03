@@ -1,11 +1,10 @@
-import { Switch } from "@headlessui/react";
-import { CubeIcon } from "@heroicons/react/outline";
-import cn from "classnames";
+import { FastForwardIcon, MoonIcon, SunIcon } from "@heroicons/react/solid";
 import { useTheme } from "next-themes";
 import React, { FC, useEffect, useState } from "react";
 import { useAuth } from "../../lib/auth";
-import Button from "../ui/Button";
 import Link from "../ui/Link";
+import NextLink from "next/link";
+import Switch from "../ui/Switch";
 
 const Header: FC = () => {
   const auth = useAuth();
@@ -17,43 +16,37 @@ const Header: FC = () => {
 
   const isDarkMode = mounted && resolvedTheme === "dark";
   return (
-    <header className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-5xl xl:px-0">
-      <div className="h-16 flex justify-between items-center">
-        <Link href="/">
-          <CubeIcon className="h-8 w-8 text-indigo-500" />
-        </Link>
-        <div className="space-x-4">
-          <Link href="/playground">Playground</Link>
-          <Link href="/docs">Docs</Link>
-          <Link href="/posts">Posts</Link>
-          {auth.user && (
-            <>
-              <Link href="/sites">Sites</Link>
-              <Button onClick={auth.signout}>log out</Button>
-            </>
-          )}
-          <Switch
-            checked={isDarkMode}
-            onChange={() => setTheme(isDarkMode ? "light" : "dark")}
-            className={cn(
-              "relative inline-flex items-center h-6 rounded-full w-11",
-              {
-                "bg-indigo-600": isDarkMode,
-                "bg-gray-200": !isDarkMode,
-              }
+    <header className="sticky top-0 z-20 w-full bg-white dark:bg-black bg-opacity-80 backdrop-filter backdrop-blur-lg">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-4xl xl:px-0">
+        <div className="h-16 flex justify-between items-center">
+          <NextLink href="/">
+            <a className="inline-flex text-xs items-end font-extrabold tracking-wider text-pink-500 group hover:text-indigo-500 rounded focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:outline-none">
+              <FastForwardIcon className="h-8 w-8 text-indigo-500 group-hover:text-pink-500" />
+              fast-forward
+            </a>
+          </NextLink>
+          <div className="space-x-4 flex items-center">
+            <Link href="/docs">Docs</Link>
+            <Link href="/blog">Blog</Link>
+            {auth.user ? (
+              <>
+                <Link href="/app">App</Link>
+                <Link href="/logout">Logout</Link>
+              </>
+            ) : (
+              <Link href="/login">Login</Link>
             )}
-          >
-            <span className="sr-only">Enable Dark Mode</span>
-            <span
-              className={cn(
-                "inline-block w-4 h-4 transform bg-white rounded-full",
-                {
-                  "translate-x-6": isDarkMode,
-                  "translate-x-1": !isDarkMode,
-                }
+            <button
+              className="p-2 rounded-md bg-gray-50 hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={() => setTheme(isDarkMode ? "light" : "dark")}
+            >
+              {isDarkMode ? (
+                <SunIcon className="h-5 w-5" />
+              ) : (
+                <MoonIcon className="h-5 w-5" />
               )}
-            />
-          </Switch>
+            </button>
+          </div>
         </div>
       </div>
     </header>

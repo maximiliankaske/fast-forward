@@ -1,3 +1,8 @@
+// TODO: discuss `authorId => userId` change
+import firebase from "firebase/app";
+import { Describe } from "superstruct";
+import { FeedbackType } from "./superstruct";
+
 export type User = {
   uid: string;
   email: string | null;
@@ -24,5 +29,29 @@ export type Post = {
   content: string;
   ogImageUrl: string;
 };
+
+export type Project = {
+  authorId: string;
+  private: boolean;
+  name: string;
+};
+
+export type Feedback = {
+  text: string;
+  createdAt: firebase.firestore.Timestamp;
+  projectId: string;
+  userId?: string;
+  userAgent?: string;
+  location?: string;
+  type: FeedbackType;
+  archived?: boolean;
+  screenshotURL?: string;
+  metadata?: Record<string, string | number>;
+};
+
+export type FeedbackType = "all" | "issue" | "idea" | "other" | "archive";
+
+// Check if superstruct object equals type
+const type: Describe<FeedbackType> = FeedbackType;
 
 export type WithId<T> = T & { id: string };
