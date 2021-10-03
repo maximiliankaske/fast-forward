@@ -9,6 +9,7 @@ const WidgetFABExample = () => {
   return (
     <div className="fixed bottom-4 left-8">
       <Widget
+        version={2}
         projectId={feebackConfig.projects.main}
         userId={user?.email || undefined}
         // domain="https://fast-forward-flu0draok-mxkaske.vercel.app"

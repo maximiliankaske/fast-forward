@@ -5,14 +5,16 @@ import WidgetForm from "./WidgetForm";
 import { LanguageCode } from "./translations";
 import { Feedback } from "../../types";
 import { usePopper } from "react-popper";
+import WidgetFormV2 from "./WidgetFormV2";
 
 export interface WidgetProps
   extends Pick<Feedback, "userId" | "projectId" | "metadata"> {
   lang?: LanguageCode;
   domain?: string;
+  version?: 1 | 2;
 }
 
-const Widget: FC<WidgetProps> = ({ children, ...props }) => {
+const Widget: FC<WidgetProps> = ({ children, version = 1, ...props }) => {
   let [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(
     null
   );
@@ -36,11 +38,15 @@ const Widget: FC<WidgetProps> = ({ children, ...props }) => {
           <div className="relative bg-white border border-gray-100 rounded-xl shadow-lg m-2 p-3 w-72">
             <button
               onClick={() => close()}
-              className="absolute right-1 top-1 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="absolute right-2 top-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <XIcon className="h-5 w-5 text-gray-500" />
             </button>
-            <WidgetForm {...props} />
+            {version === 1 ? (
+              <WidgetForm {...props} />
+            ) : (
+              <WidgetFormV2 {...props} />
+            )}
           </div>
         )}
       </Popover.Panel>
