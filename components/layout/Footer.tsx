@@ -33,7 +33,7 @@ const Footer: FC = () => {
           </div>
           <div>
             <a
-              href="https://github.com/maximiliankaske/fast-feedback"
+              href="https://github.com/maximiliankaske/fast-forward"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center"

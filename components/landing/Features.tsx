@@ -13,7 +13,7 @@ const features = [
     icon: GitHubIcon,
     link: {
       label: "Have a look",
-      href: "https://github.com/maximiliankaske/fast-feedback",
+      href: "https://github.com/maximiliankaske/fast-forward",
     },
   },
   {

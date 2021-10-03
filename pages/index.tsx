@@ -5,7 +5,7 @@ import Heading from "../components/ui/Heading";
 import WidgetButtonExample from "../components/widget/WidgetButtonExample";
 import WidgetFABExample from "../components/widget/WidgetFABExample";
 import { useAuth } from "../lib/auth";
-import feedbackConfig from "../fast-feedback.json";
+import feedbackConfig from "../fast-forward.json";
 import Link from "next/link";
 import React from "react";
 import { ExternalLinkIcon } from "@heroicons/react/solid";
