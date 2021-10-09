@@ -184,7 +184,15 @@ const Settings: ComponentWithAuth = () => {
                 Removes all feedbacks but keeps the configuration.
               </p>
             </div>
-            <Button onClick={handleReset} deconstruct>
+            <Button
+              onClick={() => {
+                const res = confirm("Reset Project?");
+                if (res) {
+                  handleReset();
+                }
+              }}
+              deconstruct
+            >
               Reset
             </Button>
           </div>
@@ -195,7 +203,16 @@ const Settings: ComponentWithAuth = () => {
                 Please note that this is not reversable. Be certain.
               </p>
             </div>
-            <Button onClick={handleDelete} deconstruct reverse>
+            <Button
+              onClick={() => {
+                const res = confirm("Delete Project?");
+                if (res) {
+                  handleDelete();
+                }
+              }}
+              deconstruct
+              reverse
+            >
               Delete
             </Button>
           </div>

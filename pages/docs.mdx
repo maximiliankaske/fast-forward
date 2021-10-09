@@ -4,20 +4,30 @@ export default (props) => <Layout {...props} />;
 
 # Getting Started
 
-### Welcome to Fast Feedback! 👋🏼
+> Quick reminder that this is an **experimental project**.
 
-To get started adding feedback to your site, retrieve the site ID
-from the URL and place this iframe inside your site.
+## How to collect data
+
+To collect data via a custom form (which is the only way right now), send a _POST_ request that looks like following:
 
 ```tsx
-const test = () => {
-  const [state, setState] = useState<string>();
-};
+fetch("https://fast-forward.vercel.app/api/feedback", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    projectId: "...", // mandatory
+    text: comment, // mandatory
+    category: "", // mandatory - either "issue", "idea" or "other"
+    userId: user.email, // optional
+    metadata: {}, // optional - e.g. { lang: "en", position: "header" }
+  }),
+});
 ```
 
-> "About callouts they are called in Notion.io"
+If you are interested in how I created the floating _Widget_ form, feel free to check out the [GitHub repository](https://github.com/maximiliankaske/fast-forward/blob/main/components/widget/WidgetFABExample.tsx). Following libraries have been used:
 
-export const meta = {
-  title: "Docs",
-  author: "Maximilian Kaske",
-};
+- [tailwindcss](https://tailwindcss.com/) for **styling**
+- [headlessui](https://headlessui.dev/) for **Dialog (Modal)** Box
+- [pooper](https://popper.js.org/) for **automatic placement** of the Dialog Box depending on the space

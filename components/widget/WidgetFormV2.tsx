@@ -8,6 +8,9 @@ import WidgetType from "./WidgetType";
 import WidgetButton from "./WidgetButton";
 import WidgetTextArea from "./WidgetTextArea";
 
+// Widget Form without screenshot button
+// used in WidgetFABExample
+
 const WidgetFormV2 = ({
   userId,
   projectId,
@@ -109,7 +112,7 @@ const WidgetFormV2 = ({
           </WidgetButton>
         </form>
       ) : (
-        <p className="font-medium flex items-center mt-1">
+        <p className="font-medium flex items-center mt-1 text-black">
           <CheckIcon className="text-white h-4 w-4 mr-2 ml-1 rounded-full bg-green-500 p-[2px]" />
           {messages.submit.state.success}
         </p>

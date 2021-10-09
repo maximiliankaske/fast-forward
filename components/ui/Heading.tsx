@@ -2,7 +2,7 @@ import cn from "classnames";
 import React, { FC, HTMLAttributes } from "react";
 
 interface Props extends HTMLAttributes<HTMLHeadingElement> {
-  as?: "h1" | "h2" | "h3";
+  as?: "h1" | "h2" | "h3" | "h4";
 }
 
 const Heading: FC<Props> = ({
@@ -21,6 +21,7 @@ const Heading: FC<Props> = ({
       "text-2xl tracking-tight font-bold sm:text-3xl md:text-4xl mb-2":
         element === "h2",
       "text-lg font-semibold sm:text-xl md:text-2xl mb-1": element === "h3",
+      "text-md font-semibold sm:text-lg md:text-xl mb-1": element === "h4",
     },
     className
   );

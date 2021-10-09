@@ -14,6 +14,8 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
         const userAgent = req.headers["user-agent"];
         if (feedback) {
           // REMINDER: eather include location / userAgent in req.body or check server side
+          // TODO: check if projectId exist!
+          console.log(feedback);
           const { feedback: f } = await createFeedback({
             ...(location && { location }),
             ...(userAgent && { userAgent }),

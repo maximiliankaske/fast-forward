@@ -24,7 +24,7 @@ const features = [
     icon: GlobeAltIcon,
   },
   {
-    name: "Screenshots",
+    name: "Screenshots (soon or later)",
     backgroundColor: "bg-pink-500",
     description:
       "Let the user append a browser screenshot with only one click.",
