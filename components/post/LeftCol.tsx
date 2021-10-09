@@ -16,12 +16,12 @@ const LeftCol: FC<Props> = ({ post }) => {
   return (
     // self-start because in flexbox
     <div className="mb-4 xl:sticky top-20 self-start hidden xl:block">
-      <Avatar
+      {/* <Avatar
         imgSrc={post.authorPicture}
         name={post.authorName}
         some="@twitter"
         className="mt-4"
-      />
+      /> */}
       <Divider className="py-6" />
       <p className="text-xs leading-5 tracking-wide uppercase text-gray-600 dark:text-gray-400 pb-2">
         Defined Tags
