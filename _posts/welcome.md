@@ -3,7 +3,7 @@ title: "Welcome to Fast Forward"
 section: "Introduction"
 excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus."
 coverImage: "/assets/blog/preview/Watermelon_Two_Color.png"
-date: 2020-10-10"
+date: "2020-10-10"
 ---
 
 ### Hey Folks 👋
