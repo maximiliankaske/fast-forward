@@ -2,7 +2,8 @@ import React, { FormEvent, useState } from "react";
 import { WidgetProps } from "./Widget";
 import { formattedMessages } from "./translations";
 import LoadingIcon from "../icon/Loading";
-import { CheckIcon, RefreshIcon } from "@heroicons/react/solid";
+import { CheckIcon, XIcon } from "@heroicons/react/solid";
+import { RefreshIcon } from "@heroicons/react/solid";
 import WidgetStep from "./WidgetStep";
 import WidgetType from "./WidgetType";
 import WidgetButton from "./WidgetButton";
@@ -28,7 +29,7 @@ const WidgetFormV2 = ({
     event.preventDefault();
     setForm("pending");
     try {
-      await fetch(`${domain || ""}/api/feedback`, {
+      const res = await fetch(`${domain || ""}/api/feedback`, {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -41,8 +42,12 @@ const WidgetFormV2 = ({
           userId,
         }),
       });
-      setText("");
-      setForm("success");
+      if (res.status !== 200) {
+        setForm("error");
+      } else {
+        setText("");
+        setForm("success");
+      }
     } catch (error) {
       setForm("error");
     }
@@ -64,10 +69,9 @@ const WidgetFormV2 = ({
           </>
         );
       case "error":
-        // TODO: How to handle Error cases?
         return (
           <>
-            error
+            {messages.submit.state.error}
             <RefreshIcon className="h-3 w-3 my-1 ml-2 text-red-500" />
           </>
         );

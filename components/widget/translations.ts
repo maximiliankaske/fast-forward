@@ -18,6 +18,7 @@ const translations: Record<
       state: {
         loading: string;
         success: string;
+        error: string;
       };
     };
   }
@@ -37,7 +38,11 @@ const translations: Record<
     comment: { label: "Comment", placeholder: "Tell us about..." },
     submit: {
       label: "Submit",
-      state: { loading: "loading", success: "Thanks for the feedback!" },
+      state: {
+        loading: "Loading",
+        success: "Thanks for the feedback!",
+        error: "Error - Try again",
+      },
     },
   },
   de: {
@@ -54,7 +59,11 @@ const translations: Record<
     comment: { label: "Kommentar", placeholder: "Es ist mir aufgefallen..." },
     submit: {
       label: "Senden",
-      state: { loading: "lädt", success: "Danke für dein Feedback!" },
+      state: {
+        loading: "Lädt",
+        success: "Danke für dein Feedback!",
+        error: "Fehler - Nochmal versuchen",
+      },
     },
   },
   fr: {
@@ -71,7 +80,11 @@ const translations: Record<
     comment: { label: "Commentaire", placeholder: "J'ai remarqué..." },
     submit: {
       label: "Envoyer",
-      state: { loading: "charge", success: "Merci pour ton Feedback!" },
+      state: {
+        loading: "charge",
+        success: "Merci pour ton Feedback!",
+        error: "Problème - réessayer",
+      },
     },
   },
 };

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { validate } from "superstruct";
-import { createFeedback } from "../../../lib/db-admin";
+import { createFeedback, getProject } from "../../../lib/db-admin";
 import { Feedback } from "../../../types/superstruct";
 
 const handle = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,13 +9,13 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
     // if no switch - case, validation will fail
     switch (req.method) {
       case "POST":
-        const [error, feedback] = validate(req.body, Feedback);
+        const [feedbackError, feedback] = validate(req.body, Feedback);
         const location = req.headers.referer;
         const userAgent = req.headers["user-agent"];
         if (feedback) {
-          // REMINDER: eather include location / userAgent in req.body or check server side
-          // TODO: check if projectId exist!
-          console.log(feedback);
+          // Checking if project is valid otherwise throws error
+          const project = await getProject(feedback.projectId);
+          // REMINDER: either include location / userAgent in req.body or check server side
           const { feedback: f } = await createFeedback({
             ...(location && { location }),
             ...(userAgent && { userAgent }),
@@ -23,7 +23,7 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
           });
           return res.status(200).json({ ...f });
         } else {
-          return res.status(422).json({ error });
+          return res.status(422).json({ error: feedbackError });
         }
       case "OPTIONS": {
         return res.status(204).end();

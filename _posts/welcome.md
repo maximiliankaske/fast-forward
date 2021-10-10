@@ -8,7 +8,7 @@ date: "2020-10-10"
 
 ### Hey Folks 👋
 
-It's been a while that I've been working in my free time on that project and there is no perfect timing to show off. So here I am, having no idea what I'm doing right now.
+It's been a while that I've been working in my free time on that project and there is no perfect timing to show off. So here I am, having no idea what I'm doing right now. 🤷‍♂️
 
 ### Inspiration 💡
 
@@ -29,7 +29,13 @@ The idea is pretty simple. Whenever I want to have a customizable _Feedback Widg
 }
 ```
 
-I also want to automatically retrieve informations about the _Date_ 📅, _Location_ 🗺 and the _Device Metadata_ 📱 from the request so I don't have to worry about it.
+I also want to automatically retrieve informations about the
+
+- _Timestamp_ 📅
+- _Location_ 🗺
+- _Device Metadata_ 📱
+
+from the request so I don't have to worry about it.
 
 And after checking the feedback, it would be good to archive them to keep track of what has been seen and revised or not. So therefore, we have an archive bucket to but old feedbacks in.
 
@@ -49,7 +55,7 @@ If you know the [React 2025](https://react2025.com/) tech stack, you might alrea
 - **firebase(-admin)**: the hidden
 - **md(x)**: the creator
 
-But the easiest way for the moment would be to deep dive 🤿 into the [GitHub Repository](https://github.com/maximiliankaske/fast-forward)
+But the easiest way for the moment would be to deep dive 🤿 into the [GitHub Repository](https://github.com/maximiliankaske/fast-forward).
 
 Deployed on [Vercel](https://vercel.com) for perfect DX.
 

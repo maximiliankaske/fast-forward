@@ -47,9 +47,13 @@ export async function getUserProjects(uid: string) {
 
 export async function getProject(uid: string) {
   const project = await db.collection("projects").doc(uid).get();
-  return {
-    project: { id: project.id, ...(project.data() as Project) },
-  };
+  if (project.exists) {
+    return {
+      project: { id: project.id, ...(project.data() as Project) },
+    };
+  } else {
+    throw new Error("No project found");
+  }
 }
 
 // Widget API - create feedback

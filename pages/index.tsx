@@ -30,7 +30,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Banner>This is an experimental project.</Banner>
-      <div className="p-16 my-6 w-full bg-gray-100 dark:bg-gray-900 rounded-lg space-y-6">
+      <div className="p-16 my-6 w-full border bg-gray-100 dark:bg-gray-900 rounded-lg space-y-6">
         <Heading as="h2">How does it work?</Heading>
         <div>
           <Input

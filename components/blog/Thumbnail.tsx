@@ -2,9 +2,7 @@ import Link from "next/link";
 import React, { FC } from "react";
 import { format } from "date-fns";
 import { Post } from "../../types";
-import Badge from "../ui/Badge";
 import Heading from "../ui/Heading";
-import Divider from "../ui/Divider";
 
 const tags = ["blue", "gray", "red", "pink", "purple"] as const;
 
