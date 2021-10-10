@@ -10,7 +10,6 @@ import WidgetButton from "./WidgetButton";
 import WidgetTextArea from "./WidgetTextArea";
 
 // Widget Form without screenshot button
-// used in WidgetFABExample
 
 const WidgetFormV2 = ({
   userId,
@@ -28,28 +27,24 @@ const WidgetFormV2 = ({
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setForm("pending");
-    try {
-      const res = await fetch(`${domain || ""}/api/feedback`, {
-        method: "POST",
-        headers: new Headers({
-          "Content-Type": "application/json",
-        }),
-        body: JSON.stringify({
-          text,
-          type,
-          projectId,
-          metadata,
-          userId,
-        }),
-      });
-      if (res.status !== 200) {
-        setForm("error");
-      } else {
-        setText("");
-        setForm("success");
-      }
-    } catch (error) {
+    const res = await fetch(`${domain || ""}/api/feedback`, {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+      body: JSON.stringify({
+        text,
+        type,
+        projectId,
+        metadata,
+        userId,
+      }),
+    });
+    if (res.status !== 200) {
       setForm("error");
+    } else {
+      setText("");
+      setForm("success");
     }
   };
 
