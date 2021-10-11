@@ -19,7 +19,7 @@ const ProjectPage = () => {
   const { user, loading } = useAuth();
   const { projectId } = router.query;
   const { data: projectData } = useSWR<{ project: WithId<Project> }>(
-    !loading && projectId ? [`/api/project/${projectId}`, user?.token] : null,
+    !loading && projectId ? [`/api/projects/${projectId}`, user?.token] : null,
     fetcher
   );
 

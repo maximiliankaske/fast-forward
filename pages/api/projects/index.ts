@@ -1,5 +1,5 @@
-import { auth } from "../../lib/firebase-admin";
-import { getUserProjects } from "../../lib/db-admin";
+import { auth } from "../../../lib/firebase-admin";
+import { getUserProjects } from "../../../lib/db-admin";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {

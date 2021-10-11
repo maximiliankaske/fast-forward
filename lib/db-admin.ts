@@ -15,21 +15,6 @@ export async function getAllUsers() {
   }
 }
 
-export async function getUserSites(uid: string) {
-  const snapshot = await db
-    .collection("sites")
-    .where("authorId", "==", uid)
-    .get();
-
-  const sites: WithId<Site>[] = [];
-
-  snapshot.forEach((doc) => {
-    sites.push({ id: doc.id, ...(doc.data() as Site) });
-  });
-
-  return { sites };
-}
-
 export async function getUserProjects(uid: string) {
   const snapshot = await db
     .collection("projects")

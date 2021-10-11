@@ -29,7 +29,7 @@ const Settings: ComponentWithAuth = () => {
   const { projectId } = router.query;
 
   const { data, mutate } = useSWR<{ project: WithId<Project> }>(
-    user && projectId ? [`/api/project/${projectId}`, user.token] : null,
+    user && projectId ? [`/api/projects/${projectId}`, user.token] : null,
     fetcher
   );
 
