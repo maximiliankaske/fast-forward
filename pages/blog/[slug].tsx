@@ -46,7 +46,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
     "content",
     "coverImage",
   ]);
-  const content = await markdownToHtml(post.content || "");
+  const content = await markdownToHtml(post.content);
 
   return {
     props: {
@@ -59,10 +59,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 };
 
 export const getStaticPaths = async () => {
-  const posts = getAllPosts(["slug", "date"]).sort((post1, post2) =>
-    post1.date > post2.date ? -1 : 1
-  );
-
+  const posts = getAllPosts(["slug", "date"]);
   return {
     paths: posts.map((post) => {
       return {
