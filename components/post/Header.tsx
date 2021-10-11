@@ -2,13 +2,17 @@ import { ChevronLeftIcon } from "@heroicons/react/solid";
 import { format } from "date-fns";
 import readingTime from "reading-time";
 import Link from "next/link";
+import Image from "next/image";
 import React, { FC } from "react";
 import type { Post } from "../../types";
 import Divider from "../ui/Divider";
 
-const Header: FC<Post> = ({ title, date, section, content }) => {
+const Header: FC<Post> = ({ title, date, section, content, coverImage }) => {
   return (
     <div className="text-lg flex flex-col mx-auto">
+      <div className="text-center">
+        <Image src={coverImage} height={200} width={200} alt="cover image" />
+      </div>
       <h1>
         <span className="block text-base text-center text-indigo-600 font-semibold tracking-wide uppercase">
           {section}

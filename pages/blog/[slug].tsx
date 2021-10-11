@@ -1,6 +1,5 @@
 import ErrorPage from "next/error";
 import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import React from "react";
@@ -24,21 +23,13 @@ const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
       {router.isFallback ? (
         <div>Loading…</div>
       ) : (
-        <div>
-          <div className="flex justify-center items-center">
-            <Image
-              src={post.coverImage}
-              height={200}
-              width={200}
-              alt="cover image"
-            />
-          </div>
+        <>
           <Header {...post} />
           <div
             className="prose dark:prose-dark prose-lg mx-auto pb-12"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
-        </div>
+        </>
       )}
       <WidgetFABExample />
     </PostLayout>
