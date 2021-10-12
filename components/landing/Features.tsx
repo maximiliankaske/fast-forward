@@ -18,7 +18,7 @@ const features = [
   },
   {
     name: "Translation",
-    backgroundColor: "bg-yellow-400",
+    backgroundColor: "bg-indigo-500",
     description:
       "It is very easy to change the language depending on the locales you support. Locales supported: <b>en</b>, <b>de</b>, <b>fr</b>.",
     icon: GlobeAltIcon,
