@@ -30,24 +30,24 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Banner>This is an experimental project.</Banner>
-      <div className="p-16 my-6 w-full border bg-gray-100 dark:bg-gray-900 rounded-lg space-y-6">
+      <div className="p-16 my-6 w-full border bg-gray-100 dark:bg-gray-900 rounded-lg space-y-6 text-center sm:text-left">
         <Heading as="h2">How does it work?</Heading>
-        <div>
+        <div className="max-w-xs sm:max-w-sm mx-auto sm:mx-0">
           <Input
             name="projectId"
             label="Project Id"
-            className="max-w-sm"
+            className="text-center sm:text-left"
             placeholder={feedbackConfig.projects.main}
             value={projectId}
             onChange={(event) => setProjectId(event.target.value)}
             srOnly
           />
           <p className="text-xs mt-1 text-gray-700 dark:text-gray-300">
-            Leave it blank to use the demo project id. Otherwise use can your
-            project id to test.
+            Leave it blank to use the demo project id. Otherwise copy and paste
+            your own project id to test.
           </p>
         </div>
-        <div className="flex flex-wrap">
+        <div className="flex flex-col sm:flex-row items-center flex-wrap">
           <WidgetButtonExample version={2} {...buttonProps}>
             Give us Feedback
           </WidgetButtonExample>
