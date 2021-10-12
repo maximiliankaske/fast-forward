@@ -1,10 +1,12 @@
 import React from "react";
 import cn from "classnames";
-import { BellIcon } from "@heroicons/react/solid";
 import WidgetButton from "./WidgetButton";
 
 interface Props {
-  types: Record<string, { label: string }>;
+  types: Record<
+    string,
+    { label: string; icon?(props: React.ComponentProps<"svg">): JSX.Element }
+  >;
   activeType?: string;
   onChange?: (value: string) => void;
 }
@@ -12,21 +14,27 @@ interface Props {
 const WidgetType = ({ types, activeType, onChange }: Props) => {
   return (
     <div className="flex space-x-2">
-      {Object.keys(types).map((key) => (
-        <WidgetButton
-          key={key}
-          active={activeType === key}
-          onClick={() => onChange?.(key)}
-        >
-          <BellIcon
-            className={cn(
-              "h-3 w-3 mr-1",
-              activeType === key ? "text-white" : "text-gray-900"
+      {Object.keys(types).map((key) => {
+        const { icon, label } = types[key];
+        const Component = icon;
+        return (
+          <WidgetButton
+            key={key}
+            active={activeType === key}
+            onClick={() => onChange?.(key)}
+          >
+            {Component && (
+              <Component
+                className={cn(
+                  "h-3 w-3 mr-1",
+                  activeType === key ? "text-white" : "text-gray-900"
+                )}
+              />
             )}
-          />
-          {types[key].label}
-        </WidgetButton>
-      ))}
+            {label}
+          </WidgetButton>
+        );
+      })}
     </div>
   );
 };
