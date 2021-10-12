@@ -10,10 +10,8 @@ import fetcher from "../../../utils/fetcher";
 import Link from "../../../components/ui/Link";
 import Input from "../../../components/ui/Input";
 import Button from "../../../components/ui/Button";
-import Badge from "../../../components/ui/Badge";
 import Switch from "../../../components/ui/Switch";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
-import Image from "next/image";
 import toasts from "../../../utils/toast";
 import { ComponentWithAuth } from "../../../components/auth/Auth";
 
@@ -69,7 +67,7 @@ const Settings: ComponentWithAuth = () => {
   const handleDelete = useCallback(async () => {
     try {
       // FIXME: make sure that the page is accessed only if data exist
-      await deleteProject(data!.project.id);
+      await toasts.promise(deleteProject(data!.project.id));
       router.replace("/app");
     } catch {
       console.warn("Something went wrong");
@@ -119,7 +117,7 @@ const Settings: ComponentWithAuth = () => {
           </div>
         </form>
         {/* TODO: Missing functionality */}
-        <div className="border rounded-md overflow-hidden">
+        {/* <div className="border rounded-md overflow-hidden">
           <div className="p-5 space-y-1">
             <h2 className="text-lg leading-6 font-medium">
               Team settings (alpha)
@@ -153,7 +151,7 @@ const Settings: ComponentWithAuth = () => {
               Save
             </Button>
           </div>
-        </div>
+        </div> */}
         <div className="border rounded-md border-indigo-500 dark:bg-gray-900 py-3 px-5 divide-y space-y-3">
           <div className="flex justify-between items-center">
             <div>
@@ -165,7 +163,7 @@ const Settings: ComponentWithAuth = () => {
                 <span className="font-medium text-gray-900 dark:text-white">
                   {publically
                     ? "public (everyone with the link can access it)"
-                    : "private (only member have access)"}
+                    : "private (only you have access)"}
                 </span>
               </p>
             </div>
