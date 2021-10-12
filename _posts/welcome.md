@@ -47,7 +47,7 @@ Check out the little [Docs](https://fast-forward.vercel.app/docs) to which props
 
 ### Tech Stack 📚
 
-If you know the [React 2025](https://react2025.com/) tech stack, you might already know most of them. Here a the biggest ones:
+If you know the [React 2025](https://react2025.com/) tech stack, you might already know most of them. Here a the biggest ones I'm using:
 
 - **next**: the hero
 - **tailwindcss**: the beauty
