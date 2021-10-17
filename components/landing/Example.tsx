@@ -16,7 +16,7 @@ const Example = () => {
   };
 
   return (
-    <div className="space-y-6 text-left">
+    <div className="space-y-2 text-left">
       <div className="max-w-xs">
         <Input
           name="projectId"
