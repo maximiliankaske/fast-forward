@@ -18,7 +18,7 @@ const Thumbnail: FC<Post> = ({ slug, title, section, date, excerpt }) => {
           <div className="md:flex justify-between">
             <div className="max-w-xl">
               <Heading as="h3">{title}</Heading>
-              <p className="text-base text-indigo-500 font-semibold tracking-wide uppercase">
+              <p className="text-sm text-indigo-500 font-semibold tracking-wide uppercase">
                 {section}
               </p>
             </div>

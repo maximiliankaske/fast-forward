@@ -13,7 +13,7 @@ const AllPosts = ({
     <DefaultLayout>
       <Heading>Blog</Heading>
       <p className="text-gray-600 dark:text-gray-400 mb-10">
-        All the latest Fast Forward news, straight from the team.
+        All the latest Fast Forward news.
       </p>
       <ul className="space-y-6">
         {posts.map((post) => (

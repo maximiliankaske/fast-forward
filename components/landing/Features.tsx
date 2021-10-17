@@ -26,7 +26,7 @@ const features = [
 
 const Features = () => {
   return (
-    <div className="pb-16">
+    <div className="pb-24">
       <Heading as="h2" className="text-center mb-6">
         Features
       </Heading>
