@@ -6,7 +6,7 @@
 
 ## Demo
 
-[fast-forward.vercel.app](https://fast-forward.vercel.app)
+[fast-forward.app](https://fast-forward.app)
 
 ## Todo
 
@@ -26,3 +26,7 @@
 - [x] Checkout [next-auth](https://next-auth.js.org/getting-started/client#custom-client-session-handling) about how to create role based paths with params.
 - [x] Replace feedback/Filter Component with Tabs (TailwindUI) to move from feedback.fish design
 - [ ] Inside project accessibility -> add active/inactive status + show it on thumbnail
+
+## Reminder for myself
+
+- Illustrations can be found at [manypixels](https://www.manypixels.co/gallery)
