@@ -30,7 +30,7 @@ const Newsletter = () => {
     <div className="p-4 border rounded-md bg-gray-50 dark:bg-gray-900">
       <Heading as="h3">Subscribe to the newsletter</Heading>
       <p className="text-gray-600 dark:text-gray-400 mb-2">
-        Get emails from me about web development, tech, and early access to new
+        Get emails about web development, tech, and early access to new
         articles.
       </p>
       <form ref={formRef} className="flex space-x-2" onSubmit={handleSubmit}>

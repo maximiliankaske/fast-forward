@@ -2,26 +2,16 @@ import Head from "next/head";
 import Features from "../components/landing/Features";
 import DefaultLayout from "../components/layout/DefaultLayout";
 import Heading from "../components/ui/Heading";
-import WidgetButtonExample from "../components/widget/WidgetButtonExample";
 import WidgetFABExample from "../components/widget/WidgetFABExample";
-import { useAuth } from "../lib/auth";
-import feedbackConfig from "../fast-forward.json";
-import Link from "next/link";
-import React, { useState } from "react";
-import { ExternalLinkIcon } from "@heroicons/react/solid";
+import React from "react";
 import Newsletter from "../components/landing/Newsletter";
-import Banner from "../components/common/Banner";
-import Input from "../components/ui/Input";
+import Example from "../components/landing/Example";
+import DemoButton from "../components/landing/DemoButton";
+import Snippet from "../components/landing/Snippet";
+import LoginButton from "../components/landing/LoginButton";
+import ArrowCTA from "../components/landing/ArrowCTA";
 
 const Home = () => {
-  const [projectId, setProjectId] = useState("");
-  const auth = useAuth();
-
-  const buttonProps = {
-    projectId: projectId === "" ? feedbackConfig.projects.main : projectId,
-    userId: auth.user?.email || undefined,
-  };
-
   return (
     <DefaultLayout>
       <Head>
@@ -29,73 +19,37 @@ const Home = () => {
         <meta name="description" content="Fast-Forward" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Banner>This is an experimental project.</Banner>
-      <div className="p-16 my-6 w-full border bg-gray-100 dark:bg-gray-900 rounded-lg space-y-6 text-center sm:text-left">
-        <Heading as="h2">How does it work?</Heading>
-        <div className="max-w-xs sm:max-w-sm mx-auto sm:mx-0">
-          <Input
-            name="projectId"
-            label="Project Id"
-            className="text-center sm:text-left"
-            placeholder={feedbackConfig.projects.main}
-            value={projectId}
-            onChange={(event) => setProjectId(event.target.value)}
-            srOnly
-          />
-          <p className="text-xs mt-1 text-gray-700 dark:text-gray-300">
-            Leave it blank to use the demo project id. Otherwise copy and paste
-            your own project id to test.
-          </p>
+      <div className="grid md:grid-cols-5 gap-x-0 md:gap-x-6 pt-6 md:pt-12 pb-24 md:pb-40">
+        <div className="md:col-span-3">
+          <Heading>The easiest way to collect Feedback.</Heading>
         </div>
-        <div className="flex flex-col sm:flex-row items-center flex-wrap">
-          <WidgetButtonExample version={2} {...buttonProps}>
-            Give us Feedback
-          </WidgetButtonExample>
-          <WidgetButtonExample
-            lang="de"
-            metadata={{ lang: "de" }}
-            version={2}
-            {...buttonProps}
-          >
-            Geben Sie Feedback
-          </WidgetButtonExample>
-          <WidgetButtonExample
-            lang="fr"
-            metadata={{ lang: "fr" }}
-            version={2}
-            {...buttonProps}
-          >
-            Donnez-nous vos commentaires
-          </WidgetButtonExample>
+        <div className="md:col-span-2 hidden md:block" />
+        <div className="md:col-span-3">
+          <Heading as="h4">
+            {`You want to collect feedback fast, reliable and without any big setup? Welcome to `}
+            <span className="text-indigo-500 dark:text-pink-500 font-extrabold">
+              Fast Forward
+            </span>
+            .
+          </Heading>
+          <div className="space-x-4 mt-6">
+            <DemoButton />
+            <LoginButton />
+          </div>
+        </div>
+        <div className="md:col-span-2 mt-6 md:mt-0 relative">
+          <Example />
+          <div className="absolute bottom-14 md:bottom-0 left-96 md:-left-36 rotate-180 md:rotate-0 z-[-10]">
+            <ArrowCTA />
+          </div>
         </div>
       </div>
-      <div className="my-10 text-center">
-        <Link href="/app/VWJU7eJdIEYGmoyKW4rp">
-          <a
-            target="_blank"
-            className="inline-flex items-center text-white bg-gray-900 rounded-full border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
-          >
-            Try the Demo
-            <ExternalLinkIcon className="h-5 w-5 ml-2" />
-          </a>
-        </Link>
-      </div>
-      <div className="space-y-10">
-        <Features />
-        <Newsletter />
-      </div>
+      <Features />
+      <Snippet />
+      <Newsletter />
       <WidgetFABExample />
     </DefaultLayout>
   );
 };
-
-// export const getStaticProps = async () => {
-//   const { users } = await getAllUsers();
-//   return {
-//     props: {
-//       users: users || null,
-//     },
-//   };
-// };
 
 export default Home;
