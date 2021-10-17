@@ -19,20 +19,19 @@ const Header: FC = () => {
     <header className="sticky top-0 z-20 w-full bg-white dark:bg-black bg-opacity-80 backdrop-filter backdrop-blur-lg">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-4xl xl:px-0">
         <div className="h-16 flex justify-between items-center">
-          <NextLink href="/">
-            <a className="inline-flex text-xs items-end font-extrabold tracking-wider text-pink-500 group hover:text-indigo-500 rounded focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:outline-none">
-              <FastForwardIcon className="h-8 w-8 text-indigo-500 group-hover:text-pink-500" />
-              fast-forward
-            </a>
-          </NextLink>
-          <div className="space-x-4 flex items-center">
-            <Link href="/docs">Docs</Link>
+          <div className="flex items-center space-x-8">
+            <NextLink href="/">
+              <a className="inline-flex text-xs items-end font-extrabold tracking-wider rounded focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:outline-none">
+                <FastForwardIcon className="h-8 w-8" />
+              </a>
+            </NextLink>
+            <Link href="/docs">Doc</Link>
             <Link href="/blog">Blog</Link>
+            {auth.user && <Link href="/app">App</Link>}
+          </div>
+          <div className="space-x-8 flex items-center">
             {auth.user ? (
-              <>
-                <Link href="/app">App</Link>
-                <Link href="/logout">Logout</Link>
-              </>
+              <Link href="/logout">Logout</Link>
             ) : (
               <Link href="/login">Login</Link>
             )}
