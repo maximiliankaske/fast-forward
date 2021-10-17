@@ -24,14 +24,14 @@ const Home = () => {
         </div>
         <div className="md:col-span-2 hidden md:block" />
         <div className="md:col-span-3">
-          <Heading as="h4" className="mb-6">
+          <Heading as="h4">
             {`You want to collect feedback fast, reliable and without any big setup? Welcome to `}
             <span className="text-indigo-500 dark:text-pink-500 font-extrabold">
               Fast Forward
             </span>
             .
           </Heading>
-          <div className="space-x-4">
+          <div className="space-x-4 mt-6">
             <DemoButton />
             <LoginButton />
           </div>
