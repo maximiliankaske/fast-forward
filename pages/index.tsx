@@ -9,6 +9,7 @@ import Example from "../components/landing/Example";
 import DemoButton from "../components/landing/DemoButton";
 import Snippet from "../components/landing/Snippet";
 import LoginButton from "../components/landing/LoginButton";
+import ArrowCTA from "../components/landing/ArrowCTA";
 
 const Home = () => {
   return (
@@ -36,8 +37,11 @@ const Home = () => {
             <LoginButton />
           </div>
         </div>
-        <div className="md:col-span-2 mt-6 md:mt-0">
+        <div className="md:col-span-2 mt-6 md:mt-0 relative">
           <Example />
+          <div className="absolute bottom-16 md:bottom-0 md:-left-36 rotate-180 md:rotate-0 right-0 md:right-0 z-[-10]">
+            <ArrowCTA />
+          </div>
         </div>
       </div>
       <Features />
