@@ -8,6 +8,7 @@ import Newsletter from "../components/landing/Newsletter";
 import Example from "../components/landing/Example";
 import DemoButton from "../components/landing/DemoButton";
 import Snippet from "../components/landing/Snippet";
+import LoginButton from "../components/landing/LoginButton";
 
 const Home = () => {
   return (
@@ -30,7 +31,10 @@ const Home = () => {
             </span>
             .
           </Heading>
-          <DemoButton />
+          <div className="space-x-4">
+            <DemoButton />
+            <LoginButton />
+          </div>
         </div>
         <div className="md:col-span-2 mt-6 md:mt-0">
           <Example />

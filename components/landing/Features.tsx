@@ -34,7 +34,7 @@ const Features = () => {
       <dl className="space-y-6 max-w-xl mx-auto">
         {features.map((feature) => (
           <div key={feature.name} className="flex space-x-2">
-            <CheckIcon className="h-5 w-5 text-green-500" />
+            <CheckIcon className="h-5 w-5 text-green-500 flex-shrink-0 mt-[2px]" />
             <div>
               <dt className="flex ">
                 <p className="text-lg leading-6 font-medium">{feature.name}</p>
