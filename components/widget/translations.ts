@@ -13,7 +13,14 @@ const translations: Record<
       };
     };
     comment: { label: string; placeholder: string };
-    submit: { label: string };
+    submit: {
+      label: string;
+      state: {
+        loading: string;
+        success: string;
+        error: string;
+      };
+    };
   }
 > = {
   en: {
@@ -29,7 +36,14 @@ const translations: Record<
       },
     },
     comment: { label: "Comment", placeholder: "Tell us about..." },
-    submit: { label: "Submit" },
+    submit: {
+      label: "Submit",
+      state: {
+        loading: "Loading",
+        success: "Thanks for the feedback!",
+        error: "Error - Try again",
+      },
+    },
   },
   de: {
     type: {
@@ -43,7 +57,14 @@ const translations: Record<
       },
     },
     comment: { label: "Kommentar", placeholder: "Es ist mir aufgefallen..." },
-    submit: { label: "Senden" },
+    submit: {
+      label: "Senden",
+      state: {
+        loading: "Lädt",
+        success: "Danke für dein Feedback!",
+        error: "Fehler - Nochmal versuchen",
+      },
+    },
   },
   fr: {
     type: {
@@ -57,7 +78,14 @@ const translations: Record<
       },
     },
     comment: { label: "Commentaire", placeholder: "J'ai remarqué..." },
-    submit: { label: "Envoyer" },
+    submit: {
+      label: "Envoyer",
+      state: {
+        loading: "charge",
+        success: "Merci pour ton Feedback!",
+        error: "Problème - réessayer",
+      },
+    },
   },
 };
 

@@ -16,6 +16,8 @@ import LoadingIcon from "../icon/Loading";
 import { CheckIcon } from "@heroicons/react/solid";
 import toasts from "../../utils/toast";
 
+// Basic WidgetForm with Screenshot button
+
 const WidgetForm = ({
   userId,
   projectId,

@@ -15,6 +15,7 @@ const toastMessages = {
   },
   success: {
     default: "Success!",
+    clipboard: "Copied to Clipboard",
   },
 };
 

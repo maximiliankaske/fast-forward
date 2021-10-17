@@ -18,7 +18,7 @@ const AllPosts = ({
       <ul className="space-y-6">
         {posts.map((post) => (
           <li key={post.slug}>
-            <Thumbnail post={post} />
+            <Thumbnail {...post} />
           </li>
         ))}
       </ul>
@@ -33,12 +33,10 @@ export const getStaticProps = async () => {
     "excerpt",
     "date",
     "slug",
-    "authorName",
-    "authorPicture",
     "content",
-    "ogImageUrl",
+    "section",
     "coverImage",
-  ]);
+  ]).sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return {
     props: {
       posts,

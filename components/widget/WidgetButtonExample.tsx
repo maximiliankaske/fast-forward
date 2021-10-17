@@ -2,18 +2,13 @@ import React, { FC } from "react";
 import Widget, { WidgetProps } from "./Widget";
 import cn from "classnames";
 
-interface Props extends WidgetProps {
-  reverse?: boolean;
-}
-
-const WidgetButtonExample: FC<Props> = ({ reverse, children, ...props }) => {
+const WidgetButtonExample: FC<WidgetProps> = ({ children, ...props }) => {
   return (
     <Widget {...props}>
       <button
-        className={cn("px-2 py-1", {
-          "text-indigo-500 hover:text-indigo-600": !reverse,
-          "text-white hover:text-gray-100": reverse,
-        })}
+        className={cn(
+          "px-2 py-1 rounded text-indigo-500 dark:text-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        )}
       >
         {children}
       </button>

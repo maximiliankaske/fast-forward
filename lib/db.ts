@@ -14,23 +14,6 @@ export function createUser(uid: string, data: Omit<User, "token">) {
     .set(data, { merge: true });
 }
 
-export function createSite(data: Site) {
-  return firebase
-    .firestore()
-    .collection("sites")
-    .withConverter(converter<Site>())
-    .doc()
-    .set(data);
-}
-
-export function deleteSite(id: string) {
-  return firebase.firestore().collection("sites").doc(id).delete();
-}
-
-export function updateSite(id: string, data: Partial<Site>) {
-  return firebase.firestore().collection("sites").doc(id).update(data);
-}
-
 export function createProject(data: Project) {
   return firebase
     .firestore()

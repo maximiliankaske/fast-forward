@@ -7,16 +7,18 @@ import WidgetFABExample from "../components/widget/WidgetFABExample";
 import { useAuth } from "../lib/auth";
 import feedbackConfig from "../fast-forward.json";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { ExternalLinkIcon } from "@heroicons/react/solid";
 import Newsletter from "../components/landing/Newsletter";
 import Banner from "../components/common/Banner";
+import Input from "../components/ui/Input";
 
 const Home = () => {
+  const [projectId, setProjectId] = useState("");
   const auth = useAuth();
 
   const buttonProps = {
-    projectId: feedbackConfig.projects.main,
+    projectId: projectId === "" ? feedbackConfig.projects.main : projectId,
     userId: auth.user?.email || undefined,
   };
 
@@ -28,26 +30,39 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Banner>This is an experimental project.</Banner>
-      <div className="flex flex-col items-center p-16 my-6 w-full bg-indigo-700 rounded-lg">
-        <Heading as="h2" className="text-white">
-          How does it work?
-        </Heading>
-        <div className="text-center space-y-4 pt-4">
-          <WidgetButtonExample reverse {...buttonProps}>
+      <div className="p-16 my-6 w-full border bg-gray-100 dark:bg-gray-900 rounded-lg space-y-6 text-center sm:text-left">
+        <Heading as="h2">How does it work?</Heading>
+        <div className="max-w-xs sm:max-w-sm mx-auto sm:mx-0">
+          <Input
+            name="projectId"
+            label="Project Id"
+            className="text-center sm:text-left"
+            placeholder={feedbackConfig.projects.main}
+            value={projectId}
+            onChange={(event) => setProjectId(event.target.value)}
+            srOnly
+          />
+          <p className="text-xs mt-1 text-gray-700 dark:text-gray-300">
+            Leave it blank to use the demo project id. Otherwise copy and paste
+            your own project id to test.
+          </p>
+        </div>
+        <div className="flex flex-col sm:flex-row items-center flex-wrap">
+          <WidgetButtonExample version={2} {...buttonProps}>
             Give us Feedback
           </WidgetButtonExample>
           <WidgetButtonExample
             lang="de"
             metadata={{ lang: "de" }}
-            reverse
+            version={2}
             {...buttonProps}
           >
             Geben Sie Feedback
           </WidgetButtonExample>
           <WidgetButtonExample
             lang="fr"
-            metadata={{ lang: "fr", test: "true" }}
-            reverse
+            metadata={{ lang: "fr" }}
+            version={2}
             {...buttonProps}
           >
             Donnez-nous vos commentaires
