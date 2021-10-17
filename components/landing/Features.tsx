@@ -11,16 +11,19 @@ const features = [
   {
     name: "Translation",
     description:
-      "It is very easy to change the language depending on the locales you support. Locales supported: <b>en</b>, <b>de</b>, <b>fr</b>.",
+      "It is very easy to change the language depending on the locales you support. Locales examples: <b>en</b>, <b>de</b>, <b>fr</b>. Create your owns!",
   },
   {
     name: "Screenshots (soon or later)",
     description:
       "Let the user append a browser screenshot with only one click.",
   },
+  {
+    name: "Metadata",
+    description:
+      "Append any metadata you want to the request send, e.g. <code>lang: 'de'</code>.",
+  },
 ];
-
-// METADATA
 
 const Features = () => {
   return (
