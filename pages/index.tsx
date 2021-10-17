@@ -7,6 +7,7 @@ import React from "react";
 import Newsletter from "../components/landing/Newsletter";
 import Example from "../components/landing/Example";
 import DemoButton from "../components/landing/DemoButton";
+import Snippet from "../components/landing/Snippet";
 
 const Home = () => {
   return (
@@ -19,7 +20,7 @@ const Home = () => {
       <div className="grid md:grid-cols-5 gap-8 md:gap-6 pb-16">
         <div className="md:col-span-3">
           <Heading>The easiest way to collect Feedback.</Heading>
-          <Heading as="h4" className="mb-7">
+          <Heading as="h4" className="mb-6">
             {`You want to collect feedback fast, reliable and without any big setup? Welcome to `}
             <span className="text-indigo-500 dark:text-pink-500 font-extrabold">
               Fast Forward
@@ -33,6 +34,7 @@ const Home = () => {
         </div>
       </div>
       <Features />
+      <Snippet />
       <Newsletter />
       <WidgetFABExample />
     </DefaultLayout>
