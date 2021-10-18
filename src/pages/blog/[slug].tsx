@@ -8,6 +8,7 @@ import { getPostBySlug, getAllPosts } from "@/lib/api";
 import Header from "@/components/post/Header";
 import PostLayout from "@/components/layout/PostLayout";
 import WidgetFABExample from "@/components/widget/WidgetFABExample";
+import { NextSeo } from "next-seo";
 
 const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
@@ -16,10 +17,10 @@ const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   }
   return (
     <PostLayout>
-      <Head>
-        <title>{post.title} | Fast Forward Blog</title>
-        <meta property="og:image" content={post.coverImage} />
-      </Head>
+      <NextSeo
+        title={`Fast Forward - ${post.title}`}
+        description={post.excerpt}
+      />
       {router.isFallback ? (
         <div>Loading…</div>
       ) : (
