@@ -11,8 +11,8 @@ const SEO: DefaultSeoProps = {
     images: [
       {
         url: "https://fast-forward.app/meta/default.png",
-        width: 494,
-        height: 349,
+        width: 600,
+        height: 312,
         alt: "Fast Forward - The easiest way to collect feedback.",
       },
     ],
