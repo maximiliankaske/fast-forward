@@ -6,6 +6,8 @@ import { AuthProvider } from "../lib/auth";
 import { Toaster } from "react-hot-toast";
 import { NextComponentType, NextPageContext } from "next";
 import Auth, { AuthComponentProps } from "@/components/auth/Auth";
+import { DefaultSeo } from "next-seo";
+import SEO from "@/config/next-seo.config";
 
 const components = {
   // img: Image,
@@ -30,6 +32,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     <AuthProvider>
       <ThemeProvider attribute="class">
         <MDXProvider components={components}>
+          <DefaultSeo {...SEO} />
           {Component.auth ? (
             <Auth auth={Component.auth}>
               <Component {...pageProps} />

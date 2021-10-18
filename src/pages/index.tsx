@@ -14,11 +14,6 @@ import ArrowCTA from "@/components/landing/ArrowCTA";
 const Home = () => {
   return (
     <DefaultLayout>
-      <Head>
-        <title>Fast-Forward</title>
-        <meta name="description" content="Fast-Forward" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <div className="grid md:grid-cols-5 gap-x-0 md:gap-x-6 pt-6 md:pt-12 pb-24 md:pb-40">
         <div className="md:col-span-3">
           <Heading>The easiest way to collect Feedback.</Heading>
