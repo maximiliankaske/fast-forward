@@ -1,6 +1,6 @@
 import { db } from "./firebase-admin";
 import * as admin from "firebase-admin";
-import type { User, Site, WithId, Project, Feedback } from "../types";
+import type { User, Site, WithId, Project, Feedback } from "@/types/index";
 
 export async function getAllUsers() {
   try {

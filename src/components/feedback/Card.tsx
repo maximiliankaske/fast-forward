@@ -2,8 +2,8 @@ import { ExternalLinkIcon } from "@heroicons/react/outline";
 import { formatDistance } from "date-fns";
 import React from "react";
 import parser from "ua-parser-js";
-import { Feedback, WithId } from "../../types";
-import { getBadgeColor } from "../../utils/feedback";
+import { Feedback, WithId } from "@/types/index";
+import { getBadgeColor } from "@/utils/feedback";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
 

@@ -1,10 +1,10 @@
 import React, { FC, FormEvent } from "react";
 import Button from "../ui/Button";
 import firebase from "firebase/app";
-import { createFeedback } from "../../lib/db";
+import { createFeedback } from "@/lib/db";
 import Input from "../ui/Input";
 import Radios from "../ui/Radios";
-import { FeedbackType } from "../../types";
+import { FeedbackType } from "@/types/index";
 
 const PROJECT_ID = "bSyoWqKaC9kFEFzpYFpB";
 

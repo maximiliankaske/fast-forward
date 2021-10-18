@@ -1,17 +1,17 @@
 import { PlusIcon } from "@heroicons/react/solid";
 import React, { FC } from "react";
 import useSWR from "swr";
-import EmptyState from "../../components/app/EmptyState";
-import Thumbnail from "../../components/app/Thumbnail";
-import type { ComponentWithAuth } from "../../components/auth/Auth";
-import DefaultLayout from "../../components/layout/DefaultLayout";
-import Button from "../../components/ui/Button";
-import Heading from "../../components/ui/Heading";
-import { useAuth } from "../../lib/auth";
-import { createProject } from "../../lib/db";
-import { Project, WithId } from "../../types";
-import fetcher from "../../utils/fetcher";
-import toasts from "../../utils/toast";
+import EmptyState from "@/components/app/EmptyState";
+import Thumbnail from "@/components/app/Thumbnail";
+import type { ComponentWithAuth } from "@/components/auth/Auth";
+import DefaultLayout from "@/components/layout/DefaultLayout";
+import Button from "@/components/ui/Button";
+import Heading from "@/components/ui/Heading";
+import { useAuth } from "@/lib/auth";
+import { createProject } from "@/lib/db";
+import { Project, WithId } from "@/types/index";
+import fetcher from "@/utils/fetcher";
+import toasts from "@/utils/toast";
 
 const App: ComponentWithAuth = () => {
   const { user } = useAuth();

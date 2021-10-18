@@ -4,7 +4,7 @@ import readingTime from "reading-time";
 import Link from "next/link";
 import Image from "next/image";
 import React, { FC } from "react";
-import type { Post } from "../../types";
+import type { Post } from "@/types/index";
 import Divider from "../ui/Divider";
 
 const Header: FC<Post> = ({ title, date, section, content, coverImage }) => {

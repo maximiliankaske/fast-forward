@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Project, WithId } from "../../types";
+import { Project, WithId } from "@/types/index";
 import { CogIcon } from "@heroicons/react/outline";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 

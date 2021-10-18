@@ -1,10 +1,9 @@
 import { FastForwardIcon, MoonIcon, SunIcon } from "@heroicons/react/solid";
 import { useTheme } from "next-themes";
 import React, { FC, useEffect, useState } from "react";
-import { useAuth } from "../../lib/auth";
+import { useAuth } from "@/lib/auth";
 import Link from "../ui/Link";
 import NextLink from "next/link";
-import Switch from "../ui/Switch";
 
 const Header: FC = () => {
   const auth = useAuth();

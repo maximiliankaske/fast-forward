@@ -2,16 +2,16 @@ import { ArrowLeftIcon, ClipboardIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
 import useSWR from "swr";
-import Card from "../../../components/feedback/Card";
-import Filter from "../../../components/feedback/Filter";
-import DefaultLayout from "../../../components/layout/DefaultLayout";
-import Heading from "../../../components/ui/Heading";
-import { useAuth } from "../../../lib/auth";
-import { updateFeedback } from "../../../lib/db";
-import { Feedback, FeedbackType, Project, WithId } from "../../../types";
-import fetcher from "../../../utils/fetcher";
-import Link from "../../../components/ui/Link";
-import toasts from "../../../utils/toast";
+import Card from "@/components/feedback/Card";
+import Filter from "@/components/feedback/Filter";
+import DefaultLayout from "@/components/layout/DefaultLayout";
+import Heading from "@/components/ui/Heading";
+import { useAuth } from "@/lib/auth";
+import { updateFeedback } from "@/lib/db";
+import { Feedback, FeedbackType, Project, WithId } from "@/types/index";
+import fetcher from "@/utils/fetcher";
+import Link from "@/components/ui/Link";
+import toasts from "@/utils/toast";
 
 const ProjectPage = () => {
   const [type, setType] = useState<FeedbackType>("all");

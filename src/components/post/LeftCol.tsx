@@ -1,8 +1,7 @@
 import { ChevronLeftIcon } from "@heroicons/react/solid";
 import Link from "../ui/Link";
 import React, { FC } from "react";
-import type { Post } from "../../types";
-import Avatar from "../ui/Avatar";
+import type { Post } from "@/types/index";
 import Badge from "../ui/Badge";
 import Divider from "../ui/Divider";
 

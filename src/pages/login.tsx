@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import React from "react";
-import GitHubIcon from "../components/icon/GitHub";
-import GoogleIcon from "../components/icon/Google";
-import DefaultLayout from "../components/layout/DefaultLayout";
-import Button from "../components/ui/Button";
-import Heading from "../components/ui/Heading";
-import { useAuth } from "../lib/auth";
+import GitHubIcon from "@/components/icon/GitHub";
+import GoogleIcon from "@/components/icon/Google";
+import DefaultLayout from "@/components/layout/DefaultLayout";
+import Button from "@/components/ui/Button";
+import Heading from "@/components/ui/Heading";
+import { useAuth } from "@/lib/auth";
 
 const Login = () => {
   const auth = useAuth();

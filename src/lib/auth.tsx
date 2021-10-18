@@ -9,7 +9,7 @@ import Router from "next/router";
 import firebase from "./firebase";
 import "firebase/auth";
 import { createUser } from "./db";
-import type { User } from "../types";
+import type { User } from "@/types/index";
 
 // @ts-expect-error
 const authContext = createContext<ReturnType<typeof useProvideAuth>>();

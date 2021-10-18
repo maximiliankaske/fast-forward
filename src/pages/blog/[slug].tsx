@@ -3,11 +3,11 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import React from "react";
-import markdownToHtml from "../../lib/markdownToHtml";
-import { getPostBySlug, getAllPosts } from "../../lib/api";
-import Header from "../../components/post/Header";
-import PostLayout from "../../components/layout/PostLayout";
-import WidgetFABExample from "../../components/widget/WidgetFABExample";
+import markdownToHtml from "@/lib/markdownToHtml";
+import { getPostBySlug, getAllPosts } from "@/lib/api";
+import Header from "@/components/post/Header";
+import PostLayout from "@/components/layout/PostLayout";
+import WidgetFABExample from "@/components/widget/WidgetFABExample";
 
 const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();

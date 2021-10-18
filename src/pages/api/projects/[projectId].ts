@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getProject } from "../../../lib/db-admin";
-import { withProjectAuth } from "../../../lib/middleware";
+import { getProject } from "@/lib/db-admin";
+import { withProjectAuth } from "@/lib/middleware";
 
 const projectApi = async (req: NextApiRequest, res: NextApiResponse) => {
   try {

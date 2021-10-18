@@ -1,5 +1,5 @@
 import React, { FormEvent, useCallback, useRef, useState } from "react";
-import { addNewsletterSubscription } from "../../lib/db";
+import { addNewsletterSubscription } from "@/lib/db";
 import Button from "../ui/Button";
 import Heading from "../ui/Heading";
 import Input from "../ui/Input";

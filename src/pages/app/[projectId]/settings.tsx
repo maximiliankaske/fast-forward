@@ -1,19 +1,19 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState, FormEvent } from "react";
 import useSWR from "swr";
-import DefaultUserLayout from "../../../components/layout/DefaultUserLayout";
-import Heading from "../../../components/ui/Heading";
-import { useAuth } from "../../../lib/auth";
-import { deleteProject, updateProject, resetProject } from "../../../lib/db";
-import { Project, WithId } from "../../../types";
-import fetcher from "../../../utils/fetcher";
-import Link from "../../../components/ui/Link";
-import Input from "../../../components/ui/Input";
-import Button from "../../../components/ui/Button";
-import Switch from "../../../components/ui/Switch";
+import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
+import Heading from "@/components/ui/Heading";
+import { useAuth } from "@/lib/auth";
+import { deleteProject, updateProject, resetProject } from "@/lib/db";
+import { Project, WithId } from "@/types/index";
+import fetcher from "@/utils/fetcher";
+import Link from "@/components/ui/Link";
+import Input from "@/components/ui/Input";
+import Button from "@/components/ui/Button";
+import Switch from "@/components/ui/Switch";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
-import toasts from "../../../utils/toast";
-import { ComponentWithAuth } from "../../../components/auth/Auth";
+import toasts from "@/utils/toast";
+import { ComponentWithAuth } from "@/components/auth/Auth";
 
 // TODO: remove publically as state - use the data.project.private boolean
 // Problem: on first render of the Switch Component - it will have no data and so the wrong value

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { FC } from "react";
 import { format } from "date-fns";
-import { Post } from "../../types";
+import { Post } from "@/types/index";
 import Heading from "../ui/Heading";
 
 const tags = ["blue", "gray", "red", "pink", "purple"] as const;

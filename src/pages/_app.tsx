@@ -5,7 +5,7 @@ import "tailwindcss/tailwind.css";
 import { AuthProvider } from "../lib/auth";
 import { Toaster } from "react-hot-toast";
 import { NextComponentType, NextPageContext } from "next";
-import Auth, { AuthComponentProps } from "../components/auth/Auth";
+import Auth, { AuthComponentProps } from "@/components/auth/Auth";
 
 const components = {
   // img: Image,

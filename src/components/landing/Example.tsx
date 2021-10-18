@@ -1,8 +1,6 @@
-import Head from "next/head";
-import Heading from "../ui/Heading";
 import WidgetButtonExample from "../widget/WidgetButtonExample";
-import { useAuth } from "../../lib/auth";
-import feedbackConfig from "../../../fast-forward.json";
+import { useAuth } from "@/lib/auth";
+import feedbackConfig from "@/config/fast-forward.json";
 import React, { useState } from "react";
 import Input from "../ui/Input";
 

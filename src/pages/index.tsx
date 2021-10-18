@@ -1,15 +1,15 @@
 import Head from "next/head";
-import Features from "../components/landing/Features";
-import DefaultLayout from "../components/layout/DefaultLayout";
-import Heading from "../components/ui/Heading";
-import WidgetFABExample from "../components/widget/WidgetFABExample";
+import Features from "@/components/landing/Features";
+import DefaultLayout from "@/components/layout/DefaultLayout";
+import Heading from "@/components/ui/Heading";
+import WidgetFABExample from "@/components/widget/WidgetFABExample";
 import React from "react";
-import Newsletter from "../components/landing/Newsletter";
-import Example from "../components/landing/Example";
-import DemoButton from "../components/landing/DemoButton";
-import Snippet from "../components/landing/Snippet";
-import LoginButton from "../components/landing/LoginButton";
-import ArrowCTA from "../components/landing/ArrowCTA";
+import Newsletter from "@/components/landing/Newsletter";
+import Example from "@/components/landing/Example";
+import DemoButton from "@/components/landing/DemoButton";
+import Snippet from "@/components/landing/Snippet";
+import LoginButton from "@/components/landing/LoginButton";
+import ArrowCTA from "@/components/landing/ArrowCTA";
 
 const Home = () => {
   return (

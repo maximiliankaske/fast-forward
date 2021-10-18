@@ -1,10 +1,10 @@
 import { InferGetStaticPropsType } from "next";
 import React from "react";
-import Thumbnail from "../../components/blog/Thumbnail";
-import DefaultLayout from "../../components/layout/DefaultLayout";
-import Heading from "../../components/ui/Heading";
-import WidgetFABExample from "../../components/widget/WidgetFABExample";
-import { getAllPosts } from "../../lib/api";
+import Thumbnail from "@/components/blog/Thumbnail";
+import DefaultLayout from "@/components/layout/DefaultLayout";
+import Heading from "@/components/ui/Heading";
+import WidgetFABExample from "@/components/widget/WidgetFABExample";
+import { getAllPosts } from "@/lib/api";
 
 const AllPosts = ({
   posts,

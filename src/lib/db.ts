@@ -1,6 +1,6 @@
 import firebase from "./firebase";
-import type { User, Site, Project, Feedback } from "../types";
-import converter from "../utils/converter";
+import type { User, Site, Project, Feedback } from "@/types/index";
+import converter from "@/utils/converter";
 
 export function updateUser(uid: string, data: Omit<User, "token">) {
   return firebase.firestore().collection("users").doc(uid).update(data);

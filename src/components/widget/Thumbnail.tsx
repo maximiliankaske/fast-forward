@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import firebase from "firebase/app";
 import html2canvas from "html2canvas";
 import Image from "next/image";
-import { handleUploadState, uploadDataURL } from "../../lib/storage";
+import { handleUploadState, uploadDataURL } from "@/lib/storage";
 import LoadingIcon from "../icon/Loading";
 import { CameraIcon, XIcon } from "@heroicons/react/solid";
 

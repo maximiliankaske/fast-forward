@@ -7,14 +7,14 @@ import React, {
 } from "react";
 import Button from "../ui/Button";
 import Radios from "../ui/Radios";
-import { FeedbackType } from "../../types";
+import { FeedbackType } from "@/types/index";
 import Thumbnail from "./Thumbnail";
 import { WidgetProps } from "./Widget";
 import TextArea from "../ui/TextArea";
 import { formattedMessages } from "./translations";
 import LoadingIcon from "../icon/Loading";
 import { CheckIcon } from "@heroicons/react/solid";
-import toasts from "../../utils/toast";
+import toasts from "@/utils/toast";
 
 // Basic WidgetForm with Screenshot button
 

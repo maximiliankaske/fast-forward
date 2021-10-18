@@ -1,8 +1,8 @@
 import React from "react";
 import cn from "classnames";
-import { FeedbackType } from "../../types";
+import { FeedbackType } from "@/types/index";
 import Badge from "../ui/Badge";
-import { getBadgeColor } from "../../utils/feedback";
+import { getBadgeColor } from "@/utils/feedback";
 
 interface Props<T = FeedbackType> {
   types: {
