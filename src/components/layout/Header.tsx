@@ -18,7 +18,7 @@ const Header: FC = () => {
     <header className="sticky top-0 z-20 w-full bg-white dark:bg-black bg-opacity-80 backdrop-filter backdrop-blur-lg">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-4xl xl:px-0">
         <div className="h-16 flex justify-between items-center">
-          <div className="flex items-center space-x-8">
+          <div className="flex items-center space-x-6 sm:space-x-8">
             <NextLink href="/">
               <a className="rounded focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:outline-none">
                 <FastForwardIcon className="h-8 w-8" />
@@ -28,7 +28,7 @@ const Header: FC = () => {
             <Link href="/blog">Blog</Link>
             {auth.user && <Link href="/app">App</Link>}
           </div>
-          <div className="space-x-8 flex items-center">
+          <div className="space-x-6 sm:space-x-8 flex items-center">
             {auth.user ? (
               <Link href="/logout">Logout</Link>
             ) : (
