@@ -59,6 +59,12 @@ const ProjectPage = () => {
       .then(() => toasts.success("clipboard"));
   };
 
+  const filterByType = (feedback: WithId<Feedback>) => {
+    return type === "archive"
+      ? feedback.archived
+      : !feedback.archived && (type === "all" || feedback.type === type);
+  };
+
   return (
     <DefaultLayout className="space-y-6">
       <Heading className="text-center">{projectData?.project.name}</Heading>
@@ -96,24 +102,18 @@ const ProjectPage = () => {
         activeType={type}
         onChange={setType}
       />
-      {data?.feedbacks
-        .filter((f) =>
-          type === "archive"
-            ? f.archived
-            : !f.archived && (type === "all" || f.type === type)
-        )
-        .map((feedback) => (
-          <Card
-            key={feedback.id}
-            feedback={feedback}
-            handleArchive={() =>
-              handleArchive(feedback.id, {
-                projectId: feedback.projectId,
-                archived: !feedback.archived,
-              })
-            }
-          />
-        ))}
+      {data?.feedbacks.filter(filterByType).map((feedback) => (
+        <Card
+          key={feedback.id}
+          feedback={feedback}
+          handleArchive={() =>
+            handleArchive(feedback.id, {
+              projectId: feedback.projectId,
+              archived: !feedback.archived,
+            })
+          }
+        />
+      ))}
     </DefaultLayout>
   );
 };
