@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { auth } from "../lib/firebase-admin";
-import { getProject } from "../lib/db-admin";
+import { auth } from "./firebase-admin";
+import { getProject } from "./db-admin";
 
 export type NextApiRequestWithToken = NextApiRequest & {
   token: string;

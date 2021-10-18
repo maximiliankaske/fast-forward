@@ -1,7 +1,7 @@
 import React from "react";
 import Widget from "./Widget";
 import { ChatAlt2Icon } from "@heroicons/react/outline";
-import feebackConfig from "../../fast-forward.json";
+import feebackConfig from "../../../fast-forward.json";
 import { useAuth } from "../../lib/auth";
 
 const WidgetFABExample = () => {
