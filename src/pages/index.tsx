@@ -37,7 +37,7 @@ const Home = () => {
             <LoginButton />
           </div>
         </div>
-        <div className="md:col-span-2 mt-6 md:mt-0 relative">
+        <div className="md:col-span-2 mt-6 md:mt-0 relative -mr-4 sm:-mr-6 overflow-hidden md:overflow-visible">
           <Example />
           <div className="absolute bottom-14 md:bottom-0 left-96 md:-left-36 rotate-180 md:rotate-0 z-[-10]">
             <ArrowCTA />
