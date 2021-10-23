@@ -5,7 +5,13 @@ import type { Post } from "@/types/index";
 import Badge from "../ui/Badge";
 import Divider from "../ui/Divider";
 
-const tags = ["blue", "gray", "red", "pink", "purple"] as const;
+const tags = [
+  "default",
+  "primary",
+  "secondary",
+  "ternary",
+  "quantery",
+] as const;
 
 interface Props {
   post: Post;

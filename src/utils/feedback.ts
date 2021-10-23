@@ -3,15 +3,15 @@ import { FeedbackType } from "../types";
 function getBadgeColor(type: FeedbackType) {
   switch (type) {
     case "all":
-      return "red";
+      return "primary";
     case "idea":
-      return "green";
+      return "secondary";
     case "issue":
-      return "purple";
+      return "ternary";
     case "other":
-      return "blue";
+      return "quantery";
     default:
-      return "gray";
+      return "default";
   }
 }
 

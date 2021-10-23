@@ -87,7 +87,7 @@ const Card = ({ feedback, handleArchive }: Props) => {
       {feedback?.metadata ? (
         <div className="relative px-6 pt-4 pb-2 bg-gray-100 dark:bg-gray-900 border-t">
           <div className="absolute -top-4 left-0 right-0 text-center">
-            <Badge color="pink" className="text-base">
+            <Badge color="primary" className="text-base">
               Metadata
             </Badge>
           </div>

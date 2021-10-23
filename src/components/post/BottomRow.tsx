@@ -4,7 +4,13 @@ import React, { FC } from "react";
 import Badge from "../ui/Badge";
 import Divider from "../ui/Divider";
 
-const tags = ["blue", "gray", "red", "pink", "purple"] as const;
+const tags = [
+  "default",
+  "primary",
+  "secondary",
+  "ternary",
+  "quantery",
+] as const;
 
 const BottomRow: FC = () => {
   return (
