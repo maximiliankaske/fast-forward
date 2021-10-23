@@ -12,7 +12,7 @@ const Link: FC<LinkProps> = ({ children, className, ...props }) => {
       <a
         className={cn(
           className,
-          "hover:underline hover:text-indigo-500 dark:hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:rounded"
+          "hover:underline hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:rounded"
         )}
       >
         {children}
