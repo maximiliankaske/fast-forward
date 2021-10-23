@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth";
 import Link from "../ui/Link";
 import NextLink from "next/link";
 import Badge from "../ui/Badge";
+import NavLink from "../navigation/NavLink";
 
 const Header: FC = () => {
   const auth = useAuth();
@@ -26,8 +27,8 @@ const Header: FC = () => {
                 <Badge color="primary">Beta</Badge>
               </a>
             </NextLink>
-            <Link href="/blog">Blog</Link>
-            {auth.user && <Link href="/app">App</Link>}
+            <NavLink href="/blog">Blog</NavLink>
+            {auth.user && <NavLink href="/app">App</NavLink>}
           </div>
           <div className="space-x-6 sm:space-x-8 flex items-center">
             {auth.user ? (
