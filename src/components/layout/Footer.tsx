@@ -9,10 +9,7 @@ const Footer: FC = () => {
       <div className="pt-8 pb-16 grid grid-cols-2 border-t">
         <div className="space-y-4">
           <div>
-            <Link href="/privacy">Privacy</Link>
-          </div>
-          <div>
-            <Link href="/terms">Terms</Link>
+            <Link href="/imprint">Imprint</Link>
           </div>
           <div>
             <Link href="/">Home</Link>

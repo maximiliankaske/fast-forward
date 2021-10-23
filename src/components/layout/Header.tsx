@@ -24,7 +24,6 @@ const Header: FC = () => {
                 <FastForwardIcon className="h-8 w-8" />
               </a>
             </NextLink>
-            <Link href="/docs">Doc</Link>
             <Link href="/blog">Blog</Link>
             {auth.user && <Link href="/app">App</Link>}
           </div>
