@@ -13,8 +13,8 @@ const Badge: FC<Props> = ({ children, className, color = "default" }) => {
       "bg-indigo-200 dark:bg-pink-200 text-indigo-800 dark:text-pink-800":
         color === "primary",
       "bg-yellow-200 text-yellow-800": color === "secondary",
-      "bg-lime-200 text-lime-800": color === "ternary",
-      "bg-cyan-200 text-cyan-800": color === "quantery",
+      "bg-red-200 text-red-800": color === "ternary",
+      "bg-lime-200 text-lime-800": color === "quantery",
     },
     className
   );
