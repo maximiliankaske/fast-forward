@@ -8,7 +8,7 @@ const Snippet = () => {
         Request Snippet
       </Heading>
       <p className="max-w-2xl mx-auto mb-4 text-gray-700 dark:text-gray-300">
-        Build your own form and submit the feedback to our API endpoint. Send a
+        Build your own form and submit the feedback to the API endpoint. Send a
         POST request to <code>https://fast-forward.app/api/feedback</code> that
         looks like:
       </p>
@@ -20,10 +20,10 @@ const Snippet = () => {
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    projectId: "", // mandatory
-    text: "", // mandatory
-    category: "", // mandatory - either "issue", "idea" or "other"
-    userId: user.email, // optional
+    projectId: "VWJU7eJdIEYGmoyKW4rp", // mandatory
+    text: "Great tool!", // mandatory
+    category: "other", // mandatory - either "issue", "idea" or "other"
+    userId: "maximilian@kaske.org", // optional
     metadata: {}, // optional - e.g. { lang: "en", position: "header" }
   }),
 });`}

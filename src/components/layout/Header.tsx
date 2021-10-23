@@ -4,6 +4,8 @@ import React, { FC, useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth";
 import Link from "../ui/Link";
 import NextLink from "next/link";
+import Badge from "../ui/Badge";
+import NavLink from "../navigation/NavLink";
 
 const Header: FC = () => {
   const auth = useAuth();
@@ -20,13 +22,13 @@ const Header: FC = () => {
         <div className="h-16 flex justify-between items-center">
           <div className="flex items-center space-x-6 sm:space-x-8">
             <NextLink href="/">
-              <a className="rounded focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:outline-none">
-                <FastForwardIcon className="h-8 w-8" />
+              <a className="inline-flex items-center rounded focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:outline-none">
+                <FastForwardIcon className="h-8 w-8 mr-1" />
+                <Badge color="primary">Beta</Badge>
               </a>
             </NextLink>
-            <Link href="/docs">Doc</Link>
-            <Link href="/blog">Blog</Link>
-            {auth.user && <Link href="/app">App</Link>}
+            <NavLink href="/blog">Blog</NavLink>
+            {auth.user && <NavLink href="/app">App</NavLink>}
           </div>
           <div className="space-x-6 sm:space-x-8 flex items-center">
             {auth.user ? (

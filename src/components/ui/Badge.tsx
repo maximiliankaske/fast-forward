@@ -2,25 +2,19 @@ import React, { FC, HTMLAttributes } from "react";
 import cn from "classnames";
 
 interface Props extends HTMLAttributes<HTMLSpanElement> {
-  color?: "gray" | "blue" | "red" | "green" | "purple" | "pink";
+  color?: "default" | "primary" | "secondary" | "ternary" | "quantery";
 }
 
-const Badge: FC<Props> = ({ children, className, color = "gray" }) => {
+const Badge: FC<Props> = ({ children, className, color = "default" }) => {
   const rootClassName = cn(
     "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium",
     {
-      "bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-gray-200":
-        color === "gray",
-      "bg-blue-100 dark:bg-blue-600 text-blue-800 dark:text-blue-200":
-        color === "blue",
-      "bg-red-100 dark:bg-red-600 text-red-800 dark:text-red-200":
-        color === "red",
-      "bg-green-100 dark:bg-green-600 text-green-800 dark:text-green-200":
-        color === "green",
-      "bg-purple-100 dark:bg-purple-600 text-purple-800 dark:text-purple-200":
-        color === "purple",
-      "bg-pink-100 dark:bg-pink-600 text-pink-800 dark:text-pink-200":
-        color === "pink",
+      "bg-gray-200 text-gray-800": color === "default",
+      "bg-indigo-200 dark:bg-pink-200 text-indigo-800 dark:text-pink-800":
+        color === "primary",
+      "bg-yellow-200 text-yellow-800": color === "secondary",
+      "bg-red-200 text-red-800": color === "ternary",
+      "bg-lime-200 text-lime-800": color === "quantery",
     },
     className
   );

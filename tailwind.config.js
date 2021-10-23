@@ -1,4 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
 const { spacing, fontFamily } = defaultTheme;
 
 module.exports = {
@@ -7,6 +8,10 @@ module.exports = {
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
+      colors: {
+        cyan: colors.cyan,
+        lime: colors.lime,
+      },
       fontFamily: {
         sans: ["Oxygen", ...fontFamily.sans],
       },

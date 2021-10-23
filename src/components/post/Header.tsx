@@ -10,14 +10,14 @@ import Divider from "../ui/Divider";
 const Header: FC<Post> = ({ title, date, section, content, coverImage }) => {
   return (
     <div className="text-lg flex flex-col mx-auto">
-      <div className="text-center text-indigo-500">
+      <div className="text-center">
         <Image src={coverImage} height={200} width={200} alt="cover image" />
       </div>
       <h1>
-        <span className="block text-base text-center text-indigo-600 font-semibold tracking-wide uppercase">
+        <span className="block text-base text-center text-indigo-600 dark:text-pink-500 font-semibold tracking-wide uppercase">
           {section}
         </span>
-        <span className="mt-2 block text-5xl text-center font-extrabold tracking-tight text-gray-900 dark:text-gray-300">
+        <span className="mt-2 block text-5xl text-center font-extrabold tracking-tight">
           {title}
         </span>
       </h1>
