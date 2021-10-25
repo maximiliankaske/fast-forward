@@ -27,6 +27,10 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
           return res.status(422).json({ error: feedbackError });
         }
       case "OPTIONS": {
+        res.setHeader(
+          "Access-Control-Allow-Methods",
+          "PUT, POST, PATCH, DELETE, GET"
+        );
         return res.status(204).end();
       }
       default:
