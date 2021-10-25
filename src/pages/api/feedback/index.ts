@@ -7,6 +7,7 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     // REMINDER: cors api call first creates a "preflight" with method: "OPTIONS"
     // if no switch - case, validation will fail
+    console.log(req.headers);
     switch (req.method) {
       case "POST":
         const [feedbackError, feedback] = validate(req.body, Feedback);
