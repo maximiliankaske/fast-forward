@@ -2,11 +2,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { validate } from "superstruct";
 import { createFeedback, getProject } from "@/lib/db-admin";
 import { Feedback } from "@/types/superstruct";
+import { allowCors } from "@/lib/middleware";
 
-const handle = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    // REMINDER: cors api call first creates a "preflight" with method: "OPTIONS"
-    // if no switch - case, validation will fail
+    console.log(req.headers);
     switch (req.method) {
       case "POST":
         const [feedbackError, feedback] = validate(req.body, Feedback);
@@ -25,9 +25,6 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
         } else {
           return res.status(422).json({ error: feedbackError });
         }
-      case "OPTIONS": {
-        return res.status(204).end();
-      }
       default:
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
@@ -36,4 +33,5 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default handle;
+// REMINDER: cors api call first creates a "preflight" with method: "OPTIONS"
+export default allowCors(handler);

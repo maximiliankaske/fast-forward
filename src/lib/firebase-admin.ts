@@ -15,4 +15,7 @@ if (!admin.apps.length) {
 const db = admin.firestore();
 const auth = admin.auth();
 
+// Firebase Emulator Environment Variables
+// FIREBASE_AUTH_EMULATOR_HOST, FIREBASE_STORAGE_EMULATOR_HOST, FIRESTORE_EMULATOR_HOST
+
 export { db, auth };

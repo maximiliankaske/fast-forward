@@ -33,15 +33,17 @@ const Home = () => {
             <LoginButton />
           </div>
         </div>
-        <div className="md:col-span-2 mt-6 md:mt-0 relative -mr-4 sm:-mr-6 overflow-hidden md:overflow-visible">
+        <div className="md:col-span-2 mt-6 md:mt-0 relative -mr-4 sm:-mr-6">
           <Example />
           <div className="absolute bottom-14 md:bottom-0 left-96 md:-left-36 rotate-180 md:rotate-0 z-[-10]">
             <ArrowCTA />
           </div>
         </div>
       </div>
-      <Features />
-      <div className="pb-24">
+      <div className="pb-16 md:pb-24">
+        <Features />
+      </div>
+      <div className="pb-16 mb:pb-24">
         <Blockquote>
           <Link href="/blog/welcome">
             Welcome to <b>Fast Forward</b>
@@ -51,7 +53,9 @@ const Home = () => {
           while. I would only recommend using it in small projects.
         </Blockquote>
       </div>
-      <Snippet />
+      <div className="pb-16 mb:pb-24">
+        <Snippet />
+      </div>
       <Newsletter />
       <WidgetFABExample />
     </DefaultLayout>

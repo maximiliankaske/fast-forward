@@ -43,7 +43,9 @@ To **[show the demo](http://fast-forward.com/app/VWJU7eJdIEYGmoyKW4rp)**, you ha
 
 > Even though buttons like "archive" are visible, the functionality is prohibited by the `firebase.rules`.
 
-Check out the little [Docs](https://fast-forward.app/docs) to which props are supported or see how I created the [Floating Widget](https://github.com/maximiliankaske/fast-forward/blob/main/components/widget/WidgetFABExample.tsx) on the current page.
+If you want to check the rules, open the [firebase.rules](https://github.com/maximiliankaske/fast-forward-emulator/blob/main/firestore.rules) file from the `fast-forward-emulator` repository that I am using to test in _development_ environments and deploy afterwards to firebase.
+
+If you are curious about how the **Floating Widget** on the current page was build with, [go check it](https://github.com/maximiliankaske/fast-forward/blob/main/components/widget/WidgetFABExample.tsx).
 
 ## Tech Stack 📚
 

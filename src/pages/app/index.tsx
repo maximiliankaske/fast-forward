@@ -39,7 +39,7 @@ const App: ComponentWithAuth = () => {
       <Heading as="h2">Dashboard</Heading>
       {user && (
         <div className="space-y-6 mt-6">
-          {data?.projects ? (
+          {data?.projects && data.projects.length > 0 ? (
             <>
               <Button
                 onClick={handleCreate}
