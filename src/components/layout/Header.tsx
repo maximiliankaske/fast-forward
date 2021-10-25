@@ -24,7 +24,9 @@ const Header: FC = () => {
             <NextLink href="/">
               <a className="inline-flex items-center rounded focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:outline-none">
                 <FastForwardIcon className="h-8 w-8 mr-1" />
-                <Badge color="primary">Beta</Badge>
+                <Badge color="primary" rounded="md">
+                  Beta
+                </Badge>
               </a>
             </NextLink>
             <NavLink href="/blog">Blog</NavLink>

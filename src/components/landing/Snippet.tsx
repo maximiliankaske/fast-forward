@@ -3,7 +3,7 @@ import Heading from "../ui/Heading";
 
 const Snippet = () => {
   return (
-    <div className="pb-24">
+    <>
       <Heading as="h2" className="text-center mb-6">
         Request Snippet
       </Heading>
@@ -29,7 +29,7 @@ const Snippet = () => {
 });`}
         </code>
       </pre>
-    </div>
+    </>
   );
 };
 
