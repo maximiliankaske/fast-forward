@@ -2,7 +2,7 @@
 title: "Welcome"
 section: "Introduction"
 excerpt: "Almost 2 months in the making, their is no perfect timing to start the release of this side project. A brief introduction about the inspiration, what problem it solves and what tech stack it is build on. And an overview of what the plans are to extend the tool."
-coverImage: "/assets/blog/preview/welcome-pr-flatline.svg"
+coverImage: "/assets/blog/preview/welcome-pr.jpg"
 date: "2020-10-10"
 ---
 
