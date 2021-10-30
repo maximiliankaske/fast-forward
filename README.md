@@ -13,6 +13,7 @@
 - [ ] Move Thumbnail into Form Component (to better reset image on successful submit)
 - [ ] Create a `fast-forward-[widget]` npm package for easy integration
 - [ ] self-hosted documentation - [plausible.io example](https://plausible.io/docs/self-hosting)
+- [ ] Rework `/lib/api` using more generic types (currently only string) and make the fields not mandatory. If undefined, return every property.
 
 ## Ideas
 

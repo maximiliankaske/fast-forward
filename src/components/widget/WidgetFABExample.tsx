@@ -12,7 +12,7 @@ const WidgetFABExample = () => {
         version={2}
         projectId={feebackConfig.projects.main}
         userId={user?.email || undefined}
-        // domain="https://fast-forward.app"
+        domain="https://fast-forward.app"
       >
         <button className="inline-flex rounded-full shadow-lg bg-white hover:bg-indigo-500 border text-indigo-500 hover:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 font-medium">
           Give us feedback

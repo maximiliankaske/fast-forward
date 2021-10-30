@@ -9,9 +9,10 @@ export function getPostSlugs() {
   return fs.readdirSync(postsDirectory);
 }
 
+// TODO: Extract into separate, more dynamic function
 export function getPostBySlug<T extends keyof Post>(
   slug: string,
-  fields: T[] = []
+  fields?: T[]
 ) {
   const realSlug = slug.replace(/\.md$/, "");
   const fullPath = join(postsDirectory, `${realSlug}.md`);
@@ -20,18 +21,25 @@ export function getPostBySlug<T extends keyof Post>(
 
   const items: Record<T, string> = {} as Record<T, string>;
 
-  // Ensure only the minimal needed data is exposed
-  fields.forEach((field) => {
-    if (field === "slug") {
-      items[field] = realSlug;
-    }
-    if (field === "content") {
-      items[field] = content;
-    }
-    if (data[field]) {
+  if (fields) {
+    fields.forEach((field) => {
+      if (field === "slug") {
+        items[field] = realSlug;
+      }
+      if (field === "content") {
+        items[field] = content;
+      }
+      if (data[field]) {
+        items[field] = data[field];
+      }
+    });
+  } else {
+    Object.keys(data).forEach((field: unknown) => {
+      // FIXME:
+      // @ts-ignore
       items[field] = data[field];
-    }
-  });
+    });
+  }
 
   return items;
 }
