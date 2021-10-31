@@ -11,7 +11,7 @@ export default function middleware(req: NextRequest) {
   const url =
     process.env.VERCEL_ENV === "production"
       ? "fast-forward.app"
-      : process.env.VERCEL_URL;
+      : "fast-forward.mxkaske.dev";
 
   const currentHost =
     process.env.NODE_ENV == "production"
