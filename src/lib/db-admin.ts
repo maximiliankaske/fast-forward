@@ -1,6 +1,14 @@
 import { db } from "./firebase-admin";
 import * as admin from "firebase-admin";
-import type { User, Site, WithId, Project, Feedback } from "@/types/index";
+import type {
+  User,
+  Site,
+  WithId,
+  Project,
+  Feedback,
+  Organization,
+  OrganizationMember,
+} from "@/types/index";
 
 export async function getAllUsers() {
   try {
@@ -49,6 +57,42 @@ export async function createFeedback(data: Omit<Feedback, "createdAt">) {
     .collection("feedbacks")
     .add({ ...data, createdAt: admin.firestore.Timestamp.now() });
   return { feedback: { id: feedback.id } };
+}
+
+export async function getOrganization(id: string) {
+  const organization = await db.collection("organizations").doc(id).get();
+  if (organization.exists) {
+    return {
+      organization: {
+        id: organization.id,
+        ...(organization.data() as Organization),
+      },
+    };
+  }
+}
+
+export async function getOrganizations() {
+  const snapshot = await db.collection("organizations").get();
+  const organizations: WithId<Organization>[] = [];
+  snapshot.forEach((doc) => {
+    organizations.push({ id: doc.id, ...(doc.data() as Organization) });
+  });
+
+  return { organizations };
+}
+
+export async function getOrganizationMembers(id: string) {
+  const snapshot = await db
+    .collection("organizations")
+    .doc(id)
+    .collection("members")
+    .get();
+  const members: WithId<OrganizationMember>[] = [];
+  snapshot.forEach((doc) => {
+    members.push({ id: doc.id, ...(doc.data() as OrganizationMember) });
+  });
+
+  return { members };
 }
 
 export async function getProjectFeedback(id: string) {

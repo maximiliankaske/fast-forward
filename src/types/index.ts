@@ -3,6 +3,8 @@ import firebase from "firebase/app";
 import { Describe } from "superstruct";
 import { FeedbackType } from "./superstruct";
 
+export type OrganizationRole = "admin" | "member";
+
 export type User = {
   uid: string;
   email: string | null;
@@ -10,11 +12,27 @@ export type User = {
   provider: string | undefined;
   photoUrl: string | null;
   token: string;
+  // organizations: { name: string; role: OrganizationRole }[]
 };
 
 export type Site = {
   authorId: string;
   url: string;
+};
+
+export type Organization = {
+  name: string;
+  email?: string;
+  authorId: string;
+  /**
+   * members as collection
+   * collection("organization").doc("userId").set({ joined: Date, role: OrganizationRole, ... })
+   */
+};
+
+export type OrganizationMember = {
+  email: string;
+  role: OrganizationRole;
 };
 
 export type Post = {

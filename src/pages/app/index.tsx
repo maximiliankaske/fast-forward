@@ -1,5 +1,5 @@
-import { PlusIcon } from "@heroicons/react/solid";
-import React, { FC } from "react";
+import { ArrowRightIcon, PlusIcon } from "@heroicons/react/solid";
+import React from "react";
 import useSWR from "swr";
 import EmptyState from "@/components/app/EmptyState";
 import Thumbnail from "@/components/app/Thumbnail";
@@ -12,6 +12,7 @@ import { createProject } from "@/lib/db";
 import { Project, WithId } from "@/types/index";
 import fetcher from "@/utils/fetcher";
 import toasts from "@/utils/toast";
+import Link from "@/components/ui/Link";
 
 const App: ComponentWithAuth = () => {
   const { user } = useAuth();
@@ -21,13 +22,13 @@ const App: ComponentWithAuth = () => {
   );
 
   const handleCreate = async () => {
-    const newSite = {
+    const newProject = {
       authorId: user!.uid,
       name: `Project #${data?.projects ? data.projects.length + 1 : 1}`,
       private: true,
     };
     try {
-      await toasts.promise(createProject(newSite));
+      await toasts.promise(createProject(newProject));
       mutate();
     } catch {
       console.warn("Something went wrong");
@@ -37,6 +38,12 @@ const App: ComponentWithAuth = () => {
   return (
     <DefaultLayout>
       <Heading as="h2">Dashboard</Heading>
+      <div className="text-right">
+        <Link href="/app/organization" className="inline-flex items-center">
+          Create Organization
+          <ArrowRightIcon className="h-4 w-4 ml-1" />
+        </Link>
+      </div>
       {user && (
         <div className="space-y-6 mt-6">
           {data?.projects && data.projects.length > 0 ? (
