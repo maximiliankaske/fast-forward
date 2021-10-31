@@ -20,8 +20,8 @@ export default function middleware(req: NextRequest) {
 
   console.log({ url, currentHost, hostname, pathname });
 
-  // Prevent running if-statements if currentHost is empty.
-  if (!currentHost || currentHost === "") {
+  // Prevent running if-statements if currentHost is invalid.
+  if (!currentHost || currentHost === "" || currentHost === url) {
     return;
   }
 
