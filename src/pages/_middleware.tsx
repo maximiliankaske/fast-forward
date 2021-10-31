@@ -9,14 +9,16 @@ export default function middleware(req: NextRequest) {
   // (in the case of "test.vercel.app", "vercel.app" is the root URL)
 
   const url =
-    process.env.VERCEL_ENV === "production" ? "fast-forward.app" : "vercel.app";
+    process.env.VERCEL_ENV === "production"
+      ? "fast-forward.app"
+      : process.env.VERCEL_URL;
 
   const currentHost =
     process.env.NODE_ENV == "production"
       ? hostname?.replace(`.${url}`, "")
       : process.env.CURR_HOST;
 
-  console.log({ currentHost, hostname, pathname });
+  console.log({ url, currentHost, hostname, pathname });
 
   // Prevent running if-statements if currentHost is empty.
   if (!currentHost || currentHost === "") {
