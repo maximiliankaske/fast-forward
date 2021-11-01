@@ -62,21 +62,21 @@ const OrganizationPage: ComponentWithAuth = () => {
     } else if (!/^[A-Za-z0-9_-]*$/.test(name)) {
       return (
         <>
-          <ExclamationIcon className="h-4 w-4 mr-1 text-red-500" />
+          <ExclamationIcon className="h-3 w-3 mr-1 text-red-500" />
           {`Only use letters, numbers, "_" or "-"`}
         </>
       );
     } else if (!disabled) {
       return (
         <>
-          <CheckIcon className="h-4 w-4 mr-1 text-green-500" />
+          <CheckIcon className="h-3 w-3 mr-1 text-green-500" />
           Claim the organization name
         </>
       );
     } else {
       return (
         <>
-          <XIcon className="h-4 w-4 mr-1 text-red-500" />
+          <XIcon className="h-3 w-3 mr-1 text-red-500" />
           The organization already exists
         </>
       );
@@ -98,7 +98,7 @@ const OrganizationPage: ComponentWithAuth = () => {
               setName(event.target.value), setDisabled(true)
             )}
           />
-          <p className="text-xs font-semibold pt-2 inline-flex">
+          <p className="text-sm font-semibold pt-2 inline-flex items-center">
             {getInputState()}
           </p>
         </div>

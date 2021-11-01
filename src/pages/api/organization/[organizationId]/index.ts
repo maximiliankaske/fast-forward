@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getOrganization } from "@/lib/db-admin";
 import { auth } from "@/lib/firebase-admin";
 
-const projectApi = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { uid } = await auth.verifyIdToken(req.headers.token as string);
     if (!uid) {
@@ -15,4 +15,4 @@ const projectApi = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default projectApi;
+export default handler;

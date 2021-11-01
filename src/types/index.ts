@@ -20,6 +20,14 @@ export type Site = {
   url: string;
 };
 
+export type Invite = {
+  email: string;
+  token: string;
+  expired: false;
+  dueTo: firebase.firestore.Timestamp;
+  site: string;
+};
+
 export type Organization = {
   name: string;
   email?: string;

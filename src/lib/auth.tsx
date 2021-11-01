@@ -40,6 +40,7 @@ function useProvideAuth() {
     if (rawUser) {
       const user = await formatUser(rawUser);
       const { token, ...userWithoutToken } = user;
+      console.log(user);
       setUser(user);
       setLoading(false);
       createUser(user.uid, userWithoutToken);

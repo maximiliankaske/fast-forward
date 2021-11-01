@@ -8,6 +8,7 @@ import type {
   Feedback,
   Organization,
   OrganizationMember,
+  Invite,
 } from "@/types/index";
 
 export async function getAllUsers() {
@@ -93,6 +94,18 @@ export async function getOrganizationMembers(id: string) {
   });
 
   return { members };
+}
+
+export async function getInvite(id: string) {
+  const invite = await db.collection("invites").doc(id).get();
+  if (invite.exists) {
+    return {
+      invite: {
+        id: invite.id,
+        ...(invite.data() as Invite),
+      },
+    };
+  }
 }
 
 export async function getProjectFeedback(id: string) {
