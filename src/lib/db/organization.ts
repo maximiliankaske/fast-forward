@@ -52,3 +52,13 @@ export function createOrganizationInvite({
     .doc()
     .set(data);
 }
+
+export function deleteOrganizationInvite(organizationId: string, id: string) {
+  return firebase
+    .firestore()
+    .collection("organizations")
+    .doc(organizationId)
+    .collection("invites")
+    .doc(id)
+    .delete();
+}

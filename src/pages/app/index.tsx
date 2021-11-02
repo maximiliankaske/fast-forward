@@ -40,7 +40,7 @@ const App: ComponentWithAuth = () => {
       <Heading as="h2">Dashboard</Heading>
       <div className="text-right">
         <Link href="/app/organization" className="inline-flex items-center">
-          Create Organization
+          My Organization
           <ArrowRightIcon className="h-4 w-4 ml-1" />
         </Link>
       </div>

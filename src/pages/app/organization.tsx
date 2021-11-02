@@ -1,5 +1,6 @@
 import { ComponentWithAuth } from "@/components/auth/Auth";
 import DefaultLayout from "@/components/layout/DefaultLayout";
+import MemberList from "@/components/organization/MemberList";
 import Button from "@/components/ui/Button";
 import Divider from "@/components/ui/Divider";
 import Heading from "@/components/ui/Heading";
@@ -18,17 +19,24 @@ import React, { FormEvent, useEffect, useState } from "react";
 import useSWR from "swr";
 
 // FIXME: CURRENT STATUS: ONLY CREATES ORGANIZATIONS
+// TODO: refactor organization to use firebase ID!!!!! Otherwise, to change the name of an organization
+// I have to duplicate every doc with all the sub collections. Not very convienient
 
 const OrganizationPage: ComponentWithAuth = () => {
   const [name, setName] = useState("");
   const [disabled, setDisabled] = useState(false);
-  const { user, loading } = useAuth();
+  const { user, loading, refreshToken } = useAuth();
 
   const { data: organizationData, mutate } = useSWR<{
     organization: WithId<Organization> | undefined;
   }>(
-    !loading && name !== ""
-      ? [`/api/organization/${name.toLowerCase()}`, user?.token]
+    !loading && (name !== "" || user?.customClaims?.organizationId)
+      ? [
+          `/api/organization/${
+            name.toLowerCase() || user?.customClaims?.organizationId
+          }`,
+          user?.token,
+        ]
       : null,
     fetcher
   );
@@ -39,6 +47,10 @@ const OrganizationPage: ComponentWithAuth = () => {
         setDisabled(false);
       } else if (organizationData?.organization && !disabled) {
         setDisabled(true);
+      }
+    } else {
+      if (organizationData?.organization) {
+        setName(organizationData?.organization.name);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,19 +64,24 @@ const OrganizationPage: ComponentWithAuth = () => {
         createOrganization({
           name: name.toLocaleLowerCase(),
           authorId: user!.uid,
-        }).then(
-          () =>
-            createOrganizationMember({
-              role: "owner",
-              organizationId: name.toLocaleLowerCase(),
-              userId: user?.uid,
-              email: user?.email || "",
-            })
-          // .then(() => fetcher(url, token)) // setCustomClaims
-          // .then(() => refreshToken()) // refresh firebase token to have customClaims
+        }).then(() =>
+          createOrganizationMember({
+            role: "owner",
+            organizationId: name.toLocaleLowerCase(),
+            userId: user?.uid,
+            email: user?.email || "",
+          })
+            .then(() =>
+              fetcher(
+                `/api/organization/${name.toLocaleLowerCase()}/member/${
+                  user!.uid
+                }`,
+                user!.token
+              )
+            )
+            .then(() => refreshToken())
         )
       );
-      // setName("");
       mutate();
     } catch {
       console.warn("Something went wrong");
@@ -117,14 +134,6 @@ const OrganizationPage: ComponentWithAuth = () => {
             {getInputState()}
           </p>
         </div>
-        <div className="md:col-start-1 md:col-span-1">
-          <Input
-            label="Email"
-            name="email"
-            type="email"
-            placeholder="maximilian@kaske.org"
-          />
-        </div>
         <div className="md:col-start-1">
           <Button type="submit" disabled={disabled}>
             Submit
@@ -157,6 +166,10 @@ const OrganizationPage: ComponentWithAuth = () => {
             <Button type="submit">Submit</Button>
           </form>
         )}
+      <Divider className="py-8" />
+      {organizationData?.organization && (
+        <MemberList organizationId={organizationData.organization.id} />
+      )}
     </DefaultLayout>
   );
 };

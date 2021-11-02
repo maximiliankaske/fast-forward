@@ -103,6 +103,38 @@ export async function getOrganizationMember(
   }
 }
 
+export async function getOrganizationMembers(id: string) {
+  const snapshot = await db
+    .collection("organizations")
+    .doc(id)
+    .collection("members")
+    .get();
+
+  const members: WithId<OrganizationMember>[] = [];
+
+  snapshot.forEach((doc) => {
+    members.push({ id: doc.id, ...(doc.data() as OrganizationMember) });
+  });
+
+  return { members };
+}
+
+export async function getOrganizationInvites(id: string) {
+  const snapshot = await db
+    .collection("organizations")
+    .doc(id)
+    .collection("invites")
+    .get();
+
+  const invites: WithId<OrganizationInvite>[] = [];
+
+  snapshot.forEach((doc) => {
+    invites.push({ id: doc.id, ...(doc.data() as OrganizationInvite) });
+  });
+
+  return { invites };
+}
+
 export async function getOrganizationInvite(
   organizationId: string,
   id: string

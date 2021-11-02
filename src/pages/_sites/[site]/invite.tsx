@@ -53,6 +53,8 @@ const InvitePage = ({
           fetcher(`/api/organization/${site}/member/${user!.uid}`, user!.token)
         )
         // used to refresh the user token
+        // FIXME: REMINDER: Remove customClaims whenever the user has been deleted from organizationId
+        // Meaning: Check membership on each login and remove customClaims
         .then(() => refreshToken())
         .then(() => router.push("/"));
     }

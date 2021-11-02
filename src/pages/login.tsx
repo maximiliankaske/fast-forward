@@ -18,13 +18,9 @@ const Login = () => {
           </p>
           <p className="font-medium">Choose yours:</p>
         </div>
-        <div className="space-y-4">
-          <div>
-            <GitHubButton redirect="/app" />
-          </div>
-          <div>
-            <GoogleButton redirect="/app" />
-          </div>
+        <div className="flex flex-col items-center space-y-4">
+          <GitHubButton redirect="/app" />
+          <GoogleButton redirect="/app" />
         </div>
       </div>
     </DefaultLayout>
