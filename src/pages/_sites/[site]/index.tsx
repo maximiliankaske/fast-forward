@@ -1,5 +1,5 @@
-import { ComponentWithAuth } from "@/components/auth/Auth";
 import SitesLayout from "@/components/layout/SitesLayout";
+import Wrapper from "@/components/organization/Wrapper";
 import Heading from "@/components/ui/Heading";
 import { useAuth } from "@/lib/auth";
 import { getOrganization, getOrganizations } from "@/lib/db-admin";
@@ -10,24 +10,18 @@ const SitePage = ({
   organization,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { name, authorId } = organization;
-  const { user, loading } = useAuth();
-
-  if (!loading && !user) {
-    return <div>login</div>;
-  }
-
-  if (!loading && user?.customClaims?.organizationId !== organization.id) {
-    return <div>Claim access</div>;
-  }
+  const { user } = useAuth();
 
   return (
-    <SitesLayout>
-      <Heading className="text-indigo-500 dark:text-pink-500">{name}</Heading>
-      <p>
-        <b>Owner:</b> {authorId}
-      </p>
-      <p>{user?.email}</p>
-    </SitesLayout>
+    <Wrapper {...{ organization }}>
+      <SitesLayout>
+        <Heading className="text-indigo-500 dark:text-pink-500">{name}</Heading>
+        <p>
+          <b>Owner:</b> {authorId}
+        </p>
+        <p>{user?.email}</p>
+      </SitesLayout>
+    </Wrapper>
   );
 };
 

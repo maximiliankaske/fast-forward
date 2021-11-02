@@ -1,3 +1,5 @@
+import GitHubButton from "@/components/auth/GithubButton";
+import GoogleButton from "@/components/auth/GoogleButton";
 import SitesLayout from "@/components/layout/SitesLayout";
 import Button from "@/components/ui/Button";
 import Heading from "@/components/ui/Heading";
@@ -27,7 +29,7 @@ const InvitePage = ({
   site,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
-  const { user, signinWithGoogle, signout, refreshToken } = useAuth();
+  const { user, refreshToken } = useAuth();
   const { data, error } = useSWR<{
     invite: WithId<OrganizationInvite> | undefined;
   }>(
@@ -39,7 +41,7 @@ const InvitePage = ({
 
   useEffect(() => {
     // TODO: needs elaboration
-    if (data && data.invite && !user?.customClaims) {
+    if (data && data.invite && user) {
       const { id, ...invite } = data.invite;
       createOrganizationMember({
         organizationId: site,
@@ -47,11 +49,14 @@ const InvitePage = ({
         userId: user!.uid,
       })
         .then(() =>
+          // used to attach customClaims
           fetcher(`/api/organization/${site}/member/${user!.uid}`, user!.token)
         )
-        .then(() => refreshToken());
+        // used to refresh the user token
+        .then(() => refreshToken())
+        .then(() => router.push("/"));
     }
-  }, [data, refreshToken, site, user]);
+  }, [data, refreshToken, site, user, router]);
 
   const renderState = useCallback(() => {
     if (data && data.invite) {
@@ -59,21 +64,26 @@ const InvitePage = ({
     } else if (error) {
       return "Invalid request";
     } else if (!user) {
-      return "Please Login";
+      return "Please Login with the email address you have been invited.";
     } else if (!router.query.token) {
       return "Missing Token";
     } else {
+      // TODO: check which use cases pass
       return "Missing else statement";
     }
   }, [data, error, router.query.token, user]);
 
   return (
     <SitesLayout>
-      <Heading>{name}</Heading>
-      <Button onClick={() => signinWithGoogle()}>Sign in with Google</Button>
-      {data?.invite?.id}
-      <div className="py-6">{renderState()}</div>
-      <Button onClick={() => signout()}>Logout</Button>
+      <div className="flex flex-col items-center justify-center">
+        <p>You have been invited by:</p>
+        <Heading>{name}</Heading>
+        <div className="space-x-4">
+          <GoogleButton />
+          <GitHubButton />
+        </div>
+        <div className="py-6">{renderState()}</div>
+      </div>
     </SitesLayout>
   );
 };
