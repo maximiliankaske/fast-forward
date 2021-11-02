@@ -9,6 +9,7 @@ import type {
   Organization,
   OrganizationMember,
   Invite,
+  OrganizationInvite,
 } from "@/types/index";
 
 export async function getAllUsers() {
@@ -82,18 +83,44 @@ export async function getOrganizations() {
   return { organizations };
 }
 
-export async function getOrganizationMembers(id: string) {
-  const snapshot = await db
+export async function getOrganizationMember(
+  organizationId: string,
+  id: string
+) {
+  const member = await db
     .collection("organizations")
-    .doc(id)
+    .doc(organizationId)
     .collection("members")
+    .doc(id)
     .get();
-  const members: WithId<OrganizationMember>[] = [];
-  snapshot.forEach((doc) => {
-    members.push({ id: doc.id, ...(doc.data() as OrganizationMember) });
-  });
+  if (member.exists) {
+    return {
+      member: {
+        id: member.id,
+        ...(member.data() as OrganizationMember),
+      },
+    };
+  }
+}
 
-  return { members };
+export async function getOrganizationInvite(
+  organizationId: string,
+  id: string
+) {
+  const invite = await db
+    .collection("organizations")
+    .doc(organizationId)
+    .collection("invites")
+    .doc(id)
+    .get();
+  if (invite.exists) {
+    return {
+      invite: {
+        id: invite.id,
+        ...(invite.data() as OrganizationInvite),
+      },
+    };
+  }
 }
 
 export async function getInvite(id: string) {

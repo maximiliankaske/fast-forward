@@ -1,10 +1,15 @@
 import { ComponentWithAuth } from "@/components/auth/Auth";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import Button from "@/components/ui/Button";
+import Divider from "@/components/ui/Divider";
 import Heading from "@/components/ui/Heading";
 import Input from "@/components/ui/Input";
 import { useAuth } from "@/lib/auth";
-import { createOrganization } from "@/lib/db";
+import {
+  createOrganization,
+  createOrganizationInvite,
+  createOrganizationMember,
+} from "@/lib/db";
 import type { Organization, WithId } from "@/types/index";
 import fetcher from "@/utils/fetcher";
 import toasts from "@/utils/toast";
@@ -47,9 +52,19 @@ const OrganizationPage: ComponentWithAuth = () => {
         createOrganization({
           name: name.toLocaleLowerCase(),
           authorId: user!.uid,
-        })
+        }).then(
+          () =>
+            createOrganizationMember({
+              role: "owner",
+              organizationId: name.toLocaleLowerCase(),
+              userId: user?.uid,
+              email: user?.email || "",
+            })
+          // .then(() => fetcher(url, token)) // setCustomClaims
+          // .then(() => refreshToken()) // refresh firebase token to have customClaims
+        )
       );
-      setName("");
+      // setName("");
       mutate();
     } catch {
       console.warn("Something went wrong");
@@ -116,6 +131,32 @@ const OrganizationPage: ComponentWithAuth = () => {
           </Button>
         </div>
       </form>
+      <Divider className="py-6" />
+      {organizationData?.organization &&
+        organizationData?.organization.authorId === user?.uid && (
+          <form
+            className="grid gap-4"
+            onSubmit={(event) => {
+              event.preventDefault();
+              const target = event.target as typeof event.target & {
+                email: { value: string };
+              };
+              createOrganizationInvite({
+                email: target.email.value,
+                role: "member",
+                organizationId: organizationData.organization!.id,
+              });
+            }}
+          >
+            <Input
+              label="Email"
+              name="email"
+              type="email"
+              placeholder="college@domain.com"
+            />
+            <Button type="submit">Submit</Button>
+          </form>
+        )}
     </DefaultLayout>
   );
 };
