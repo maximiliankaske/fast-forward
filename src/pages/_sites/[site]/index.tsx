@@ -1,6 +1,7 @@
 import SitesLayout from "@/components/layout/SitesLayout";
 import Wrapper from "@/components/organization/Wrapper";
 import Heading from "@/components/ui/Heading";
+import Link from "@/components/ui/Link";
 import { useAuth } from "@/lib/auth";
 import { getOrganization, getOrganizations } from "@/lib/db-admin";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
@@ -14,12 +15,16 @@ const SitePage = ({
 
   return (
     <Wrapper {...{ organization }}>
-      <SitesLayout>
-        <Heading className="text-indigo-500 dark:text-pink-500">{name}</Heading>
-        <p>
-          <b>Owner:</b> {authorId}
-        </p>
-        <p>{user?.email}</p>
+      <SitesLayout name={organization.name}>
+        <div className="space-y-4">
+          <p>
+            <b>Owner:</b> {authorId}
+          </p>
+          <p>{user?.email}</p>
+          <p>
+            <Link href="/form">Start Form</Link>
+          </p>
+        </div>
       </SitesLayout>
     </Wrapper>
   );

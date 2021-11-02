@@ -11,6 +11,7 @@ import fetcher from "@/utils/fetcher";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
 import { useCallback, useEffect } from "react";
+import organization from "src/pages/app/organization";
 import useSWR from "swr";
 
 /**
@@ -76,10 +77,11 @@ const InvitePage = ({
   }, [data, error, router.query.token, user]);
 
   return (
-    <SitesLayout>
+    <SitesLayout name={organization.name}>
       <div className="flex flex-col items-center justify-center">
-        <p>You have been invited by:</p>
-        <Heading>{name}</Heading>
+        <p>
+          You have been invited to join <b>{name}</b>
+        </p>
         <div className="space-x-4">
           <GoogleButton />
           <GitHubButton />
