@@ -1,15 +1,10 @@
-import { useRouter } from "next/router";
 import React from "react";
-import GitHubIcon from "@/components/icon/GitHub";
-import GoogleIcon from "@/components/icon/Google";
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import Button from "@/components/ui/Button";
 import Heading from "@/components/ui/Heading";
-import { useAuth } from "@/lib/auth";
+import GitHubButton from "@/components/auth/GithubButton";
+import GoogleButton from "@/components/auth/GoogleButton";
 
 const Login = () => {
-  const auth = useAuth();
-  const router = useRouter();
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-xl my-16 space-y-6 text-center">
@@ -25,25 +20,10 @@ const Login = () => {
         </div>
         <div className="space-y-4">
           <div>
-            <Button
-              onClick={() =>
-                auth.signinWithGitHub().then(() => router.replace("/app"))
-              }
-              className="inline-flex items-center"
-              reverse
-            >
-              Log In with GitHub <GitHubIcon className="h-5 w-5 -mr-1 ml-1" />
-            </Button>
+            <GitHubButton redirect="/app" />
           </div>
           <div>
-            <Button
-              onClick={() =>
-                auth.signinWithGoogle().then(() => router.replace("/app"))
-              }
-              className="inline-flex items-center"
-            >
-              Log In with Google <GoogleIcon className="h-5 w-5 -mr-1 ml-1" />
-            </Button>
+            <GoogleButton redirect="/app" />
           </div>
         </div>
       </div>
