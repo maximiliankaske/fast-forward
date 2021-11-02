@@ -1,7 +1,7 @@
 import { useAuth } from "@/lib/auth";
 import { Organization, WithId } from "@/types/index";
 import React, { FC } from "react";
-import GitHubButton from "../auth/GithubButton";
+import GitHubButton from "../auth/GitHubButton";
 import GoogleButton from "../auth/GoogleButton";
 import LoadingIcon from "../icon/Loading";
 import Button from "../ui/Button";

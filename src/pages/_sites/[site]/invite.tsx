@@ -1,4 +1,4 @@
-import GitHubButton from "@/components/auth/GithubButton";
+import GitHubButton from "@/components/auth/GitHubButton";
 import GoogleButton from "@/components/auth/GoogleButton";
 import SitesLayout from "@/components/layout/SitesLayout";
 import Button from "@/components/ui/Button";

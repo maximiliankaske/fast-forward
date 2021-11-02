@@ -1,7 +1,7 @@
 import React from "react";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import Heading from "@/components/ui/Heading";
-import GitHubButton from "@/components/auth/GithubButton";
+import GitHubButton from "@/components/auth/GitHubButton";
 import GoogleButton from "@/components/auth/GoogleButton";
 
 const Login = () => {
