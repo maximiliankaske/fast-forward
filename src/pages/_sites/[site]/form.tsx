@@ -100,7 +100,7 @@ const FormPage = ({
   return (
     <SitesLayout name={organization.name}>
       <div className="flex items-center justify-between">
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 items-center h-20">
           {questions.map((question, idx) => {
             const disabled = idx > index && idx > answeredQuestionIds.length;
             return (
@@ -132,21 +132,27 @@ const FormPage = ({
         ) : null}
       </div>
       {question ? (
-        <form onSubmit={onSubmit} className="space-y-12 py-8">
-          <Question title={question.title} description={question.description} />
-          <Input defaultValue={data?.session?.answers[question.id]} required />
+        <form onSubmit={onSubmit} className="flex flex-col space-y-12 py-8">
+          <div className="flex-1">
+            <Question
+              title={question.title}
+              description={question.description}
+            />
+            <Input
+              defaultValue={data?.session?.answers[question.id]}
+              required
+            />
+          </div>
           <div className="flex items-center justify-between">
-            <div>
-              {index > 0 && (
-                <button
-                  type="button"
-                  onClick={() => setIndex((index || 0) - 1)}
-                  className="rounded-full p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900"
-                >
-                  <ArrowLeftIcon className="h-7 w-7" />
-                </button>
-              )}
-            </div>
+            {index > 0 && (
+              <button
+                type="button"
+                onClick={() => setIndex((index || 0) - 1)}
+                className="rounded-full p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900"
+              >
+                <ArrowLeftIcon className="h-7 w-7" />
+              </button>
+            )}
             {missingQuestionIds && (
               <button
                 type="submit"
