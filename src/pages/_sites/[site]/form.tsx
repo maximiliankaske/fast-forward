@@ -62,6 +62,7 @@ const FormPage = ({
   );
 
   useEffect(() => {
+    // FIXME: If 1,2 are filled and I go to 1 and change and submit.. go back to last
     setIndex(
       questions.findIndex((question) => missingQuestionIds[0] === question.id)
     );
@@ -69,12 +70,13 @@ const FormPage = ({
   }, [data?.session?.answers]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // TODO: event.reset form
     event.preventDefault();
     const target = event.target as typeof event.target & {
       name: { value: string };
     };
+    console.log(data?.session?.answers[question.id], target.name.value);
     if (question) {
+      // If nothing has changed, no need to update
       if (target.name.value !== data?.session?.answers[question.id]) {
         await updateSession({
           organizationId: organization.id,
@@ -86,13 +88,14 @@ const FormPage = ({
           },
         });
         mutate();
-      } else {
-        setIndex((prev) => prev + 1);
       }
+      setIndex((prev) => prev + 1);
     }
+    // @ts-ignore
+    event.target.reset();
   };
 
-  console.log(index);
+  console.log({ index });
 
   return (
     <SitesLayout name={organization.name}>
@@ -103,11 +106,7 @@ const FormPage = ({
             return (
               <button
                 key={question.id}
-                // Define how do show the user until which question he has answered and not.
-                // [closed][closed][current][answered][open]
-                // With different colors per question state.
-                // Only use very flatten bordered rectangle with (background if open, primary if current, foreground if closed)
-                // Let’s make it hoverable with a tooltip showing the question
+                // TODO: Check wrong colors
                 className={cn("h-2 w-16 rounded-full", {
                   "bg-gray-800":
                     index > idx && idx < answeredQuestionIds.length,
@@ -135,7 +134,7 @@ const FormPage = ({
       {question ? (
         <form onSubmit={onSubmit} className="space-y-12 py-8">
           <Question title={question.title} description={question.description} />
-          <Input />
+          <Input defaultValue={data?.session?.answers[question.id]} required />
           <div className="flex items-center justify-between">
             <div>
               {index > 0 && (
