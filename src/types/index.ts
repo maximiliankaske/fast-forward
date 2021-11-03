@@ -42,6 +42,8 @@ export type Organization = {
    */
 };
 
+export type FormSession = Record<string, string | number | string[]>;
+
 export type OrganizationMember = {
   email: string;
   role: OrganizationRole;

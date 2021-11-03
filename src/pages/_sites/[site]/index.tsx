@@ -1,10 +1,11 @@
 import SitesLayout from "@/components/layout/SitesLayout";
 import Wrapper from "@/components/organization/Wrapper";
-import Heading from "@/components/ui/Heading";
-import Link from "@/components/ui/Link";
+import Button from "@/components/ui/Button";
 import { useAuth } from "@/lib/auth";
+import { createSession } from "@/lib/db";
 import { getOrganization, getOrganizations } from "@/lib/db-admin";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import { useRouter } from "next/router";
 // TODO: change site to subdomain
 
 const SitePage = ({
@@ -12,6 +13,12 @@ const SitePage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { name, authorId } = organization;
   const { user } = useAuth();
+  const router = useRouter();
+
+  const onClick = async () => {
+    const session = await createSession({ organizationId: organization.id });
+    router.push(`/form?session=${session.id}`);
+  };
 
   return (
     <Wrapper {...{ organization }}>
@@ -22,7 +29,7 @@ const SitePage = ({
           </p>
           <p>{user?.email}</p>
           <p>
-            <Link href="/form">Start Form</Link>
+            <Button onClick={onClick}>Start Form</Button>
           </p>
         </div>
       </SitesLayout>

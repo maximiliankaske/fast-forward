@@ -10,6 +10,7 @@ import type {
   OrganizationMember,
   Invite,
   OrganizationInvite,
+  FormSession,
 } from "@/types/index";
 
 export async function getAllUsers() {
@@ -150,6 +151,24 @@ export async function getOrganizationInvite(
       invite: {
         id: invite.id,
         ...(invite.data() as OrganizationInvite),
+      },
+    };
+  }
+}
+
+// TODO: NOT SURE WHAT THE BEST IS.
+export async function getSession(organizationId: string, id: string) {
+  const session = await db
+    .collection("organizations")
+    .doc(organizationId)
+    .collection("sessions")
+    .doc(id)
+    .get();
+  if (session.exists) {
+    return {
+      session: {
+        id: session.id,
+        ...(session.data() as FormSession),
       },
     };
   }
