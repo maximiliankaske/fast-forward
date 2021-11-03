@@ -6,16 +6,15 @@ import useSWR from "swr";
 import { FormSession, WithId } from "@/types/index";
 import fetcher from "@/utils/fetcher";
 import { useAuth } from "@/lib/auth";
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { updateSession } from "@/lib/db";
-import formsConfig from "@/config/forms";
+import formsConfig, { Question } from "@/config/forms";
 import Heading from "@/components/ui/Heading";
 import Form from "@/components/question/Form";
+import Link from "@/components/ui/Link";
 
 // FIXME: right now is ?session=docIdx but if user starts new form, it will create new doc
 // TODO: think of a reducer `useReducer()`
-
-// TODO: now(!) `session.answers` add a level more to the questions.
 
 const pack = formsConfig["the-starter-pack"];
 const { questions: questions } = pack;
@@ -23,6 +22,7 @@ const { questions: questions } = pack;
 const FormPage = ({
   organization,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const [question, setQuestion] = useState<Question | undefined>();
   const router = useRouter();
   const { user } = useAuth();
   const { session } = router.query as { session: string };
@@ -38,23 +38,35 @@ const FormPage = ({
     fetcher
   );
 
-  const answeredQuestionIds = data?.session?.id
-    ? Object.keys(data.session!)
+  console.log(data?.session);
+
+  const answeredQuestionIds = data?.session?.answers
+    ? Object.keys(data.session.answers)
     : undefined;
 
   const missingQuestionIds =
     answeredQuestionIds &&
     questions.reduce((acc: string[], curr) => {
       return answeredQuestionIds.includes(curr.id)
-        ? [...acc, curr.id]
-        : [...acc];
+        ? [...acc]
+        : [...acc, curr.id];
     }, []);
 
-  const nextQuestion = answeredQuestionIds
+  const currentQuestion = answeredQuestionIds
     ? questions.find(({ id }) => {
         return !answeredQuestionIds.includes(id);
       })
     : undefined;
+
+  // useEffect(() => {
+  //   if (answeredQuestionIds) {
+  //     setQuestion(
+  //       questions.find(({ id }) => {
+  //         return !answeredQuestionIds.includes(id);
+  //       })
+  //     );
+  //   }
+  // }, [answeredQuestionIds]);
 
   const onSubmit = (event: FormEvent) => {
     // TODO: event.reset form
@@ -62,27 +74,38 @@ const FormPage = ({
     const target = event.target as typeof event.target & {
       name: { value: string };
     };
-    if (nextQuestion) {
+    if (currentQuestion) {
       updateSession({
         organizationId: organization.id,
         id: session, // data.id is better
-        [nextQuestion.id]: target.name.value,
+        // Ideally, we use the `answers.${currentQuestion.id}`: target.name.value
+        answers: {
+          ...data?.session?.answers,
+          [currentQuestion.id]: target.name.value,
+        },
       });
       mutate();
     }
   };
 
-  console.log({ nextQuestion, answeredQuestionIds, missingQuestionIds });
+  console.log({ currentQuestion, answeredQuestionIds, missingQuestionIds });
 
   return (
     <SitesLayout name={organization.name}>
       <p className="text-lg text-gray-600 dark:text-gray-400">
-        Question <span className="font-bold">1</span> of 13
+        Question{" "}
+        <span className="font-bold">
+          {(answeredQuestionIds?.length || 0) + 1}
+        </span>{" "}
+        of {questions.length}
       </p>
-      {nextQuestion ? (
-        <Form question={nextQuestion} onSubmit={onSubmit} />
+      {question ? (
+        <Form question={question} onSubmit={onSubmit} />
       ) : (
-        <Heading>Thanks to attempt the form!</Heading>
+        <>
+          <Heading>Thanks to attempt the form!</Heading>
+          <Link href="/">Back</Link>
+        </>
       )}
     </SitesLayout>
   );

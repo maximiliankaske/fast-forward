@@ -16,7 +16,10 @@ const SitePage = ({
   const router = useRouter();
 
   const onClick = async () => {
-    const session = await createSession({ organizationId: organization.id });
+    const session = await createSession({
+      organizationId: organization.id,
+      answers: {},
+    });
     router.push(`/form?session=${session.id}`);
   };
 
