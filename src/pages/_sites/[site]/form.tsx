@@ -15,6 +15,7 @@ import Link from "@/components/ui/Link";
 import Question from "@/components/question/Question";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/solid";
 import cn from "classnames";
+import Rating from "@/components/question/Rating";
 
 // FIXME: right now is ?session=docIdx but if user starts new form, it will create new doc
 // TODO: think of a reducer `useReducer()`
@@ -102,22 +103,24 @@ const FormPage = ({
       <div className="flex items-center justify-between">
         <div className="flex space-x-2 items-center h-20">
           {questions.map((question, idx) => {
-            const disabled = idx > index && idx > answeredQuestionIds.length;
+            const notAnswered = idx > answeredQuestionIds.length;
+            const answered = idx < answeredQuestionIds.length;
             return (
               <button
                 key={question.id}
-                // TODO: Check wrong colors
-                className={cn("h-2 w-16 rounded-full", {
-                  "bg-gray-800":
-                    index > idx && idx < answeredQuestionIds.length,
-                  "bg-indigo-500 dark:bg-pink-500": index === idx,
-                  "bg-white": index < idx && idx > answeredQuestionIds.length,
-                  "cursor-default": disabled,
-                  // "bg-gray-500": idx > index && idx > answeredQuestionIds.length,
+                className={cn("w-9 h-9 rounded-full", {
+                  "text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-900":
+                    (index > idx && answered) || (index < idx && !notAnswered),
+                  "bg-indigo-100 text-indigo-500 dark:bg-pink-900/25 dark:text-pink-500":
+                    index === idx,
+                  "cursor-default text-gray-300 dark:text-gray-700":
+                    notAnswered,
                 })}
-                disabled={disabled}
+                disabled={notAnswered}
                 onClick={() => setIndex(idx)}
-              />
+              >
+                {idx + 1}
+              </button>
             );
           })}
         </div>
@@ -133,15 +136,25 @@ const FormPage = ({
       </div>
       {question ? (
         <form onSubmit={onSubmit} className="flex flex-col space-y-12 py-8">
-          <div className="flex-1">
+          <div className="flex-1 space-y-12">
             <Question
               title={question.title}
               description={question.description}
             />
-            <Input
-              defaultValue={data?.session?.answers[question.id]}
-              required
-            />
+            {question.type === "input" && (
+              <Input
+                defaultValue={data?.session?.answers[question.id]}
+                required
+              />
+            )}
+            {question.type === "rating" && (
+              <div>
+                <Rating />
+                <p className="pt-4 text-sm text-gray-600 dark:text-gray-400">
+                  *The rating goes from very bad (1) to very good (5).
+                </p>
+              </div>
+            )}
           </div>
           <div className="flex items-center justify-between">
             {index > 0 && (

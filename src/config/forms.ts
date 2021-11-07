@@ -1,3 +1,5 @@
+// TODO: move file to different directory
+
 export type Question = {
   id: string;
   title: string;
@@ -19,7 +21,7 @@ const forms: Record<string, Pack> = {
         title: "What was our biggest achievement?",
         description:
           "It could be a milestone that was reached, a workshop attembded or a meeting with a collegue where you had a mindblowing experience.",
-        type: "input",
+        type: "rating",
       },
       {
         id: "q2",

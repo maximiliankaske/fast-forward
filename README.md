@@ -16,6 +16,7 @@
 - [ ] Rework `/lib/api` using more generic types (currently only string) and make the fields not mandatory. If undefined, return every property.
 - [ ] Add `createdAt` and `updatedAt` props to firebase
 - [ ] Use `_middleware` to instead of `@/lib/middleware`
+- [ ] Missing firebase rules on prod
 
 ## Ideas
 
