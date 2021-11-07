@@ -1,13 +1,17 @@
 import { RadioGroup } from "@headlessui/react";
-import React, { useState } from "react";
+import React from "react";
 import cn from "classnames";
 
-const Rating = () => {
-  const [value, setValue] = useState<number | undefined>();
+interface Props<T extends string | number> {
+  value?: T;
+  onChange: (value?: T) => void;
+}
+
+const Rating = <T extends string | number>({ value, onChange }: Props<T>) => {
   return (
-    <RadioGroup value={value} onChange={setValue} className="mt-4">
-      <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-      <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+    <RadioGroup value={value} onChange={onChange} className="mt-4">
+      <RadioGroup.Label className="sr-only">Rate</RadioGroup.Label>
+      <div className="grid grid-cols-4 gap-4 sm:grid-cols-8">
         {[...new Array(5).fill(0)].map((_, idx) => (
           <RadioGroup.Option
             key={idx}

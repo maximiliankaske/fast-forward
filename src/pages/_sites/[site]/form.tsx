@@ -27,7 +27,7 @@ const FormPage = ({
   organization,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [index, setIndex] = useState<number>(0);
-  // const [question, setQuestion] = useState<QuestionType | undefined>();
+  const [value, setValue] = useState<number | string | undefined>();
   const router = useRouter();
   const { user } = useAuth();
   const { session } = router.query as { session: string };
@@ -63,29 +63,37 @@ const FormPage = ({
   );
 
   useEffect(() => {
-    // FIXME: If 1,2 are filled and I go to 1 and change and submit.. go back to last
+    // TODO: FIXME: if all questions are answered, and I change the answer of q1 and submit, I go back to end
     setIndex(
       questions.findIndex((question) => missingQuestionIds[0] === question.id)
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.session?.answers]);
 
+  useEffect(() => {
+    if (index > -1 && index < questions.length && data?.session?.answers) {
+      const { id } = questions[index];
+      const answer = data?.session?.answers[id];
+      if (answer) {
+        setValue(answer);
+      } else {
+        setValue(undefined);
+      }
+    }
+  }, [index, data?.session?.answers]);
+
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    // TODO: check if value is !undefined or !== "" to continue
+    // otherwise add error message
     event.preventDefault();
-    const target = event.target as typeof event.target & {
-      name: { value: string };
-    };
-    console.log(data?.session?.answers[question.id], target.name.value);
     if (question) {
-      // If nothing has changed, no need to update
-      if (target.name.value !== data?.session?.answers[question.id]) {
+      if (value) {
         await updateSession({
           organizationId: organization.id,
           id: session, // data.id is better
-          // Ideally, we use the `answers.${question.id}`: target.name.value
           answers: {
             ...data?.session?.answers,
-            [question.id]: target.name.value,
+            [question.id]: value,
           },
         });
         mutate();
@@ -96,7 +104,7 @@ const FormPage = ({
     event.target.reset();
   };
 
-  console.log({ index });
+  console.log({ index, value });
 
   return (
     <SitesLayout name={organization.name}>
@@ -143,13 +151,14 @@ const FormPage = ({
             />
             {question.type === "input" && (
               <Input
-                defaultValue={data?.session?.answers[question.id]}
+                value={value || ""}
+                onChange={(event) => setValue(event.target.value)}
                 required
               />
             )}
             {question.type === "rating" && (
               <div>
-                <Rating />
+                <Rating value={value} onChange={setValue} />
                 <p className="pt-4 text-sm text-gray-600 dark:text-gray-400">
                   *The rating goes from very bad (1) to very good (5).
                 </p>
@@ -157,35 +166,29 @@ const FormPage = ({
             )}
           </div>
           <div className="flex items-center justify-between">
-            {index > 0 && (
+            {index > 0 ? (
               <button
                 type="button"
                 onClick={() => setIndex((index || 0) - 1)}
-                className="rounded-full p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900"
+                className="rounded-full p-2 hover:bg-gray-100 text-gray-700 dark:text-gray-300 dark:hover:bg-gray-900"
               >
                 <ArrowLeftIcon className="h-7 w-7" />
               </button>
+            ) : (
+              <div />
             )}
-            {missingQuestionIds && (
-              <button
-                type="submit"
-                className={cn("rounded-full p-2 text-white", {
-                  // needs to be elaborated - not correct numbers
-                  "bg-gray-600 hover:bg-gray-800 dark:hover:bg-gray-700":
-                    index !== questions.length - 1,
-                  "bg-indigo-500 dark:bg-pink-500 hover:bg-indigo-600 dark:hover:bg-pink-600":
-                    index === questions.length - 1,
-                })}
-              >
-                <ArrowRightIcon className="h-7 w-7" />
-              </button>
-            )}
+            <button
+              type="submit"
+              className="rounded-full p-2 hover:bg-indigo-100 dark:hover:bg-pink-900/25"
+            >
+              <ArrowRightIcon className="h-7 w-7" />
+            </button>
           </div>
         </form>
       ) : (
         <>
-          <Heading>Thanks to attempt the form!</Heading>
-          <Link href="/">Back</Link>
+          <Heading as="h2">Thanks to attempt the form!</Heading>
+          <Link href="/">Submit responses</Link>
         </>
       )}
     </SitesLayout>

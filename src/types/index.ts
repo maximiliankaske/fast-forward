@@ -43,7 +43,7 @@ export type Organization = {
 };
 
 export type FormSession = {
-  answers: Record<string, string | number | string[]>;
+  answers: Record<string, string | number>;
 };
 
 export type OrganizationMember = {
