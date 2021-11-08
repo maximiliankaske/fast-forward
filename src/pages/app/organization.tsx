@@ -1,5 +1,6 @@
 import { ComponentWithAuth } from "@/components/auth/Auth";
 import DefaultLayout from "@/components/layout/DefaultLayout";
+import MemberInvite from "@/components/organization/MemberInvite";
 import MemberList from "@/components/organization/MemberList";
 import Button from "@/components/ui/Button";
 import Divider from "@/components/ui/Divider";
@@ -143,33 +144,12 @@ const OrganizationPage: ComponentWithAuth = () => {
       <Divider className="py-6" />
       {organizationData?.organization &&
         organizationData?.organization.authorId === user?.uid && (
-          <form
-            className="grid gap-4"
-            onSubmit={(event) => {
-              event.preventDefault();
-              const target = event.target as typeof event.target & {
-                email: { value: string };
-              };
-              createOrganizationInvite({
-                email: target.email.value,
-                role: "member",
-                organizationId: organizationData.organization!.id,
-              });
-            }}
-          >
-            <Input
-              label="Email"
-              name="email"
-              type="email"
-              placeholder="college@domain.com"
-            />
-            <Button type="submit">Submit</Button>
-          </form>
+          <div className="space-y-4">
+            <Heading as="h4">Members</Heading>
+            <MemberInvite organizationId={organizationData.organization.id} />
+            <MemberList organizationId={organizationData.organization.id} />
+          </div>
         )}
-      <Divider className="py-8" />
-      {organizationData?.organization && (
-        <MemberList organizationId={organizationData.organization.id} />
-      )}
     </DefaultLayout>
   );
 };
