@@ -8,7 +8,7 @@ import fetcher from "@/utils/fetcher";
 import { useAuth } from "@/lib/auth";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { updateSession } from "@/lib/db";
-import formsConfig, { Question as QuestionType } from "@/config/forms";
+import templates from "@/config/templates";
 import Heading from "@/components/ui/Heading";
 import Input from "@/components/question/Input";
 import Link from "@/components/ui/Link";
@@ -20,8 +20,7 @@ import Rating from "@/components/question/Rating";
 // FIXME: right now is ?session=docIdx but if user starts new form, it will create new doc
 // TODO: think of a reducer `useReducer()`
 
-const pack = formsConfig["the-starter-pack"];
-const { questions: questions } = pack;
+const { questions: questions } = templates["the-starter-pack"];
 
 const FormPage = ({
   organization,
