@@ -39,18 +39,12 @@ const MemberList = ({ organizationId }: Props) => {
 
   return (
     <ul role="list" className="divide-y divide-gray-200">
-      <Heading as="h4">Members</Heading>
       {[...(membersData?.members || []), ...(invitesData?.invites || [])]
         .sort(({ email: a }, { email: b }) => a.localeCompare(b))
         .map(({ id, role, email }) => {
           const isMember = !!membersData?.members?.find((m) => m.id === id);
           return (
-            <li
-              key={id}
-              className={cn("py-4 flex justify-between items-center", {
-                "opacity-60": !isMember,
-              })}
-            >
+            <li key={id} className={"py-4 flex justify-between items-center"}>
               <p className="text-gray-600 dark:text-gray-400">
                 {email} {!isMember && <Badge className="ml-1">invited</Badge>}
               </p>
@@ -63,7 +57,10 @@ const MemberList = ({ organizationId }: Props) => {
                     <TrashIcon className="h-4 w-4" />
                   </button>
                 )}
-                <Badge color={role === "owner" ? "primary" : "secondary"}>
+                <Badge
+                  color={role === "owner" ? "primary" : "secondary"}
+                  className={!isMember ? "opacity-60" : ""}
+                >
                   {role}
                 </Badge>
               </div>
