@@ -1,5 +1,3 @@
-// TODO: move file to different directory
-
 import { Template } from "@/types/templates";
 
 const forms: Record<string, Template> = {

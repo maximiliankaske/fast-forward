@@ -17,6 +17,7 @@
 - [ ] Add `createdAt` and `updatedAt` props to firebase
 - [ ] Use `_middleware` to instead of `@/lib/middleware`
 - [ ] Missing firebase rules on prod
+- [ ] Make the templates shareable and public to the world.
 
 ## Ideas
 

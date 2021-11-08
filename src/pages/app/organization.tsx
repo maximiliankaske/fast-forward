@@ -17,6 +17,7 @@ import fetcher from "@/utils/fetcher";
 import toasts from "@/utils/toast";
 import { ExclamationIcon, CheckIcon, XIcon } from "@heroicons/react/outline";
 import React, { FormEvent, useEffect, useState } from "react";
+import useOrganization from "src/hooks/useOrganization";
 import useSWR from "swr";
 
 // FIXME: CURRENT STATUS: ONLY CREATES ORGANIZATIONS
@@ -26,21 +27,9 @@ import useSWR from "swr";
 const OrganizationPage: ComponentWithAuth = () => {
   const [name, setName] = useState("");
   const [disabled, setDisabled] = useState(false);
-  const { user, loading, refreshToken } = useAuth();
+  const { user, refreshToken } = useAuth();
 
-  const { data: organizationData, mutate } = useSWR<{
-    organization: WithId<Organization> | undefined;
-  }>(
-    !loading && (name !== "" || user?.customClaims?.organizationId)
-      ? [
-          `/api/organization/${
-            name.toLowerCase() || user?.customClaims?.organizationId
-          }`,
-          user?.token,
-        ]
-      : null,
-    fetcher
-  );
+  const { data: organizationData, mutate } = useOrganization(name);
 
   useEffect(() => {
     if (name !== "") {

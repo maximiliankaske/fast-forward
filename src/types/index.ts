@@ -36,6 +36,7 @@ export type Organization = {
   name: string;
   email?: string;
   authorId: string;
+  activeTemplate?: string;
   /**
    * members as collection
    * collection("organization").doc("userId").set({ joined: Date, role: OrganizationRole, ... })
