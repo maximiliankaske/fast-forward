@@ -2,11 +2,13 @@ import React from "react";
 import templates from "@/config/templates";
 import { ComponentWithAuth } from "@/components/auth/Auth";
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import Template from "@/components/survey/Template";
+import Template from "@/components/template/Template";
 import useOrganization from "src/hooks/useOrganization";
 import { updateOrganization } from "@/lib/db";
 
-const Surveys: ComponentWithAuth = () => {
+// THIS PAGE IS NOT PROTECTED
+
+const Templates: ComponentWithAuth = () => {
   const { data, mutate } = useOrganization();
 
   const onClick = (template: string) => {
@@ -40,4 +42,4 @@ const Surveys: ComponentWithAuth = () => {
   );
 };
 
-export default Surveys;
+export default Templates;

@@ -12,6 +12,9 @@ import type {
   OrganizationInvite,
   FormSession,
 } from "@/types/index";
+import { Template } from "@/types/templates";
+
+// TODO: create wrapper functions for get<T>()
 
 export async function getAllUsers() {
   try {
@@ -172,6 +175,39 @@ export async function getSession(organizationId: string, id: string) {
       },
     };
   }
+}
+
+export async function getTemplate(organizationId: string, id: string) {
+  const template = await db
+    .collection("organizations")
+    .doc(organizationId)
+    .collection("templates")
+    .doc(id)
+    .get();
+  if (template.exists) {
+    return {
+      template: {
+        id: template.id,
+        ...(template.data() as Template),
+      },
+    };
+  }
+}
+
+export async function getTemplates(organizationId: string) {
+  const snapshot = await db
+    .collection("organizations")
+    .doc(organizationId)
+    .collection("templates")
+    .get();
+
+  const templates: WithId<Template>[] = [];
+
+  snapshot.forEach((doc) => {
+    templates.push({ id: doc.id, ...(doc.data() as Template) });
+  });
+
+  return { templates };
 }
 
 export async function getInvite(id: string) {
