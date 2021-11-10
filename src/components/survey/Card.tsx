@@ -25,8 +25,8 @@ const Card = ({ template, organizationId }: Props) => {
   const onSurveyStart = async () => {
     const survey = await createSurvey({
       organizationId,
-      dueTo: template.dueTo,
-      notifications: template.notifications,
+      dueTo: template.dueTo || null,
+      notifications: template.notifications || null,
       templateId: template.id,
       startAt: new Date().toUTCString(),
       cancelled: false,
@@ -80,59 +80,57 @@ const Card = ({ template, organizationId }: Props) => {
         </p>
       </div>
       <div className="px-3 py-4 bg-gray-100 dark:bg-gray-900 w-full">
-        <div className="flex flex-col md:flex-row items-center justify-between md:space-x-4 space-y-3 md:space-y-0">
-          <div className="flex-1 flex">
-            <div className="flex-1 flex space-x-4">
-              <IconButton
-                className="h-[30px] w-[30px]"
-                active={template.notifications}
-                onClick={async () => {
-                  await updateTemplate({
-                    id: template.id,
-                    organizationId,
-                    notifications: !template.notifications,
-                  });
-                  mutateTemplates();
-                }}
-              >
-                <BellIcon className="h-6 w-6" />
-              </IconButton>
-              <IconButton
-                active={!!template.dueTo}
-                className="h-[30px] w-[30px]"
-                onClick={async () => {
-                  const date = new Date(
-                    Date.now() + 7 * 24 * 60 * 60 * 1000 // in 7 days
-                  );
-                  const dueTo = template.dueTo ? null : date.toUTCString();
-                  await updateTemplate({
-                    organizationId,
-                    id: template.id,
-                    dueTo,
-                  });
-                  mutateTemplates();
-                }}
-              >
-                <ClockIcon className="h-6 w-6" />
-              </IconButton>
-            </div>
-            {template.surveyId ? (
-              <button
-                onClick={onSurveyStop}
-                className="text-red-500 dark:text-red-500"
-              >
-                Stop survey
-              </button>
-            ) : (
-              <button
-                onClick={onSurveyStart}
-                className={"inline-flex items-center text-sm"}
-              >
-                Start survey
-                <ArrowRightIcon className="h-3 w-3 ml-1" />
-              </button>
-            )}
+        <div className="flex flex-row items-center justify-between space-x-4">
+          <div className="flex-1 flex space-x-4">
+            <IconButton
+              className="h-[30px] w-[30px]"
+              active={template.notifications}
+              onClick={async () => {
+                await updateTemplate({
+                  id: template.id,
+                  organizationId,
+                  notifications: !template.notifications,
+                });
+                mutateTemplates();
+              }}
+            >
+              <BellIcon className="h-6 w-6" />
+            </IconButton>
+            <IconButton
+              active={!!template.dueTo}
+              className="h-[30px] w-[30px]"
+              onClick={async () => {
+                const date = new Date(
+                  Date.now() + 7 * 24 * 60 * 60 * 1000 // in 7 days
+                );
+                const dueTo = template.dueTo ? null : date.toUTCString();
+                await updateTemplate({
+                  organizationId,
+                  id: template.id,
+                  dueTo,
+                });
+                mutateTemplates();
+              }}
+            >
+              <ClockIcon className="h-6 w-6" />
+            </IconButton>
           </div>
+          {template.surveyId ? (
+            <button
+              onClick={onSurveyStop}
+              className="text-red-500 dark:text-red-500"
+            >
+              Stop survey
+            </button>
+          ) : (
+            <button
+              onClick={onSurveyStart}
+              className={"inline-flex items-center text-sm"}
+            >
+              Start survey
+              <ArrowRightIcon className="h-3 w-3 ml-1" />
+            </button>
+          )}
         </div>
       </div>
     </li>
