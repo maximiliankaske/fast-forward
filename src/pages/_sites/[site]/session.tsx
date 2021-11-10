@@ -1,5 +1,9 @@
 import SitesLayout from "@/components/layout/SitesLayout";
-import { getOrganization, getOrganizations } from "@/lib/db-admin";
+import {
+  getOrganization,
+  getOrganizations,
+  getSurveyMemberSession,
+} from "@/lib/db-admin";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -18,6 +22,7 @@ import cn from "classnames";
 import Rating from "@/components/question/Rating";
 import useOrganization from "src/hooks/useOrganization";
 import useTemplates from "src/hooks/useTemplates";
+import { updateSurveyMemberSession } from "@/lib/db/survey";
 
 // FIXME: right now is ?session=docIdx but if user starts new form, it will create new doc
 // TODO: think of a reducer `useReducer()`
@@ -34,13 +39,13 @@ const FormPage = ({
   // FIXME: later
   const { data: dataOrganization } = useOrganization();
   const { data: dataTemplates } = useTemplates();
-  const { id: sessionId } = router.query as { id: string };
-  const { data, error, mutate } = useSWR<{
+  const { id: surveyId } = router.query as { id: string };
+  const { data, mutate } = useSWR<{
     session: WithId<FormSession> | undefined;
   }>(
-    user && sessionId
+    user && surveyId
       ? [
-          `/api/organization/${organization.name}/session/${sessionId}`,
+          `/api/organization/${organization.name}/survey/${surveyId}`,
           user?.token,
         ]
       : null,
@@ -96,9 +101,10 @@ const FormPage = ({
     event.preventDefault();
     if (question) {
       if (value) {
-        await updateSession({
+        await updateSurveyMemberSession({
           organizationId: organization.id,
-          id: sessionId, // data.id is better
+          surveyId: surveyId, // data.id is better
+          userId: user!.uid,
           answers: {
             ...data?.session?.answers,
             [question.id]: value,

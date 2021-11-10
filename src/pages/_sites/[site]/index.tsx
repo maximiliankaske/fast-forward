@@ -8,6 +8,7 @@ import {
   getOrganizations,
   getTemplates,
 } from "@/lib/db-admin";
+import { createSurveyMemberSession } from "@/lib/db/survey";
 import { ArrowRightIcon } from "@heroicons/react/solid";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useRouter } from "next/router";
@@ -22,15 +23,16 @@ const SitePage = ({
   const { user } = useAuth();
   const router = useRouter();
 
-  const onClick = async () => {
-    const session = await createSession({
+  const onClick = async (surveyId: string) => {
+    // FIXME: if user already has a survey open, forward to last response
+    const session = await createSurveyMemberSession({
       organizationId: organization.id,
+      surveyId,
+      userId: user!.uid,
       answers: {},
     });
-    router.push(`/session?id=${session.id}`);
+    router.push(`/session?id=${surveyId}`);
   };
-
-  console.log(templates);
 
   return (
     <Wrapper {...{ organization }}>
@@ -40,20 +42,25 @@ const SitePage = ({
             <b>Owner:</b> {authorId}
           </p>
           <p>{user?.email}</p>
-          <p>
-            <Button onClick={onClick}>Start Session</Button>
+          <p className="text-red-500">
+            See code comment! Start here next time by checking if a survey
+            already has been filled out or similar
           </p>
+          <ul>
+            {/* TODO: create own Component for each item and check aside if user has already started survey */}
+            {templates?.map((template) => (
+              <li key={template.id}>
+                <button
+                  onClick={() => onClick(template.surveyId!)}
+                  className="inline-flex items-center"
+                >
+                  <p className="font-medium">{template.label}</p>
+                  <ArrowRightIcon className="h-4 w-4 ml-1" />
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul>
-          {templates?.map((template) => (
-            <li key={template.id}>
-              <button className="inline-flex items-center">
-                <p className="font-medium">{template.label}</p>
-                <ArrowRightIcon className="h-4 w-4 ml-1" />
-              </button>
-            </li>
-          ))}
-        </ul>
       </SitesLayout>
     </Wrapper>
   );

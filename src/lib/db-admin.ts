@@ -177,6 +177,29 @@ export async function getSession(organizationId: string, id: string) {
   }
 }
 
+export async function getSurveyMemberSession(
+  organizationId: string,
+  surveyId: string,
+  userId: string
+) {
+  const member = await db
+    .collection("organizations")
+    .doc(organizationId)
+    .collection("surveys")
+    .doc(surveyId)
+    .collection("members")
+    .doc(userId)
+    .get();
+  if (member.exists) {
+    return {
+      member: {
+        id: member.id,
+        ...(member.data() as FormSession),
+      },
+    };
+  }
+}
+
 export async function getTemplate(organizationId: string, id: string) {
   const template = await db
     .collection("organizations")
