@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Card = ({ template, organizationId }: Props) => {
-  const { data, mutate: mutateOrganization } = useOrganization();
+  const { data } = useOrganization();
   // this will reload the other Components, that use dataTemplates
   const { mutate: mutateTemplates } = useTemplates();
 
@@ -25,28 +25,32 @@ const Card = ({ template, organizationId }: Props) => {
   const onSurveyStart = async () => {
     const survey = await createSurvey({
       organizationId,
+      dueTo: template.dueTo,
+      notifications: template.notifications,
       templateId: template.id,
       startAt: new Date().toUTCString(),
       cancelled: false,
     });
-    await updateOrganization(organizationId, {
-      activeTemplate: template.id,
-      activeSurvey: survey.id,
+    await updateTemplate({
+      organizationId,
+      id: template.id,
+      surveyId: survey.id,
     });
-    mutateOrganization();
+    mutateTemplates();
   };
 
   const onSurveyStop = async () => {
     await updateSurvey({
       organizationId,
-      id: activeSurvey!,
+      id: template.surveyId!,
       cancelled: true,
     });
-    await updateOrganization(organizationId, {
-      activeTemplate: template.id,
-      activeSurvey: null,
+    await updateTemplate({
+      organizationId,
+      id: template.id,
+      surveyId: null,
     });
-    mutateOrganization();
+    mutateTemplates();
   };
 
   return (
@@ -54,7 +58,7 @@ const Card = ({ template, organizationId }: Props) => {
       key={template.id}
       className="relative rounded-md border border-gray-100 dark:border-gray-900"
     >
-      {template.id !== activeTemplate ? (
+      {!template.surveyId ? (
         <div className="absolute -right-2 -top-2">
           <button
             className="bg-red-500 p-1 rounded-full"
@@ -112,7 +116,7 @@ const Card = ({ template, organizationId }: Props) => {
                 <ClockIcon className="h-6 w-6" />
               </IconButton>
             </div>
-            {template.id === activeTemplate ? (
+            {template.surveyId ? (
               <button
                 onClick={onSurveyStop}
                 className="text-red-500 dark:text-red-500"

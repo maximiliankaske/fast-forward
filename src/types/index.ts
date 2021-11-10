@@ -36,6 +36,7 @@ export type Organization = {
   name: string;
   email?: string;
   authorId: string;
+  // FIXME should be here... not their role!
   activeTemplate: string | null;
   activeSurvey: string | null;
   /**

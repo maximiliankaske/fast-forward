@@ -9,6 +9,7 @@ export type Question = {
 export type Template = MinSurvey & {
   label: string;
   questions: Question[];
+  surveyId?: string | null;
 };
 
 // data added by the user
