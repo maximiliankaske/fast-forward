@@ -55,8 +55,8 @@ const Templates: ComponentWithAuth = () => {
                       <IconButton
                         className="h-[30px] w-[30px]"
                         active={template.notifications}
-                        onClick={() => {
-                          updateTemplate({
+                        onClick={async () => {
+                          await updateTemplate({
                             organizationId,
                             ...template,
                             notifications: !template.notifications,
@@ -72,14 +72,14 @@ const Templates: ComponentWithAuth = () => {
                       >
                         <ClockIcon
                           className="h-6 w-6"
-                          onClick={() => {
+                          onClick={async () => {
                             const date = new Date(
                               Date.now() + 7 * 24 * 60 * 60 * 1000 // in 7 days
                             );
                             const dueTo = template.dueTo
                               ? null
                               : date.toUTCString();
-                            updateTemplate({
+                            await updateTemplate({
                               organizationId,
                               ...template,
                               dueTo,
