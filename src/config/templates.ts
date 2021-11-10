@@ -27,18 +27,18 @@ const forms: Record<string, Template> = {
     ],
   },
   "the-vibe-pack": {
-    label: "The Starter Pack",
+    label: "The Vibe Pack",
     questions: [
       {
         id: "q1",
-        title: "What was our biggest achievement?",
+        title: "What's good and went well this month?",
         description:
           "It could be a milestone that was reached, a workshop attembded or a meeting with a collegue where you had a mindblowing experience.",
         type: "rating",
       },
       {
         id: "q2",
-        title: "Did you have everything needed to accomplish your tasks?",
+        title: "Do you had enough time with everyone in the team?",
         description:
           "Are you missing a tool to make tasks more productive. More time from others, or something else?",
         type: "input",
@@ -47,6 +47,12 @@ const forms: Record<string, Template> = {
         id: "q3",
         title: "Lorem?",
         description: "Lorem",
+        type: "input",
+      },
+      {
+        id: "q4",
+        title: "Ok so to be clear, are you good to go?",
+        description: "A little motivational ending.",
         type: "input",
       },
     ],

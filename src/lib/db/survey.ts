@@ -1,35 +1,35 @@
 import firebase from "../firebase";
 import converter from "@/utils/converter";
-import { Template } from "@/types/templates";
+import { Survey } from "@/types/templates";
 
-export function createTemplate({
+export function createSurvey({
   organizationId,
   ...data
-}: Template & { organizationId: string }) {
+}: Survey & { organizationId: string }) {
   return firebase
     .firestore()
     .collection("organizations")
     .doc(organizationId)
-    .collection("templates")
-    .withConverter(converter<Template>())
+    .collection("surveys")
+    .withConverter(converter<Survey>())
     .add(data);
 }
 
-export function updateTemplate({
+export function updateSurvey({
   organizationId,
   id,
   ...data
-}: Partial<Template> & { organizationId: string; id: string }) {
+}: Partial<Survey> & { organizationId: string; id: string }) {
   return firebase
     .firestore()
     .collection("organizations")
     .doc(organizationId)
-    .collection("templates")
+    .collection("surveys")
     .doc(id)
     .update(data);
 }
 
-export function deleteTemplate({
+export function deleteSurvey({
   organizationId,
   id,
 }: {
@@ -40,7 +40,7 @@ export function deleteTemplate({
     .firestore()
     .collection("organizations")
     .doc(organizationId)
-    .collection("templates")
+    .collection("surveys")
     .doc(id)
     .delete();
 }

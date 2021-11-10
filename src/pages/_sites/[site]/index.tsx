@@ -20,7 +20,7 @@ const SitePage = ({
       organizationId: organization.id,
       answers: {},
     });
-    router.push(`/form?session=${session.id}`);
+    router.push(`/session?id=${session.id}`);
   };
 
   return (
@@ -32,7 +32,7 @@ const SitePage = ({
           </p>
           <p>{user?.email}</p>
           <p>
-            <Button onClick={onClick}>Start Form</Button>
+            <Button onClick={onClick}>Start Session</Button>
           </p>
         </div>
       </SitesLayout>

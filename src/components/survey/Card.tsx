@@ -1,0 +1,138 @@
+import IconButton from "@/components/ui/IconButton";
+import { deleteTemplate, updateOrganization, updateTemplate } from "@/lib/db";
+import { ArrowRightIcon, XIcon } from "@heroicons/react/solid";
+import { BellIcon, ClockIcon } from "@heroicons/react/outline";
+import React from "react";
+import useTemplates from "src/hooks/useTemplates";
+import useOrganization from "src/hooks/useOrganization";
+import { WithId } from "@/types/index";
+import { Template } from "@/types/templates";
+import { createSurvey, updateSurvey } from "@/lib/db/survey";
+
+interface Props {
+  template: WithId<Template>;
+  organizationId: string;
+}
+
+const Card = ({ template, organizationId }: Props) => {
+  const { data, mutate: mutateOrganization } = useOrganization();
+  // this will reload the other Components, that use dataTemplates
+  const { mutate: mutateTemplates } = useTemplates();
+
+  const { activeTemplate, activeSurvey } = data?.organization || {};
+
+  // TODO: Find a better pattern for that..
+  const onSurveyStart = async () => {
+    const survey = await createSurvey({
+      organizationId,
+      templateId: template.id,
+      startAt: new Date().toUTCString(),
+      cancelled: false,
+    });
+    await updateOrganization(organizationId, {
+      activeTemplate: template.id,
+      activeSurvey: survey.id,
+    });
+    mutateOrganization();
+  };
+
+  const onSurveyStop = async () => {
+    await updateSurvey({
+      organizationId,
+      id: activeSurvey!,
+      cancelled: true,
+    });
+    await updateOrganization(organizationId, {
+      activeTemplate: template.id,
+      activeSurvey: null,
+    });
+    mutateOrganization();
+  };
+
+  return (
+    <li
+      key={template.id}
+      className="relative rounded-md border border-gray-100 dark:border-gray-900"
+    >
+      {template.id !== activeTemplate ? (
+        <div className="absolute -right-2 -top-2">
+          <button
+            className="bg-red-500 p-1 rounded-full"
+            onClick={async () => {
+              await deleteTemplate({ organizationId, id: template.id });
+              mutateTemplates();
+            }}
+          >
+            <XIcon className="h-3 w-3 text-white dark:text-black" />
+          </button>
+        </div>
+      ) : null}
+      <div className="flex items-center justify-between px-3 py-3">
+        <p className="text-lg font-semibold">
+          {template.label}
+          <span className="ml-2 text-sm font-extrabold">
+            #{template.questions.length}
+          </span>
+        </p>
+      </div>
+      <div className="px-3 py-4 bg-gray-100 dark:bg-gray-900 w-full">
+        <div className="flex flex-col md:flex-row items-center justify-between md:space-x-4 space-y-3 md:space-y-0">
+          <div className="flex-1 flex">
+            <div className="flex-1 flex space-x-4">
+              <IconButton
+                className="h-[30px] w-[30px]"
+                active={template.notifications}
+                onClick={async () => {
+                  await updateTemplate({
+                    id: template.id,
+                    organizationId,
+                    notifications: !template.notifications,
+                  });
+                  mutateTemplates();
+                }}
+              >
+                <BellIcon className="h-6 w-6" />
+              </IconButton>
+              <IconButton
+                active={!!template.dueTo}
+                className="h-[30px] w-[30px]"
+                onClick={async () => {
+                  const date = new Date(
+                    Date.now() + 7 * 24 * 60 * 60 * 1000 // in 7 days
+                  );
+                  const dueTo = template.dueTo ? null : date.toUTCString();
+                  await updateTemplate({
+                    organizationId,
+                    id: template.id,
+                    dueTo,
+                  });
+                  mutateTemplates();
+                }}
+              >
+                <ClockIcon className="h-6 w-6" />
+              </IconButton>
+            </div>
+            {template.id === activeTemplate ? (
+              <button
+                onClick={onSurveyStop}
+                className="text-red-500 dark:text-red-500"
+              >
+                Stop survey
+              </button>
+            ) : (
+              <button
+                onClick={onSurveyStart}
+                className={"inline-flex items-center text-sm"}
+              >
+                Start survey
+                <ArrowRightIcon className="h-3 w-3 ml-1" />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+};
+
+export default Card;

@@ -16,6 +16,8 @@ import Question from "@/components/question/Question";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/solid";
 import cn from "classnames";
 import Rating from "@/components/question/Rating";
+import useOrganization from "src/hooks/useOrganization";
+import useTemplates from "src/hooks/useTemplates";
 
 // FIXME: right now is ?session=docIdx but if user starts new form, it will create new doc
 // TODO: think of a reducer `useReducer()`
@@ -29,17 +31,24 @@ const FormPage = ({
   const [value, setValue] = useState<number | string | undefined>();
   const router = useRouter();
   const { user } = useAuth();
-  const { session } = router.query as { session: string };
+  // FIXME: later
+  const { data: dataOrganization } = useOrganization();
+  const { data: dataTemplates } = useTemplates();
+  const { id: sessionId } = router.query as { id: string };
   const { data, error, mutate } = useSWR<{
     session: WithId<FormSession> | undefined;
   }>(
-    user && session
+    user && sessionId
       ? [
-          `/api/organization/${organization.name}/session/${session}`,
+          `/api/organization/${organization.name}/session/${sessionId}`,
           user?.token,
         ]
       : null,
     fetcher
+  );
+
+  const activeOrganizationTemplate = dataTemplates?.templates.find(
+    (template) => template.id === dataOrganization?.organization?.id
   );
 
   const answeredQuestionIds = useMemo(
@@ -89,7 +98,7 @@ const FormPage = ({
       if (value) {
         await updateSession({
           organizationId: organization.id,
-          id: session, // data.id is better
+          id: sessionId, // data.id is better
           answers: {
             ...data?.session?.answers,
             [question.id]: value,

@@ -6,11 +6,20 @@ export type Question = {
   type: "input" | "textarea" | "rating";
 };
 
-export type Template = {
+export type Template = MinSurvey & {
   label: string;
   questions: Question[];
-  // data added by the user
-  // all not mandatory fields
+};
+
+// data added by the user
+// all not mandatory fields
+export type MinSurvey = {
   dueTo?: string | null;
   notifications?: boolean | null;
+};
+
+export type Survey = MinSurvey & {
+  templateId: string;
+  startAt: string | null;
+  cancelled: boolean;
 };

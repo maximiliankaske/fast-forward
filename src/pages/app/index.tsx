@@ -38,11 +38,19 @@ const App: ComponentWithAuth = () => {
   return (
     <DefaultLayout>
       <Heading as="h2">Dashboard</Heading>
-      <div className="text-right">
-        <Link href="/app/organization" className="inline-flex items-center">
-          My Organization
-          <ArrowRightIcon className="h-4 w-4 ml-1" />
-        </Link>
+      <div className="text-right space-y-2">
+        <div>
+          <Link href="/app/organization" className="inline-flex items-center">
+            My Organization
+            <ArrowRightIcon className="h-4 w-4 ml-1" />
+          </Link>
+        </div>
+        <div>
+          <Link href="/app/templates" className="inline-flex items-center">
+            My Templates
+            <ArrowRightIcon className="h-4 w-4 ml-1" />
+          </Link>
+        </div>
       </div>
       {user && (
         <div className="space-y-6 mt-6">

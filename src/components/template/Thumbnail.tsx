@@ -11,7 +11,7 @@ interface Props extends TemplateType, ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
 }
 
-const Template = ({ questions, label, active, onClick, ...props }: Props) => {
+const Thumbnail = ({ questions, label, active, onClick, ...props }: Props) => {
   const auth = useAuth();
 
   const onDuplicate = async (event: MouseEvent) => {
@@ -41,15 +41,20 @@ const Template = ({ questions, label, active, onClick, ...props }: Props) => {
           {active && (
             <CheckCircleIcon className="h-6 w-6 text-indigo-500 dark:text-pink-500" />
           )}
-          <button className="rounded-full" onClick={onDuplicate}>
+          <button className="rounded-full p-2 -mt-2" onClick={onDuplicate}>
             <DuplicateIcon className="h-6 w-6" />
           </button>
         </div>
       </div>
       <ul>
         {questions.map((question) => (
-          <li key={question.id}>
-            <p>{question.title}</p>
+          <li key={question.id} className="max-w-xl flex">
+            <div>
+              <p className="font-medium">{question.title}</p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">
+                {question.description}
+              </p>
+            </div>
           </li>
         ))}
       </ul>
@@ -57,4 +62,4 @@ const Template = ({ questions, label, active, onClick, ...props }: Props) => {
   );
 };
 
-export default Template;
+export default Thumbnail;
