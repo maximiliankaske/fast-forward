@@ -1,19 +1,15 @@
-import firebase from "../firebase";
-import converter from "@/utils/converter";
 import { Survey } from "@/types/templates";
 import { FormSession } from "@/types/index";
+import { create, update, _delete } from "./utils";
 
 export function createSurvey({
   organizationId,
   ...data
 }: Survey & { organizationId: string }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("surveys")
-    .withConverter(converter<Survey>())
-    .add(data);
+  return create({
+    ref: `organizations/${organizationId}/surveys`,
+    data,
+  });
 }
 
 export function updateSurvey({
@@ -21,13 +17,11 @@ export function updateSurvey({
   id,
   ...data
 }: Partial<Survey> & { organizationId: string; id: string }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("surveys")
-    .doc(id)
-    .update(data);
+  return update({
+    ref: `organizations/${organizationId}/surveys`,
+    id,
+    data,
+  });
 }
 
 export function deleteSurvey({
@@ -37,13 +31,10 @@ export function deleteSurvey({
   organizationId: string;
   id: string;
 }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("surveys")
-    .doc(id)
-    .delete();
+  return _delete({
+    ref: `organizations/${organizationId}/surveys`,
+    id,
+  });
 }
 
 export function createSurveyMemberSession({
@@ -52,16 +43,11 @@ export function createSurveyMemberSession({
   userId,
   ...data
 }: FormSession & { organizationId: string; surveyId: string; userId: string }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("surveys")
-    .doc(surveyId)
-    .collection("members")
-    .withConverter(converter<FormSession>())
-    .doc(userId)
-    .set(data);
+  return create({
+    ref: `organizations/${organizationId}/surveys/${surveyId}/members`,
+    id: userId,
+    data,
+  });
 }
 
 export function updateSurveyMemberSession({
@@ -74,14 +60,9 @@ export function updateSurveyMemberSession({
   surveyId: string;
   userId: string;
 }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("surveys")
-    .doc(surveyId)
-    .collection("members")
-    .withConverter(converter<FormSession>())
-    .doc(userId)
-    .update(data);
+  return update({
+    ref: `organizations/${organizationId}/surveys/${surveyId}/members`,
+    id: userId,
+    data,
+  });
 }

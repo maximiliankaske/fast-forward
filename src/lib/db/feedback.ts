@@ -1,26 +1,15 @@
-import firebase from "../firebase";
 import type { Feedback } from "@/types/index";
-import converter from "@/utils/converter";
+import { create, update, _delete } from "./utils";
 
 export function createFeedback(data: Feedback) {
-  return firebase
-    .firestore()
-    .collection("projects")
-    .doc(data.projectId)
-    .collection("feedbacks")
-    .withConverter(converter<Feedback>())
-    .doc()
-    .set(data);
+  return create({ ref: `projects/${data.projectId}/feedbacks`, data });
 }
 
 export function deleteFeedback(id: string, projectId: string) {
-  return firebase
-    .firestore()
-    .collection("projects")
-    .doc(projectId)
-    .collection("feedbacks")
-    .doc(id)
-    .delete();
+  return _delete({
+    ref: `projects/${projectId}/feedbacks`,
+    id,
+  });
 }
 
 export function updateFeedback(
@@ -28,11 +17,9 @@ export function updateFeedback(
   // FIXME: find a better way to make the projectId required
   data: Partial<Feedback> & { projectId: string }
 ) {
-  return firebase
-    .firestore()
-    .collection("projects")
-    .doc(data.projectId)
-    .collection("feedbacks")
-    .doc(id)
-    .update(data);
+  return update({
+    ref: `projects/${data.projectId}/feedback`,
+    id,
+    data,
+  });
 }

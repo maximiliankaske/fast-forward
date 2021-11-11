@@ -1,8 +1,76 @@
+import converter from "@/utils/converter";
 import firebase from "../firebase";
 
-export function addNewsletterSubscription(email: string) {
-  return firebase.firestore().collection("subscriptions").doc(email).set({
-    email,
-    createdAt: firebase.firestore.Timestamp.now(),
-  });
+/** GET IS ALWAYS REQUESTED THROUGH API ROUTES */
+type Get = {
+  ref: string;
+  id: string;
+};
+
+export async function get<T>({ ref, id }: Get) {
+  try {
+    const doc = await firebase.firestore().collection(ref).doc(id).get();
+    return {
+      doc: doc.data() as T,
+      exists: doc.exists,
+    };
+  } catch (error) {
+    return { error };
+  }
+}
+/** */
+
+type Create<T> = {
+  ref: string;
+  id?: string;
+  data: T;
+};
+
+export async function create<T>({ ref, data, id }: Create<T>) {
+  try {
+    const doc = (await id)
+      ? firebase
+          .firestore()
+          .collection(ref)
+          .withConverter(converter<T>())
+          .doc(id)
+          .set(data)
+      : firebase
+          .firestore()
+          .collection(ref)
+          .withConverter(converter<T>())
+          .add(data);
+    return { doc };
+  } catch (error) {
+    return { error };
+  }
+}
+
+type Update<T> = {
+  ref: string;
+  id: string;
+  data: Partial<T>;
+};
+
+export async function update<T>({ ref, id, data }: Update<T>) {
+  try {
+    await firebase.firestore().collection(ref).doc(id).update(data);
+    return true;
+  } catch (error) {
+    return { error };
+  }
+}
+
+type Delete = {
+  ref: string;
+  id: string;
+};
+
+export async function _delete({ ref, id }: Delete) {
+  try {
+    await firebase.firestore().collection(ref).doc(id).delete();
+    return true;
+  } catch (error) {
+    return { error };
+  }
 }

@@ -1,26 +1,20 @@
-import firebase from "../firebase";
 import type {
   Organization,
   OrganizationInvite,
   OrganizationMember,
 } from "@/types/index";
-import converter from "@/utils/converter";
+import { create, update, _delete } from "./utils";
 
 export function createOrganization(data: Organization) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .withConverter(converter<Organization>())
-    .doc(data.name)
-    .set(data);
+  return create({ ref: `organizations`, id: data.name, data });
 }
 
 export function deleteOrganization(id: string) {
-  return firebase.firestore().collection("organizations").doc(id).delete();
+  return _delete({ ref: `organizations`, id });
 }
 
 export function updateOrganization(id: string, data: Partial<Organization>) {
-  return firebase.firestore().collection("organizations").doc(id).update(data);
+  return update({ ref: `organizations`, id, data });
 }
 
 // userId is needed for first user to create organization with him as "owner"
@@ -29,36 +23,20 @@ export function createOrganizationMember({
   userId,
   ...data
 }: OrganizationMember & { organizationId: string; userId?: string }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("members")
-    .withConverter(converter<OrganizationMember>())
-    .doc(userId)
-    .set(data);
+  return create({
+    ref: `organizations/${organizationId}/members`,
+    id: userId,
+    data,
+  });
 }
 
 export function createOrganizationInvite({
   organizationId,
   ...data
 }: OrganizationInvite & { organizationId: string }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("invites")
-    .withConverter(converter<OrganizationInvite>())
-    .doc()
-    .set(data);
+  return create({ ref: `organizations/${organizationId}/invites`, data });
 }
 
 export function deleteOrganizationInvite(organizationId: string, id: string) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("invites")
-    .doc(id)
-    .delete();
+  return _delete({ ref: `organizations/${organizationId}/invites`, id });
 }

@@ -1,20 +1,19 @@
 import firebase from "../firebase";
 import type { Project } from "@/types/index";
-import converter from "@/utils/converter";
+import { create, update, _delete } from "./utils";
 
 export function createProject(data: Project) {
-  return firebase
-    .firestore()
-    .collection("projects")
-    .withConverter(converter<Project>())
-    .doc()
-    .set(data);
+  return create({
+    ref: `projects`,
+    data,
+  });
 }
 
 export function deleteProject(id: string) {
-  return firebase.firestore().collection("projects").doc(id).delete();
+  return _delete({ ref: `projects`, id });
 }
 
+// TODO: HANDLE MORE
 export function resetProject(id: string) {
   const ref = firebase
     .firestore()
@@ -29,5 +28,5 @@ export function resetProject(id: string) {
 }
 
 export function updateProject(id: string, data: Partial<Project>) {
-  return firebase.firestore().collection("projects").doc(id).update(data);
+  return update({ ref: `projects`, id, data });
 }

@@ -5,5 +5,4 @@ export * from "./organization";
 export * from "./session";
 export * from "./template";
 
-// all small functions that do not need CRUD
-export * from "./utils";
+export * from "./email";

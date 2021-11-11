@@ -1,4 +1,4 @@
-import { db } from "./firebase-admin";
+import { db } from "../firebase-admin";
 import * as admin from "firebase-admin";
 import type {
   User,
@@ -12,7 +12,8 @@ import type {
   OrganizationInvite,
   FormSession,
 } from "@/types/index";
-import { Template } from "@/types/templates";
+import { Survey, Template } from "@/types/templates";
+import { get } from "./utils";
 
 // TODO: create wrapper functions for get<T>()
 
@@ -44,8 +45,10 @@ export async function getUserProjects(uid: string) {
   return { projects };
 }
 
-export async function getProject(uid: string) {
-  const project = await db.collection("projects").doc(uid).get();
+export async function getProject(id: string) {
+  // const project = get<Project>({ ref: "projects", id });
+  // return { projects };
+  const project = await db.collection("projects").doc(id).get();
   if (project.exists) {
     return {
       project: { id: project.id, ...(project.data() as Project) },
@@ -175,6 +178,22 @@ export async function getSession(organizationId: string, id: string) {
       },
     };
   }
+}
+
+export async function getSurveys(organizationId: string) {
+  const snapshot = await db
+    .collection("organizations")
+    .doc(organizationId)
+    .collection("surveys")
+    .get();
+
+  const surveys: WithId<Survey>[] = [];
+
+  snapshot.forEach((doc) => {
+    surveys.push({ id: doc.id, ...(doc.data() as Survey) });
+  });
+
+  return { surveys };
 }
 
 export async function getSurveyMemberSession(

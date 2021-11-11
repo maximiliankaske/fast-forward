@@ -1,6 +1,5 @@
-import firebase from "../firebase";
-import converter from "@/utils/converter";
 import { FormSession } from "@/types/index";
+import { create, update } from "./utils";
 
 // TODO: create Type
 // FIXME: missing user in session
@@ -12,13 +11,10 @@ export function createSession({
   organizationId,
   ...data
 }: FormSession & { organizationId: string; id?: string }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("sessions")
-    .withConverter(converter<FormSession>())
-    .add(data);
+  return create({
+    ref: `organizations/${organizationId}/sessions`,
+    data,
+  });
 }
 
 export function updateSession({
@@ -26,11 +22,9 @@ export function updateSession({
   id,
   ...data
 }: FormSession & { organizationId: string; id: string }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("sessions")
-    .doc(id)
-    .update(data);
+  return update({
+    ref: `organizations/${organizationId}/sessions`,
+    id,
+    data,
+  });
 }

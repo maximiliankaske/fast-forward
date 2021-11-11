@@ -1,18 +1,14 @@
-import firebase from "../firebase";
-import converter from "@/utils/converter";
 import { Template } from "@/types/templates";
+import { create, update, _delete } from "./utils";
 
 export function createTemplate({
   organizationId,
   ...data
 }: Template & { organizationId: string }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("templates")
-    .withConverter(converter<Template>())
-    .add(data);
+  return create({
+    ref: `organizations/${organizationId}/templates`,
+    data,
+  });
 }
 
 export function updateTemplate({
@@ -20,13 +16,11 @@ export function updateTemplate({
   id,
   ...data
 }: Partial<Template> & { organizationId: string; id: string }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("templates")
-    .doc(id)
-    .update(data);
+  return update({
+    ref: `organizations/${organizationId}/templates`,
+    id,
+    data,
+  });
 }
 
 export function deleteTemplate({
@@ -36,11 +30,8 @@ export function deleteTemplate({
   organizationId: string;
   id: string;
 }) {
-  return firebase
-    .firestore()
-    .collection("organizations")
-    .doc(organizationId)
-    .collection("templates")
-    .doc(id)
-    .delete();
+  return _delete({
+    ref: `organizations/${organizationId}/templates`,
+    id,
+  });
 }
