@@ -21,6 +21,11 @@ const links = [
     label: "My Templates",
     description: "Start your team survey",
   },
+  {
+    href: "/app/all-templates",
+    label: "All Templates",
+    description: "Duplicate your ideal template",
+  },
 ];
 
 const App: ComponentWithAuth = () => {
