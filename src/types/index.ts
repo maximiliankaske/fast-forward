@@ -36,9 +36,9 @@ export type Organization = {
   name: string;
   email?: string;
   authorId: string;
-  // FIXME should be here... not their role!
-  activeTemplate: string | null;
-  activeSurvey: string | null;
+  // FIXME:d
+  activeTemplates: string[] | null;
+  activeSurveys: string[] | null;
   /**
    * members as collection
    * collection("organization").doc("userId").set({ joined: Date, role: OrganizationRole, ... })

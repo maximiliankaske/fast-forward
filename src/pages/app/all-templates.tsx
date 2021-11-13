@@ -13,12 +13,14 @@ import { ArrowRightIcon } from "@heroicons/react/solid";
 const Templates: ComponentWithAuth = () => {
   const { data, mutate } = useOrganization();
 
-  const onClick = (template: string) => {
-    const { id, ...organization } = data?.organization || {};
-    if (id) {
-      updateOrganization(id, {
-        ...organization,
-        activeTemplate: template,
+  const onClick = (templateId: string) => {
+    if (data?.organization?.id) {
+      updateOrganization(data?.organization.id, {
+        activeTemplates: data.organization.activeTemplates?.includes(templateId)
+          ? data.organization.activeTemplates.filter(
+              (key) => key !== templateId
+            )
+          : [...(data.organization.activeTemplates || []), templateId],
       });
       mutate();
     }
@@ -39,7 +41,7 @@ const Templates: ComponentWithAuth = () => {
             <li key={key}>
               <Thumbnail
                 {...template}
-                active={key === data?.organization?.activeTemplate}
+                active={data?.organization?.activeTemplates?.includes(key)}
                 onClick={() => onClick(key)}
               />
             </li>

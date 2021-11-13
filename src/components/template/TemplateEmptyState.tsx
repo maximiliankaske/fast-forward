@@ -12,7 +12,7 @@ const TempalteEmptyState = ({ onClick }: Props) => {
       title={"No Tempaltes"}
       description="Get started by creating a new Tempalte."
       onClick={onClick}
-      buttonTitle={"Duplicate Tempalte"}
+      buttonTitle={"Duplicate Template"}
       icon={FolderAddIcon}
     />
   );

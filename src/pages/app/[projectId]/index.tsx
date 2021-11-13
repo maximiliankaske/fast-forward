@@ -41,6 +41,7 @@ const ProjectPage = () => {
     [data]
   );
 
+  // TODO: FIXME: function seems to be broken
   const handleArchive = useCallback(
     async (id: string, data: Partial<Feedback> & { projectId: string }) => {
       try {

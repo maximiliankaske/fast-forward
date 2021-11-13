@@ -54,8 +54,8 @@ const OrganizationPage: ComponentWithAuth = () => {
         createOrganization({
           name: name.toLocaleLowerCase(),
           authorId: user!.uid,
-          activeTemplate: null,
-          activeSurvey: null,
+          activeTemplates: null,
+          activeSurveys: null,
         }).then(() =>
           createOrganizationMember({
             role: "owner",

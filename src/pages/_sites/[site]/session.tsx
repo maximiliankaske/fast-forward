@@ -52,10 +52,6 @@ const SessionPage = ({
     fetcher
   );
 
-  const activeOrganizationTemplate = dataTemplates?.templates.find(
-    (template) => template.id === dataOrganization?.organization?.id
-  );
-
   const answeredQuestionIds = useMemo(
     () => (data?.session?.answers ? Object.keys(data.session.answers) : []),
     [data?.session?.answers]
