@@ -29,7 +29,7 @@ import { updateSurveyMemberSession } from "@/lib/db/survey";
 
 const { questions: questions } = templates["the-starter-pack"];
 
-const FormPage = ({
+const SessionPage = ({
   organization,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [index, setIndex] = useState<number>(0);
@@ -234,4 +234,4 @@ export async function getStaticProps({
   };
 }
 
-export default FormPage;
+export default SessionPage;

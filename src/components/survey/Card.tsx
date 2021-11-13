@@ -1,10 +1,9 @@
 import IconButton from "@/components/ui/IconButton";
-import { deleteTemplate, updateOrganization, updateTemplate } from "@/lib/db";
+import { deleteTemplate, updateTemplate } from "@/lib/db";
 import { ArrowRightIcon, XIcon } from "@heroicons/react/solid";
 import { BellIcon, ClockIcon } from "@heroicons/react/outline";
 import React from "react";
 import useTemplates from "src/hooks/useTemplates";
-import useOrganization from "src/hooks/useOrganization";
 import { WithId } from "@/types/index";
 import { Template } from "@/types/templates";
 import { createSurvey, updateSurvey } from "@/lib/db/survey";
@@ -15,11 +14,8 @@ interface Props {
 }
 
 const Card = ({ template, organizationId }: Props) => {
-  const { data } = useOrganization();
   // this will reload the other Components, that use dataTemplates
   const { mutate: mutateTemplates } = useTemplates();
-
-  const { activeTemplate, activeSurvey } = data?.organization || {};
 
   // TODO: Find a better pattern for that..
   const onSurveyStart = async () => {
@@ -118,14 +114,14 @@ const Card = ({ template, organizationId }: Props) => {
           {template.surveyId ? (
             <button
               onClick={onSurveyStop}
-              className="text-red-500 dark:text-red-500"
+              className="text-red-500 dark:text-red-500 p-1"
             >
               Stop survey
             </button>
           ) : (
             <button
               onClick={onSurveyStart}
-              className={"inline-flex items-center text-sm"}
+              className={"inline-flex items-center text-sm p-1"}
             >
               Start survey
               <ArrowRightIcon className="h-3 w-3 ml-1" />

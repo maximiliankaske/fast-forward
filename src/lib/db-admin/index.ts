@@ -233,6 +233,8 @@ export async function getTemplate(organizationId: string, id: string) {
         ...(template.data() as Template),
       },
     };
+  } else {
+    return {};
   }
 }
 

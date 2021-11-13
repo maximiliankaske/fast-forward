@@ -32,7 +32,7 @@ const SitePage = ({
       userId: user!.uid,
       answers: {},
     });
-    router.push(`/session?id=${surveyId}`);
+    router.push(`/survey/${surveyId}`);
   };
 
   return (
