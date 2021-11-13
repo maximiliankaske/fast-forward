@@ -14,7 +14,7 @@ const IconButton: FC<Props> = ({
   ...props
 }) => {
   const rootClassName = cn(
-    "flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+    "flex items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:bg-gray-50 dark:hover:bg-gray-900 p-2",
     {
       "text-gray-900 dark:text-gray-100": !active && !destructive,
       "text-indigo-500 dark:text-pink-500": active && !destructive,

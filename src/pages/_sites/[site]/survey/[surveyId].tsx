@@ -24,6 +24,9 @@ import {
 import Steps from "@/components/session/Steps";
 import JumpButton from "@/components/session/JumpButton";
 import Form from "@/components/question/Form";
+import { ArrowLeftIcon } from "@heroicons/react/outline";
+import IconButton from "@/components/ui/IconButton";
+import { useRouter } from "next/router";
 
 // TODO: think of a reducer `useReducer()`
 
@@ -35,6 +38,7 @@ const SurveyPage = ({
   const [index, setIndex] = useState<number>(0);
   const [value, setValue] = useState<number | string | undefined>();
   const { user } = useAuth();
+  const router = useRouter();
   const { data, mutate } = useSWR<{
     session: WithId<FormSession> | undefined;
   }>(
@@ -128,6 +132,10 @@ const SurveyPage = ({
 
   return (
     <SitesLayout name={organization.name}>
+      <IconButton onClick={() => router.push("/")}>
+        <ArrowLeftIcon className="h-5 w-5" />
+      </IconButton>
+      <Link href={"/"} className="inline-flex items-center"></Link>
       <div className="flex items-center justify-between">
         <Steps
           questions={questions}
@@ -140,7 +148,7 @@ const SurveyPage = ({
         ) : null}
       </div>
       {question ? (
-        <Form {...{ index, setIndex, value, setValue, question, onSubmit }} />
+        <Form {...{ value, setValue, question, onSubmit }} />
       ) : (
         <>
           <Heading as="h2">Thanks to attempt the form!</Heading>

@@ -86,7 +86,7 @@ const Item = ({ template, token, organizationName }: Props) => {
   }, [answersLength, questionsLength]);
 
   return (
-    <li className="hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md px-2 py-1">
+    <li className="hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md px-3 py-2">
       <Link href={`/survey/${template.surveyId}`}>
         <a className="w-full flex justify-between items-center">
           <div>

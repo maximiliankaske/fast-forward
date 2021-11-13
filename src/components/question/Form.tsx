@@ -1,8 +1,6 @@
 import { Question as QuestionType } from "@/types/templates";
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/solid";
-import React, { FormEvent } from "react";
-import PreviousButton from "../session/PreviousButton";
-import NextButton from "../session/NextButton";
+import { ArrowRightIcon } from "@heroicons/react/solid";
+import React, { FormEvent, useCallback } from "react";
 import Input from "./Input";
 import Question from "./Question";
 import Rating from "./Rating";
@@ -10,47 +8,51 @@ import Rating from "./Rating";
 interface Props {
   question: QuestionType;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  index: number;
-  setIndex(index: number): void;
   value: number | string | undefined;
   setValue(value: number | string | undefined): void;
 }
 
-const Form = ({
-  question,
-  onSubmit,
-  index,
-  setIndex,
-  value,
-  setValue,
-}: Props) => {
-  return (
-    <form onSubmit={onSubmit} className="flex flex-col space-y-12 py-8">
-      <div className="flex-1 space-y-12">
-        <Question title={question.title} description={question.description} />
-        {question.type === "input" && (
+const Form = ({ question, onSubmit, value, setValue }: Props) => {
+  const renderType = useCallback(() => {
+    switch (question.type) {
+      case "input":
+        return (
           <Input
             value={value || ""}
             onChange={(event) => setValue(event.target.value)}
             required
           />
-        )}
-        {question.type === "rating" && (
+        );
+      case "rating":
+        return (
           <div>
             <Rating value={value} onChange={setValue} />
             <p className="pt-4 text-sm text-gray-600 dark:text-gray-400">
               *The rating goes from very bad (1) to very good (5).
             </p>
           </div>
-        )}
+        );
+      case "textarea":
+        return <p>TODO: Missing textarea</p>;
+      default:
+        const exhaustiveCheck: never = question.type;
+        throw new Error(`Unhandled type case: ${exhaustiveCheck}`);
+    }
+  }, [question, setValue, value]);
+
+  return (
+    <form onSubmit={onSubmit} className="flex flex-col space-y-12 py-8">
+      <div className="flex-1 space-y-12">
+        <Question title={question.title} description={question.description} />
+        {renderType()}
       </div>
-      <div className="flex items-center justify-between">
-        {index > 0 ? (
-          <PreviousButton onClick={() => setIndex((index || 0) - 1)} />
-        ) : (
-          <div />
-        )}
-        <NextButton />
+      <div className="text-right">
+        <button
+          type="submit"
+          className="rounded-full p-2 hover:bg-indigo-100 dark:hover:bg-pink-900/25"
+        >
+          <ArrowRightIcon className="h-7 w-7" />
+        </button>
       </div>
     </form>
   );
