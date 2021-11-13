@@ -28,19 +28,22 @@ type Create<T> = {
 
 export async function create<T>({ ref, data, id }: Create<T>) {
   try {
-    const doc = (await id)
-      ? firebase
-          .firestore()
-          .collection(ref)
-          .withConverter(converter<T>())
-          .doc(id)
-          .set(data)
-      : firebase
-          .firestore()
-          .collection(ref)
-          .withConverter(converter<T>())
-          .add(data);
-    return { doc };
+    if (id) {
+      const doc = await firebase
+        .firestore()
+        .collection(ref)
+        .withConverter(converter<T>())
+        .doc(id)
+        .set(data);
+      return { doc };
+    } else {
+      const doc = await firebase
+        .firestore()
+        .collection(ref)
+        .withConverter(converter<T>())
+        .add(data);
+      return { doc };
+    }
   } catch (error) {
     return { error };
   }

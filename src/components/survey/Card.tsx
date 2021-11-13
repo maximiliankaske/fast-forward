@@ -31,12 +31,10 @@ const Card = ({ template, organizationId }: Props) => {
       startAt: new Date().toUTCString(),
       cancelled: false,
     });
-    // FIXME: Check why an await is needed here
-    const doc = await survey.doc;
     await updateTemplate({
       organizationId,
       id: template.id,
-      surveyId: doc?.id || null,
+      surveyId: survey.doc?.id || null,
     });
     mutateTemplates();
   };
