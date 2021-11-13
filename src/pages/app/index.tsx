@@ -29,7 +29,7 @@ const App: ComponentWithAuth = () => {
       <Heading as="h2">Dashboard</Heading>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         {links.map(({ href, label, description }) => (
-          <Link key={href} href="/app/organization">
+          <Link key={href} href={href}>
             <a className="flex items-center justify-between px-3 py-2 rounded-md border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900">
               <div>
                 <p>{label}</p>

@@ -12,6 +12,7 @@ import { Feedback, FeedbackType, Project, WithId } from "@/types/index";
 import fetcher from "@/utils/fetcher";
 import Link from "@/components/ui/Link";
 import toasts from "@/utils/toast";
+import Breadcrumbs from "@/components/common/Breadcrumbs";
 
 const ProjectPage = () => {
   const [type, setType] = useState<FeedbackType>("all");
@@ -66,9 +67,12 @@ const ProjectPage = () => {
       : !feedback.archived && (type === "all" || feedback.type === type);
   };
 
-  // TODO: use breadcrump home / projects / xxx
   return (
     <DefaultLayout className="space-y-6">
+      {/* TODO: FIXME: */}
+      <div className="pb-12">
+        <Breadcrumbs />
+      </div>
       <Heading className="text-center">{projectData?.project.name}</Heading>
       <div className="flex items-center justify-center space-x-1">
         <p className="font-semibold tracking-tight">Project ID:</p>
