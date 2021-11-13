@@ -10,23 +10,19 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
-import { useRouter } from "next/router";
 import useSWR from "swr";
 import { FormSession, WithId } from "@/types/index";
 import fetcher from "@/utils/fetcher";
 import { useAuth } from "@/lib/auth";
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import templates from "@/config/templates";
 import Heading from "@/components/ui/Heading";
-import Input from "@/components/question/Input";
 import Link from "@/components/ui/Link";
-import Question from "@/components/question/Question";
-import Rating from "@/components/question/Rating";
-import { updateSurveyMemberSession } from "@/lib/db/survey";
+import {
+  createSurveyMemberSession,
+  updateSurveyMemberSession,
+} from "@/lib/db/survey";
 import Steps from "@/components/session/Steps";
 import JumpButton from "@/components/session/JumpButton";
-import PreviousButton from "@/components/session/PreviousButton";
-import NextButton from "@/components/session/NextButton";
 import Form from "@/components/question/Form";
 
 // TODO: think of a reducer `useReducer()`
@@ -38,7 +34,6 @@ const SurveyPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [index, setIndex] = useState<number>(0);
   const [value, setValue] = useState<number | string | undefined>();
-  const router = useRouter();
   const { user } = useAuth();
   const { data, mutate } = useSWR<{
     session: WithId<FormSession> | undefined;
@@ -51,6 +46,18 @@ const SurveyPage = ({
       : null,
     fetcher
   );
+
+  useEffect(() => {
+    // create session if not existent
+    if (user && data && !data.session) {
+      createSurveyMemberSession({
+        organizationId: organization.id,
+        surveyId: survey.id,
+        userId: user!.uid,
+        answers: {},
+      });
+    }
+  }, [user, data, organization, survey]);
 
   const answeredQuestionIds = useMemo(
     () => (data?.session?.answers ? Object.keys(data.session.answers) : []),
@@ -70,14 +77,16 @@ const SurveyPage = ({
               : [...acc, curr.id];
           }, [])
         : [],
-    [answeredQuestionIds]
+    [answeredQuestionIds, questions]
   );
 
   useEffect(() => {
     // TODO: FIXME: if all questions are answered, and I change the answer of q1 and submit, I go back to end
-    setIndex(
-      questions.findIndex((question) => missingQuestionIds[0] === question.id)
+    const newIndex = questions.findIndex(
+      (question) => missingQuestionIds[0] === question.id
     );
+    console.log("effect", index, newIndex);
+    setIndex(newIndex);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.session?.answers]);
 
@@ -91,11 +100,12 @@ const SurveyPage = ({
         setValue(undefined);
       }
     }
-  }, [index, data?.session?.answers]);
+  }, [index, data?.session?.answers, questions]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // TODO: check if value is !undefined or !== "" to continue
     // otherwise add error message
+    console.log(question, value);
     event.preventDefault();
     if (question) {
       if (value) {

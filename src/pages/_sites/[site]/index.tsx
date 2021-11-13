@@ -1,69 +1,110 @@
 import SitesLayout from "@/components/layout/SitesLayout";
 import Wrapper from "@/components/organization/Wrapper";
-import Button from "@/components/ui/Button";
+import Link from "next/link";
 import { useAuth } from "@/lib/auth";
-import { createSession } from "@/lib/db";
 import {
   getOrganization,
   getOrganizations,
   getSurveys,
   getTemplates,
 } from "@/lib/db-admin";
-import { createSurveyMemberSession } from "@/lib/db/survey";
+import { WithId, FormSession } from "@/types/index";
+import { Template } from "@/types/templates";
+import fetcher from "@/utils/fetcher";
+import {
+  CalendarIcon,
+  CheckCircleIcon,
+  DotsHorizontalIcon,
+  HashtagIcon,
+  XCircleIcon,
+} from "@heroicons/react/outline";
 import { ArrowRightIcon } from "@heroicons/react/solid";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import { useRouter } from "next/router";
-import React from "react";
+import React, { useCallback } from "react";
+import useSWR from "swr";
+import Heading from "@/components/ui/Heading";
+
 // TODO: change site to subdomain
 
 const SitePage = ({
   organization,
   templates,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { name, authorId } = organization;
   const { user } = useAuth();
-  const router = useRouter();
-
-  const onClick = async (surveyId: string) => {
-    // FIXME: if user already has a survey open, forward to last response
-    const session = await createSurveyMemberSession({
-      organizationId: organization.id,
-      surveyId,
-      userId: user!.uid,
-      answers: {},
-    });
-    router.push(`/survey/${surveyId}`);
-  };
 
   return (
     <Wrapper {...{ organization }}>
       <SitesLayout name={organization.name}>
-        <div className="space-y-4">
-          <p>
-            <b>Owner:</b> {authorId}
-          </p>
-          <p>{user?.email}</p>
-          <p className="text-red-500">
-            See code comment! Start here next time by checking if a survey
-            already has been filled out or similar
-          </p>
-          <ul>
-            {/* TODO: create own Component for each item and check aside if user has already started survey */}
-            {templates?.map((template) => (
-              <li key={template.id}>
-                <button
-                  onClick={() => onClick(template.surveyId!)}
-                  className="inline-flex items-center"
-                >
-                  <p className="font-medium">{template.label}</p>
-                  <ArrowRightIcon className="h-4 w-4 ml-1" />
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Heading as="h2">Open Surveys</Heading>
+        <ul className="space-y-4 mt-6">
+          {templates?.map((template) => (
+            <Item
+              key={template.id}
+              template={template}
+              organizationName={organization.name}
+              token={user?.token}
+            />
+          ))}
+        </ul>
       </SitesLayout>
     </Wrapper>
+  );
+};
+
+// TODO: extract
+
+interface Props {
+  template: Template;
+  organizationName: string;
+  token?: string;
+}
+
+const Item = ({ template, token, organizationName }: Props) => {
+  const { data, mutate } = useSWR<{
+    session: WithId<FormSession> | undefined;
+  }>(
+    [
+      `/api/organization/${organizationName}/survey/${template.surveyId}`,
+      token,
+    ],
+    fetcher
+  );
+
+  const answersLength = Object.keys(data?.session?.answers || []).length;
+  const questionsLength = template.questions.length;
+
+  const renderIcon = useCallback(() => {
+    if (answersLength === questionsLength) {
+      return <CheckCircleIcon className="h-6 w-6 text-green-500" />;
+    } else if (answersLength === 0) {
+      return <XCircleIcon className="h-6 w-6 text-red-500" />;
+    } else {
+      return (
+        <DotsHorizontalIcon className="h-6 w-6 text-indigo-500 dark:text-pink-500" />
+      );
+    }
+  }, [answersLength, questionsLength]);
+
+  return (
+    <li className="hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md px-2 py-1">
+      <Link href={`/survey/${template.surveyId}`}>
+        <a className="w-full flex justify-between items-center">
+          <div>
+            <p className="font-medium">{template.label}</p>
+            <div className="space-x-4 text-xs text-gray-600 dark:text-gray-400 font-medium">
+              <p className="inline-flex items-center">
+                <HashtagIcon className="h-4 w-4 mr-1" />
+                {answersLength}/{questionsLength}
+              </p>
+              <p className="inline-flex items-center">
+                <CalendarIcon className="h-4 w-4 mr-1" />5 days
+              </p>
+            </div>
+          </div>
+          <div>{renderIcon()}</div>
+        </a>
+      </Link>
+    </li>
   );
 };
 

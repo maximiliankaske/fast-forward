@@ -216,6 +216,8 @@ export async function getSurveyMemberSession(
         ...(member.data() as FormSession),
       },
     };
+  } else {
+    return {};
   }
 }
 
