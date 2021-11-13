@@ -18,11 +18,11 @@ So first of I want to thank all the open source maintainer and everyone who cont
 
 The idea is pretty simple. Whenever I want to have a customizable _Feedback Widget_ I need an `API` endpoint to store my feedback without the pain of having to create that entire ecosystem around. I just want to register/login, create a project and use the `projectId` to send the feedbacks I collect from my new web app like:
 
-```
+```js
 {
   "projectId": "xyz",
   "type": "bug",
-  "text": "In line 5, you are missing a semicolon. Otherwise great blog post!.
+  "text": "Check line 5, you are missing a semicolon. Other than that great blog post!.",
   "metadata": {
     "lang": "de"
   }

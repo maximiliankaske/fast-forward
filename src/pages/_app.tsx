@@ -2,6 +2,7 @@ import { MDXProvider } from "@mdx-js/react";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
 import "tailwindcss/tailwind.css";
+import "../styles/prism.css";
 import { AuthProvider } from "../lib/auth";
 import { Toaster } from "react-hot-toast";
 import { NextComponentType, NextPageContext } from "next";

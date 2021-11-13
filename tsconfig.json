@@ -9,7 +9,8 @@
       "@/utils/*": ["src/utils/*"],
       "@/config/*": ["src/config/*"],
       "@/content/*": ["content/*"],
-      "@/hooks/*": ["hooks/*"]
+      "@/hooks/*": ["src/hooks/*"],
+      "@/styles/*": ["src/styles/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
