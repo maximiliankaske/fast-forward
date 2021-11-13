@@ -79,11 +79,12 @@ const Settings: ComponentWithAuth = () => {
     toasts.success();
   }, [data]);
 
+  // TODO: use breadcrump home / projects / settings
   return (
     <DefaultUserLayout>
       <Heading as="h2">Settings</Heading>
       <div className="mb-8 mt-4">
-        <Link href="/app" className="inline-flex items-center text-sm">
+        <Link href="/app/projects" className="inline-flex items-center text-sm">
           <ArrowLeftIcon className="h-3 w-3 mr-2" />
           Back to the list
         </Link>

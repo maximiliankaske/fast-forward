@@ -66,6 +66,7 @@ const ProjectPage = () => {
       : !feedback.archived && (type === "all" || feedback.type === type);
   };
 
+  // TODO: use breadcrump home / projects / xxx
   return (
     <DefaultLayout className="space-y-6">
       <Heading className="text-center">{projectData?.project.name}</Heading>
@@ -79,7 +80,7 @@ const ProjectPage = () => {
           <ClipboardIcon className="ml-1 h-4 w-4" />
         </button>
       </div>
-      <Link href="/app" className="inline-flex items-center text-sm">
+      <Link href="/app/projects" className="inline-flex items-center text-sm">
         <ArrowLeftIcon className="h-3 w-3 mr-2" />
         Back to the list
       </Link>
