@@ -6,6 +6,7 @@ import { createSession } from "@/lib/db";
 import {
   getOrganization,
   getOrganizations,
+  getSurveys,
   getTemplates,
 } from "@/lib/db-admin";
 import { createSurveyMemberSession } from "@/lib/db/survey";
@@ -87,11 +88,15 @@ export async function getStaticProps({
   const { templates } = await (organization?.id
     ? getTemplates(organization.id)
     : {});
+  const { surveys } = await (organization?.id
+    ? getSurveys(organization.id)
+    : {});
 
   return {
     props: {
       organization: organization!,
       templates: templates?.filter((template) => template.surveyId),
+      surveys: surveys?.filter((survey) => !survey.cancelled), // && dueTo < new Date
     }, // removed site: site! as organization.id === site
     revalidate: 3600, // set revalidate interval of 1h
     notFound: !organization,
