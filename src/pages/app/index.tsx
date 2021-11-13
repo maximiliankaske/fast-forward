@@ -1,7 +1,7 @@
 import { ArrowRightIcon, PlusIcon } from "@heroicons/react/solid";
 import React from "react";
 import useSWR from "swr";
-import EmptyState from "@/components/app/EmptyState";
+import ProjectEmptyState from "@/components/project/ProjectEmptyState";
 import Thumbnail from "@/components/app/Thumbnail";
 import type { ComponentWithAuth } from "@/components/auth/Auth";
 import DefaultLayout from "@/components/layout/DefaultLayout";
@@ -71,7 +71,7 @@ const App: ComponentWithAuth = () => {
               </div>
             </>
           ) : (
-            <EmptyState onClick={handleCreate} />
+            <ProjectEmptyState onClick={handleCreate} />
           )}
         </div>
       )}

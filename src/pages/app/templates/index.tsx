@@ -12,15 +12,17 @@ import useTemplates from "src/hooks/useTemplates";
 import useOrganization from "src/hooks/useOrganization";
 import cn from "classnames";
 import Card from "@/components/survey/Card";
+import TempalteEmptyState from "@/components/template/TemplateEmptyState";
+import { useRouter } from "next/router";
 
 // TODO: Starting a survey will store a survey
 
 const Templates: ComponentWithAuth = () => {
   const { user } = useAuth();
+  const router = useRouter();
   const { data: dataOrganization, mutate: mutateOrganization } =
     useOrganization();
   const { data, mutate } = useTemplates();
-  const activeTemplate = dataOrganization?.organization?.activeTemplate;
 
   return (
     <DefaultLayout>
@@ -31,10 +33,16 @@ const Templates: ComponentWithAuth = () => {
         </Link>
       </div>
       <ul className="space-y-6">
-        {data?.templates.map((template) => {
-          const organizationId = user!.customClaims!.organizationId;
-          return <Card key={template.id} {...{ organizationId, template }} />;
-        })}
+        {data?.templates && data?.templates.length > 0 ? (
+          data?.templates.map((template) => {
+            const organizationId = user!.customClaims!.organizationId;
+            return <Card key={template.id} {...{ organizationId, template }} />;
+          })
+        ) : (
+          <TempalteEmptyState
+            onClick={() => router.push("/app/all-templates")}
+          />
+        )}
       </ul>
     </DefaultLayout>
   );
