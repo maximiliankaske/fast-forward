@@ -17,16 +17,16 @@ const Button: FC<Props> = ({
   ...props
 }) => {
   const rootClassName = cn(
-    "shadow-sm rounded-md border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+    "shadow-sm rounded-md border border-gray-200 dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500",
     deconstruct
       ? {
           "text-white bg-red-500 hover:bg-red-600": reverse,
           "text-red-500 hover:bg-red-50": !reverse,
         }
       : {
-          "bg-white text-gray-900": !reverse,
+          "bg-white hover:bg-gray-50 text-gray-900": !reverse,
           "hover:bg-gray-50": !reverse && !disabled,
-          "bg-gray-800 text-white": reverse,
+          "bg-gray-900 hover:bg-gray-800 text-white": reverse,
           "hover:bg-gray-900": reverse && !disabled,
           "bg-opacity-50 cursor-default": disabled,
         },

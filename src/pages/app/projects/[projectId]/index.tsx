@@ -13,6 +13,7 @@ import fetcher from "@/utils/fetcher";
 import Link from "@/components/ui/Link";
 import toasts from "@/utils/toast";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
+import { CogIcon } from "@heroicons/react/outline";
 
 const ProjectPage = () => {
   const [type, setType] = useState<FeedbackType>("all");
@@ -84,9 +85,12 @@ const ProjectPage = () => {
           <ClipboardIcon className="ml-1 h-4 w-4" />
         </button>
       </div>
-      <Link href="/app/projects" className="inline-flex items-center text-sm">
-        <ArrowLeftIcon className="h-3 w-3 mr-2" />
-        Back to the list
+      <Link
+        href={`/app/projects/${projectId}/settings`}
+        className="inline-flex items-center text-sm"
+      >
+        Settings
+        <CogIcon className="h-4 w-4 ml-2" />
       </Link>
       <Filter
         types={[

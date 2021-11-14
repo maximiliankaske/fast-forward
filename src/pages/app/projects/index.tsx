@@ -12,6 +12,7 @@ import fetcher from "@/utils/fetcher";
 import toasts from "@/utils/toast";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
+import LinkContainer from "@/components/common/LinkContainer";
 
 const Projects: ComponentWithAuth = () => {
   const { user } = useAuth();
@@ -53,7 +54,12 @@ const Projects: ComponentWithAuth = () => {
             </Button>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {data?.projects.map((project, idx) => (
-                <Thumbnail key={idx} {...project} />
+                <LinkContainer
+                  key={project.id}
+                  label={project.name}
+                  description={`ID: ${project.id}`}
+                  href={`/app/projects/${project.id}`}
+                />
               ))}
             </div>
           </>

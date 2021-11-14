@@ -4,6 +4,7 @@ import type { ComponentWithAuth } from "@/components/auth/Auth";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import Heading from "@/components/ui/Heading";
 import Link from "next/link";
+import LinkContainer from "@/components/common/LinkContainer";
 
 const links = [
   {
@@ -34,17 +35,7 @@ const App: ComponentWithAuth = () => {
       <Heading as="h2">Dashboard</Heading>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         {links.map(({ href, label, description }) => (
-          <Link key={href} href={href}>
-            <a className="flex items-center justify-between px-3 py-2 rounded-md border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900">
-              <div>
-                <p>{label}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {description}
-                </p>
-              </div>
-              <ArrowRightIcon className="h-4 w-4 ml-1" />
-            </a>
-          </Link>
+          <LinkContainer key={href} {...{ href, label, description }} />
         ))}
       </div>
     </DefaultLayout>
