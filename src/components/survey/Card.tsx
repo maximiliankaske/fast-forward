@@ -19,6 +19,8 @@ import useOrganization from "@/hooks/useOrganization";
 import useTemplate from "@/hooks/useTemplate";
 import { useRouter } from "next/router";
 import { data } from "remark";
+import Badge from "../ui/Badge";
+import Heading from "../ui/Heading";
 
 interface Props {
   template: WithId<Template>;
@@ -86,9 +88,12 @@ const Card = ({ template, organization }: Props) => {
   };
 
   return (
-    <li className="relative rounded-md border border-gray-200 dark:border-gray-800 px-4 py-3">
+    <div className="relative rounded-md border border-gray-200 dark:border-gray-800 px-4 py-3">
       <div className="flex justify-between items-center pb-2">
-        <p className="text-lg font-semibold">{template.label}</p>
+        <div className="flex items-center space-x-2">
+          <Heading as="h4">{template.label}</Heading>
+          {template.surveyId && <Badge color="quantery">active</Badge>}
+        </div>
         <div className="flex space-x-4">
           <IconButton
             destructive
@@ -160,7 +165,7 @@ const Card = ({ template, organization }: Props) => {
           </p>
         </div>
       </div>
-    </li>
+    </div>
   );
 };
 

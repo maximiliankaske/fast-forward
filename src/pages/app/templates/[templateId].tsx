@@ -10,36 +10,38 @@ import useSurveyMembers from "@/hooks/useSurveyMembers";
 import useOrganizationMembers from "@/hooks/useOrganizationMembers";
 import Answers from "@/components/survey/Answers";
 import AnswerCard from "@/components/survey/AnswerCard";
+import Heading from "@/components/ui/Heading";
+import useSurveys from "@/hooks/useSurveys";
+import Archived from "@/components/survey/Archived";
 
 const Template: ComponentWithAuth = () => {
   const router = useRouter();
   const { templateId } = router.query;
   // access template via SSR!
   const { data: dataOrganization } = useOrganization();
-  const { data } = useTemplate(templateId as string);
+  const { data: dataSurveys } = useSurveys();
+  const { data: dataTemplate } = useTemplate(templateId as string);
   const { data: dataSurveyMembers } = useSurveyMembers(
-    data?.template?.surveyId as string
+    dataTemplate?.template?.surveyId as string
   );
-
-  console.log(data?.template);
 
   // TODO: If no current survey is active,
   // show latest one!
 
   return (
     <DefaultUserLayout>
-      <ul>
-        {data?.template && dataOrganization?.organization && (
+      <div>
+        {dataTemplate?.template && dataOrganization?.organization && (
           <Card
-            template={data.template}
+            template={dataTemplate.template}
             organization={dataOrganization.organization}
           />
         )}
-      </ul>
-      <div className="grid md:grid-cols-2 gap-6 mt-6">
-        {data?.template &&
+      </div>
+      <div className="grid md:grid-cols-2 gap-6 my-6">
+        {dataTemplate?.template &&
           dataSurveyMembers?.sessions &&
-          data.template.questions.map((question) => (
+          dataTemplate.template.questions.map((question) => (
             <AnswerCard
               key={question.id}
               answers={dataSurveyMembers?.sessions
@@ -47,6 +49,14 @@ const Template: ComponentWithAuth = () => {
                 .filter((session) => !!session)}
               {...{ question }}
             />
+          ))}
+      </div>
+      <Heading as="h4">Archived</Heading>
+      <div className="space-y-2 my-3">
+        {dataSurveys?.surveys
+          .filter((s) => s.cancelled)
+          .map((s) => (
+            <Archived key={s.id} survey={s} />
           ))}
       </div>
     </DefaultUserLayout>

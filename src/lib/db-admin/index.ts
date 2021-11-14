@@ -126,6 +126,22 @@ export async function getOrganizationMembers(id: string) {
   return { members };
 }
 
+export async function getOrganizationSurveys(id: string) {
+  const snapshot = await db
+    .collection("organizations")
+    .doc(id)
+    .collection("surveys")
+    .get();
+
+  const surveys: WithId<Survey>[] = [];
+
+  snapshot.forEach((doc) => {
+    surveys.push({ id: doc.id, ...(doc.data() as Survey) });
+  });
+
+  return { surveys };
+}
+
 export async function getOrganizationInvites(id: string) {
   const snapshot = await db
     .collection("organizations")

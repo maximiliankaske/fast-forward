@@ -135,24 +135,18 @@ const SurveyPage = ({
       <IconButton onClick={() => router.push("/")}>
         <ArrowLeftIcon className="h-5 w-5" />
       </IconButton>
-      <Link href={"/"} className="inline-flex items-center"></Link>
-      <div className="flex items-center justify-between">
-        <Steps
-          questions={questions}
-          session={data?.session}
-          index={index}
-          setIndex={setIndex}
-        />
-        {index < answeredQuestionIds.length ? (
-          <JumpButton onClick={() => setIndex(answeredQuestionIds.length)} />
-        ) : null}
-      </div>
+      <Steps
+        questions={questions}
+        session={data?.session}
+        index={index}
+        setIndex={setIndex}
+      />
       {question ? (
         <Form {...{ value, setValue, question, onSubmit }} />
       ) : (
         <>
           <Heading as="h2">Thanks to attempt the form!</Heading>
-          <Link href="/">Submit responses</Link>
+          <Link href="/">Back home</Link>
         </>
       )}
     </SitesLayout>

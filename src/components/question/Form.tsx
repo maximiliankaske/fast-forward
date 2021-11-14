@@ -4,6 +4,7 @@ import React, { FormEvent, useCallback } from "react";
 import Input from "./Input";
 import Question from "./Question";
 import Rating from "./Rating";
+import TextArea from "./TextArea";
 
 interface Props {
   question: QuestionType;
@@ -33,7 +34,12 @@ const Form = ({ question, onSubmit, value, setValue }: Props) => {
           </div>
         );
       case "textarea":
-        return <p>TODO: Missing textarea</p>;
+        return (
+          <TextArea
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+          />
+        );
       default:
         const exhaustiveCheck: never = question.type;
         throw new Error(`Unhandled type case: ${exhaustiveCheck}`);
@@ -41,8 +47,8 @@ const Form = ({ question, onSubmit, value, setValue }: Props) => {
   }, [question, setValue, value]);
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col space-y-12 py-8">
-      <div className="flex-1 space-y-12">
+    <form onSubmit={onSubmit} className="flex flex-col space-y-12">
+      <div className="flex-1 space-y-6">
         <Question title={question.title} description={question.description} />
         {renderType()}
       </div>

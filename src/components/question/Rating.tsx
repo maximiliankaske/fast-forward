@@ -18,7 +18,7 @@ const Rating = <T extends string | number>({ value, onChange }: Props<T>) => {
             value={idx + 1}
             className={({ active }) =>
               cn(
-                "bg-gray-100 dark:bg-gray-900 shadow-sm text-gray-900 dark:text-white cursor-pointer group relative border dark:border-gray-700 rounded-md py-3 px-4 flex items-center justify-center text-sm font-extrabold focus:outline-none sm:flex-1 sm:py-6",
+                "hover:bg-gray-50 dark:hover:bg-gray-900 shadow-sm text-gray-900 dark:text-white cursor-pointer group relative border dark:border-gray-700 rounded-md py-3 px-4 flex items-center justify-center text-sm font-extrabold focus:outline-none sm:flex-1 sm:py-6",
                 active && "ring-2 ring-indigo-500 dark:ring-pink-500"
               )
             }

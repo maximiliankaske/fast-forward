@@ -16,7 +16,7 @@ const SitesLayout: FC<Props> = ({ children, name }) => {
         <Heading as="h3" className="text-indigo-500 dark:text-pink-500">
           {name}
         </Heading>
-        {user && <Button onClick={() => signout()}>log out</Button>}
+        <div>{user && <Button onClick={() => signout()}>log out</Button>}</div>
       </header>
       <main className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-4xl xl:px-0 py-12 flex-1 w-full">
         {children}

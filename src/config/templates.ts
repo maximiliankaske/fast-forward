@@ -17,10 +17,16 @@ const forms: Record<string, Template> = {
         title: "Did you have everything needed to accomplish your tasks?",
         description:
           "Are you missing a tool to make tasks more productive. More time from others, or something else?",
-        type: "input",
+        type: "textarea",
       },
       {
         id: "q3",
+        title: "Lorem?",
+        description: "Lorem",
+        type: "input",
+      },
+      {
+        id: "q4",
         title: "Lorem?",
         description: "Lorem",
         type: "input",
