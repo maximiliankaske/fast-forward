@@ -1,5 +1,5 @@
 import { ComponentWithAuth } from "@/components/auth/Auth";
-import DefaultLayout from "@/components/layout/DefaultLayout";
+import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import Link from "@/components/ui/Link";
 import { ArrowRightIcon } from "@heroicons/react/solid";
 import React from "react";
@@ -17,7 +17,7 @@ const Templates: ComponentWithAuth = () => {
   const { data } = useTemplates();
 
   return (
-    <DefaultLayout>
+    <DefaultUserLayout>
       <div className="text-right mb-8">
         <Link href="/app/all-templates" className="inline-flex items-center">
           Duplicate Template
@@ -41,7 +41,7 @@ const Templates: ComponentWithAuth = () => {
           />
         )}
       </ul>
-    </DefaultLayout>
+    </DefaultUserLayout>
   );
 };
 

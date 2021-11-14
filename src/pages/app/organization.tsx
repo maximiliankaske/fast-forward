@@ -1,5 +1,5 @@
 import { ComponentWithAuth } from "@/components/auth/Auth";
-import DefaultLayout from "@/components/layout/DefaultLayout";
+import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import MemberInvite from "@/components/organization/MemberInvite";
 import MemberList from "@/components/organization/MemberList";
 import Button from "@/components/ui/Button";
@@ -108,8 +108,7 @@ const OrganizationPage: ComponentWithAuth = () => {
   };
 
   return (
-    <DefaultLayout>
-      <Heading as="h2">Organization</Heading>
+    <DefaultUserLayout>
       <form className="grid md:grid-cols-3 gap-4" onSubmit={onSubmit}>
         <div className="md:col-span-2">
           <Input
@@ -141,7 +140,7 @@ const OrganizationPage: ComponentWithAuth = () => {
             <MemberList organizationId={organizationData.organization.id} />
           </div>
         )}
-    </DefaultLayout>
+    </DefaultUserLayout>
   );
 };
 

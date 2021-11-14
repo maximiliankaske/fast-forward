@@ -1,6 +1,7 @@
 import { ChevronRightIcon, HomeIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import cn from "classnames";
 
 const Breadcrumbs = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const Breadcrumbs = () => {
       <ol role="list" className="flex items-center space-x-4">
         <li>
           <Link href="/app">
-            <a className="text-gray-800 dark:text-gray-200">
+            <a className="text-gray-800 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-pink-500">
               <HomeIcon className="flex-shrink-0 h-5 w-5" aria-hidden="true" />
               <span className="sr-only">Home</span>
             </a>

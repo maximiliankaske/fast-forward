@@ -1,7 +1,7 @@
 import React from "react";
 import templates from "@/config/templates";
 import { ComponentWithAuth } from "@/components/auth/Auth";
-import DefaultLayout from "@/components/layout/DefaultLayout";
+import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import Thumbnail from "@/components/template/Thumbnail";
 import useOrganization from "src/hooks/useOrganization";
 import { updateOrganization } from "@/lib/db";
@@ -27,7 +27,7 @@ const Templates: ComponentWithAuth = () => {
   };
 
   return (
-    <DefaultLayout>
+    <DefaultUserLayout>
       <div className="text-right pb-6">
         <Link href="/app/templates" className="inline-flex items-center">
           My Templates
@@ -48,7 +48,7 @@ const Templates: ComponentWithAuth = () => {
           );
         })}
       </ul>
-    </DefaultLayout>
+    </DefaultUserLayout>
   );
 };
 

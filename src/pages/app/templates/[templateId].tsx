@@ -1,5 +1,5 @@
 import { ComponentWithAuth } from "@/components/auth/Auth";
-import DefaultLayout from "@/components/layout/DefaultLayout";
+import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import { useAuth } from "@/lib/auth";
 import { WithId } from "@/types/index";
 import { Template } from "@/types/templates";
@@ -24,7 +24,7 @@ const Template: ComponentWithAuth = () => {
 
   console.log(data);
 
-  return <DefaultLayout></DefaultLayout>;
+  return <DefaultUserLayout></DefaultUserLayout>;
 };
 
 Template.auth = {};

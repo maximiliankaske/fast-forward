@@ -7,14 +7,11 @@ import { useAuth } from "@/lib/auth";
 import { deleteProject, updateProject, resetProject } from "@/lib/db";
 import { Project, WithId } from "@/types/index";
 import fetcher from "@/utils/fetcher";
-import Link from "@/components/ui/Link";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Switch from "@/components/ui/Switch";
-import { ArrowLeftIcon } from "@heroicons/react/solid";
 import toasts from "@/utils/toast";
 import { ComponentWithAuth } from "@/components/auth/Auth";
-import Breadcrumbs from "@/components/common/Breadcrumbs";
 
 // TODO: remove publically as state - use the data.project.private boolean
 // Problem: on first render of the Switch Component - it will have no data and so the wrong value
@@ -69,7 +66,7 @@ const Settings: ComponentWithAuth = () => {
     try {
       // FIXME: make sure that the page is accessed only if data exist
       await toasts.promise(deleteProject(data!.project.id));
-      router.replace("/app");
+      router.replace("/app/projects");
     } catch {
       console.warn("Something went wrong");
     }
@@ -83,10 +80,6 @@ const Settings: ComponentWithAuth = () => {
   // TODO: use breadcrump home / projects / settings
   return (
     <DefaultUserLayout>
-      <div className="pb-12">
-        <Breadcrumbs />
-      </div>
-      <Heading as="h2">Settings</Heading>
       <div className="space-y-8 pt-6">
         <form
           className="border border-gray-200 dark:border-gray-800 rounded-md overflow-hidden"

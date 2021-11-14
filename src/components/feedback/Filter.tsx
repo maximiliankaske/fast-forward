@@ -23,7 +23,7 @@ const Filter = ({ types, activeType, onChange }: Props) => {
         <select
           id="tabs"
           name="tabs"
-          className="block w-full pl-3 pr-10 py-2 text-base text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          className="block w-full pl-3 pr-10 py-2 text-base text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 border-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
           defaultValue={activeType}
           onChange={(event) => onChange(event.target.value as FeedbackType)}
         >
@@ -35,7 +35,7 @@ const Filter = ({ types, activeType, onChange }: Props) => {
         </select>
       </div>
       <div className="hidden sm:block">
-        <div className="border-b">
+        <div className="border-b border-gray-200 dark:border-gray-800">
           <nav className="-mb-px flex space-x-8" aria-label="Tabs">
             {types.map(({ name, count }) => (
               <button

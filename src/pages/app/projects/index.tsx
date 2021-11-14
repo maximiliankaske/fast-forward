@@ -37,36 +37,30 @@ const Projects: ComponentWithAuth = () => {
 
   return (
     <DefaultUserLayout>
-      {/* TODO: FIXME: */}
-      <div className="pb-12">
-        <Breadcrumbs />
-      </div>
-      <div className="space-y-6 mt-6">
-        {data?.projects && data.projects.length > 0 ? (
-          <>
-            <Button
-              onClick={handleCreate}
-              className="inline-flex items-center"
-              reverse
-            >
-              <PlusIcon className="-ml-1 mr-1 h-5 w-5" aria-hidden="true" />
-              New Project
-            </Button>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {data?.projects.map((project, idx) => (
-                <LinkContainer
-                  key={project.id}
-                  label={project.name}
-                  description={`ID: ${project.id}`}
-                  href={`/app/projects/${project.id}`}
-                />
-              ))}
-            </div>
-          </>
-        ) : (
-          <ProjectEmptyState onClick={handleCreate} />
-        )}
-      </div>
+      {data?.projects && data.projects.length > 0 ? (
+        <>
+          <Button
+            onClick={handleCreate}
+            className="inline-flex items-center"
+            reverse
+          >
+            <PlusIcon className="-ml-1 mr-1 h-5 w-5" aria-hidden="true" />
+            New Project
+          </Button>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-6">
+            {data?.projects.map((project, idx) => (
+              <LinkContainer
+                key={project.id}
+                label={project.name}
+                description={`ID: ${project.id}`}
+                href={`/app/projects/${project.id}`}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <ProjectEmptyState onClick={handleCreate} />
+      )}
     </DefaultUserLayout>
   );
 };
