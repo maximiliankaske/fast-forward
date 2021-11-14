@@ -8,6 +8,7 @@ export type Question = {
 
 export type Template = MinSurvey & {
   label: string;
+  description: string;
   questions: Question[];
   surveyId?: string | null;
 };

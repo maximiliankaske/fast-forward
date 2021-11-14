@@ -11,7 +11,14 @@ interface Props extends TemplateType, ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
 }
 
-const Thumbnail = ({ questions, label, active, onClick, ...props }: Props) => {
+const Thumbnail = ({
+  questions,
+  label,
+  description,
+  active,
+  onClick,
+  ...props
+}: Props) => {
   const auth = useAuth();
 
   const onDuplicate = async (event: MouseEvent) => {
@@ -20,6 +27,7 @@ const Thumbnail = ({ questions, label, active, onClick, ...props }: Props) => {
         createTemplate({
           questions,
           label,
+          description,
           organizationId: auth.user?.customClaims?.organizationId,
         })
       );

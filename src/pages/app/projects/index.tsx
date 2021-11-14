@@ -13,6 +13,7 @@ import toasts from "@/utils/toast";
 import Breadcrumbs from "@/components/common/Breadcrumbs";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import LinkContainer from "@/components/common/LinkContainer";
+import Badge from "@/components/ui/Badge";
 
 const Projects: ComponentWithAuth = () => {
   const { user } = useAuth();
@@ -51,10 +52,13 @@ const Projects: ComponentWithAuth = () => {
             {data?.projects.map((project, idx) => (
               <LinkContainer
                 key={project.id}
-                label={project.name}
-                description={`ID: ${project.id}`}
                 href={`/app/projects/${project.id}`}
-              />
+              >
+                <LinkContainer.Title>{project.name}</LinkContainer.Title>
+                <LinkContainer.Description>
+                  ID: {project.id}
+                </LinkContainer.Description>
+              </LinkContainer>
             ))}
           </div>
         </>

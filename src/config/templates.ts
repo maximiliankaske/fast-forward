@@ -3,6 +3,7 @@ import { Template } from "@/types/templates";
 const forms: Record<string, Template> = {
   "the-starter-pack": {
     label: "The Starter Pack",
+    description: "Start with something simple",
     questions: [
       {
         id: "q1",
@@ -28,6 +29,7 @@ const forms: Record<string, Template> = {
   },
   "the-vibe-pack": {
     label: "The Vibe Pack",
+    description: "Check the team vibe with tricky questions",
     questions: [
       {
         id: "q1",

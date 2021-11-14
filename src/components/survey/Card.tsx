@@ -14,6 +14,8 @@ import { Organization, WithId } from "@/types/index";
 import { Template } from "@/types/templates";
 import { createSurvey, updateSurvey } from "@/lib/db/survey";
 import useOrganization from "@/hooks/useOrganization";
+import useTemplate from "@/hooks/useTemplate";
+import { useRouter } from "next/router";
 
 interface Props {
   template: WithId<Template>;
@@ -22,7 +24,9 @@ interface Props {
 
 const Card = ({ template, organization }: Props) => {
   // this will reload the other Components, that use dataTemplates
+  const router = useRouter();
   const { mutate: mutateTemplates } = useTemplates();
+  const { mutate: mutateTemplate } = useTemplate(template.id);
   const { mutate: mutateOrganizations } = useOrganization();
 
   // TODO: Find a better pattern for that..
@@ -47,7 +51,8 @@ const Card = ({ template, organization }: Props) => {
       });
     }
     // FIXME: not idealy as the user can do actions before the mutate below has finished request
-    mutateTemplates();
+    // mutateTemplates();
+    mutateTemplate();
     mutateOrganizations();
   };
 
@@ -67,22 +72,15 @@ const Card = ({ template, organization }: Props) => {
         (key) => key !== template.surveyId
       ),
     });
-    mutateTemplates();
+    // mutateTemplates();
+    mutateTemplate();
     mutateOrganizations();
   };
 
   return (
-    <li
-      key={template.id}
-      className="relative rounded-md border border-gray-100 dark:border-gray-900 px-4 py-3"
-    >
+    <li className="relative rounded-md border border-gray-100 dark:border-gray-900 px-4 py-3">
       <div className="flex justify-between items-center pb-2">
-        <p className="text-lg font-semibold">
-          {template.label}
-          <span className="ml-2 text-sm font-extrabold">
-            #{template.questions.length}
-          </span>
-        </p>
+        <p className="text-lg font-semibold">{template.label}</p>
         <div className="flex space-x-4">
           <IconButton
             destructive
@@ -92,6 +90,8 @@ const Card = ({ template, organization }: Props) => {
                 id: template.id,
               });
               mutateTemplates();
+              // mutateTemplate();
+              router.push("/app/templates");
             }}
           >
             <TrashIcon className="h-5 w-5" />
@@ -104,7 +104,8 @@ const Card = ({ template, organization }: Props) => {
                 organizationId: organization.id,
                 notifications: !template.notifications,
               });
-              mutateTemplates();
+              // mutateTemplates();
+              mutateTemplate();
             }}
           >
             <BellIcon className="h-5 w-5" />

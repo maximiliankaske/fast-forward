@@ -28,7 +28,7 @@ const Templates: ComponentWithAuth = () => {
 
   return (
     <DefaultUserLayout>
-      <div className="text-right pb-6">
+      <div className="pb-6">
         <Link href="/app/templates" className="inline-flex items-center">
           My Templates
           <ArrowRightIcon className="h-4 w-4 ml-1" />

@@ -35,7 +35,10 @@ const App: ComponentWithAuth = () => {
       </Heading>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         {links.map(({ href, label, description }) => (
-          <LinkContainer key={href} {...{ href, label, description }} />
+          <LinkContainer key={href} href={href}>
+            <LinkContainer.Title>{label}</LinkContainer.Title>
+            <LinkContainer.Description>{description}</LinkContainer.Description>
+          </LinkContainer>
         ))}
       </div>
     </DefaultUserLayout>
