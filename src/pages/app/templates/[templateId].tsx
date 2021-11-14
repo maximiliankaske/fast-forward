@@ -9,19 +9,22 @@ import useTemplate from "@/hooks/useTemplate";
 import useSurveyMembers from "@/hooks/useSurveyMembers";
 import useOrganizationMembers from "@/hooks/useOrganizationMembers";
 import Answers from "@/components/survey/Answers";
+import AnswerCard from "@/components/survey/AnswerCard";
 
 const Template: ComponentWithAuth = () => {
   const router = useRouter();
   const { templateId } = router.query;
   // access template via SSR!
   const { data: dataOrganization } = useOrganization();
-  const { data: dataOrganizationMembers } = useOrganizationMembers();
   const { data } = useTemplate(templateId as string);
   const { data: dataSurveyMembers } = useSurveyMembers(
     data?.template?.surveyId as string
   );
 
-  console.log(dataSurveyMembers);
+  console.log(data?.template);
+
+  // TODO: If no current survey is active,
+  // show latest one!
 
   return (
     <DefaultUserLayout>
@@ -33,19 +36,19 @@ const Template: ComponentWithAuth = () => {
           />
         )}
       </ul>
-      {data?.template &&
-        dataSurveyMembers?.sessions.map((session) => {
-          return (
-            <Answers
-              key={session.id}
-              session={session}
-              template={data.template}
-              member={dataOrganizationMembers?.members.find(
-                ({ id }) => session.id === id
-              )}
+      <div className="grid md:grid-cols-2 gap-6 mt-6">
+        {data?.template &&
+          dataSurveyMembers?.sessions &&
+          data.template.questions.map((question) => (
+            <AnswerCard
+              key={question.id}
+              answers={dataSurveyMembers?.sessions
+                .map((session) => session.answers[question.id])
+                .filter((session) => !!session)}
+              {...{ question }}
             />
-          );
-        })}
+          ))}
+      </div>
     </DefaultUserLayout>
   );
 };

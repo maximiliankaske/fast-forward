@@ -45,8 +45,10 @@ export type Organization = {
    */
 };
 
+export type Answers = string | number;
+
 export type FormSession = {
-  answers: Record<string, string | number>;
+  answers: Record<string, Answers>;
 };
 
 export type OrganizationMember = {

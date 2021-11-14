@@ -5,6 +5,8 @@ import {
   BellIcon,
   ClockIcon,
   HashtagIcon,
+  PlayIcon,
+  StopIcon,
   TrashIcon,
   UserGroupIcon,
 } from "@heroicons/react/outline";
@@ -16,6 +18,7 @@ import { createSurvey, updateSurvey } from "@/lib/db/survey";
 import useOrganization from "@/hooks/useOrganization";
 import useTemplate from "@/hooks/useTemplate";
 import { useRouter } from "next/router";
+import { data } from "remark";
 
 interface Props {
   template: WithId<Template>;
@@ -56,6 +59,11 @@ const Card = ({ template, organization }: Props) => {
     mutateOrganizations();
   };
 
+  // TODO: FIXME:
+  // DISCUSSION: How to show archived surveys?
+  // Once a survey is finished `archived: true`, it should move to an archived page
+  //
+  // Only stop the survey, do not move it immediatly to trash.
   const onSurveyStop = async () => {
     await updateSurvey({
       organizationId: organization.id,
@@ -78,7 +86,7 @@ const Card = ({ template, organization }: Props) => {
   };
 
   return (
-    <li className="relative rounded-md border border-gray-100 dark:border-gray-900 px-4 py-3">
+    <li className="relative rounded-md border border-gray-200 dark:border-gray-800 px-4 py-3">
       <div className="flex justify-between items-center pb-2">
         <p className="text-lg font-semibold">{template.label}</p>
         <div className="flex space-x-4">
@@ -128,6 +136,15 @@ const Card = ({ template, organization }: Props) => {
           >
             <ClockIcon className="h-5 w-5" />
           </IconButton>
+          {!template.surveyId ? (
+            <IconButton onClick={onSurveyStart}>
+              <PlayIcon className="h-5 w-5 text-green-500" />
+            </IconButton>
+          ) : (
+            <IconButton onClick={onSurveyStop}>
+              <StopIcon className="h-5 w-5 text-red-500" />
+            </IconButton>
+          )}
         </div>
       </div>
       <div className="flex flex-row items-center justify-between space-x-4">
@@ -142,22 +159,6 @@ const Card = ({ template, organization }: Props) => {
             5/5
           </p>
         </div>
-        {template.surveyId ? (
-          <button
-            onClick={onSurveyStop}
-            className="text-red-500 dark:text-red-500 p-1"
-          >
-            Stop survey
-          </button>
-        ) : (
-          <button
-            onClick={onSurveyStart}
-            className={"inline-flex items-center p-1"}
-          >
-            Start survey
-            <ArrowRightIcon className="h-3 w-3 ml-1" />
-          </button>
-        )}
       </div>
     </li>
   );

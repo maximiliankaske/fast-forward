@@ -15,7 +15,7 @@ const Breadcrumbs = () => {
   }));
 
   return (
-    <nav className="flex" aria-label="Breadcrumb">
+    <nav className="flex overflow-x-scroll" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center space-x-4">
         <li>
           <Link href="/app">
