@@ -221,6 +221,27 @@ export async function getSurveyMemberSession(
   }
 }
 
+export async function getSurveyMemberSessions(
+  organizationId: string,
+  surveyId: string
+) {
+  const snapshot = await db
+    .collection("organizations")
+    .doc(organizationId)
+    .collection("surveys")
+    .doc(surveyId)
+    .collection("members")
+    .get();
+
+  const members: WithId<FormSession>[] = [];
+
+  snapshot.forEach((doc) => {
+    members.push({ id: doc.id, ...(doc.data() as FormSession) });
+  });
+
+  return { members };
+}
+
 export async function getTemplate(organizationId: string, id: string) {
   const template = await db
     .collection("organizations")

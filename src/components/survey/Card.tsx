@@ -122,7 +122,8 @@ const Card = ({ template, organization }: Props) => {
                 id: template.id,
                 dueTo,
               });
-              mutateTemplates();
+              // mutateTemplates();
+              mutateTemplate();
             }}
           >
             <ClockIcon className="h-5 w-5" />

@@ -7,7 +7,7 @@ import { WithId } from "../types";
 const useTemplates = () => {
   const { loading, user } = useAuth();
   const { data, mutate } = useSWR<{ templates: WithId<Template>[] }>(
-    !loading
+    !loading && user
       ? [
           `/api/organization/${user?.customClaims?.organizationId}/template`,
           user?.token,

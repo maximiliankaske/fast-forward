@@ -9,6 +9,7 @@ import cn from "classnames";
 import { TrashIcon } from "@heroicons/react/outline";
 import { deleteOrganizationInvite } from "@/lib/db";
 import toasts from "@/utils/toast";
+import useOrganizationMembers from "@/hooks/useOrganizationMembers";
 
 interface Props {
   organizationId: string;
@@ -16,12 +17,7 @@ interface Props {
 
 const MemberList = ({ organizationId }: Props) => {
   const { user } = useAuth();
-  const { data: membersData, mutate: membersMutate } = useSWR<{
-    members: WithId<OrganizationMember>[] | undefined;
-  }>(
-    user ? [`/api/organization/${organizationId}/member`, user?.token] : null,
-    fetcher
-  );
+  const { data: membersData, mutate: membersMutate } = useOrganizationMembers();
   // FIXME: somehow mutate and fetch newest invite after submit
   const { data: invitesData, mutate: invitesMutate } = useSWR<{
     invites: WithId<OrganizationInvite>[] | undefined;

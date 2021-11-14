@@ -40,7 +40,7 @@ const Templates: ComponentWithAuth = () => {
                 <LinkContainer.Title className="inline-flex items-center">
                   {template.label}{" "}
                   {template.surveyId && (
-                    <Badge color="primary" className="ml-2">
+                    <Badge color="quantery" className="ml-2">
                       active
                     </Badge>
                   )}

@@ -1,23 +1,27 @@
 import { ComponentWithAuth } from "@/components/auth/Auth";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
-import { useAuth } from "@/lib/auth";
-import { WithId } from "@/types/index";
 import { Template } from "@/types/templates";
-import fetcher from "@/utils/fetcher";
 import { useRouter } from "next/router";
 import React from "react";
-import useSWR from "swr";
 import Card from "@/components/survey/Card";
 import useOrganization from "@/hooks/useOrganization";
 import useTemplate from "@/hooks/useTemplate";
+import useSurveyMembers from "@/hooks/useSurveyMembers";
+import useOrganizationMembers from "@/hooks/useOrganizationMembers";
+import Answers from "@/components/survey/Answers";
 
 const Template: ComponentWithAuth = () => {
   const router = useRouter();
-  const { loading, user } = useAuth();
   const { templateId } = router.query;
-  const { data: dataOrganization } = useOrganization();
   // access template via SSR!
-  const { data, mutate } = useTemplate(templateId as string);
+  const { data: dataOrganization } = useOrganization();
+  const { data: dataOrganizationMembers } = useOrganizationMembers();
+  const { data } = useTemplate(templateId as string);
+  const { data: dataSurveyMembers } = useSurveyMembers(
+    data?.template?.surveyId as string
+  );
+
+  console.log(dataSurveyMembers);
 
   return (
     <DefaultUserLayout>
@@ -29,6 +33,19 @@ const Template: ComponentWithAuth = () => {
           />
         )}
       </ul>
+      {data?.template &&
+        dataSurveyMembers?.sessions.map((session) => {
+          return (
+            <Answers
+              key={session.id}
+              session={session}
+              template={data.template}
+              member={dataOrganizationMembers?.members.find(
+                ({ id }) => session.id === id
+              )}
+            />
+          );
+        })}
     </DefaultUserLayout>
   );
 };
