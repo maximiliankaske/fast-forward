@@ -7,9 +7,13 @@ import NextLink from "next/link";
 import Badge from "../ui/Badge";
 import NavLink from "../navigation/NavLink";
 import cn from "classnames";
+import ProfileMenu from "../navigation/ProfileMenu";
 
-const Header: FC = ({ children }) => {
-  const auth = useAuth();
+export interface HeaderProps {
+  withProfile?: boolean;
+}
+
+const Header: FC<HeaderProps> = ({ children, withProfile = false }) => {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
@@ -36,16 +40,11 @@ const Header: FC = ({ children }) => {
               </a>
             </NextLink>
             <NavLink href="/blog">Blog</NavLink>
-            {auth.user && <NavLink href="/app">App</NavLink>}
           </div>
           <div className="space-x-6 sm:space-x-8 flex items-center">
-            {auth.user ? (
-              <Link href="/logout">Logout</Link>
-            ) : (
-              <Link href="/login">Login</Link>
-            )}
+            {withProfile ? <ProfileMenu /> : <Link href="/login">Login</Link>}
             <button
-              className="p-2 rounded-md bg-gray-50 hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="p-2 rounded-md border border-gray-200 dark:border-gray-800 bg-white hover:bg-gray-50 dark:bg-black dark:hover:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-black focus:ring-indigo-500"
               onClick={() => setTheme(isDarkMode ? "light" : "dark")}
             >
               {isDarkMode ? (

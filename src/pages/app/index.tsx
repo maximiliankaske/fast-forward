@@ -7,11 +7,11 @@ import useOrganization from "@/hooks/useOrganization";
 import Blockquote from "@/components/ui/Blockquote";
 
 const links = [
-  {
-    href: "/app/organization",
-    label: "My Organization",
-    description: "Manage your organization",
-  },
+  // {
+  //   href: "/app/organization",
+  //   label: "My Organization",
+  //   description: "Manage your organization",
+  // },
   {
     href: "/app/projects",
     label: "My Projects",

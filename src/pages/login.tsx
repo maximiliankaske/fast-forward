@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import Heading from "@/components/ui/Heading";
 import GitHubButton from "@/components/auth/GitHubButton";
 import GoogleButton from "@/components/auth/GoogleButton";
+import { useAuth } from "@/lib/auth";
+import LoadingIndicator from "@/components/common/LoadingIndicator";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const auth = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!auth.loading) {
+      router.push("/app");
+    }
+  }, [auth, router]);
+
+  if (auth.loading || auth.user) {
+    return <LoadingIndicator />;
+  }
+
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-xl my-16 space-y-6 text-center">
