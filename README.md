@@ -21,7 +21,7 @@
 
 ## Ideas
 
-- [ ] Replace Firebase with Supabase (Vercel Integration?)
+- [ ] Replace Firebase with Supabase or Planetscale & Prisma
 
 ## Reminder for myself
 
