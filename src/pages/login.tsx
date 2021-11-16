@@ -12,7 +12,7 @@ const Login = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!auth.loading) {
+    if (!auth.loading && auth.user) {
       router.push("/app");
     }
   }, [auth, router]);
