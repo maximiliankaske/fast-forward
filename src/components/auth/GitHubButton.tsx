@@ -3,6 +3,7 @@ import React from "react";
 import GitHubIcon from "@/components/icon/GitHub";
 import Button from "@/components/ui/Button";
 import { useAuth } from "@/lib/auth";
+import { signIn } from "next-auth/react";
 
 interface Props {
   redirect?: string;
@@ -13,13 +14,17 @@ const GitHubButton = ({ redirect }: Props) => {
   const router = useRouter();
   return (
     <Button
-      onClick={() =>
-        auth.signinWithGitHub().then(() => {
-          if (redirect) {
-            router.replace(redirect);
-          }
-        })
-      }
+      onClick={async () => {
+        await signIn("github");
+        if (redirect) {
+          router.replace(redirect);
+        }
+        // auth.signinWithGitHub().then(() => {
+        //   if (redirect) {
+        //     router.replace(redirect);
+        //   }
+        // });
+      }}
       className="inline-flex items-center"
       reverse
     >

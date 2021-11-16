@@ -9,6 +9,7 @@ import { NextComponentType, NextPageContext } from "next";
 import Auth, { AuthComponentProps } from "@/components/auth/Auth";
 import { DefaultSeo } from "next-seo";
 import SEO from "@/config/next-seo.config";
+import { SessionProvider } from "next-auth/react";
 
 const components = {
   // img: Image,
@@ -28,22 +29,27 @@ type CustomAppProps = Omit<AppProps, "Component"> & {
   Component: NextComponentWithAuth;
 };
 
-function MyApp({ Component, pageProps }: CustomAppProps) {
+function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: CustomAppProps) {
   return (
     <AuthProvider>
-      <ThemeProvider attribute="class">
-        <MDXProvider components={components}>
-          <DefaultSeo {...SEO} />
-          {Component.auth ? (
-            <Auth auth={Component.auth}>
+      <SessionProvider session={session}>
+        <ThemeProvider attribute="class">
+          <MDXProvider components={components}>
+            <DefaultSeo {...SEO} />
+            {Component.auth ? (
+              <Auth auth={Component.auth}>
+                <Component {...pageProps} />
+              </Auth>
+            ) : (
               <Component {...pageProps} />
-            </Auth>
-          ) : (
-            <Component {...pageProps} />
-          )}
-          <Toaster position="top-right" />
-        </MDXProvider>
-      </ThemeProvider>
+            )}
+            <Toaster position="top-right" />
+          </MDXProvider>
+        </ThemeProvider>
+      </SessionProvider>
     </AuthProvider>
   );
 }

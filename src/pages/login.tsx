@@ -6,8 +6,10 @@ import GoogleButton from "@/components/auth/GoogleButton";
 import { useAuth } from "@/lib/auth";
 import LoadingIndicator from "@/components/common/LoadingIndicator";
 import { useRouter } from "next/router";
+import { useSession, signOut } from "next-auth/react";
 
 const Login = () => {
+  const session = useSession();
   const auth = useAuth();
   const router = useRouter();
 
@@ -20,6 +22,8 @@ const Login = () => {
   if (auth.loading || auth.user) {
     return <LoadingIndicator />;
   }
+
+  console.log(session.data?.user);
 
   return (
     <DefaultLayout>
@@ -36,7 +40,10 @@ const Login = () => {
         </div>
         <div className="flex flex-col items-center space-y-4">
           <GitHubButton redirect="/app" />
-          <GoogleButton redirect="/app" />
+          {/* <GoogleButton redirect="/app" /> */}
+          {session.data?.user && (
+            <button onClick={() => signOut()}>logout</button>
+          )}
         </div>
       </div>
     </DefaultLayout>
