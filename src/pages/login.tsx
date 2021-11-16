@@ -1,15 +1,26 @@
-import { useRouter } from "next/router";
-import React from "react";
-import GitHubIcon from "@/components/icon/GitHub";
-import GoogleIcon from "@/components/icon/Google";
+import React, { useEffect } from "react";
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import Button from "@/components/ui/Button";
 import Heading from "@/components/ui/Heading";
+import GitHubButton from "@/components/auth/GitHubButton";
+import GoogleButton from "@/components/auth/GoogleButton";
 import { useAuth } from "@/lib/auth";
+import LoadingIndicator from "@/components/common/LoadingIndicator";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const auth = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!auth.loading && auth.user) {
+      router.push("/app");
+    }
+  }, [auth, router]);
+
+  if (auth.loading || auth.user) {
+    return <LoadingIndicator />;
+  }
+
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-xl my-16 space-y-6 text-center">
@@ -23,28 +34,9 @@ const Login = () => {
           </p>
           <p className="font-medium">Choose yours:</p>
         </div>
-        <div className="space-y-4">
-          <div>
-            <Button
-              onClick={() =>
-                auth.signinWithGitHub().then(() => router.replace("/app"))
-              }
-              className="inline-flex items-center"
-              reverse
-            >
-              Log In with GitHub <GitHubIcon className="h-5 w-5 -mr-1 ml-1" />
-            </Button>
-          </div>
-          <div>
-            <Button
-              onClick={() =>
-                auth.signinWithGoogle().then(() => router.replace("/app"))
-              }
-              className="inline-flex items-center"
-            >
-              Log In with Google <GoogleIcon className="h-5 w-5 -mr-1 ml-1" />
-            </Button>
-          </div>
+        <div className="flex flex-col items-center space-y-4">
+          <GitHubButton redirect="/app" />
+          <GoogleButton redirect="/app" />
         </div>
       </div>
     </DefaultLayout>

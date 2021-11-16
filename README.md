@@ -14,10 +14,14 @@
 - [ ] Create a `fast-forward-[widget]` npm package for easy integration
 - [ ] self-hosted documentation - [plausible.io example](https://plausible.io/docs/self-hosting)
 - [ ] Rework `/lib/api` using more generic types (currently only string) and make the fields not mandatory. If undefined, return every property.
+- [ ] Add `createdAt` and `updatedAt` props to firebase
+- [ ] Use `_middleware` to instead of `@/lib/middleware`
+- [ ] Missing firebase rules on prod
+- [ ] Make the templates shareable and public to the world.
 
 ## Ideas
 
-- [ ] Replace Firebase with Supabase (Vercel Integration?)
+- [ ] Replace Firebase with Supabase or Planetscale & Prisma
 
 ## Reminder for myself
 

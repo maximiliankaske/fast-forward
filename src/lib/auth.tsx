@@ -40,6 +40,7 @@ function useProvideAuth() {
     if (rawUser) {
       const user = await formatUser(rawUser);
       const { token, ...userWithoutToken } = user;
+      console.log(user);
       setUser(user);
       setLoading(false);
       createUser(user.uid, userWithoutToken);
@@ -51,12 +52,19 @@ function useProvideAuth() {
     }
   };
 
+  const refreshToken = () => {
+    return firebase.auth().currentUser?.getIdToken(true);
+  };
+
   const signinWithGitHub = () => {
     setLoading(true);
     return firebase
       .auth()
       .signInWithPopup(new firebase.auth.GithubAuthProvider())
-      .then((response) => handleUser(response.user));
+      .then((response) => {
+        handleUser(response.user);
+        return response;
+      });
   };
 
   const signinWithGoogle = (redirect?: string) => {
@@ -69,6 +77,7 @@ function useProvideAuth() {
         if (redirect) {
           Router.push(redirect);
         }
+        return response;
       });
   };
 
@@ -85,10 +94,12 @@ function useProvideAuth() {
     signinWithGitHub,
     signinWithGoogle,
     signout,
+    refreshToken,
   };
 }
 const formatUser = async (user: firebase.User) => {
   const token = await user.getIdToken();
+  const { claims } = await user.getIdTokenResult();
   return {
     uid: user.uid,
     email: user.email,
@@ -96,6 +107,14 @@ const formatUser = async (user: firebase.User) => {
     provider: user.providerData[0]?.providerId,
     photoUrl: user.photoURL,
     token,
+    // FIXME: User Permissions - doesnt look good - doesnt feel good
+    customClaims:
+      claims?.role && claims?.organizationId
+        ? {
+            role: claims.role,
+            organizationId: claims.organizationId,
+          }
+        : null,
   };
 };
 

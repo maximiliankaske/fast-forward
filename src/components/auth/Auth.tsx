@@ -6,7 +6,7 @@ import LoadingIndicator from "../common/LoadingIndicator";
 export interface AuthComponentProps {
   auth?: {
     loading?: React.ReactNode;
-    role?: "admin" | "user";
+    role?: "admin" | "member";
     unauthorized?: string;
   };
 }

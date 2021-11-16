@@ -3,6 +3,8 @@ import firebase from "firebase/app";
 import { Describe } from "superstruct";
 import { FeedbackType } from "./superstruct";
 
+export type OrganizationRole = "owner" | "admin" | "member";
+
 export type User = {
   uid: string;
   email: string | null;
@@ -10,11 +12,52 @@ export type User = {
   provider: string | undefined;
   photoUrl: string | null;
   token: string;
+  customClaims?: {
+    role: OrganizationRole;
+    organizationId: string;
+  } | null;
+  // organizations: { name: string; role: OrganizationRole }[]
 };
 
 export type Site = {
   authorId: string;
   url: string;
+};
+
+export type Invite = {
+  email: string;
+  token: string;
+  expired: false;
+  dueTo: firebase.firestore.Timestamp;
+  site: string; // organization name
+};
+
+export type Organization = {
+  name: string;
+  email?: string;
+  authorId: string;
+  // FIXME:d
+  activeTemplates: string[] | null;
+  activeSurveys: string[] | null;
+  /**
+   * members as collection
+   * collection("organization").doc("userId").set({ joined: Date, role: OrganizationRole, ... })
+   */
+};
+
+export type Answers = string | number;
+
+export type FormSession = {
+  answers: Record<string, Answers>;
+};
+
+export type OrganizationMember = {
+  email: string;
+  role: OrganizationRole;
+};
+
+export type OrganizationInvite = OrganizationMember & {
+  // dueTo: firebase.firestore.Timestamp;
 };
 
 export type Post = {

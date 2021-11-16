@@ -4,7 +4,6 @@ import React, { useCallback, useState } from "react";
 import useSWR from "swr";
 import Card from "@/components/feedback/Card";
 import Filter from "@/components/feedback/Filter";
-import DefaultLayout from "@/components/layout/DefaultLayout";
 import Heading from "@/components/ui/Heading";
 import { useAuth } from "@/lib/auth";
 import { updateFeedback } from "@/lib/db";
@@ -12,6 +11,8 @@ import { Feedback, FeedbackType, Project, WithId } from "@/types/index";
 import fetcher from "@/utils/fetcher";
 import Link from "@/components/ui/Link";
 import toasts from "@/utils/toast";
+import { CogIcon } from "@heroicons/react/outline";
+import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 
 const ProjectPage = () => {
   const [type, setType] = useState<FeedbackType>("all");
@@ -41,6 +42,7 @@ const ProjectPage = () => {
     [data]
   );
 
+  // TODO: FIXME: function seems to be broken
   const handleArchive = useCallback(
     async (id: string, data: Partial<Feedback> & { projectId: string }) => {
       try {
@@ -66,7 +68,7 @@ const ProjectPage = () => {
   };
 
   return (
-    <DefaultLayout className="space-y-6">
+    <DefaultUserLayout>
       <Heading className="text-center">{projectData?.project.name}</Heading>
       <div className="flex items-center justify-center space-x-1">
         <p className="font-semibold tracking-tight">Project ID:</p>
@@ -78,43 +80,48 @@ const ProjectPage = () => {
           <ClipboardIcon className="ml-1 h-4 w-4" />
         </button>
       </div>
-      <Link href="/app" className="inline-flex items-center text-sm">
-        <ArrowLeftIcon className="h-3 w-3 mr-2" />
-        Back to the list
+      <Link
+        href={`/app/projects/${projectId}/settings`}
+        className="inline-flex items-center text-sm"
+      >
+        Settings
+        <CogIcon className="h-4 w-4 ml-2" />
       </Link>
-      <Filter
-        types={[
-          {
-            name: "all",
-            count: getArchiveLength(false),
-          },
-          {
-            name: "issue",
-            count: getLength("issue"),
-          },
-          { name: "idea", count: getLength("idea") },
-          {
-            name: "other",
-            count: getLength("other"),
-          },
-          { name: "archive", count: getArchiveLength() },
-        ]}
-        activeType={type}
-        onChange={setType}
-      />
-      {data?.feedbacks.filter(filterByType).map((feedback) => (
-        <Card
-          key={feedback.id}
-          feedback={feedback}
-          handleArchive={() =>
-            handleArchive(feedback.id, {
-              projectId: feedback.projectId,
-              archived: !feedback.archived,
-            })
-          }
+      <div className="space-y-6">
+        <Filter
+          types={[
+            {
+              name: "all",
+              count: getArchiveLength(false),
+            },
+            {
+              name: "issue",
+              count: getLength("issue"),
+            },
+            { name: "idea", count: getLength("idea") },
+            {
+              name: "other",
+              count: getLength("other"),
+            },
+            { name: "archive", count: getArchiveLength() },
+          ]}
+          activeType={type}
+          onChange={setType}
         />
-      ))}
-    </DefaultLayout>
+        {data?.feedbacks.filter(filterByType).map((feedback) => (
+          <Card
+            key={feedback.id}
+            feedback={feedback}
+            handleArchive={() =>
+              handleArchive(feedback.id, {
+                projectId: feedback.projectId,
+                archived: !feedback.archived,
+              })
+            }
+          />
+        ))}
+      </div>
+    </DefaultUserLayout>
   );
 };
 

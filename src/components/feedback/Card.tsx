@@ -18,7 +18,7 @@ const Card = ({ feedback, handleArchive }: Props) => {
   const ua = parser(feedback.userAgent);
 
   return (
-    <div className="border rounded-md shadow-box overflow-hidden bg-gray-50 dark:bg-gray-900">
+    <div className="border border-gray-200 dark:border-gray-800 rounded-md shadow-box overflow-hidden">
       <div className="p-6 space-y-3">
         <div className="flex items-center justify-between">
           <Badge className="capitalize" color={getBadgeColor(feedback.type)}>
@@ -85,7 +85,7 @@ const Card = ({ feedback, handleArchive }: Props) => {
         </div>
       </div>
       {feedback?.metadata ? (
-        <div className="relative px-6 pt-4 pb-2 bg-gray-100 dark:bg-gray-900 border-t">
+        <div className="relative px-6 pt-4 pb-2 bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
           <div className="absolute -top-4 left-0 right-0 text-center">
             <Badge color="primary" className="text-base">
               Metadata
@@ -94,7 +94,7 @@ const Card = ({ feedback, handleArchive }: Props) => {
           {Object.keys(feedback.metadata).map((key) => (
             <div
               key={key}
-              className="border rounded overflow-hidden inline-flex text-sm mb-2 mr-2"
+              className="border border-gray-200 dark:border-gray-800 rounded overflow-hidden inline-flex text-sm mb-2 mr-2"
             >
               <span className="py-px px-3 bg-gray-700 text-white">{key}</span>
               <span className="py-px px-3 bg-indigo-200 text-indigo-700">

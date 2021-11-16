@@ -8,7 +8,7 @@ const Thumbnail = ({ id, name, private: privatly }: WithId<Project>) => {
   return (
     <div className="relative rounded-lg border hover:border-gray-300 bg-gray-50 dark:bg-gray-900 px-6 py-5 shadow-sm flex items-center space-x-3 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
       <div className="flex-1 min-w-0">
-        <Link href={`/app/${id}`}>
+        <Link href={`/app/projects/${id}`}>
           <a className="flex-1 focus:outline-none">
             <span className="absolute inset-0" aria-hidden="true" />
             <p className="inline-flex items-center text-sm font-medium text-gray-900 dark:text-white">
@@ -23,7 +23,7 @@ const Thumbnail = ({ id, name, private: privatly }: WithId<Project>) => {
           </a>
         </Link>
       </div>
-      <Link href={`/app/${id}/settings`}>
+      <Link href={`/app/projects/${id}/settings`}>
         <a className="self-center z-10 text-gray-700 dark:text-white dark:hover:text-gray-300 hover:text-gray-900 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           <CogIcon className="h-6 w-6" />
         </a>

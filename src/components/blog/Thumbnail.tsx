@@ -14,7 +14,7 @@ const Thumbnail: FC<Post> = ({
   coverImage,
 }) => {
   return (
-    <article className="group overflow-hidden rounded-md border hover:border-gray-300 bg-gray-50 dark:bg-gray-900 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+    <article className="group overflow-hidden rounded-md border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-black focus-within:ring-indigo-500">
       <Link href={`/blog/${slug}`}>
         <a className="focus:outline-none flex">
           <div className="relative w-24 md:w-48">

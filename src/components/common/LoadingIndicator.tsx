@@ -5,11 +5,9 @@ import DefaultLayout from "../layout/DefaultLayout";
 // TODO: create seperate loading indicator
 
 const LoadingIndicator = () => (
-  <DefaultLayout>
-    <div className="flex justify-center items-center">
-      <LoadingIcon className="animate-spin -ml-1 mr-3 h-8 w-8 text-indigo-700 dark:text-pink-500" />
-    </div>
-  </DefaultLayout>
+  <div className="min-w-screen min-h-screen flex justify-center items-center">
+    <LoadingIcon className="animate-spin -ml-1 mr-3 h-8 w-8 text-indigo-700 dark:text-pink-500" />
+  </div>
 );
 
 export default LoadingIndicator;

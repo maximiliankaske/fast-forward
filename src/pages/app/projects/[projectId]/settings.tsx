@@ -7,11 +7,9 @@ import { useAuth } from "@/lib/auth";
 import { deleteProject, updateProject, resetProject } from "@/lib/db";
 import { Project, WithId } from "@/types/index";
 import fetcher from "@/utils/fetcher";
-import Link from "@/components/ui/Link";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Switch from "@/components/ui/Switch";
-import { ArrowLeftIcon } from "@heroicons/react/solid";
 import toasts from "@/utils/toast";
 import { ComponentWithAuth } from "@/components/auth/Auth";
 
@@ -68,7 +66,7 @@ const Settings: ComponentWithAuth = () => {
     try {
       // FIXME: make sure that the page is accessed only if data exist
       await toasts.promise(deleteProject(data!.project.id));
-      router.replace("/app");
+      router.replace("/app/projects");
     } catch {
       console.warn("Something went wrong");
     }
@@ -79,18 +77,12 @@ const Settings: ComponentWithAuth = () => {
     toasts.success();
   }, [data]);
 
+  // TODO: use breadcrump home / projects / settings
   return (
     <DefaultUserLayout>
-      <Heading as="h2">Settings</Heading>
-      <div className="mb-8 mt-4">
-        <Link href="/app" className="inline-flex items-center text-sm">
-          <ArrowLeftIcon className="h-3 w-3 mr-2" />
-          Back to the list
-        </Link>
-      </div>
-      <div className="space-y-8">
+      <div className="space-y-8 pt-6">
         <form
-          className="border rounded-md overflow-hidden"
+          className="border border-gray-200 dark:border-gray-800 rounded-md overflow-hidden"
           onSubmit={handleUpdateName}
         >
           <div className="p-5 space-y-1">
@@ -106,7 +98,7 @@ const Settings: ComponentWithAuth = () => {
               onChange={(event) => setName(event.target.value)}
             />
           </div>
-          <div className="py-3 px-5 bg-gray-50 dark:bg-gray-900 border-t text-right">
+          <div className="py-3 px-5 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 text-right">
             <Button
               type="submit"
               disabled={data?.project.name === name}
@@ -116,42 +108,6 @@ const Settings: ComponentWithAuth = () => {
             </Button>
           </div>
         </form>
-        {/* TODO: Missing functionality */}
-        {/* <div className="border rounded-md overflow-hidden">
-          <div className="p-5 space-y-1">
-            <h2 className="text-lg leading-6 font-medium">
-              Team settings (alpha)
-            </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Add team members to access the project.
-            </p>
-            <div>
-              <div className="flex justify-between mt-2">
-                <div className="flex items-center space-x-2">
-                  <div className="relative h-6 w-6 rounded-full overflow-hidden bg-gray-100">
-                    {user?.photoUrl && (
-                      <Image src={user.photoUrl} alt="profile" layout="fill" />
-                    )}
-                  </div>
-                  <p className="truncate">{user?.email}</p>
-                </div>
-                <Badge color="pink">Member</Badge>
-              </div>
-            </div>
-          </div>
-          <div className="py-3 px-5 bg-gray-50 dark:bg-gray-900 border-t flex justify-between items-end">
-            <Input
-              label="Email"
-              name="email"
-              placeholder="collegue@company.com"
-              className="w-56 sm:w-72 text-sm"
-              srOnly
-            />
-            <Button reverse disabled>
-              Save
-            </Button>
-          </div>
-        </div> */}
         <div className="border rounded-md border-indigo-500 dark:bg-gray-900 py-3 px-5 divide-y space-y-3">
           <div className="flex justify-between items-center">
             <div>
@@ -174,7 +130,7 @@ const Settings: ComponentWithAuth = () => {
             />
           </div>
         </div>
-        <div className="border rounded-md border-red-500 dark:bg-gray-900 py-3 px-5 divide-y space-y-3">
+        <div className="border rounded-md border-red-500 dark:bg-gray-900 py-3 px-5 divide-y divide-gray-200 dark:divide-gray-800 space-y-3">
           <div className="flex justify-between items-center">
             <div>
               <h2 className="text-lg leading-6 font-medium">Reset Project</h2>
