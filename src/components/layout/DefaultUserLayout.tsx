@@ -1,18 +1,15 @@
 import React, { FC } from "react";
-import { useAuth } from "@/lib/auth";
 import LoadingIcon from "../icon/Loading";
-import DefaultLayout from "./DefaultLayout";
 import Breadcrumbs from "../common/Breadcrumbs";
 import Footer from "./Footer";
 import Header from "./Header";
+import { useSession } from "next-auth/react";
 
 const DefaultUserLayout: FC = ({ children }) => {
-  const { loading } = useAuth();
-  console.log("DefaultUserLayout", loading);
+  const { data: session, status } = useSession();
   return (
     <div className="min-h-screen flex flex-col">
-      {/* FIXME: thats very much irritating */}
-      {loading ? (
+      {status === "loading" ? (
         <div className="flex justify-center items-center">
           <LoadingIcon className="animate-spin -ml-1 mr-3 h-8 w-8 text-indigo-700" />
         </div>

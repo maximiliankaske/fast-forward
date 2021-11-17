@@ -42,7 +42,11 @@ const Header: FC<HeaderProps> = ({ children, withProfile = false }) => {
             <NavLink href="/blog">Blog</NavLink>
           </div>
           <div className="space-x-6 sm:space-x-8 flex items-center">
-            {withProfile ? <ProfileMenu /> : <Link href="/login">Login</Link>}
+            {withProfile ? (
+              <ProfileMenu />
+            ) : (
+              <Link href="/auth/signin">Login</Link>
+            )}
             <button
               className="p-2 rounded-md border border-gray-200 dark:border-gray-800 bg-white hover:bg-gray-50 dark:bg-black dark:hover:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-black focus:ring-indigo-500"
               onClick={() => setTheme(isDarkMode ? "light" : "dark")}

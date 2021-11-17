@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import React from "react";
 import GitHubIcon from "@/components/icon/GitHub";
 import Button from "@/components/ui/Button";
-import { useAuth } from "@/lib/auth";
 import { signIn } from "next-auth/react";
 
 interface Props {
@@ -10,7 +9,6 @@ interface Props {
 }
 
 const GitHubButton = ({ redirect }: Props) => {
-  const auth = useAuth();
   const router = useRouter();
   return (
     <Button
@@ -19,11 +17,6 @@ const GitHubButton = ({ redirect }: Props) => {
         if (redirect) {
           router.replace(redirect);
         }
-        // auth.signinWithGitHub().then(() => {
-        //   if (redirect) {
-        //     router.replace(redirect);
-        //   }
-        // });
       }}
       className="inline-flex items-center"
       reverse

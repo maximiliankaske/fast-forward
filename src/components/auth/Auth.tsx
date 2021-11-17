@@ -2,10 +2,11 @@ import React, { FC } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "@/lib/auth";
 import LoadingIndicator from "../common/LoadingIndicator";
+import { useSession } from "next-auth/react";
 
 export interface AuthComponentProps {
   auth?: {
-    loading?: React.ReactNode;
+    // loading?: React.ReactNode;
     role?: "admin" | "member";
     unauthorized?: string;
   };
@@ -15,15 +16,15 @@ export type ComponentWithAuth<PropsType = any> = FC<PropsType> &
   AuthComponentProps;
 
 const Auth: FC<AuthComponentProps> = ({ children, auth }) => {
-  const { unauthorized = "/login", ...props } = auth ?? {};
-  const { loading, user } = useAuth();
+  const { unauthorized = "/auth/signin", ...props } = auth ?? {};
+  const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (loading) {
+  if (status === "loading") {
     return <LoadingIndicator />;
   }
 
-  if (!loading && !user) {
+  if (status === "unauthenticated") {
     router.replace(unauthorized);
     return <LoadingIndicator />;
   }

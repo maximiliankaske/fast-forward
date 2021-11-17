@@ -12,7 +12,7 @@ const nav = [
   },
   {
     label: "Log out",
-    href: "/logout",
+    href: "/auth/signout",
   },
 ];
 
