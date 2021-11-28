@@ -2,34 +2,35 @@ import { PlusIcon } from "@heroicons/react/solid";
 import React from "react";
 import useSWR from "swr";
 import ProjectEmptyState from "@/components/project/ProjectEmptyState";
-import Thumbnail from "@/components/app/Thumbnail";
 import type { ComponentWithAuth } from "@/components/auth/Auth";
 import Button from "@/components/ui/Button";
-import { useAuth } from "@/lib/auth";
-import { createProject } from "@/lib/db";
-import { Project, WithId } from "@/types/index";
-import fetcher from "@/utils/fetcher";
+import fetcher, { creator } from "@/utils/fetcher";
 import toasts from "@/utils/toast";
-import Breadcrumbs from "@/components/common/Breadcrumbs";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import LinkContainer from "@/components/common/LinkContainer";
-import Badge from "@/components/ui/Badge";
+import { getSession, useSession } from "next-auth/react";
+import prisma from "@/lib/prisma";
+import { InferGetStaticPropsType } from "next";
+import { WidgetProject } from ".prisma/client";
 
-const Projects: ComponentWithAuth = () => {
-  const { user } = useAuth();
-  const { data, mutate } = useSWR<{ projects: WithId<Project>[] }>(
-    user ? ["/api/projects", user.token] : null,
-    fetcher
+const Projects: ComponentWithAuth = ({
+  fallbackData,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { data: session } = useSession();
+  const { data: entries, mutate } = useSWR<WidgetProject[]>(
+    "/api/projects",
+    fetcher,
+    {
+      fallbackData,
+    }
   );
 
   const handleCreate = async () => {
     const newProject = {
-      authorId: user!.uid,
-      name: `Project #${data?.projects ? data.projects.length + 1 : 1}`,
-      private: true,
+      name: `Project #${entries ? entries.length + 1 : 1}`,
     };
     try {
-      await toasts.promise(createProject(newProject));
+      await toasts.promise(creator("/api/projects", newProject));
       mutate();
     } catch {
       console.warn("Something went wrong");
@@ -38,18 +39,18 @@ const Projects: ComponentWithAuth = () => {
 
   return (
     <DefaultUserLayout>
-      {data?.projects && data.projects.length > 0 ? (
+      {entries && entries.length > 0 ? (
         <>
           <Button
             onClick={handleCreate}
             className="inline-flex items-center"
             reverse
           >
-            <PlusIcon className="-ml-1 mr-1 h-5 w-5" aria-hidden="true" />
+            <PlusIcon className="w-5 h-5 mr-1 -ml-1" aria-hidden="true" />
             New Project
           </Button>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-6">
-            {data?.projects.map((project, idx) => (
+          <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2">
+            {entries?.map((project, idx) => (
               <LinkContainer
                 key={project.id}
                 href={`/app/projects/${project.id}`}
@@ -68,6 +69,25 @@ const Projects: ComponentWithAuth = () => {
     </DefaultUserLayout>
   );
 };
+
+export async function getStaticProps() {
+  const session = await getSession();
+  const entries = await prisma.widgetProject.findMany({
+    where: {
+      userId: session?.user.id,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return {
+    props: {
+      fallbackData: entries,
+    },
+    revalidate: 60,
+  };
+}
 
 Projects.auth = {};
 

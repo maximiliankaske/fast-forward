@@ -27,6 +27,12 @@ export default NextAuth({
       sendVerificationRequest,
     }),
   ],
+  callbacks: {
+    session: async ({ session, user }) => {
+      session.user.id = user.id;
+      return Promise.resolve(session);
+    },
+  },
   pages: {
     signIn: "/auth/signin",
     signOut: "/auth/signout",

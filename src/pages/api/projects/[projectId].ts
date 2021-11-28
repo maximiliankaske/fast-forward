@@ -1,17 +1,33 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { getProject } from "@/lib/db-admin";
-import { withProjectAuth } from "@/lib/middleware";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
+import prisma from "@/lib/prisma";
 
-const projectApi = async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
-    const { project } = await getProject(req.query.projectId as string);
-    // FIXME: if req.query.projectId is not a valid id,
-    // the project will be an empty object
-    // validate with superstruct to be a project otherwise throw Error
-    return res.status(200).json({ project });
-  } catch (error) {
-    return res.status(500).json({ error });
-  }
-};
+    const session = await getSession({ req });
+    const { projectId } = req.query;
 
-export default withProjectAuth(projectApi);
+    const entry = await prisma.widgetProject.findUnique({
+      where: {
+        id: String(projectId),
+      },
+    });
+
+    if (!session?.user.id && entry?.private) {
+      return res.status(401).end("Not authenticated");
+    }
+
+    switch (req.method) {
+      case "GET": {
+        return res.status(200).json(entry);
+      }
+      default:
+        return res.status(405).end(`Method ${req.method} Not Allowed`);
+    }
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+}

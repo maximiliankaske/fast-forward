@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ClipboardIcon } from "@heroicons/react/solid";
+import { ClipboardIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
 import useSWR from "swr";
@@ -7,21 +7,27 @@ import Filter from "@/components/feedback/Filter";
 import Heading from "@/components/ui/Heading";
 import { useAuth } from "@/lib/auth";
 import { updateFeedback } from "@/lib/db";
-import { Feedback, FeedbackType, Project, WithId } from "@/types/index";
+import { Feedback, FeedbackType, WithId } from "@/types/index";
 import fetcher from "@/utils/fetcher";
 import Link from "@/components/ui/Link";
 import toasts from "@/utils/toast";
 import { CogIcon } from "@heroicons/react/outline";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
+import { WidgetProject } from ".prisma/client";
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import prisma from "@/lib/prisma";
 
-const ProjectPage = () => {
+const ProjectPage = ({
+  fallbackData,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [type, setType] = useState<FeedbackType>("all");
   const router = useRouter();
   const { user, loading } = useAuth();
   const projectId = router.query.projectId as string;
-  const { data: projectData } = useSWR<{ project: WithId<Project> }>(
-    !loading && projectId ? [`/api/projects/${projectId}`, user?.token] : null,
-    fetcher
+  const { data: projectEntry } = useSWR<WidgetProject>(
+    `/api/projects/${projectId}`,
+    fetcher,
+    { fallbackData }
   );
 
   // fetch data after loading (even though user might be unauthentificated)
@@ -69,15 +75,15 @@ const ProjectPage = () => {
 
   return (
     <DefaultUserLayout>
-      <Heading className="text-center">{projectData?.project.name}</Heading>
+      <Heading className="text-center">{projectEntry?.name}</Heading>
       <div className="flex items-center justify-center space-x-1">
         <p className="font-semibold tracking-tight">Project ID:</p>
         <button
-          className="flex items-center rounded tracking-wide text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="flex items-center tracking-wide text-gray-600 rounded dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           onClick={onClipboard}
         >
           {projectId}
-          <ClipboardIcon className="ml-1 h-4 w-4" />
+          <ClipboardIcon className="w-4 h-4 ml-1" />
         </button>
       </div>
       <Link
@@ -85,7 +91,7 @@ const ProjectPage = () => {
         className="inline-flex items-center text-sm"
       >
         Settings
-        <CogIcon className="h-4 w-4 ml-2" />
+        <CogIcon className="w-4 h-4 ml-2" />
       </Link>
       <div className="space-y-6">
         <Filter
@@ -123,6 +129,30 @@ const ProjectPage = () => {
       </div>
     </DefaultUserLayout>
   );
+};
+
+export const getStaticPaths = async () => {
+  return {
+    paths: [], //indicates that no page needs be created at build time
+    fallback: "blocking", //indicates the type of fallback
+  };
+};
+
+export const getStaticProps = async ({
+  params,
+}: GetStaticPropsContext<{ projectId: string }>) => {
+  const entry = await prisma.widgetProject.findUnique({
+    where: {
+      id: params?.projectId,
+    },
+  });
+
+  return {
+    props: {
+      fallbackData: entry || undefined,
+    },
+    // revalidate: 60,
+  };
 };
 
 export default ProjectPage;
