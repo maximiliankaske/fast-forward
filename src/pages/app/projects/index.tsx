@@ -8,15 +8,14 @@ import fetcher, { creator } from "@/utils/fetcher";
 import toasts from "@/utils/toast";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import LinkContainer from "@/components/common/LinkContainer";
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
-import { InferGetStaticPropsType } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { WidgetProject } from ".prisma/client";
 
 const Projects: ComponentWithAuth = ({
   fallbackData,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data: session } = useSession();
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: entries, mutate } = useSWR<WidgetProject[]>(
     "/api/projects",
     fetcher,
@@ -70,8 +69,8 @@ const Projects: ComponentWithAuth = ({
   );
 };
 
-export async function getStaticProps() {
-  const session = await getSession();
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const session = await getSession(ctx);
   const entries = await prisma.widgetProject.findMany({
     where: {
       userId: session?.user.id,
@@ -85,7 +84,6 @@ export async function getStaticProps() {
     props: {
       fallbackData: entries,
     },
-    revalidate: 60,
   };
 }
 

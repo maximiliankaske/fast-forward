@@ -2,30 +2,28 @@ import { ExternalLinkIcon } from "@heroicons/react/outline";
 import { formatDistance } from "date-fns";
 import React from "react";
 import parser from "ua-parser-js";
-import { Feedback, WithId } from "@/types/index";
 import { getBadgeColor } from "@/utils/feedback";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
+import { Feedback } from ".prisma/client";
 
 interface Props {
-  feedback: WithId<Feedback>;
+  feedback: Feedback;
   handleArchive: () => void;
 }
 
 const Card = ({ feedback, handleArchive }: Props) => {
-  // @ts-ignore FIXME: firebase Timestamp.toDate() not a function
-  const createdAtSeconds = feedback.createdAt._seconds * 1000;
-  const ua = parser(feedback.userAgent);
+  const ua = parser(feedback.userAgent || "");
 
   return (
-    <div className="border border-gray-200 dark:border-gray-800 rounded-md shadow-box overflow-hidden">
+    <div className="overflow-hidden border border-gray-200 rounded-md dark:border-gray-800 shadow-box">
       <div className="p-6 space-y-3">
         <div className="flex items-center justify-between">
           <Badge className="capitalize" color={getBadgeColor(feedback.type)}>
             {feedback.type}
           </Badge>
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
-            {formatDistance(new Date(createdAtSeconds), new Date(), {
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            {formatDistance(new Date(feedback.createdAt), new Date(), {
               addSuffix: true,
             })}
           </p>
@@ -35,20 +33,20 @@ const Card = ({ feedback, handleArchive }: Props) => {
             <p>{feedback.text}</p>
           </div>
           <div className="col-span-2 md:col-span-1">
-            <h4 className="uppercase font-semibold">Page</h4>
+            <h4 className="font-semibold uppercase">Page</h4>
             <p className="text-gray-600 dark:text-gray-400">
               {feedback.location}
             </p>
           </div>
           <div className="col-span-2 md:col-span-1">
-            <h4 className="uppercase font-semibold">User Agent</h4>
+            <h4 className="font-semibold uppercase">User Agent</h4>
             <p className="text-gray-600 dark:text-gray-400">
               {`${ua.browser.name}, ${ua.os.name} ${ua.os.version}`}
             </p>
           </div>
           {feedback?.userId ? (
             <div className="col-span-2 md:col-span-1">
-              <h4 className="uppercase font-semibold">User</h4>
+              <h4 className="font-semibold uppercase">User</h4>
               <p className="text-gray-600 dark:text-gray-400">
                 {feedback.userId}
               </p>
@@ -57,14 +55,14 @@ const Card = ({ feedback, handleArchive }: Props) => {
           {feedback?.screenshotURL ? (
             <>
               <div className="col-span-2 md:col-span-1">
-                <h4 className="uppercase font-semibold">Screenshot</h4>
+                <h4 className="font-semibold uppercase">Screenshot</h4>
                 <a
                   href={feedback.screenshotURL}
                   download
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <ExternalLinkIcon className="text-gray-600 dark:text-gray-400 hover:text-gray-500 h-5 w-5" />
+                  <ExternalLinkIcon className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-gray-500" />
                 </a>
               </div>
             </>
@@ -85,23 +83,26 @@ const Card = ({ feedback, handleArchive }: Props) => {
         </div>
       </div>
       {feedback?.metadata ? (
-        <div className="relative px-6 pt-4 pb-2 bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-          <div className="absolute -top-4 left-0 right-0 text-center">
+        <div className="relative px-6 pt-4 pb-2 bg-gray-100 border-t border-gray-200 dark:bg-gray-900 dark:border-gray-800">
+          <div className="absolute left-0 right-0 text-center -top-4">
             <Badge color="primary" className="text-base">
               Metadata
             </Badge>
           </div>
-          {Object.keys(feedback.metadata).map((key) => (
-            <div
-              key={key}
-              className="border border-gray-200 dark:border-gray-800 rounded overflow-hidden inline-flex text-sm mb-2 mr-2"
-            >
-              <span className="py-px px-3 bg-gray-700 text-white">{key}</span>
-              <span className="py-px px-3 bg-indigo-200 text-indigo-700">
-                {feedback.metadata![key]}
-              </span>
-            </div>
-          ))}
+          {typeof feedback.metadata === "object" &&
+            !Array.isArray(feedback.metadata) &&
+            Object.keys(feedback.metadata).map((key) => (
+              <div
+                key={key}
+                className="inline-flex mb-2 mr-2 overflow-hidden text-sm border border-gray-200 rounded dark:border-gray-800"
+              >
+                <span className="px-3 py-px text-white bg-gray-700">{key}</span>
+                <span className="px-3 py-px text-indigo-700 bg-indigo-200">
+                  {/* @ts-ignore */}
+                  {feedback.metadata![key]}
+                </span>
+              </div>
+            ))}
         </div>
       ) : null}
     </div>

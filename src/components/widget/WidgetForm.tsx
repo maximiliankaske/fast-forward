@@ -88,12 +88,12 @@ const WidgetForm = ({
         return messages.submit.label;
       case "pending":
         return (
-          <LoadingIcon className="h-4 w-4 my-1 animate-spin text-gray-500 mx-auto" />
+          <LoadingIcon className="w-4 h-4 mx-auto my-1 text-gray-500 animate-spin" />
         );
       case "error":
         return "error";
       case "success":
-        return <CheckIcon className="h-4 w-4 my-1 text-green-500 mx-auto" />;
+        return <CheckIcon className="w-4 h-4 mx-auto my-1 text-green-500" />;
     }
   };
 
@@ -106,16 +106,17 @@ const WidgetForm = ({
           issue: {
             label: messages.type.options.issue.label,
             defaultChecked: true,
+            value: "ISSUE",
           },
-          idea: { label: messages.type.options.idea.label },
-          other: { label: messages.type.options.other.label },
+          idea: { label: messages.type.options.idea.label, value: "IDEA" },
+          other: { label: messages.type.options.other.label, value: "OTHER" },
         }}
         srOnly
       />
       <TextArea
         label={messages.comment.label}
         name="text"
-        className="resize-none text-sm px-2 py-1"
+        className="px-2 py-1 text-sm resize-none"
         placeholder={messages.comment.placeholder}
         rows={3}
         srOnly

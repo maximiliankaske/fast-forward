@@ -59,11 +59,33 @@ model VerificationToken {
 }
 
 model WidgetProject {
-  id        String   @id @unique @default(cuid())
+  id        String     @id @unique @default(cuid())
   userId    String
   name      String
-  private   Boolean  @default(true)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  private   Boolean    @default(true)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  feedbacks  Feedback[]
+}
+
+enum FeedbackType {
+  ISSUE
+  IDEA
+  OTHER
+}
+
+model Feedback {
+  id            String        @id @unique @default(cuid())
+  text          String
+  projectId     String
+  project       WidgetProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId        String?
+  userAgent     String?
+  location      String?
+  type          FeedbackType
+  screenshotURL String?
+  metadata      Json?
+  archived      Boolean       @default(false)
+  createdAt     DateTime      @default(now())
 }

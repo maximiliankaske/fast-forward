@@ -1,7 +1,7 @@
-const fetcher = async (url: string, token: string) => {
+const fetcher = async (url: string, token?: string) => {
   const res = await fetch(url, {
     method: "GET",
-    headers: new Headers({ "Content-Type": "application/json", token }),
+    headers: new Headers({ "Content-Type": "application/json" }),
     credentials: "same-origin",
   });
 
@@ -21,5 +21,18 @@ const creator = async <T extends Record<string, unknown>>(
   return res.json();
 };
 
+const updator = async <T extends Record<string, unknown>>(
+  url: string,
+  body: Partial<T>
+) => {
+  const res = await fetch(url, {
+    method: "PUT",
+    headers: new Headers({ "Content-Type": "application/json" }),
+    credentials: "same-origin",
+    body: JSON.stringify(body),
+  });
+  return res.json();
+};
+
 export default fetcher;
-export { creator };
+export { creator, updator };

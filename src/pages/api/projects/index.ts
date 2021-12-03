@@ -2,10 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 import { getSession } from "next-auth/react";
 
-const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const session = await getSession({ req });
-
     if (!session?.user.id) {
       return res.status(401).end("Not authenticated");
     }
@@ -14,7 +13,7 @@ const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {
       case "GET": {
         const entries = await prisma.widgetProject.findMany({
           where: {
-            userId: session.user.id,
+            userId: session?.user.id,
           },
           orderBy: {
             createdAt: "desc",
@@ -29,7 +28,6 @@ const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {
             name: req.body.name || "",
           },
         });
-        console.log({ newEntry });
         return res.status(200).json(newEntry);
       }
       default:
@@ -40,4 +38,4 @@ const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default projectsApi;
+export default handler;

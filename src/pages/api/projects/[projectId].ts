@@ -8,11 +8,14 @@ export default async function handler(
 ) {
   try {
     const session = await getSession({ req });
-    const { projectId } = req.query;
+    const { projectId } = req.query as { projectId: string };
 
     const entry = await prisma.widgetProject.findUnique({
       where: {
         id: String(projectId),
+      },
+      include: {
+        feedbacks: true,
       },
     });
 
@@ -23,6 +26,15 @@ export default async function handler(
     switch (req.method) {
       case "GET": {
         return res.status(200).json(entry);
+      }
+      case "PUT": {
+        const newEntry = await prisma.widgetProject.update({
+          where: {
+            id: projectId,
+          },
+          data: req.body,
+        });
+        return res.status(200).json(newEntry);
       }
       default:
         return res.status(405).end(`Method ${req.method} Not Allowed`);

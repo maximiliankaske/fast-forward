@@ -1,14 +1,14 @@
-import { FeedbackType } from "../types";
+import { FeedbackType } from ".prisma/client";
 
-function getBadgeColor(type: FeedbackType) {
+function getBadgeColor(type: FeedbackType | "ALL" | "ARCHIVE") {
   switch (type) {
-    case "all":
+    case "ALL":
       return "primary";
-    case "idea":
+    case "IDEA":
       return "secondary";
-    case "issue":
+    case "ISSUE":
       return "ternary";
-    case "other":
+    case "OTHER":
       return "quantery";
     default:
       return "default";

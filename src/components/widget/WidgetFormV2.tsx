@@ -39,7 +39,7 @@ const WidgetFormV2 = ({
       }),
       body: JSON.stringify({
         text,
-        type,
+        type: type!.toUpperCase(), // ISSUE, ...
         projectId,
         metadata,
         userId,
@@ -65,14 +65,14 @@ const WidgetFormV2 = ({
         return (
           <>
             {messages.submit.state.loading}
-            <LoadingIcon className="h-3 w-3 my-1 ml-2 animate-spin text-gray-500" />
+            <LoadingIcon className="w-3 h-3 my-1 ml-2 text-gray-500 animate-spin" />
           </>
         );
       case "error":
         return (
           <>
             {messages.submit.state.error}
-            <RefreshIcon className="h-3 w-3 my-1 ml-2 text-red-500" />
+            <RefreshIcon className="w-3 h-3 my-1 ml-2 text-red-500" />
           </>
         );
     }
@@ -106,7 +106,7 @@ const WidgetFormV2 = ({
               <WidgetTextArea
                 label={messages.comment.label}
                 name="text"
-                className="resize-none text-sm px-2 py-1"
+                className="px-2 py-1 text-sm resize-none"
                 placeholder={messages.comment.placeholder}
                 rows={3}
                 srOnly
@@ -125,7 +125,7 @@ const WidgetFormV2 = ({
           </form>
         </>
       ) : (
-        <p className="font-medium flex items-center mt-1 text-black">
+        <p className="flex items-center mt-1 font-medium text-black">
           <CheckIcon className="text-white h-4 w-4 mr-2 ml-1 rounded-full bg-green-500 p-[2px]" />
           {messages.submit.state.success}
         </p>

@@ -18,7 +18,7 @@ export default function middleware(req: NextRequest) {
       ? hostname?.replace(`.${url}`, "")
       : process.env.CURR_HOST;
 
-  console.log({ url, currentHost, hostname, pathname });
+  // console.log({ url, currentHost, hostname, pathname });
 
   // Prevent running if-statements if currentHost is invalid.
   if (!currentHost || currentHost === "" || currentHost === url) {

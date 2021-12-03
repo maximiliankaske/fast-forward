@@ -5,55 +5,50 @@ import useSWR from "swr";
 import Card from "@/components/feedback/Card";
 import Filter from "@/components/feedback/Filter";
 import Heading from "@/components/ui/Heading";
-import { useAuth } from "@/lib/auth";
-import { updateFeedback } from "@/lib/db";
-import { Feedback, FeedbackType, WithId } from "@/types/index";
-import fetcher from "@/utils/fetcher";
+import { WithId } from "@/types/index";
+import fetcher, { updator } from "@/utils/fetcher";
 import Link from "@/components/ui/Link";
 import toasts from "@/utils/toast";
 import { CogIcon } from "@heroicons/react/outline";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
-import { WidgetProject } from ".prisma/client";
+import { Feedback, FeedbackType, WidgetProject } from ".prisma/client";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import prisma from "@/lib/prisma";
 
 const ProjectPage = ({
   fallbackData,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const [type, setType] = useState<FeedbackType>("all");
+  const [type, setType] = useState<FeedbackType | "ALL" | "ARCHIVE">("ALL");
   const router = useRouter();
-  const { user, loading } = useAuth();
   const projectId = router.query.projectId as string;
-  const { data: projectEntry } = useSWR<WidgetProject>(
-    `/api/projects/${projectId}`,
-    fetcher,
-    { fallbackData }
-  );
-
-  // fetch data after loading (even though user might be unauthentificated)
-  const { data, mutate } = useSWR<{ feedbacks: WithId<Feedback>[] }>(
-    !loading && projectId ? [`/api/feedback/${projectId}`, user?.token] : null,
-    fetcher
-  );
+  const { data: project, mutate } = useSWR<
+    WidgetProject & { feedbacks: Feedback[] }
+  >(`/api/projects/${projectId}`, fetcher, { fallbackData });
 
   const getLength = useCallback(
     (type: FeedbackType) =>
-      data?.feedbacks.filter((i) => i.type === type && !i.archived).length,
-    [data]
+      project?.feedbacks?.filter((i) => i.type === type && !i.archived).length,
+    [project?.feedbacks]
   );
 
   const getArchiveLength = useCallback(
     (value: boolean = true) =>
-      data?.feedbacks.filter((i) => (value ? i.archived : !i.archived)).length,
-    [data]
+      project?.feedbacks?.filter((i) => (value ? i.archived : !i.archived))
+        .length,
+    [project?.feedbacks]
   );
 
-  // TODO: FIXME: function seems to be broken
   const handleArchive = useCallback(
-    async (id: string, data: Partial<Feedback> & { projectId: string }) => {
+    async (id: string, data: Partial<Feedback>) => {
       try {
-        await toasts.promise(updateFeedback(id, data));
-        mutate();
+        // TODO: should be `feedbacks`
+        // FIXME: Something is not working right here
+        toasts.promise(
+          Promise.all([
+            await updator<Feedback>(`/api/feedback/${id}`, data),
+            await mutate(),
+          ])
+        );
       } catch {
         console.warn("Probably unsufficient authorization");
       }
@@ -68,14 +63,14 @@ const ProjectPage = ({
   };
 
   const filterByType = (feedback: WithId<Feedback>) => {
-    return type === "archive"
+    return type === "ARCHIVE"
       ? feedback.archived
-      : !feedback.archived && (type === "all" || feedback.type === type);
+      : !feedback.archived && (type === "ALL" || feedback.type === type);
   };
 
   return (
     <DefaultUserLayout>
-      <Heading className="text-center">{projectEntry?.name}</Heading>
+      <Heading className="text-center">{project?.name}</Heading>
       <div className="flex items-center justify-center space-x-1">
         <p className="font-semibold tracking-tight">Project ID:</p>
         <button
@@ -97,30 +92,29 @@ const ProjectPage = ({
         <Filter
           types={[
             {
-              name: "all",
+              name: "ALL",
               count: getArchiveLength(false),
             },
             {
-              name: "issue",
-              count: getLength("issue"),
+              name: "ISSUE",
+              count: getLength("ISSUE"),
             },
-            { name: "idea", count: getLength("idea") },
+            { name: "IDEA", count: getLength("IDEA") },
             {
-              name: "other",
-              count: getLength("other"),
+              name: "OTHER",
+              count: getLength("OTHER"),
             },
-            { name: "archive", count: getArchiveLength() },
+            { name: "ARCHIVE", count: getArchiveLength() },
           ]}
           activeType={type}
           onChange={setType}
         />
-        {data?.feedbacks.filter(filterByType).map((feedback) => (
+        {project?.feedbacks?.filter(filterByType).map((feedback) => (
           <Card
             key={feedback.id}
             feedback={feedback}
             handleArchive={() =>
               handleArchive(feedback.id, {
-                projectId: feedback.projectId,
                 archived: !feedback.archived,
               })
             }
@@ -145,13 +139,15 @@ export const getStaticProps = async ({
     where: {
       id: params?.projectId,
     },
+    include: {
+      feedbacks: true,
+    },
   });
 
   return {
     props: {
       fallbackData: entry || undefined,
     },
-    // revalidate: 60,
   };
 };
 
