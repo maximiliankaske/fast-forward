@@ -42,12 +42,8 @@ const ProjectPage = ({
     async (id: string, data: Partial<Feedback>) => {
       try {
         // TODO: should be `feedbacks`
-        // FIXME: Something is not working right here
         toasts.promise(
-          Promise.all([
-            await updator<Feedback>(`/api/feedback/${id}`, data),
-            await mutate(),
-          ])
+          updator<Feedback>(`/api/feedback/${id}`, data).then(() => mutate())
         );
       } catch {
         console.warn("Probably unsufficient authorization");
