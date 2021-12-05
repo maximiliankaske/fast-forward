@@ -34,5 +34,14 @@ const updator = async <T extends Record<string, unknown>>(
   return res.json();
 };
 
+const deletor = async (url: string) => {
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: new Headers({ "Content-Type": "application/json" }),
+    credentials: "same-origin",
+  });
+  return res.json();
+};
+
 export default fetcher;
-export { creator, updator };
+export { creator, updator, deletor };

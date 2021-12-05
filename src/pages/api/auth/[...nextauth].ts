@@ -29,7 +29,7 @@ export default NextAuth({
   ],
   callbacks: {
     session: async ({ session, user }) => {
-      session.user.id = user.id;
+      session.user = user;
       return Promise.resolve(session);
     },
   },

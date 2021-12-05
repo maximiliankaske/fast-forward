@@ -36,6 +36,14 @@ export default async function handler(
         });
         return res.status(200).json(newEntry);
       }
+      case "DELETE": {
+        const deleteEntry = await prisma.widgetProject.delete({
+          where: {
+            id: projectId,
+          },
+        });
+        return res.status(200).json(deleteEntry);
+      }
       default:
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }

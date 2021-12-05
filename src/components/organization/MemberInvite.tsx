@@ -1,7 +1,11 @@
+import { Invite } from ".prisma/client";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
-import { createOrganizationInvite } from "@/lib/db";
+import { creator } from "@/utils/fetcher";
+import toasts from "@/utils/toast";
 import React from "react";
+
+type CreateInvite = Pick<Invite, "email" | "organizationId" | "dueTo">;
 
 interface Props {
   organizationId: string;
@@ -10,17 +14,19 @@ interface Props {
 const MemberInvite = ({ organizationId }: Props) => {
   return (
     <form
-      className="grid md:grid-cols-3 gap-4"
+      className="grid gap-4 md:grid-cols-3"
       onSubmit={(event) => {
         event.preventDefault();
         const target = event.target as typeof event.target & {
           email: { value: string };
         };
-        createOrganizationInvite({
-          email: target.email.value,
-          role: "member",
-          organizationId,
-        });
+        toasts.promise(
+          creator<CreateInvite>("/api/invite", {
+            email: target.email.value,
+            organizationId,
+            dueTo: new Date(Date.now() + 604800000),
+          })
+        );
       }}
     >
       <div className="md:col-span-2">
