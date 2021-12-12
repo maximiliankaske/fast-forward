@@ -1,67 +1,59 @@
-import { Template } from "@/types/templates";
+import { QuestionType } from "@prisma/client";
 
-const forms: Record<string, Template> = {
+const forms = {
   "the-starter-pack": {
-    label: "The Starter Pack",
+    title: "The Starter Pack",
     description: "Start with something simple",
     questions: [
       {
-        id: "q1",
         title: "What was our biggest achievement?",
         description:
           "It could be a milestone that was reached, a workshop attembded or a meeting with a collegue where you had a mindblowing experience.",
-        type: "rating",
+        type: QuestionType.RATING,
       },
       {
-        id: "q2",
         title: "Did you have everything needed to accomplish your tasks?",
         description:
           "Are you missing a tool to make tasks more productive. More time from others, or something else?",
-        type: "textarea",
+        type: QuestionType.TEXTAREA,
       },
       {
-        id: "q3",
         title: "Lorem?",
         description: "Lorem",
-        type: "input",
+        type: QuestionType.INPUT,
       },
       {
-        id: "q4",
         title: "Lorem?",
         description: "Lorem",
-        type: "input",
+        type: QuestionType.INPUT,
       },
     ],
   },
   "the-vibe-pack": {
-    label: "The Vibe Pack",
+    title: "The Vibe Pack",
     description: "Check the team vibe with tricky questions",
     questions: [
       {
-        id: "q1",
         title: "What's good and went well this month?",
         description:
           "It could be a milestone that was reached, a workshop attembded or a meeting with a collegue where you had a mindblowing experience.",
-        type: "rating",
+        type: QuestionType.RATING,
       },
       {
-        id: "q2",
         title: "Do you had enough time with everyone in the team?",
         description:
           "Are you missing a tool to make tasks more productive. More time from others, or something else?",
-        type: "input",
+        type: QuestionType.INPUT,
       },
       {
-        id: "q3",
         title: "Lorem?",
         description: "Lorem",
-        type: "input",
+        type: QuestionType.INPUT,
       },
       {
-        id: "q4",
         title: "Ok so to be clear, are you good to go?",
         description: "A little motivational ending.",
-        type: "input",
+        type: QuestionType.INPUT,
       },
     ],
   },

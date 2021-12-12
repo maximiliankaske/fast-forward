@@ -17,6 +17,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           where: {
             id: organizationId,
           },
+          include: {
+            templates: true,
+          },
         });
         return res.status(200).json(entry);
       }
