@@ -1,44 +1,27 @@
-import { useAuth } from "@/lib/auth";
-import { OrganizationInvite, OrganizationMember, WithId } from "@/types/index";
-import fetcher from "@/utils/fetcher";
+import { deletor } from "@/utils/fetcher";
 import React from "react";
-import useSWR from "swr";
 import Badge from "../ui/Badge";
-import Heading from "../ui/Heading";
-import cn from "classnames";
 import { TrashIcon } from "@heroicons/react/outline";
-import { deleteOrganizationInvite } from "@/lib/db";
 import toasts from "@/utils/toast";
-import useOrganizationMembers from "@/hooks/useOrganizationMembers";
+import useOrganization from "@/hooks/useOrganization";
 
-interface Props {
-  organizationId: string;
-}
-
-const MemberList = ({ organizationId }: Props) => {
-  const { user } = useAuth();
-  const { data: membersData, mutate: membersMutate } = useOrganizationMembers();
-  // FIXME: somehow mutate and fetch newest invite after submit
-  const { data: invitesData, mutate: invitesMutate } = useSWR<{
-    invites: WithId<OrganizationInvite>[] | undefined;
-  }>(
-    user ? [`/api/organization/${organizationId}/invite`, user?.token] : null,
-    fetcher
-  );
-
+const MemberList = () => {
+  const { data: organization, mutate } = useOrganization();
+  const members = organization?.members || [];
+  const invites = organization?.invites || [];
   const onInviteDelete = async (id: string) => {
     if (confirm("Delete invited member")) {
-      await toasts.promise(deleteOrganizationInvite(organizationId, id));
-      invitesMutate();
+      await toasts.promise(deletor(`/api/invite/${id}`));
+      mutate();
     }
   };
 
   return (
     <ul role="list" className="divide-y divide-gray-200">
-      {[...(membersData?.members || []), ...(invitesData?.invites || [])]
+      {[...members, ...invites]
         .sort(({ email: a }, { email: b }) => a.localeCompare(b))
         .map(({ id, role, email }) => {
-          const isMember = !!membersData?.members?.find((m) => m.id === id);
+          const isMember = !!members?.find((m) => m.id === id);
           return (
             <li key={id} className={"py-4 flex justify-between items-center"}>
               <p className="text-gray-600 dark:text-gray-400">
@@ -47,14 +30,14 @@ const MemberList = ({ organizationId }: Props) => {
               <div className="flex flex-row items-center">
                 {!isMember && (
                   <button
-                    className="mr-3 p-1"
+                    className="p-1 mr-3"
                     onClick={() => onInviteDelete(id)}
                   >
-                    <TrashIcon className="h-4 w-4" />
+                    <TrashIcon className="w-4 h-4" />
                   </button>
                 )}
                 <Badge
-                  color={role === "owner" ? "primary" : "secondary"}
+                  color={role === "OWNER" ? "primary" : "secondary"}
                   className={!isMember ? "opacity-60" : ""}
                 >
                   {role}

@@ -10,6 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!session?.user.id) {
       return res.status(401).end("Not authenticated");
     }
+    console.log(session.user);
     switch (req.method) {
       case "GET": {
         const entries = await prisma.organization.findMany({
@@ -27,15 +28,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           data: {
             userId: session.user.id,
             ...req.body,
+            members: {
+              create: [
+                {
+                  role: "OWNER",
+                  email: session.user.email,
+                },
+              ],
+            },
           },
         });
-        // add to organization members with role SUPERADMIN
         await prisma.user.update({
           where: { id: session.user.id },
           data: {
             organizationId: newEntry.id,
           },
         });
+
         return res.status(200).json(newEntry);
       }
       default:

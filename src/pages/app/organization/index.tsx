@@ -62,10 +62,10 @@ const OrganizationPage: ComponentWithAuth = ({
       {organization && (
         <>
           <Heading as="h4">{organization.name}</Heading>
-          <MemberInvite organizationId={organization.id} />
+          <MemberInvite />
+          <MemberList />
         </>
       )}
-      {/* Missing MemebrList & Invite Form */}
     </DefaultUserLayout>
   );
 };

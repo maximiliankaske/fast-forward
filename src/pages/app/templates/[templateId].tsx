@@ -2,7 +2,7 @@ import { ComponentWithAuth } from "@/components/auth/Auth";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import { useRouter } from "next/router";
 import React from "react";
-import Card from "@/components/survey/Card";
+import Card from "@/components/template/Card";
 import useSWR from "swr";
 import { Question, Template as TemplateType } from "@prisma/client";
 import fetcher from "@/utils/fetcher";

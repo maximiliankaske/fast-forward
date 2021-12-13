@@ -19,6 +19,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           },
           include: {
             templates: true,
+            members: true,
+            invites: true,
           },
         });
         return res.status(200).json(entry);

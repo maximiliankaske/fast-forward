@@ -101,13 +101,14 @@ model Organization {
   updatedAt DateTime   @default(now())
   members   Member[]
   invites   Invite[]
-  templates  Template[]
-  surveys    Survey[]
+  templates Template[]
+  surveys   Survey[]
 }
 
 model Member {
   id             String       @id @default(cuid())
   role           MemberRole   @default(MEMBER)
+  email          String
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 }
@@ -140,7 +141,7 @@ model Question {
   title       String
   description String       @db.MediumText
   type        QuestionType
-  template    Template    @relation(fields: [templateId], references: [id])
+  template    Template     @relation(fields: [templateId], references: [id])
   templateId  String
 }
 

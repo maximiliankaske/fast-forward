@@ -14,7 +14,7 @@ const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {
       case "GET":
         const entries = await prisma.invite.findMany({
           where: {
-            // organizationId:
+            organizationId: session.user.organizationId!,
           },
         });
         return res.status(200).json(entries);

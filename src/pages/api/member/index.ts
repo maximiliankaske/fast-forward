@@ -1,17 +1,22 @@
-import { auth } from "@/lib/firebase-admin";
 import { getOrganizationMembers } from "@/lib/db-admin";
+import prisma from "@/lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
 
 const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { uid } = await auth.verifyIdToken(req.headers.token as string);
-    if (!uid) {
+    const session = await getSession({ req });
+
+    if (!session?.user.organizationId) {
       return res.status(401).end("Not authenticated");
     }
-    const { members } = await getOrganizationMembers(
-      req.query.organizationId as string
-    );
-    res.status(200).json({ members });
+    const entries = await prisma.member.findMany({
+      where: {
+        organizationId: session?.user.organizationId,
+      },
+    });
+
+    res.status(200).json(entries);
   } catch (error) {
     res.status(500).json({ error });
   }

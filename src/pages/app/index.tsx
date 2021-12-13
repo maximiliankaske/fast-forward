@@ -7,11 +7,11 @@ import useOrganization from "@/hooks/useOrganization";
 import Blockquote from "@/components/ui/Blockquote";
 
 const links = [
-  // {
-  //   href: "/app/organization",
-  //   label: "My Organization",
-  //   description: "Manage your organization",
-  // },
+  {
+    href: "/app/organization",
+    label: "My Organization",
+    description: "Manage your organization",
+  },
   {
     href: "/app/projects",
     label: "My Projects",
@@ -33,17 +33,17 @@ const App: ComponentWithAuth = () => {
   const { data } = useOrganization();
   return (
     <DefaultUserLayout>
-      <Heading as="h2" className="text-center mb-6">
+      <Heading as="h2" className="mb-6 text-center">
         Dashboard
       </Heading>
       {/* Reminder to myself when I start a new firebase db */}
-      {!data?.organization && (
+      {!data && (
         <Blockquote>
           You are missing an organization. Please create one before moving
           forward.
         </Blockquote>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2">
         {links.map(({ href, label, description }) => (
           <LinkContainer key={href} href={href}>
             <LinkContainer.Title>{label}</LinkContainer.Title>
@@ -56,5 +56,7 @@ const App: ComponentWithAuth = () => {
 };
 
 App.auth = {};
+
+// getServerSideProps with organization
 
 export default App;

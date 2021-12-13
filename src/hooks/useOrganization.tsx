@@ -1,24 +1,20 @@
-import { useAuth } from "@/lib/auth";
 import useSWR from "swr";
-import { Organization, WithId } from "@/types/index";
 import fetcher from "@/utils/fetcher";
+import { useSession } from "next-auth/react";
+import { Invite, Member, Organization, Template } from "@prisma/client";
 
-const useOrganization = (name?: string) => {
-  const { user, loading } = useAuth();
+const useOrganization = () => {
+  const { data: session } = useSession();
 
-  const { data, mutate } = useSWR<{
-    organization: WithId<Organization> | undefined;
-  }>(
-    (!loading && name) || user?.customClaims?.organizationId
-      ? [
-          `/api/organization/${name || user?.customClaims?.organizationId}`,
-          user?.token,
-        ]
-      : null,
-    fetcher
-  );
+  const { data, mutate } = useSWR<
+    Organization & {
+      templates: Template[];
+      members: Member[];
+      invites: Invite[];
+    }
+  >(`/api/organization/${session?.user.organizationId}`, fetcher);
 
-  return { loading, data, mutate };
+  return { data, mutate };
 };
 
 export default useOrganization;
