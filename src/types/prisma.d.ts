@@ -1,3 +1,9 @@
 declare global {
-  var prisma: PrismaClient;
+  namespace NodeJS {
+    interface Global {
+      prisma: PrismaClient;
+    }
+  }
 }
+
+export {};
