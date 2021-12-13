@@ -20,8 +20,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           include: {
             templates: true,
             members: true,
-            invites: true,
+            invites: {
+              where: { valid: true },
+            },
           },
+        });
+        return res.status(200).json(entry);
+      }
+      case "PUT": {
+        const entry = await prisma.organization.update({
+          where: { id: organizationId },
+          data: req.body,
         });
         return res.status(200).json(entry);
       }

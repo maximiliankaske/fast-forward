@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 import Divider from "@/components/ui/Divider";
 import Input from "@/components/ui/Input";
 import { Organization } from ".prisma/client";
-import fetcher, { creator } from "@/utils/fetcher";
+import fetcher, { creator, updator } from "@/utils/fetcher";
 import React, { FormEvent } from "react";
 import useSWR from "swr";
 import toasts from "@/utils/toast";
@@ -14,6 +14,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getSession, useSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import Heading from "@/components/ui/Heading";
+import Form from "@/components/organization/Form";
 
 // TODO: Missing uniqueness check of the organization
 // Test if name 'Only uses letters, numbers, "_" or "-"'
@@ -34,38 +35,30 @@ const OrganizationPage: ComponentWithAuth = ({
     const target = event.target as typeof event.target & {
       organization: { value: string };
     };
-    toasts.promise(
-      creator(`/api/organization`, { name: target.organization.value }).then(
-        () => mutate()
-      )
+    await toasts.promise(
+      organization
+        ? updator(`/api/organization/${organization.id}`, {
+            name: target.organization.value,
+          })
+        : creator(`/api/organization`, { name: target.organization.value })
     );
+    mutate();
   };
 
   console.log(organization);
 
   return (
     <DefaultUserLayout>
-      <form className="grid gap-4 md:grid-cols-3" onSubmit={onSubmit}>
-        <div className="md:col-span-2">
-          <Input
-            label="Name*"
-            name="organization"
-            placeholder="Acme"
-            pattern={"^[A-Za-z0-9_-]*$"}
-          />
-        </div>
-        <div className="md:col-start-1">
-          <Button type="submit">Submit</Button>
-        </div>
-      </form>
-      <Divider className="py-6" />
-      {organization && (
-        <>
-          <Heading as="h4">{organization.name}</Heading>
-          <MemberInvite />
-          <MemberList />
-        </>
-      )}
+      <div className="space-y-6">
+        <Form defaultValue={organization?.name} onSubmit={onSubmit} />
+        <Divider className="pb-6" />
+        {organization && (
+          <>
+            <MemberInvite />
+            <MemberList />
+          </>
+        )}
+      </div>
     </DefaultUserLayout>
   );
 };

@@ -27,9 +27,9 @@ const Newsletter = () => {
     []
   );
   return (
-    <div className="p-4 border rounded-md bg-gray-50 dark:bg-gray-900">
+    <div className="p-4 border rounded-md dark:border-gray-800 bg-gray-50 dark:bg-black">
       <Heading as="h3">Subscribe to the newsletter</Heading>
-      <p className="text-gray-600 dark:text-gray-400 mb-2">
+      <p className="mb-2 text-gray-600 dark:text-gray-400">
         Get emails about web development, tech, and early access to new
         articles.
       </p>
@@ -43,7 +43,7 @@ const Newsletter = () => {
           className="sm:w-64"
           required
         />
-        <div className="mt-1 flex">
+        <div className="flex mt-1">
           <Button type="submit" reverse className="pl-4 pr-4">
             {form === "loading" ? "Loading..." : "Subscribe"}
           </Button>

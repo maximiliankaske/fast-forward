@@ -34,10 +34,13 @@ const MemberInvite = () => {
           name="email"
           type="email"
           placeholder="college@domain.com"
+          required
         />
       </div>
-      <div className="md:col-start-1">
-        <Button type="submit">Submit</Button>
+      <div className="flex items-end md:col-span-1">
+        <Button size="lg" type="submit">
+          Submit
+        </Button>
       </div>
     </form>
   );

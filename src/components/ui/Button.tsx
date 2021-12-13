@@ -33,7 +33,7 @@ const Button: FC<Props> = ({
     {
       "px-2 py-1": size === "md",
       "px-1 py-px": size === "sm",
-      "px-3 py-2": size === "lg",
+      "px-3 py-2 md:py-[6px]": size === "lg",
     },
     className
   );

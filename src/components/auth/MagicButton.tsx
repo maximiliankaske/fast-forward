@@ -1,11 +1,11 @@
-import { signIn } from "next-auth/react";
+import { signIn, SignInOptions } from "next-auth/react";
 import React from "react";
 
 interface Props {
-  redirect?: string;
+  options?: SignInOptions;
 }
 
-const MagicButton = ({ redirect }: Props) => {
+const MagicButton = ({ options }: Props) => {
   return (
     <form
       onSubmit={(e) => {
@@ -15,7 +15,7 @@ const MagicButton = ({ redirect }: Props) => {
         };
         signIn("email", {
           email: target.email.value,
-          // callbackUrl: "/app",
+          ...options,
         });
       }}
       className="space-y-2"
@@ -24,7 +24,7 @@ const MagicButton = ({ redirect }: Props) => {
         <input
           type="email"
           name="email"
-          className="rounded bg-transparent border border-gray-200 dark:border-gray-800 text-md py-1 px-1"
+          className="px-1 py-1 bg-transparent border border-gray-200 rounded dark:border-gray-800 text-md"
           required
         />
       </div>
