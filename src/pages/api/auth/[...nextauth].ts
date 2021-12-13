@@ -4,6 +4,7 @@ import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import { sendVerificationRequest } from "@/lib/mailer";
+import { signInEvent } from "@/lib/next-auth";
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -32,6 +33,9 @@ export default NextAuth({
       session.user = user;
       return Promise.resolve(session);
     },
+  },
+  events: {
+    signIn: signInEvent,
   },
   pages: {
     signIn: "/auth/signin",

@@ -24,11 +24,11 @@ const Login = () => {
         </div>
         {/* IDEA: make it flex-row on desktop */}
         <div className="flex flex-col items-center max-w-xs mx-auto space-y-4">
-          <GitHubButton redirect="/app" />
+          <GitHubButton options={{ callbackUrl: "/app" }} />
           {/* <GoogleButton redirect="/app" /> */}
           <div className="w-full h-px bg-gray-200 dark:bg-gray-800" />
           {!session.data?.user ? (
-            <MagicButton />
+            <MagicButton options={{ callbackUrl: "/app" }} />
           ) : (
             <>
               <button onClick={() => signOut()}>logout</button>
