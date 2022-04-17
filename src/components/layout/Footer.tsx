@@ -13,35 +13,28 @@ const Footer: FC = () => {
             <Link href="/">Home</Link>
           </div>
           <div>
-            <Link href="/blog">Blog</Link>
-          </div>
-          <div>
             <Link href="/imprint">Imprint</Link>
           </div>
         </div>
         <div className="space-y-4">
           <p className="uppercase text-sm font-semibold">Community</p>
           <div>
-            <a
+            <Link
               href="https://twitter.com/mxkaske"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center"
             >
-              <TwitterIcon className="h-4 w-4 mr-1" />
               Twitter
-            </a>
+            </Link>
           </div>
           <div>
-            <a
+            <Link
               href="https://github.com/maximiliankaske/fast-forward"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center"
             >
-              <GitHubIcon className="h-4 w-4 mr-1" />
               GitHub
-            </a>
+            </Link>
           </div>
         </div>
       </div>

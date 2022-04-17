@@ -1,15 +1,13 @@
 import { useRouter } from "next/router";
-import React, { useCallback, useState } from "react";
+import React from "react";
 import useSWR from "swr";
 import Card from "@/components/feedback/Card";
-import Filter from "@/components/feedback/Filter";
 import Heading from "@/components/ui/Heading";
-import { WithId } from "@/types/index";
 import fetcher, { updator } from "@/utils/fetcher";
 import Link from "@/components/ui/Link";
 import toasts from "@/utils/toast";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
-import { Feedback, FeedbackType, WidgetProject } from ".prisma/client";
+import { Feedback, WidgetProject } from ".prisma/client";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import prisma from "@/lib/prisma";
 
@@ -17,50 +15,26 @@ const ProjectPage = ({
   fallbackData,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   // TODO: instead of state, use type inside url query param
-  const [type, setType] = useState<FeedbackType | "ALL" | "ARCHIVE">("ALL");
   const router = useRouter();
   const projectId = router.query.projectId as string;
   const { data: project, mutate } = useSWR<
     WidgetProject & { feedbacks: Feedback[] }
   >(`/api/projects/${projectId}`, fetcher, { fallbackData });
 
-  const getLength = useCallback(
-    (type: FeedbackType) =>
-      project?.feedbacks?.filter((i) => i.type === type && !i.archived).length,
-    [project?.feedbacks]
-  );
-
-  const getArchiveLength = useCallback(
-    (value: boolean = true) =>
-      project?.feedbacks?.filter((i) => (value ? i.archived : !i.archived))
-        .length,
-    [project?.feedbacks]
-  );
-
-  const handleArchive = useCallback(
-    async (id: string, data: Partial<Feedback>) => {
-      try {
-        // TODO: should be `feedbacks`
-        toasts.promise(
-          updator<Feedback>(`/api/feedback/${id}`, data).then(() => mutate())
-        );
-      } catch {
-        console.warn("Probably unsufficient authorization");
-      }
-    },
-    [mutate]
-  );
+  const handleArchive = async (id: string, data: Partial<Feedback>) => {
+    try {
+      toasts.promise(
+        updator<Feedback>(`/api/feedback/${id}`, data).then(() => mutate())
+      );
+    } catch {
+      console.warn("Probably unsufficient authorization");
+    }
+  };
 
   const onClipboard = () => {
     navigator.clipboard
       .writeText(projectId || "")
       .then(() => toasts.success("clipboard"));
-  };
-
-  const filterByType = (feedback: WithId<Feedback>) => {
-    return type === "ARCHIVE"
-      ? feedback.archived
-      : !feedback.archived && (type === "ALL" || feedback.type === type);
   };
 
   return (
@@ -81,27 +55,7 @@ const ProjectPage = ({
         Settings
       </Link>
       <div className="space-y-6">
-        <Filter
-          types={[
-            {
-              name: "ALL",
-              count: getArchiveLength(false),
-            },
-            {
-              name: "ISSUE",
-              count: getLength("ISSUE"),
-            },
-            { name: "IDEA", count: getLength("IDEA") },
-            {
-              name: "OTHER",
-              count: getLength("OTHER"),
-            },
-            { name: "ARCHIVE", count: getArchiveLength() },
-          ]}
-          activeType={type}
-          onChange={setType}
-        />
-        {project?.feedbacks?.filter(filterByType).map((feedback) => (
+        {project?.feedbacks?.map((feedback) => (
           <Card
             key={feedback.id}
             feedback={feedback}

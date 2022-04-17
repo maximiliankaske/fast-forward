@@ -1,19 +1,21 @@
 import cn from "classnames";
-import React, { FC } from "react";
-import NextLink, { LinkProps as NextLinkProps } from "next/link";
+import React, { AnchorHTMLAttributes, FC } from "react";
+import NextLink from "next/link";
 
-export interface LinkProps extends NextLinkProps {
+export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   className?: string;
 }
 
-const Link: FC<LinkProps> = ({ children, className, ...props }) => {
+const Link: FC<LinkProps> = ({ children, href, className, ...props }) => {
   return (
-    <NextLink {...props}>
+    // FIXME: wtf
+    <NextLink href={href as any}>
       <a
         className={cn(
           className,
           "hover:underline hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:rounded"
         )}
+        {...props}
       >
         {children}
       </a>

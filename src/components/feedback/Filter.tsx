@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import cn from "classnames";
 import Badge from "../ui/Badge";
 import { getBadgeColor } from "@/utils/feedback";
 import { FeedbackType } from ".prisma/client";
+import { Feedback } from "@prisma/client";
 
 interface Props<T = FeedbackType | "ALL" | "ARCHIVE"> {
   types: {
@@ -11,6 +12,7 @@ interface Props<T = FeedbackType | "ALL" | "ARCHIVE"> {
   }[];
   activeType: T;
   onChange: (type: T) => void;
+  feedbacks?: Feedback[];
 }
 
 const Filter = ({ types, activeType, onChange }: Props) => {
