@@ -18,16 +18,7 @@ const App: ComponentWithAuth = () => {
   const { data } = useOrganization();
   return (
     <DefaultUserLayout>
-      <Heading as="h2" className="mb-6 text-center">
-        Dashboard
-      </Heading>
-      {/* TODO: Reminder to myself when I start a new firebase db */}
-      {!data && (
-        <Blockquote>
-          You are missing an organization. Please create one before moving
-          forward.
-        </Blockquote>
-      )}
+      <Heading as="h2">Dashboard</Heading>
       <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2">
         {links.map(({ href, label, description }) => (
           <LinkContainer key={href} href={href}>

@@ -1,8 +1,5 @@
-import { ChevronRightIcon, HomeIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import cn from "classnames";
-import * as uuid from "uuid";
 
 const Breadcrumbs = () => {
   const router = useRouter();
@@ -19,14 +16,12 @@ const Breadcrumbs = () => {
     <nav className="flex overflow-x-scroll" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center space-x-4">
         <li>
-          <Link href="/app">
-            <a className="text-lg">🏡</a>
-          </Link>
+          <Link href="/app">🏡</Link>
         </li>
         {crumbs.map((page) => {
           return (
             <li key={page.name}>
-              <div className="flex items-center text-sm font-medium text-gray-600">
+              <div className="flex items-center text-sm">
                 <div>
                   <span className="flex-shrink-0">/</span>
                 </div>

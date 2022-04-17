@@ -1,10 +1,6 @@
-import { FastForwardIcon, MoonIcon, SunIcon } from "@heroicons/react/solid";
 import { useTheme } from "next-themes";
 import React, { FC, useEffect, useState } from "react";
-import { useAuth } from "@/lib/auth";
 import Link from "../ui/Link";
-import NextLink from "next/link";
-import NavLink from "../navigation/NavLink";
 import cn from "classnames";
 import ProfileMenu from "../navigation/ProfileMenu";
 
@@ -30,12 +26,7 @@ const Header: FC<HeaderProps> = ({ children, withProfile = false }) => {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-4xl xl:px-0 py-3 space-y-3">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-6 sm:space-x-8">
-            <NextLink href="/">
-              <a className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:outline-none">
-                🙋‍♂️ fast-forward
-              </a>
-            </NextLink>
-            <NavLink href="/blog">📚 blog</NavLink>
+            <Link href="/">🙋‍♂️ fast-forward</Link>
           </div>
           <div className="space-x-6 sm:space-x-8 flex items-center">
             {withProfile ? (

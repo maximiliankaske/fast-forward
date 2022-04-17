@@ -1,9 +1,7 @@
 import Features from "@/components/landing/Features";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import Heading from "@/components/ui/Heading";
-import WidgetFABExample from "@/components/widget/WidgetFABExample";
 import React from "react";
-import Newsletter from "@/components/landing/Newsletter";
 import Example from "@/components/landing/Example";
 import DemoButton from "@/components/landing/DemoButton";
 import Snippet from "@/components/landing/Snippet";
@@ -56,8 +54,6 @@ const Home = () => {
       <div className="pb-16 mb:pb-24">
         <Snippet />
       </div>
-      <Newsletter />
-      <WidgetFABExample />
     </DefaultLayout>
   );
 };

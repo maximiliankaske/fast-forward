@@ -1,4 +1,3 @@
-import { ClipboardIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
 import useSWR from "swr";
@@ -9,7 +8,6 @@ import { WithId } from "@/types/index";
 import fetcher, { updator } from "@/utils/fetcher";
 import Link from "@/components/ui/Link";
 import toasts from "@/utils/toast";
-import { CogIcon } from "@heroicons/react/outline";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import { Feedback, FeedbackType, WidgetProject } from ".prisma/client";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
@@ -18,6 +16,7 @@ import prisma from "@/lib/prisma";
 const ProjectPage = ({
   fallbackData,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  // TODO: instead of state, use type inside url query param
   const [type, setType] = useState<FeedbackType | "ALL" | "ARCHIVE">("ALL");
   const router = useRouter();
   const projectId = router.query.projectId as string;
@@ -66,15 +65,13 @@ const ProjectPage = ({
 
   return (
     <DefaultUserLayout>
-      <Heading className="text-center">{project?.name}</Heading>
-      <div className="flex items-center justify-center space-x-1">
-        <p className="font-semibold tracking-tight">Project ID:</p>
+      <Heading>{project?.name}</Heading>
+      <div className="flex items-center space-x-1">
         <button
           className="flex items-center tracking-wide text-gray-600 rounded dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           onClick={onClipboard}
         >
           {projectId}
-          <ClipboardIcon className="w-4 h-4 ml-1" />
         </button>
       </div>
       <Link
@@ -82,7 +79,6 @@ const ProjectPage = ({
         className="inline-flex items-center text-sm"
       >
         Settings
-        <CogIcon className="w-4 h-4 ml-2" />
       </Link>
       <div className="space-y-6">
         <Filter

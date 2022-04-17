@@ -11,6 +11,8 @@
 ## Todo
 
 - [ ] redirect `my.fast-forward.app` to `/pages/app`
+- [ ] update tailwind(/typography)
+- [ ] replace `popper` with `floating-ui`
 
 ## Reminder for myself
 
