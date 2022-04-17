@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Breadcrumbs from "../common/Breadcrumbs";
+import Breadcrumbs from "../navigation/Breadcrumbs";
 import Footer from "./Footer";
 import Header from "./Header";
 

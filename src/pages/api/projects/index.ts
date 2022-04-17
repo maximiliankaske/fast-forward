@@ -8,7 +8,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!session?.user.id) {
       return res.status(401).end("Not authenticated");
     }
-
     switch (req.method) {
       case "GET": {
         const entries = await prisma.widgetProject.findMany({
@@ -28,6 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             name: req.body.name || "",
           },
         });
+        console.log(newEntry);
         return res.status(200).json(newEntry);
       }
       default:

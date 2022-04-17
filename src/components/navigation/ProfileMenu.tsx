@@ -2,16 +2,15 @@ import { Menu, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import cn from "classnames";
 import Image from "next/image";
-import Link from "next/link";
 import { useAuth } from "@/lib/auth";
 
 const nav = [
   {
-    label: "My Organization",
+    label: "organization",
     href: "/app/organization",
   },
   {
-    label: "Log out",
+    label: "log out",
     href: "/auth/signout",
   },
 ];

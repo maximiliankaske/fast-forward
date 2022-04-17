@@ -1,6 +1,5 @@
 import WidgetButtonExample from "../widget/WidgetButtonExample";
 import { useAuth } from "@/lib/auth";
-import feedbackConfig from "@/config/fast-forward.json";
 import React, { useState } from "react";
 import Input from "../ui/Input";
 
@@ -9,7 +8,7 @@ const Example = () => {
   const auth = useAuth();
 
   const buttonProps = {
-    projectId: projectId === "" ? feedbackConfig.projects.main : projectId,
+    projectId,
     userId: auth.user?.email || undefined,
   };
 
@@ -19,7 +18,8 @@ const Example = () => {
         <Input
           name="projectId"
           label="Project Id"
-          placeholder={feedbackConfig.projects.main}
+          // TODO: add default project id
+          placeholder="default project id"
           value={projectId}
           onChange={(event) => setProjectId(event.target.value)}
           srOnly

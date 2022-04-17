@@ -1,7 +1,5 @@
-import { PlusIcon } from "@heroicons/react/solid";
 import React from "react";
 import useSWR from "swr";
-import ProjectEmptyState from "@/components/project/ProjectEmptyState";
 import type { ComponentWithAuth } from "@/components/auth/Auth";
 import Button from "@/components/ui/Button";
 import fetcher, { creator } from "@/utils/fetcher";
@@ -12,6 +10,8 @@ import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { WidgetProject } from ".prisma/client";
+import { FolderAddIcon } from "@heroicons/react/outline";
+import EmptyState from "@/components/common/EmptyState";
 
 const Projects: ComponentWithAuth = ({
   fallbackData,
@@ -29,6 +29,7 @@ const Projects: ComponentWithAuth = ({
       name: `Project #${entries ? entries.length + 1 : 1}`,
     };
     try {
+      // FIXME: even on error, it will succeed
       await toasts.promise(creator("/api/projects", newProject));
       mutate();
     } catch {
@@ -40,12 +41,7 @@ const Projects: ComponentWithAuth = ({
     <DefaultUserLayout>
       {entries && entries.length > 0 ? (
         <>
-          <Button
-            onClick={handleCreate}
-            className="inline-flex items-center"
-            reverse
-          >
-            <PlusIcon className="w-5 h-5 mr-1 -ml-1" aria-hidden="true" />
+          <Button onClick={handleCreate} reverse>
             New Project
           </Button>
           <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2">
@@ -63,7 +59,13 @@ const Projects: ComponentWithAuth = ({
           </div>
         </>
       ) : (
-        <ProjectEmptyState onClick={handleCreate} />
+        <EmptyState
+          title={"No projects"}
+          description="Get started by creating a new project."
+          onClick={handleCreate}
+          buttonTitle={"New Project"}
+          icon={FolderAddIcon}
+        />
       )}
     </DefaultUserLayout>
   );

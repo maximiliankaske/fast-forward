@@ -2,9 +2,7 @@ import { ComponentWithAuth } from "@/components/auth/Auth";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import MemberInvite from "@/components/organization/MemberInvite";
 import MemberList from "@/components/organization/MemberList";
-import Button from "@/components/ui/Button";
 import Divider from "@/components/ui/Divider";
-import Input from "@/components/ui/Input";
 import { Organization } from ".prisma/client";
 import fetcher, { creator, updator } from "@/utils/fetcher";
 import React, { FormEvent } from "react";
@@ -13,8 +11,9 @@ import toasts from "@/utils/toast";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getSession, useSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
-import Heading from "@/components/ui/Heading";
 import Form from "@/components/organization/Form";
+
+// TODO: Check utility here!
 
 // TODO: Missing uniqueness check of the organization
 // Test if name 'Only uses letters, numbers, "_" or "-"'

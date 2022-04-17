@@ -8,24 +8,9 @@ import Blockquote from "@/components/ui/Blockquote";
 
 const links = [
   {
-    href: "/app/organization",
-    label: "My Organization",
-    description: "Manage your organization",
-  },
-  {
     href: "/app/projects",
     label: "My Projects",
     description: "Check the Feedback Widget",
-  },
-  {
-    href: "/app/templates",
-    label: "My Templates",
-    description: "Start your team survey",
-  },
-  {
-    href: "/app/all-templates",
-    label: "All Templates",
-    description: "Duplicate your ideal template",
   },
 ];
 
@@ -36,7 +21,7 @@ const App: ComponentWithAuth = () => {
       <Heading as="h2" className="mb-6 text-center">
         Dashboard
       </Heading>
-      {/* Reminder to myself when I start a new firebase db */}
+      {/* TODO: Reminder to myself when I start a new firebase db */}
       {!data && (
         <Blockquote>
           You are missing an organization. Please create one before moving

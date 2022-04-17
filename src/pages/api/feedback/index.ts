@@ -1,7 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { validate } from "superstruct";
-import { createFeedback, getProject } from "@/lib/db-admin";
-import { Feedback } from "@/types/superstruct";
 import { allowCors } from "@/lib/middleware";
 import prisma from "@/lib/prisma";
 

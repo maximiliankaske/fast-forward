@@ -10,18 +10,7 @@
 
 ## Todo
 
-- [ ] Move Thumbnail into Form Component (to better reset image on successful submit)
-- [ ] Create a `fast-forward-[widget]` npm package for easy integration
-- [ ] self-hosted documentation - [plausible.io example](https://plausible.io/docs/self-hosting)
-- [ ] Rework `/lib/api` using more generic types (currently only string) and make the fields not mandatory. If undefined, return every property.
-- [ ] Add `createdAt` and `updatedAt` props to firebase
-- [ ] Use `_middleware` to instead of `@/lib/middleware`
-- [ ] Missing firebase rules on prod
-- [ ] Make the templates shareable and public to the world.
-
-## Ideas
-
-- [ ] Replace Firebase with Supabase or Planetscale & Prisma
+- [ ] redirect `my.fast-forward.app` to `/pages/app`
 
 ## Reminder for myself
 

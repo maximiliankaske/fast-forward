@@ -20,22 +20,18 @@ const Breadcrumbs = () => {
       <ol role="list" className="flex items-center space-x-4">
         <li>
           <Link href="/app">
-            <a className="text-gray-800 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-pink-500">
-              <HomeIcon className="flex-shrink-0 h-5 w-5" aria-hidden="true" />
-              <span className="sr-only">Home</span>
-            </a>
+            <a className="text-lg">🏡</a>
           </Link>
         </li>
         {crumbs.map((page) => {
           return (
             <li key={page.name}>
-              <div className="flex items-center">
-                <ChevronRightIcon
-                  className="flex-shrink-0 h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
+              <div className="flex items-center text-sm font-medium text-gray-600">
+                <div>
+                  <span className="flex-shrink-0">/</span>
+                </div>
                 <Link href={page.href}>
-                  <a className="ml-4 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-pink-500">
+                  <a className="ml-4">
                     {page.name.length > 16
                       ? `${page.name.slice(0, 14)}...`
                       : page.name}

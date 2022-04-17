@@ -1,7 +1,6 @@
 import React from "react";
 import Widget from "./Widget";
 import { ChatAlt2Icon } from "@heroicons/react/outline";
-import feebackConfig from "@/config/fast-forward.json";
 import { useAuth } from "@/lib/auth";
 
 const WidgetFABExample = () => {
@@ -10,7 +9,7 @@ const WidgetFABExample = () => {
     <div className="fixed bottom-4 left-8">
       <Widget
         version={2}
-        projectId={feebackConfig.projects.main}
+        projectId={"default project id"}
         userId={user?.email || undefined}
         domain="https://fast-forward.app"
       >
