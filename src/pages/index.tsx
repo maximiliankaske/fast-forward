@@ -1,14 +1,10 @@
-import Features from "@/components/landing/Features";
 import DefaultLayout from "@/components/layout/DefaultLayout";
 import Heading from "@/components/ui/Heading";
 import React from "react";
 import Example from "@/components/landing/Example";
 import DemoButton from "@/components/landing/DemoButton";
-import Snippet from "@/components/landing/Snippet";
 import LoginButton from "@/components/landing/LoginButton";
 import ArrowCTA from "@/components/landing/ArrowCTA";
-import Blockquote from "@/components/ui/Blockquote";
-import Link from "@/components/ui/Link";
 
 const Home = () => {
   return (
@@ -37,22 +33,6 @@ const Home = () => {
             <ArrowCTA />
           </div>
         </div>
-      </div>
-      <div className="pb-16 md:pb-24">
-        <Features />
-      </div>
-      <div className="pb-16 mb:pb-24">
-        <Blockquote>
-          <Link href="/blog/welcome">
-            Welcome to <b>Fast Forward</b>
-          </Link>
-          . This project was aimed at open source enthousiasts and people who
-          are curious. It is in <b>Beta</b> and most likely will stay for a
-          while. I would only recommend using it in small projects.
-        </Blockquote>
-      </div>
-      <div className="pb-16 mb:pb-24">
-        <Snippet />
       </div>
     </DefaultLayout>
   );
