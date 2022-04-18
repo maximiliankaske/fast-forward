@@ -1,23 +1,20 @@
 import React from "react";
 import type { ComponentWithAuth } from "@/components/auth/Auth";
-import Heading from "@/components/ui/Heading";
 import LinkContainer from "@/components/common/LinkContainer";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
-import useOrganization from "@/hooks/useOrganization";
 
 const links = [
   {
+    // This could be moved to a config file
     href: "/app/projects",
-    label: "My Projects",
+    label: "my projects 🚀",
     description: "Check the Feedback Widget",
   },
 ];
 
 const App: ComponentWithAuth = () => {
-  const { data } = useOrganization();
   return (
     <DefaultUserLayout>
-      <Heading as="h2">Dashboard</Heading>
       <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2">
         {links.map(({ href, label, description }) => (
           <LinkContainer key={href} href={href}>

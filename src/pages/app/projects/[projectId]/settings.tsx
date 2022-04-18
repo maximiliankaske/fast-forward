@@ -78,54 +78,52 @@ const Settings: ComponentWithAuth = ({
   }, [data?.feedbacks]);
 
   return (
-    <DefaultUserLayout>
-      <div className="pt-6 space-y-8">
-        <form onSubmit={onSubmit}>
-          <Heading as="h3">Project settings</Heading>
-          <Text variant="description">
-            Update your billing information. Please note that updating your
-            location could affect your tax rates.
-          </Text>
-          <Input name="name" label="Name" defaultValue={data?.name} />
-          <Button type="submit" variant="primary">
-            Save
-          </Button>
-        </form>
-        <div>
-          <Heading as="h3">Project Accessibility</Heading>
-          <Text variant="description">
-            Your project is currently set to:{" "}
-            <span className="font-medium text-gray-900 dark:text-white">
-              {!data?.private
-                ? "public (everyone with the link can access it)"
-                : "private (only you have access)"}
-            </span>
-          </Text>
-          <Checkbox
-            label="Private project"
-            name="private-project"
-            checked={!!data?.private}
-            onChange={() => update({ private: !data?.private })}
-          />
-        </div>
-        <div>
-          <Heading as="h3">Reset Project</Heading>
-          <Text variant="description">
-            Removes all feedbacks but keeps the configuration.
-          </Text>
-          <Button onClick={handleReset} variant="danger">
-            Reset
-          </Button>
-        </div>
-        <div>
-          <Heading as="h3">Delete Project</Heading>
-          <Text variant="description">
-            Please note that this is not reversable. Be certain.
-          </Text>
-          <Button onClick={handleDelete} variant="danger">
-            Delete
-          </Button>
-        </div>
+    <DefaultUserLayout messages={{ projectId: data?.name }}>
+      <form onSubmit={onSubmit}>
+        <Heading as="h3">Project settings</Heading>
+        <Text variant="description">
+          Update your billing information. Please note that updating your
+          location could affect your tax rates.
+        </Text>
+        <Input name="name" label="Name" defaultValue={data?.name} />
+        <Button type="submit" variant="primary">
+          Save
+        </Button>
+      </form>
+      <div>
+        <Heading as="h3">Project Accessibility</Heading>
+        <Text variant="description">
+          Your project is currently set to:{" "}
+          <span className="font-medium text-gray-900 dark:text-white">
+            {!data?.private
+              ? "public (everyone with the link can access it)"
+              : "private (only you have access)"}
+          </span>
+        </Text>
+        <Checkbox
+          label="Private project"
+          name="private-project"
+          checked={!!data?.private}
+          onChange={() => update({ private: !data?.private })}
+        />
+      </div>
+      <div>
+        <Heading as="h3">Reset Project</Heading>
+        <Text variant="description">
+          Removes all feedbacks but keeps the configuration.
+        </Text>
+        <Button onClick={handleReset} variant="danger">
+          Reset
+        </Button>
+      </div>
+      <div>
+        <Heading as="h3">Delete Project</Heading>
+        <Text variant="description">
+          Please note that this is not reversable. Be certain.
+        </Text>
+        <Button onClick={handleDelete} variant="danger">
+          Delete
+        </Button>
       </div>
     </DefaultUserLayout>
   );

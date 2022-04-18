@@ -15,7 +15,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             userId: session?.user.id,
           },
           orderBy: {
-            createdAt: "desc",
+            createdAt: "asc",
+          },
+          include: {
+            feedbacks: true,
           },
         });
         return res.status(200).json(entries);

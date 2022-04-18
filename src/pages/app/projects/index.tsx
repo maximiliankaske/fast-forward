@@ -9,24 +9,28 @@ import LinkContainer from "@/components/common/LinkContainer";
 import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { WidgetProject } from ".prisma/client";
+import { WidgetProject, Feedback } from ".prisma/client";
 import { FolderAddIcon } from "@heroicons/react/outline";
 import EmptyState from "@/components/common/EmptyState";
+import { formatDistance } from "date-fns";
 
 const Projects: ComponentWithAuth = ({
   fallbackData,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { data: entries, mutate } = useSWR<WidgetProject[]>(
-    "/api/projects",
-    fetcher,
-    {
-      fallbackData,
-    }
-  );
+  const { data: projects, mutate } = useSWR<
+    (WidgetProject & { feedbacks: Feedback[] })[]
+  >("/api/projects", fetcher, {
+    fallbackData,
+  });
+
+  const words = ["pencil", "hands", "dog", "soup", "hat"];
+  const emojis = ["🎨", "🧤", "👟", "🙈", "🐷", "🍄"];
 
   const handleCreate = async () => {
+    const randomWord = words[Math.floor(Math.random() * words.length)];
+    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
     const newProject = {
-      name: `Project #${entries ? entries.length + 1 : 1}`,
+      name: `${randomWord} ${randomEmoji}`,
     };
     try {
       // FIXME: even on error, it will succeed
@@ -39,23 +43,43 @@ const Projects: ComponentWithAuth = ({
 
   return (
     <DefaultUserLayout>
-      {entries && entries.length > 0 ? (
+      {projects && projects.length > 0 ? (
         <>
           <Button onClick={handleCreate} variant="primary">
-            New Project
+            new project
           </Button>
           <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2">
-            {entries?.map((project, idx) => (
-              <LinkContainer
-                key={project.id}
-                href={`/app/projects/${project.id}`}
-              >
-                <LinkContainer.Title>{project.name}</LinkContainer.Title>
-                <LinkContainer.Description>
-                  ID: {project.id}
-                </LinkContainer.Description>
-              </LinkContainer>
-            ))}
+            {projects?.map((project, idx) => {
+              console.log(project?.feedbacks);
+              const feedbacks =
+                project.feedbacks?.sort(
+                  (a, b) =>
+                    new Date(b.createdAt).getTime() -
+                    new Date(a.createdAt).getTime()
+                ) || [];
+              return (
+                <LinkContainer
+                  key={project.id}
+                  href={`/app/projects/${project.id}`}
+                >
+                  <LinkContainer.Title>{project.name}</LinkContainer.Title>
+                  <LinkContainer.Description>
+                    last feedback{" "}
+                    <span className="italic">
+                      {feedbacks.length > 0
+                        ? formatDistance(
+                            new Date(feedbacks[0].createdAt),
+                            new Date(),
+                            {
+                              addSuffix: true,
+                            }
+                          )
+                        : "missing"}
+                    </span>
+                  </LinkContainer.Description>
+                </LinkContainer>
+              );
+            })}
           </div>
         </>
       ) : (
@@ -73,18 +97,21 @@ const Projects: ComponentWithAuth = ({
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const session = await getSession(ctx);
-  const entries = await prisma.widgetProject.findMany({
+  const projects = await prisma.widgetProject.findMany({
     where: {
       userId: session?.user.id,
     },
+    include: {
+      feedbacks: true,
+    },
     orderBy: {
-      createdAt: "desc",
+      createdAt: "asc",
     },
   });
 
   return {
     props: {
-      fallbackData: entries,
+      fallbackData: projects,
     },
   };
 }
