@@ -19,7 +19,10 @@ export interface BreadcrumbsProps {
 const Breadcrumbs = ({ messages, nextCrumb }: BreadcrumbsProps) => {
   const router = useRouter();
 
-  const paths = router.isReady ? router.asPath.split("/") : [];
+  // TODO: clean up - this is so bad
+  const [routeString, queries] = router.asPath.split("?");
+
+  const paths = router.isReady ? routeString.split("/") : [];
 
   // because it starts with "/..."
   const [e, a, ...crumbs] = paths.map((path) => ({
@@ -30,6 +33,7 @@ const Breadcrumbs = ({ messages, nextCrumb }: BreadcrumbsProps) => {
       : path,
   }));
 
+  console.log(crumbs);
   // we convert the params into readable messages
   const bread = crumbs.map((c) => {
     const value = c;

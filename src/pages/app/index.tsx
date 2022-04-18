@@ -8,7 +8,7 @@ const links = [
     // This could be moved to a config file
     href: "/app/projects",
     label: "my projects 🚀",
-    description: "Check the Feedback Widget",
+    description: "check the feedback widget",
   },
 ];
 
