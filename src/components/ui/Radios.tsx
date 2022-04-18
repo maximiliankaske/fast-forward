@@ -1,5 +1,8 @@
 import React, { InputHTMLAttributes, ReactNode } from "react";
 import cn from "classnames";
+import Label from "./Label";
+
+// TODO: split into a `Radio` Component
 
 interface Props<T> {
   label: ReactNode;
@@ -21,14 +24,9 @@ const Radios = <
 }: Props<T>) => {
   return (
     <div>
-      <label
-        className={cn(
-          "block text-sm font-medium text-gray-700 dark:text-gray-300",
-          { "sr-only": srOnly }
-        )}
-      >
+      <Label htmlFor={name} className={srOnly ? "sr-only" : ""}>
         {label}
-      </label>
+      </Label>
       <div className="flex flex-wrap">
         {Object.keys(options).map((key) => {
           const { label, value, className, ...props } = options[key];

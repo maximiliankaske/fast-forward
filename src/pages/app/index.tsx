@@ -4,7 +4,6 @@ import Heading from "@/components/ui/Heading";
 import LinkContainer from "@/components/common/LinkContainer";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import useOrganization from "@/hooks/useOrganization";
-import Blockquote from "@/components/ui/Blockquote";
 
 const links = [
   {

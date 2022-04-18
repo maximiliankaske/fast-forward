@@ -1,16 +1,17 @@
 import React from "react";
 import Widget from "./Widget";
 import { ChatAlt2Icon } from "@heroicons/react/outline";
-import { useAuth } from "@/lib/auth";
+import { useSession } from "next-auth/react";
 
 const WidgetFABExample = () => {
-  const { user } = useAuth();
+  const session = useSession();
   return (
     <div className="fixed bottom-4 left-8">
       <Widget
         version={2}
         projectId={"default project id"}
-        userId={user?.email || undefined}
+        userId={session?.data?.user.email || null}
+        metadata={null}
         domain="https://fast-forward.app"
       >
         <button className="inline-flex rounded-full shadow-lg bg-white hover:bg-indigo-500 border text-indigo-500 hover:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 font-medium">

@@ -1,6 +1,4 @@
-import { useRouter } from "next/router";
 import React from "react";
-import GitHubIcon from "@/components/icon/GitHub";
 import Button from "@/components/ui/Button";
 import { signIn, SignInOptions } from "next-auth/react";
 
@@ -14,10 +12,9 @@ const GitHubButton = ({ options }: Props) => {
       onClick={async () => {
         await signIn("github", options);
       }}
-      className="inline-flex items-center"
-      reverse
+      variant="primary"
     >
-      Log In with GitHub <GitHubIcon className="w-5 h-5 ml-1 -mr-1" />
+      Log In with GitHub
     </Button>
   );
 };

@@ -1,5 +1,10 @@
 import React, { ReactNode, TextareaHTMLAttributes } from "react";
 import cn from "classnames";
+import Label from "./Label";
+
+const styles = {
+  base: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900",
+};
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: ReactNode;
@@ -16,26 +21,15 @@ const TextArea = ({
 }: Props) => {
   return (
     <div>
-      <label
-        htmlFor={name}
-        className={cn(
-          "block text-sm font-medium text-gray-700 dark:text-gray-300",
-          { "sr-only": srOnly }
-        )}
-      >
+      <Label htmlFor={name} className={srOnly ? "sr-only" : ""}>
         {label}
-      </label>
-      <div className="mt-1">
-        <textarea
-          id={name}
-          name={name}
-          className={cn(
-            "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md text-gray-900",
-            className
-          )}
-          {...props}
-        />
-      </div>
+      </Label>
+      <textarea
+        id={name}
+        name={name}
+        className={cn(styles.base, className)}
+        {...props}
+      />
     </div>
   );
 };

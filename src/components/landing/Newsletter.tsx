@@ -1,5 +1,4 @@
 import React, { FormEvent, useCallback, useRef, useState } from "react";
-import { addNewsletterSubscription } from "@/lib/db";
 import Button from "../ui/Button";
 import Heading from "../ui/Heading";
 import Input from "../ui/Input";
@@ -17,7 +16,7 @@ const Newsletter = () => {
         email: { value: string };
       };
       try {
-        await addNewsletterSubscription(target.email.value);
+        // await addNewsletterSubscription(target.email.value);
         setForm("success");
         formRef.current?.reset();
       } catch (error) {
@@ -44,7 +43,7 @@ const Newsletter = () => {
           required
         />
         <div className="flex mt-1">
-          <Button type="submit" reverse className="pl-4 pr-4">
+          <Button type="submit" variant="primary">
             {form === "loading" ? "Loading..." : "Subscribe"}
           </Button>
         </div>

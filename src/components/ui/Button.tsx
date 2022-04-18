@@ -1,40 +1,40 @@
 import React, { ButtonHTMLAttributes, FC } from "react";
 import cn from "classnames";
 
+const styles = {
+  base: "rounded-md border dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500",
+  variant: {
+    none: "border-transparent hover:bg-gray-50",
+    default: "border-gray-200 bg-white hover:bg-gray-50 text-gray-900",
+    primary: "bg-gray-900 hover:bg-gray-800 text-white",
+    danger: "text-white bg-red-500 hover:bg-red-600",
+  },
+  size: {
+    sm: "px-1 py-px",
+    md: "px-2 py-1",
+    lg: "px-3 py-2 md:py-[6px]",
+  },
+  disabled: "pointer-events-none",
+};
+
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  reverse?: boolean;
-  deconstruct?: boolean;
-  size?: "sm" | "md" | "lg";
+  variant?: keyof typeof styles.variant;
+  size?: keyof typeof styles.size;
 }
 
 const Button: FC<Props> = ({
   children,
-  reverse = false,
-  deconstruct = false,
+  variant = "default",
   size = "md",
   className,
   disabled,
   ...props
 }) => {
   const rootClassName = cn(
-    "shadow-sm rounded-md border border-gray-200 dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500",
-    deconstruct
-      ? {
-          "text-white bg-red-500 hover:bg-red-600": reverse,
-          "text-red-500 hover:bg-red-50": !reverse,
-        }
-      : {
-          "bg-white hover:bg-gray-50 text-gray-900": !reverse,
-          "hover:bg-gray-50": !reverse && !disabled,
-          "bg-gray-900 hover:bg-gray-800 text-white": reverse,
-          "hover:bg-gray-900": reverse && !disabled,
-          "bg-opacity-50 cursor-default": disabled,
-        },
-    {
-      "px-2 py-1": size === "md",
-      "px-1 py-px": size === "sm",
-      "px-3 py-2 md:py-[6px]": size === "lg",
-    },
+    styles.base,
+    styles.variant[variant],
+    styles.size[size],
+    { [styles.disabled]: disabled },
     className
   );
   return (

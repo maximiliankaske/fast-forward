@@ -69,7 +69,7 @@ const Card = ({ feedback, handleArchive }: Props) => {
           ) : null}
         </div>
         <div className="flex items-center justify-end space-x-3">
-          <Button onClick={handleArchive} reverse>
+          <Button onClick={handleArchive} variant="primary">
             {feedback.archived ? "Unarchive" : "Archive"}
           </Button>
           {feedback.userId && (

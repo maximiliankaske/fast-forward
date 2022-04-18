@@ -1,15 +1,15 @@
 import WidgetButtonExample from "../widget/WidgetButtonExample";
-import { useAuth } from "@/lib/auth";
 import React, { useState } from "react";
 import Input from "../ui/Input";
+import { useSession } from "next-auth/react";
 
 const Example = () => {
   const [projectId, setProjectId] = useState("");
-  const auth = useAuth();
+  const session = useSession();
 
   const buttonProps = {
     projectId,
-    userId: auth.user?.email || undefined,
+    userId: session.data?.user.email || null,
   };
 
   return (
@@ -31,7 +31,7 @@ const Example = () => {
         </p>
       </div>
       <div className="flex flex-wrap -ml-2">
-        <WidgetButtonExample version={2} {...buttonProps}>
+        <WidgetButtonExample version={2} metadata={null} {...buttonProps}>
           Give us Feedback
         </WidgetButtonExample>
         <WidgetButtonExample

@@ -18,7 +18,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             id: organizationId,
           },
           include: {
-            templates: true,
             members: true,
             invites: {
               where: { valid: true },

@@ -3,7 +3,7 @@ import { Popover } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import WidgetForm from "./WidgetForm";
 import { LanguageCode } from "./translations";
-import { Feedback } from "@/types/index";
+import { Feedback } from "@prisma/client";
 import { usePopper } from "react-popper";
 import WidgetFormV2 from "./WidgetFormV2";
 

@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
 import "tailwindcss/tailwind.css";
 import "../styles/prism.css";
-import { AuthProvider } from "../lib/auth";
 import { Toaster } from "react-hot-toast";
 import { NextComponentType, NextPageContext } from "next";
 import Auth, { AuthComponentProps } from "@/components/auth/Auth";
@@ -34,23 +33,21 @@ function MyApp({
   pageProps: { session, ...pageProps },
 }: CustomAppProps) {
   return (
-    <AuthProvider>
-      <SessionProvider session={session}>
-        <ThemeProvider attribute="class">
-          <MDXProvider components={components}>
-            <DefaultSeo {...SEO} />
-            {Component.auth ? (
-              <Auth auth={Component.auth}>
-                <Component {...pageProps} />
-              </Auth>
-            ) : (
+    <SessionProvider session={session}>
+      <ThemeProvider attribute="class">
+        <MDXProvider components={components}>
+          <DefaultSeo {...SEO} />
+          {Component.auth ? (
+            <Auth auth={Component.auth}>
               <Component {...pageProps} />
-            )}
-            <Toaster position="top-right" />
-          </MDXProvider>
-        </ThemeProvider>
-      </SessionProvider>
-    </AuthProvider>
+            </Auth>
+          ) : (
+            <Component {...pageProps} />
+          )}
+          <Toaster position="top-right" />
+        </MDXProvider>
+      </ThemeProvider>
+    </SessionProvider>
   );
 }
 export default MyApp;

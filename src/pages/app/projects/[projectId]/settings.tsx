@@ -11,6 +11,9 @@ import { ComponentWithAuth } from "@/components/auth/Auth";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import prisma from "@/lib/prisma";
 import { Feedback, WidgetProject } from ".prisma/client";
+import Checkbox from "@/components/ui/Checkbox";
+import Heading from "@/components/ui/Heading";
+import Text from "@/components/ui/Text";
 
 // TODO: remove publically as state - use the data.project.private boolean
 // Problem: on first render of the Switch Component - it will have no data and so the wrong value
@@ -77,73 +80,51 @@ const Settings: ComponentWithAuth = ({
   return (
     <DefaultUserLayout>
       <div className="pt-6 space-y-8">
-        <form
-          className="overflow-hidden border border-gray-200 rounded-md dark:border-gray-800"
-          onSubmit={onSubmit}
-        >
-          <div className="p-5 space-y-1">
-            <h2 className="text-lg font-medium leading-6">Project settings</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Update your billing information. Please note that updating your
-              location could affect your tax rates.
-            </p>
-            <Input name="name" label="Name" defaultValue={data?.name} />
-          </div>
-          <div className="px-5 py-3 text-right border-t border-gray-200 bg-gray-50 dark:bg-gray-900 dark:border-gray-800">
-            <Button
-              type="submit"
-              // disabled={data?.project.name === name}
-              reverse
-            >
-              Save
-            </Button>
-          </div>
+        <form onSubmit={onSubmit}>
+          <Heading as="h3">Project settings</Heading>
+          <Text variant="description">
+            Update your billing information. Please note that updating your
+            location could affect your tax rates.
+          </Text>
+          <Input name="name" label="Name" defaultValue={data?.name} />
+          <Button type="submit" variant="primary">
+            Save
+          </Button>
         </form>
-        <div className="px-5 py-3 space-y-3 border border-indigo-500 divide-y rounded-md dark:bg-gray-900">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-medium leading-6">
-                Project Accessibility
-              </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Your project is currently set to:{" "}
-                <span className="font-medium text-gray-900 dark:text-white">
-                  {!data?.private
-                    ? "public (everyone with the link can access it)"
-                    : "private (only you have access)"}
-                </span>
-              </p>
-            </div>
-            <Switch
-              checked={!!data?.private}
-              onChange={() => update({ private: !data?.private })}
-              label="Enable public project"
-            />
-          </div>
+        <div>
+          <Heading as="h3">Project Accessibility</Heading>
+          <Text variant="description">
+            Your project is currently set to:{" "}
+            <span className="font-medium text-gray-900 dark:text-white">
+              {!data?.private
+                ? "public (everyone with the link can access it)"
+                : "private (only you have access)"}
+            </span>
+          </Text>
+          <Checkbox
+            label="Private project"
+            name="private-project"
+            checked={!!data?.private}
+            onChange={() => update({ private: !data?.private })}
+          />
         </div>
-        <div className="px-5 py-3 space-y-3 border border-red-500 divide-y divide-gray-200 rounded-md dark:bg-gray-900 dark:divide-gray-800">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-medium leading-6">Reset Project</h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Removes all feedbacks but keeps the configuration.
-              </p>
-            </div>
-            <Button onClick={handleReset} deconstruct>
-              Reset
-            </Button>
-          </div>
-          <div className="flex items-center justify-between pt-3">
-            <div>
-              <h2 className="text-lg font-medium leading-6">Delete Project</h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Please note that this is not reversable. Be certain.
-              </p>
-            </div>
-            <Button onClick={handleDelete} deconstruct reverse>
-              Delete
-            </Button>
-          </div>
+        <div>
+          <Heading as="h3">Reset Project</Heading>
+          <Text variant="description">
+            Removes all feedbacks but keeps the configuration.
+          </Text>
+          <Button onClick={handleReset} variant="danger">
+            Reset
+          </Button>
+        </div>
+        <div>
+          <Heading as="h3">Delete Project</Heading>
+          <Text variant="description">
+            Please note that this is not reversable. Be certain.
+          </Text>
+          <Button onClick={handleDelete} variant="danger">
+            Delete
+          </Button>
         </div>
       </div>
     </DefaultUserLayout>

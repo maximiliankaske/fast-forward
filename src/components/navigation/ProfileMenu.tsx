@@ -2,7 +2,7 @@ import { Menu, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import cn from "classnames";
 import Image from "next/image";
-import { useAuth } from "@/lib/auth";
+import { useSession } from "next-auth/react";
 
 const nav = [
   {
@@ -16,16 +16,16 @@ const nav = [
 ];
 
 const ProfileMenu = () => {
-  const auth = useAuth();
+  const session = useSession();
   return (
     <Menu as="div" className="ml-3 relative">
       <div>
         <Menu.Button className="bg-gray-50 dark:bg-gray-900 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-black focus:ring-indigo-500">
           <span className="sr-only">Open user menu</span>
           <div className="h-8 w-8 rounded-full relative">
-            {auth.user?.photoUrl && (
+            {session.data?.user?.image && (
               <Image
-                src={auth?.user?.photoUrl}
+                src={session.data.user.image}
                 alt=""
                 layout="fill"
                 objectFit="cover"

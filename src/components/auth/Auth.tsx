@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { useRouter } from "next/router";
-import { useAuth } from "@/lib/auth";
 import LoadingIndicator from "../common/LoadingIndicator";
 import { useSession } from "next-auth/react";
 

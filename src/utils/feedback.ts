@@ -15,4 +15,21 @@ function getBadgeColor(type: FeedbackType | "ALL" | "ARCHIVE") {
   }
 }
 
-export { getBadgeColor };
+function getIcon(type: FeedbackType | "ALL" | "ARCHIVE") {
+  switch (type) {
+    case "ALL":
+      return "👋";
+    case "IDEA":
+      return "💡";
+    case "ISSUE":
+      return "🚧";
+    case "OTHER":
+      return "💬";
+    case "ARCHIVE":
+      return "🗃";
+    default:
+      return "";
+  }
+}
+
+export { getBadgeColor, getIcon };

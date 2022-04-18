@@ -1,7 +1,5 @@
-import { useRouter } from "next/router";
 import React from "react";
 import Button from "@/components/ui/Button";
-import { useAuth } from "@/lib/auth";
 import GoogleIcon from "../icon/Google";
 import { signIn } from "next-auth/react";
 

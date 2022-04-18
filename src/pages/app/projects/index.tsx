@@ -41,7 +41,7 @@ const Projects: ComponentWithAuth = ({
     <DefaultUserLayout>
       {entries && entries.length > 0 ? (
         <>
-          <Button onClick={handleCreate} reverse>
+          <Button onClick={handleCreate} variant="primary">
             New Project
           </Button>
           <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2">

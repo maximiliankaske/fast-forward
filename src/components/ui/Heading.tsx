@@ -15,7 +15,7 @@ interface Props extends HTMLAttributes<HTMLHeadingElement> {
 }
 
 const Heading: FC<Props> = ({
-  as: element = "h1",
+  as: element = "h2",
   children,
   className,
   ...props

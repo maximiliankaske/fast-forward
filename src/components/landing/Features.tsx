@@ -7,7 +7,7 @@ const features = [
     name: "Open Source",
     active: true,
     description:
-      "The entire project can be seen on GitHub. Used stack:<br/><b>Next.js</b> + <b>TailwindCSS</b> + <b>Firebase</b>.",
+      "The entire project can be seen on GitHub. Used stack:<br/><b>Next.js</b> + <b>TailwindCSS</b> + <b>Prisma</b>.",
     href: "https://github.com/maximiliankaske/fast-forward",
   },
   {

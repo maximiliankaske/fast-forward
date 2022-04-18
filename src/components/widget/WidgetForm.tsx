@@ -7,14 +7,13 @@ import React, {
 } from "react";
 import Button from "../ui/Button";
 import Radios from "../ui/Radios";
-import { FeedbackType } from "@/types/index";
-import Thumbnail from "./Thumbnail";
 import { WidgetProps } from "./Widget";
 import TextArea from "../ui/TextArea";
 import { formattedMessages } from "./translations";
 import LoadingIcon from "../icon/Loading";
 import { CheckIcon } from "@heroicons/react/solid";
 import toasts from "@/utils/toast";
+import { FeedbackType } from "@prisma/client";
 
 // Basic WidgetForm with Screenshot button
 
@@ -124,9 +123,9 @@ const WidgetForm = ({
         onChange={(event) => setText(event.target.value)}
       />
       <div className="flex space-x-3">
-        <Thumbnail {...{ setScreenshotURL, screenshotURL }} />
+        {/* <Thumbnail {...{ setScreenshotURL, screenshotURL }} /> */}
         <Button
-          reverse
+          variant="primary"
           type="submit"
           className="flex-1"
           disabled={text === ""}
