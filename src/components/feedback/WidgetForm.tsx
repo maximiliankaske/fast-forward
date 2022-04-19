@@ -10,7 +10,6 @@ import Radios from "../ui/Radios";
 import { formattedMessages } from "./translations";
 import LoadingIcon from "../icon/Loading";
 import { CheckIcon } from "@heroicons/react/solid";
-import toasts from "@/utils/toast";
 import { FeedbackType } from "@prisma/client";
 
 // Basic WidgetForm with Screenshot button
@@ -76,24 +75,22 @@ const WidgetForm = ({
     console.log(target);
     try {
       // REMINDER: remove sendFeedbackPromiseToast later
-      await toasts.promise(
-        fetch(`${domain || ""}/api/feedback`, {
-          method: "POST",
-          headers: new Headers({
-            "Content-Type": "application/json",
-          }),
-          body: JSON.stringify({
-            text: target.text.value,
-            type: target.type.value,
-            projectId,
-            // userAgent: window.navigator.userAgent,
-            // location: window.document.location.href,
-            metadata,
-            userId,
-            screenshotURL,
-          }),
-        })
-      );
+      await fetch(`${domain || ""}/api/feedback`, {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+        body: JSON.stringify({
+          text: target.text.value,
+          type: target.type.value,
+          projectId,
+          // userAgent: window.navigator.userAgent,
+          // location: window.document.location.href,
+          metadata,
+          userId,
+          screenshotURL,
+        }),
+      });
       handleReset();
     } catch (error) {
       setForm("error");

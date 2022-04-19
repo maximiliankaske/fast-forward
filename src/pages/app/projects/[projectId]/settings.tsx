@@ -79,19 +79,15 @@ const Settings: ComponentWithAuth = ({
 
   return (
     <DefaultUserLayout messages={{ projectId: data?.name }}>
-      <form onSubmit={onSubmit}>
-        <Heading as="h3">Project settings</Heading>
-        <Text variant="description">
-          Update your billing information. Please note that updating your
-          location could affect your tax rates.
-        </Text>
+      <form onSubmit={onSubmit} className="max-w-md">
         <Input name="name" label="Name" defaultValue={data?.name} />
-        <Button type="submit" variant="primary">
-          Save
-        </Button>
+        <div className="text-right">
+          <Button type="submit" variant="none">
+            Save
+          </Button>
+        </div>
       </form>
-      <div>
-        <Heading as="h3">Project Accessibility</Heading>
+      <div className="my-4">
         <Text variant="description">
           Your project is currently set to:{" "}
           <span className="font-medium text-gray-900 dark:text-white">
@@ -107,23 +103,31 @@ const Settings: ComponentWithAuth = ({
           onChange={() => update({ private: !data?.private })}
         />
       </div>
-      <div>
-        <Heading as="h3">Reset Project</Heading>
-        <Text variant="description">
-          Removes all feedbacks but keeps the configuration.
+      <Heading as="h4">Danger Zone</Heading>
+      <div className="max-w-md grid grid-cols-3">
+        <Text variant="description" className="col-span-2">
+          Removes all feedbacks but keeps the configuration:
         </Text>
-        <Button onClick={handleReset} variant="danger">
-          Reset
-        </Button>
+        <div className="text-right">
+          <Button onClick={handleReset} variant="danger2">
+            Reset
+          </Button>
+        </div>
       </div>
-      <div>
-        <Heading as="h3">Delete Project</Heading>
-        <Text variant="description">
-          Please note that this is not reversable. Be certain.
+      <div className="max-w-md grid grid-cols-3">
+        <Text variant="description" className="col-span-2">
+          Delete your Project. Please note that this is not reversable. Be
+          certain:
         </Text>
-        <Button onClick={handleDelete} variant="danger">
-          Delete
-        </Button>
+        <div className="text-right">
+          <Button
+            onClick={handleDelete}
+            variant="danger2"
+            className="text-right"
+          >
+            Delete
+          </Button>
+        </div>
       </div>
     </DefaultUserLayout>
   );

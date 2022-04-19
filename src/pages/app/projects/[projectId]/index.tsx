@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
 import Heading from "@/components/ui/Heading";
-import fetcher, { updator } from "@/utils/fetcher";
+import fetcher, { deletor, updator } from "@/utils/fetcher";
 import Link from "@/components/ui/Link";
 import toasts from "@/utils/toast";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
@@ -19,6 +19,7 @@ const ProjectPage = ({
   fallbackData,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   // TODO: instead of state, use type inside url query param
+  const [type, setType] = useState("ALL"); // TODO: type!
   const router = useRouter();
   const projectId = router.query.projectId as string;
   const { data: project, mutate } = useSWR<
@@ -41,8 +42,6 @@ const ProjectPage = ({
       .then(() => toasts.success("clipboard"));
   };
 
-  const { filter = "ALL" } = router.query;
-
   return (
     <DefaultUserLayout
       messages={{ projectId: project?.name }}
@@ -51,20 +50,18 @@ const ProjectPage = ({
         name: "settings ⚙️",
       }}
     >
-      <div className="mb-6">
+      <div className="mb-6 text-right">
         <Button onClick={onClipboard} variant="none">
-          {projectId}
+          <span className="font-extralight">id:</span> {projectId}
         </Button>
       </div>
       <div className="flex space-x-3 mb-3">
         {(["ALL", "ISSUE", "IDEA", "OTHER", "ARCHIVE"] as const).map((k) => (
           <Button
             key={k}
-            variant={filter === k ? "primary" : "default"}
+            variant={type === k ? "primary" : "default"}
             className="lowercase"
-            onClick={() =>
-              router.replace(`/app/projects/${projectId}?filter=${k}`)
-            }
+            onClick={() => setType(k)}
           >
             {k} {getIcon(k)}
           </Button>
@@ -73,12 +70,12 @@ const ProjectPage = ({
       <ul role="list" className="space-y-4">
         {project?.feedbacks
           ?.filter((f) => {
-            if (filter === "ALL") {
+            if (type === "ALL") {
               return !f.archived;
-            } else if (filter === "ARCHIVE") {
+            } else if (type === "ARCHIVE") {
               return f.archived;
-            } else if (filter === f.type) {
-              return true;
+            } else if (type === f.type) {
+              return true && !f.archived;
             } else {
               return false;
             }
@@ -163,6 +160,21 @@ const ProjectPage = ({
                   </div>
                 ) : null}
                 <div className="text-right">
+                  <Button
+                    onClick={() => {
+                      const res = confirm("Really want to delete?");
+                      if (res) {
+                        toasts.promise(
+                          deletor(`/api/feedback/${feedback.id}`).then(() =>
+                            router.reload()
+                          )
+                        );
+                      }
+                    }}
+                    variant="danger2"
+                  >
+                    delete
+                  </Button>
                   <Button
                     onClick={() =>
                       handleArchive(feedback.id, {
