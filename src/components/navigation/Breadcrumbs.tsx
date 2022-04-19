@@ -67,11 +67,16 @@ const Breadcrumbs = ({ messages, nextCrumb }: BreadcrumbsProps) => {
         })}
         {nextCrumb ? (
           // TODO: Clean up
-          <li className="flex items-center text-sm opacity-50 hover:opacity-100">
+          <li className="flex items-center text-sm">
             <div className="mr-4">
               <span className="flex-shrink-0">/</span>
             </div>
-            <Link href={nextCrumb.href}>{nextCrumb.name}</Link>
+            <Link
+              href={nextCrumb.href}
+              className="opacity-50 hover:opacity-100"
+            >
+              {nextCrumb.name}
+            </Link>
           </li>
         ) : null}
       </ol>

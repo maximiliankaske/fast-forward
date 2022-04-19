@@ -60,7 +60,7 @@ const ProjectPage = ({
         {(["ALL", "ISSUE", "IDEA", "OTHER", "ARCHIVE"] as const).map((k) => (
           <Button
             key={k}
-            variant={filter === k ? "primary" : "none"}
+            variant={filter === k ? "primary" : "default"}
             className="lowercase"
             onClick={() =>
               router.replace(`/app/projects/${projectId}?filter=${k}`)
@@ -70,7 +70,7 @@ const ProjectPage = ({
           </Button>
         ))}
       </div>
-      <ul role="list" className="divide-y divide-gray-200">
+      <ul role="list" className="space-y-4">
         {project?.feedbacks
           ?.filter((f) => {
             if (filter === "ALL") {
@@ -90,98 +90,89 @@ const ProjectPage = ({
           .map((feedback) => {
             const ua = parser(feedback.userAgent || "");
             return (
-              <li key={feedback.id} className="flex py-4 space-x-3">
-                <div className="flex-shrink-0">
-                  <p className="p-2 text-sm rounded-full bg-gray-100">
+              <li
+                key={feedback.id}
+                className="px-4 py-3 space-y-3 rounded-md bg-gray-50 dark:bg-black dark:border border-gray-900"
+              >
+                <div className="flex justify-between">
+                  <p className="p-2 text-sm rounded-full bg-gray-100 dark:bg-gray-900">
                     {getIcon(feedback.type)}
                   </p>
+                  <Text variant="description">
+                    {formatDistance(new Date(feedback.createdAt), new Date(), {
+                      addSuffix: true,
+                    })}
+                  </Text>
                 </div>
-                <div className="flex-1 pt-1">
-                  <div className="flex justify-between">
-                    <Text className="italic">{`"${feedback.text}"`}</Text>
-                    <Text variant="description" className="flex-shrink-0">
-                      {formatDistance(
-                        new Date(feedback.createdAt),
-                        new Date(),
-                        {
-                          addSuffix: true,
-                        }
-                      )}
-                    </Text>
-                  </div>
-                  <div className="grid grid-cols-3">
-                    <Text className="font-medium">location</Text>
-                    <Text className="col-span-2 font-light text-gray-600">
-                      {feedback.location}
-                    </Text>
-                    <Text className="font-medium">type</Text>
-                    <Text className="col-span-2 font-light text-gray-600">
-                      {feedback.type}
-                    </Text>
-                    <Text className="font-medium">user agent</Text>
-                    <Text className="col-span-2 font-light text-gray-600">
-                      {`${ua.browser.name}, ${ua.os.name} ${ua.os.version}`}
-                    </Text>
-                    {feedback.userId ? (
-                      <>
-                        <Text className="font-medium">user</Text>
-                        <Text className="col-span-2 font-light text-gray-600">
-                          {feedback.userId}
-                        </Text>
-                      </>
-                    ) : null}
-                    {feedback.screenshotURL ? (
-                      <>
-                        <Text className="font-medium">screenshot</Text>
-                        <Text className="col-span-2 font-light text-gray-600">
-                          <Link
-                            href={feedback.screenshotURL}
-                            download
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            download
-                          </Link>
-                        </Text>
-                      </>
-                    ) : null}
-                  </div>
-                  {/* DISCUSS: metadata as details/summary */}
-                  {feedback?.metadata ? (
-                    <div className="mt-3">
-                      <Text
-                        className="uppercase font-medium"
-                        variant="description"
-                      >
-                        metadata
+                <Heading as="h4">{feedback.text}</Heading>
+                <div className="grid grid-cols-3 text-sm">
+                  <Text className="font-medium">location</Text>
+                  <Text className="col-span-2 font-light text-gray-600">
+                    {feedback.location}
+                  </Text>
+                  <Text className="font-medium">user agent</Text>
+                  <Text className="col-span-2 font-light text-gray-600">
+                    {`${ua.browser.name}, ${ua.os.name} ${ua.os.version}`}
+                  </Text>
+                  {feedback.userId ? (
+                    <>
+                      <Text className="font-medium">user</Text>
+                      <Text className="col-span-2 font-light text-gray-600">
+                        {feedback.userId}
                       </Text>
-                      <ul role="list">
-                        {typeof feedback.metadata === "object" &&
-                          !Array.isArray(feedback.metadata) &&
-                          Object.keys(feedback.metadata).map((key) => (
-                            <li key={key} className="grid grid-cols-3">
-                              <Text className="font-medium">{key}</Text>
-                              <Text className="col-span-2 font-light text-gray-600">
-                                {/* @ts-ignore */}
-                                {feedback.metadata![key]}
-                              </Text>
-                            </li>
-                          ))}
-                      </ul>
-                    </div>
+                    </>
                   ) : null}
-                  <div className="text-right">
-                    <Button
-                      onClick={() =>
-                        handleArchive(feedback.id, {
-                          archived: !feedback.archived,
-                        })
-                      }
-                      variant="none"
+                  {feedback.screenshotURL ? (
+                    <>
+                      <Text className="font-medium">screenshot</Text>
+                      <Text className="col-span-2 font-light text-gray-600">
+                        <Link
+                          href={feedback.screenshotURL}
+                          download
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          download
+                        </Link>
+                      </Text>
+                    </>
+                  ) : null}
+                </div>
+                {/* DISCUSS: metadata as details/summary */}
+                {feedback?.metadata ? (
+                  <div>
+                    <Text
+                      className="uppercase font-medium"
+                      variant="description"
                     >
-                      {feedback.archived ? "unarchive" : "archive"}
-                    </Button>
+                      metadata
+                    </Text>
+                    <ul role="list">
+                      {typeof feedback.metadata === "object" &&
+                        !Array.isArray(feedback.metadata) &&
+                        Object.keys(feedback.metadata).map((key) => (
+                          <li key={key} className="grid grid-cols-3">
+                            <Text className="font-medium">{key}</Text>
+                            <Text className="col-span-2 font-light text-gray-600">
+                              {/* @ts-ignore */}
+                              {feedback.metadata![key]}
+                            </Text>
+                          </li>
+                        ))}
+                    </ul>
                   </div>
+                ) : null}
+                <div className="text-right">
+                  <Button
+                    onClick={() =>
+                      handleArchive(feedback.id, {
+                        archived: !feedback.archived,
+                      })
+                    }
+                    variant="none"
+                  >
+                    {feedback.archived ? "unarchive" : "archive"}
+                  </Button>
                 </div>
               </li>
             );

@@ -1,5 +1,5 @@
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import Header from "@/components/layout/Header";
+import Header from "@/components/navigation/Header";
 import Heading from "@/components/ui/Heading";
 import React from "react";
 

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:database": "cd ../fast-forward-emulator && npm run dev",
+    "db:main": "pscale connect fast-forward main",
+    "db:staging": "pscale connect fast-forward staging --port 3307",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

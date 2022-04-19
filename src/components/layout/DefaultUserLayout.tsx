@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Breadcrumbs, { BreadcrumbsProps } from "../navigation/Breadcrumbs";
-import Footer from "./Footer";
-import Header from "./Header";
+import Footer from "../navigation/Footer";
+import Header from "../navigation/Header";
 
 interface Props extends BreadcrumbsProps {}
 

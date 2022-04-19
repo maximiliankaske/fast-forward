@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import cn from "classnames";
-import Footer from "./Footer";
-import Header, { HeaderProps } from "./Header";
+import Footer from "../navigation/Footer";
+import Header, { HeaderProps } from "../navigation/Header";
 
 interface Props extends HeaderProps {
   className?: string;

@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import Button from "../ui/Button";
 import Radios from "../ui/Radios";
-import { WidgetProps } from "./Widget";
 import TextArea from "../ui/TextArea";
 import { formattedMessages } from "./translations";
 import LoadingIcon from "../icon/Loading";
@@ -17,19 +16,43 @@ import { FeedbackType } from "@prisma/client";
 
 // Basic WidgetForm with Screenshot button
 
+interface Props {
+  userId?: string | null;
+  projectId?: string;
+  lang?: string;
+  metadata?: Record<string, string | null | undefined | number>;
+  domain?: string;
+  closePanel: () => void;
+}
+
 const WidgetForm = ({
+  closePanel,
   userId,
+  lang,
   projectId,
-  lang: defaultLang,
   metadata,
   domain,
-}: WidgetProps) => {
+}: Props) => {
   const [form, setForm] = useState<"idle" | "pending" | "error" | "success">(
     "idle"
   );
   const formRef = useRef<HTMLFormElement>(null);
   const [screenshotURL, setScreenshotURL] = useState<string>();
   const [text, setText] = useState<string>("");
+
+  useEffect(() => {
+    let timer: undefined | NodeJS.Timeout;
+    if (form === "success") {
+      timer = setTimeout(() => {
+        closePanel();
+      }, 2000);
+    }
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [form, closePanel]);
 
   useEffect(() => {
     if (text !== "" && form !== "idle") {
@@ -51,6 +74,7 @@ const WidgetForm = ({
       text: { value: string };
       type: { value: FeedbackType };
     };
+    console.log(target);
     try {
       // REMINDER: remove sendFeedbackPromiseToast later
       await toasts.promise(
@@ -78,7 +102,7 @@ const WidgetForm = ({
   };
 
   const messages = formattedMessages(
-    defaultLang || document.documentElement.lang || "en"
+    lang || document.documentElement.lang || "en"
   );
 
   const renderState = () => {
@@ -122,18 +146,15 @@ const WidgetForm = ({
         value={text}
         onChange={(event) => setText(event.target.value)}
       />
-      <div className="flex space-x-3">
-        {/* <Thumbnail {...{ setScreenshotURL, screenshotURL }} /> */}
-        <Button
-          variant="primary"
-          type="submit"
-          className="flex-1"
-          disabled={text === ""}
-          size="sm"
-        >
-          {renderState()}
-        </Button>
-      </div>
+      <Button
+        variant="primary"
+        type="submit"
+        className="w-full"
+        disabled={text === ""}
+        size="sm"
+      >
+        {renderState()}
+      </Button>
     </form>
   );
 };

@@ -7,7 +7,6 @@ import markdownToHtml from "@/lib/markdownToHtml";
 import { getPostBySlug, getAllPosts } from "@/lib/api";
 import Header from "@/components/post/Header";
 import PostLayout from "@/components/layout/PostLayout";
-import WidgetFABExample from "@/components/widget/WidgetFABExample";
 import { NextSeo } from "next-seo";
 
 const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
@@ -32,7 +31,6 @@ const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
           />
         </>
       )}
-      <WidgetFABExample />
     </PostLayout>
   );
 };

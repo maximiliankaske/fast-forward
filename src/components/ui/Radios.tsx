@@ -39,14 +39,14 @@ const Radios = <
                 // key works as value very good!
                 value={value || key}
                 className={cn(
-                  "text-gray-900 mr-2 focus:outline-none focus:ring-2 focus:ring-indigo-500",
+                  "mr-2 focus:outline-none focus:ring-2 focus:ring-indigo-500",
                   className
                 )}
                 {...props}
               />
               <label
                 htmlFor={key}
-                className="text-gray-700 text-sm font-medium"
+                className="text-gray-700 dark:text-gray-300 text-sm font-medium"
               >
                 {label}
               </label>

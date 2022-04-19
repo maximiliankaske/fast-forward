@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import Footer from "./Footer";
-import Header from "./Header";
+import Footer from "../navigation/Footer";
+import Header from "../navigation/Header";
 
 const PostLayout: FC = ({ children }) => {
   return (

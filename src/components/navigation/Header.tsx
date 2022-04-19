@@ -2,7 +2,8 @@ import { useTheme } from "next-themes";
 import React, { FC, useEffect, useState } from "react";
 import Link from "../ui/Link";
 import cn from "classnames";
-import ProfileMenu from "../navigation/ProfileMenu";
+import ProfileMenu from "./ProfileMenu";
+import Widget from "../feedback/Widget";
 
 export interface HeaderProps {
   withProfile?: boolean;
@@ -28,7 +29,8 @@ const Header: FC<HeaderProps> = ({ children, withProfile = false }) => {
           <div className="flex items-center space-x-6 sm:space-x-8">
             <Link href="/">🙋‍♂️ fast-forward</Link>
           </div>
-          <div className="space-x-6 sm:space-x-8 flex items-center">
+          <div className="space-x-5 sm:space-x-6 flex items-center">
+            <Widget />
             {withProfile ? (
               <ProfileMenu />
             ) : (

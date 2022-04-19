@@ -6,7 +6,6 @@ const styles = {
   base: "hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:rounded",
   variant: {
     default: "hover:underline",
-    icon: "", // TODO: scale the icon
   },
 };
 
