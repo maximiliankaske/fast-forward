@@ -21,35 +21,49 @@ const Widget: FC = () => {
   });
   return (
     <Popover>
-      <Popover.Button as="div" ref={setReferenceElement}>
-        <Button>Feedback</Button>
-      </Popover.Button>
-      <Popover.Panel
-        ref={setPopperElement}
-        style={styles.popper}
-        {...attributes.popper}
-        data-html2canvas-ignore
-      >
-        {({ close }) => (
-          <div className="relative bg-white dark:bg-black border border-gray-100 dark:border-gray-900 rounded-xl shadow-lg m-2 p-3 w-72">
-            <button
-              onClick={() => close()}
-              className="absolute right-2 top-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            >
-              <XIcon className="h-5 w-5 text-gray-500" />
-            </button>
-            <WidgetForm
-              projectId={
-                (router.query.projectId as string | undefined) ||
-                "cl23u5hpk0299tcikxlmhvrsg"
-              }
-              userId={session.data?.user.email}
-              lang="en"
-              closePanel={close}
-            />
-          </div>
-        )}
-      </Popover.Panel>
+      {({ open }) => (
+        <>
+          <Popover.Button
+            as="div"
+            className="relative"
+            ref={setReferenceElement}
+          >
+            <Button>Feedback</Button>
+            {!open ? (
+              <span className="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gray-700 dark:bg-gray-300 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-gray-700 dark:bg-gray-300"></span>
+              </span>
+            ) : null}
+          </Popover.Button>
+          <Popover.Panel
+            ref={setPopperElement}
+            style={styles.popper}
+            {...attributes.popper}
+            data-html2canvas-ignore
+          >
+            {({ close }) => (
+              <div className="relative bg-white dark:bg-black border border-gray-100 dark:border-gray-900 rounded-xl shadow-lg m-2 p-3 w-72">
+                <button
+                  onClick={() => close()}
+                  className="absolute right-2 top-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <XIcon className="h-5 w-5 text-gray-500" />
+                </button>
+                <WidgetForm
+                  projectId={
+                    (router.query.projectId as string | undefined) ||
+                    "cl23u5hpk0299tcikxlmhvrsg"
+                  }
+                  userId={session.data?.user.email}
+                  lang="en"
+                  closePanel={close}
+                />
+              </div>
+            )}
+          </Popover.Panel>
+        </>
+      )}
     </Popover>
   );
 };

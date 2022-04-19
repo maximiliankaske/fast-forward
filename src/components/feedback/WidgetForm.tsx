@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import Button from "../ui/Button";
 import Radios from "../ui/Radios";
-import TextArea from "../ui/TextArea";
 import { formattedMessages } from "./translations";
 import LoadingIcon from "../icon/Loading";
 import { CheckIcon } from "@heroicons/react/solid";
@@ -120,29 +119,27 @@ const WidgetForm = ({
     }
   };
 
+  const types = {
+    issue: {
+      label: messages.type.options.issue.label,
+      defaultChecked: true,
+      value: "ISSUE",
+    },
+    idea: { label: messages.type.options.idea.label, value: "IDEA" },
+    other: { label: messages.type.options.other.label, value: "OTHER" },
+  };
+
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
-      <Radios
-        label={messages.type.label}
-        name="type"
-        options={{
-          issue: {
-            label: messages.type.options.issue.label,
-            defaultChecked: true,
-            value: "ISSUE",
-          },
-          idea: { label: messages.type.options.idea.label, value: "IDEA" },
-          other: { label: messages.type.options.other.label, value: "OTHER" },
-        }}
-        srOnly
-      />
-      <TextArea
-        label={messages.comment.label}
+      <Radios label={messages.type.label} name="type" options={types} srOnly />
+      <label className="sr-only" htmlFor="text">
+        Message
+      </label>
+      <textarea
         name="text"
-        className="px-2 py-1 text-sm resize-none"
+        className="px-2 py-1 text-sm resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-100 dark:border-gray-900 rounded-md bg-transparent"
         placeholder={messages.comment.placeholder}
         rows={3}
-        srOnly
         value={text}
         onChange={(event) => setText(event.target.value)}
       />
