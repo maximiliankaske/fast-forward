@@ -102,19 +102,19 @@ const ProjectPage = ({
                   </Text>
                 </div>
                 <Heading as="h4">{feedback.text}</Heading>
-                <div className="grid grid-cols-3 text-sm">
+                <div className="grid sm:grid-cols-3 text-sm">
                   <Text className="font-medium">location</Text>
-                  <Text className="col-span-2 font-light text-gray-600">
+                  <Text className="col-span-2 font-light text-gray-600 truncate">
                     {feedback.location}
                   </Text>
                   <Text className="font-medium">user agent</Text>
-                  <Text className="col-span-2 font-light text-gray-600">
+                  <Text className="col-span-2 font-light text-gray-600 truncate">
                     {`${ua.browser.name}, ${ua.os.name} ${ua.os.version}`}
                   </Text>
                   {feedback.userId ? (
                     <>
                       <Text className="font-medium">user</Text>
-                      <Text className="col-span-2 font-light text-gray-600">
+                      <Text className="col-span-2 font-light text-gray-600 truncate">
                         {feedback.userId}
                       </Text>
                     </>
