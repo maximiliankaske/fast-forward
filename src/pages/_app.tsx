@@ -9,6 +9,15 @@ import Auth, { AuthComponentProps } from "@/components/auth/Auth";
 import { DefaultSeo } from "next-seo";
 import SEO from "@/config/next-seo.config";
 import { SessionProvider } from "next-auth/react";
+import "../styles/nprogress.css";
+import Router from "next/router";
+import NProgress from "nprogress";
+
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
+
+NProgress.configure({ showSpinner: false });
 
 const components = {
   // img: Image,
