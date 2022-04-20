@@ -10,6 +10,12 @@ const links = [
     label: "my projects 🚀",
     description: "check the feedback widget",
   },
+  {
+    // This could be moved to a config file
+    href: "/app/team",
+    label: "my team 👨‍👩‍👧‍👦",
+    description: "invite members",
+  },
 ];
 
 const App: ComponentWithAuth = () => {

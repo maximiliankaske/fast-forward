@@ -8,7 +8,7 @@ const Label: React.FC<LabelProps> = ({ className, ...props }) => {
   return (
     <label
       className={cn(
-        "block text-sm lg:text-base font-medium text-gray-700 mb-1",
+        "block text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 mb-1",
         className
       )}
       {...props}

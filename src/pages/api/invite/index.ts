@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 
-const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const session = await getSession({ req });
 
@@ -14,13 +14,19 @@ const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {
       case "GET":
         const entries = await prisma.invite.findMany({
           where: {
-            organizationId: session.user.organizationId!,
+            userId: session.user.id!,
           },
         });
         return res.status(200).json(entries);
       case "POST": {
+        const now = new Date();
         const newEntry = await prisma.invite.create({
-          data: req.body,
+          data: {
+            ...req.body,
+            userId: session.user.id,
+            // Add two weeks
+            dueTo: new Date(now.setDate(now.getDate() + 14)),
+          },
         });
         return res.status(200).json(newEntry);
       }
@@ -32,4 +38,4 @@ const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default projectsApi;
+export default handler;

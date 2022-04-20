@@ -10,7 +10,7 @@ import toasts from "@/utils/toast";
 import { ComponentWithAuth } from "@/components/auth/Auth";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import prisma from "@/lib/prisma";
-import { Feedback, WidgetProject } from ".prisma/client";
+import { Feedback, Project } from ".prisma/client";
 import Checkbox from "@/components/ui/Checkbox";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
@@ -25,14 +25,14 @@ const Settings: ComponentWithAuth = ({
   const router = useRouter();
   const { projectId } = router.query;
 
-  const { data, mutate } = useSWR<WidgetProject & { feedbacks: Feedback[] }>(
+  const { data, mutate } = useSWR<Project & { feedbacks: Feedback[] }>(
     `/api/projects/${projectId}`,
     fetcher,
     { fallbackData }
   );
 
   const update = useCallback(
-    async (data: Partial<WidgetProject>) => {
+    async (data: Partial<Project>) => {
       toasts.promise(
         updator(`/api/projects/${projectId}`, data).then(() => mutate())
       );
@@ -143,7 +143,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({
   params,
 }: GetStaticPropsContext<{ projectId: string }>) => {
-  const entry = await prisma.widgetProject.findUnique({
+  const entry = await prisma.project.findUnique({
     where: {
       id: params?.projectId,
     },

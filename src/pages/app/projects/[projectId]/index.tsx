@@ -6,7 +6,7 @@ import fetcher, { deletor, updator } from "@/utils/fetcher";
 import Link from "@/components/ui/Link";
 import toasts from "@/utils/toast";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
-import { Feedback, WidgetProject } from "@prisma/client";
+import { Feedback, Project } from "@prisma/client";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import prisma from "@/lib/prisma";
 import Button from "@/components/ui/Button";
@@ -14,6 +14,8 @@ import { getIcon } from "@/utils/feedback";
 import { formatDistance } from "date-fns";
 import Text from "@/components/ui/Text";
 import parser from "ua-parser-js";
+import Badge from "@/components/ui/Badge";
+import { useSession } from "next-auth/react";
 
 const ProjectPage = ({
   fallbackData,
@@ -21,10 +23,13 @@ const ProjectPage = ({
   // TODO: instead of state, use type inside url query param
   const [type, setType] = useState("ALL"); // TODO: type!
   const router = useRouter();
+  const session = useSession();
   const projectId = router.query.projectId as string;
-  const { data: project, mutate } = useSWR<
-    WidgetProject & { feedbacks: Feedback[] }
-  >(`/api/projects/${projectId}`, fetcher, { fallbackData });
+  const { data: project, mutate } = useSWR<Project & { feedbacks: Feedback[] }>(
+    `/api/projects/${projectId}`,
+    fetcher,
+    { fallbackData }
+  );
 
   const handleArchive = async (id: string, data: Partial<Feedback>) => {
     try {
@@ -50,12 +55,15 @@ const ProjectPage = ({
         name: "settings ⚙️",
       }}
     >
-      <div className="mb-6 text-right">
+      <div className="flex justify-between items-center">
+        <div>
+          {project?.teamId !== session.data?.user.teamId && <Badge>team</Badge>}
+        </div>
         <Button onClick={onClipboard} variant="none">
           <span className="font-extralight">id:</span> {projectId}
         </Button>
       </div>
-      <div className="flex space-x-3 mb-3">
+      <div className="flex space-x-3 my-3">
         {(["ALL", "ISSUE", "IDEA", "OTHER", "ARCHIVE"] as const).map((k) => (
           <Button
             key={k}
@@ -204,7 +212,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({
   params,
 }: GetStaticPropsContext<{ projectId: string }>) => {
-  const entry = await prisma.widgetProject.findUnique({
+  const entry = await prisma.project.findUnique({
     where: {
       id: params?.projectId,
     },

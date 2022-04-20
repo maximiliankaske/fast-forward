@@ -40,17 +40,17 @@ model Session {
 }
 
 model User {
-  id             String          @id @default(cuid())
-  name           String?
-  email          String?         @unique
-  emailVerified  DateTime?
-  image          String?
-  organizationId String?
-  // organization? Organization? active organization
-  accounts       Account[]
-  sessions       Session[]
-  widgetProjects WidgetProject[]
-  organizations  Organization[]
+  id            String    @id @default(cuid())
+  teamId        String    @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  projects      Project[]
+  invites       Invite[]
+  members       Member[]
 }
 
 model VerificationToken {
@@ -61,9 +61,10 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model WidgetProject {
+model Project {
   id        String     @id @unique @default(cuid())
   userId    String
+  teamId    String
   name      String
   private   Boolean    @default(true)
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -79,37 +80,27 @@ enum FeedbackType {
 }
 
 model Feedback {
-  id            String        @id @unique @default(cuid())
+  id            String       @id @unique @default(cuid())
   text          String
   projectId     String
-  project       WidgetProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project       Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
   userId        String?
   userAgent     String?
   location      String?
   type          FeedbackType
   screenshotURL String?
   metadata      Json?
-  archived      Boolean       @default(false)
-  createdAt     DateTime      @default(now())
-}
-
-model Organization {
-  id        String     @id @default(cuid())
-  name      String     @unique
-  userId    String
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now())
-  members   Member[]
-  invites   Invite[]
+  archived      Boolean      @default(false)
+  createdAt     DateTime     @default(now())
 }
 
 model Member {
-  id             String       @id @default(cuid())
-  role           MemberRole   @default(MEMBER)
-  email          String
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  id       String     @id @default(cuid())
+  teamId   String
+  role     MemberRole @default(MEMBER)
+  email    String // TODO: remove
+  userId   String?
+  users    User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum MemberRole {
@@ -119,12 +110,12 @@ enum MemberRole {
 }
 
 model Invite {
-  id             String       @id @default(cuid())
-  email          String
-  role           MemberRole   @default(MEMBER)
-  organizationId String
-  valid          Boolean      @default(true)
-  dueTo          DateTime     @default(now())
-  createdAt      DateTime     @default(now())
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  id        String     @id @default(cuid())
+  email     String
+  role      MemberRole @default(MEMBER)
+  valid     Boolean    @default(true)
+  dueTo     DateTime   @default(now())
+  createdAt DateTime   @default(now())
+  userId    String
+  user      User       @relation(fields: [userId], references: [id])
 }

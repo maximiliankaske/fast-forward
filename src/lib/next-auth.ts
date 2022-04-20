@@ -21,16 +21,12 @@ const signInEvent = async ({
       },
     });
     if (invite) {
-      const { role, organizationId, email } = invite;
-      await prisma.user.update({
-        where: { id: user.id },
-        data: {
-          organizationId,
-          organizations: { connect: [{ id: organizationId }] },
-        },
-      });
+      const { role, userId, email } = invite;
+      const user = await prisma.user.findUnique({ where: { id: userId } });
       await prisma.member.create({
-        data: { role, organizationId, email },
+        // remove email from here as well
+        // here, user!.teamId might be false
+        data: { role, userId, email, teamId: user!.teamId },
       });
       await prisma.invite.update({
         where: { id: invite.id },

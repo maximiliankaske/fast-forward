@@ -1,28 +1,37 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import prisma from "@/lib/prisma";
+import { getSession } from "next-auth/react";
 
-// TODO: refactor from firebase
+// TODO: add organization
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    // const { organizationId, memberId } = req.query as {
-    //   organizationId: string;
-    //   memberId: string;
-    // };
-    // const { uid } = await auth.verifyIdToken(req.headers.token as string);
-    // if (!uid) {
-    //   return res.status(401).end("Not authenticated");
-    // }
-    // const { member } =
-    //   (await getOrganizationMember(organizationId, memberId)) || {};
-    // if (member) {
-    //   await auth.setCustomUserClaims(uid, {
-    //     role: member.role,
-    //     organizationId: organizationId,
-    //   });
-    // }
-    return res.status(200).json({});
+    const { memberId } = req.query as { memberId: string };
+    const session = await getSession({ req });
+    if (!session?.user.id) {
+      return res.status(401).end("Not authenticated");
+    }
+    switch (req.method) {
+      case "GET": {
+        const entry = await prisma.member.findUnique({
+          where: {
+            id: memberId,
+          },
+        });
+        return res.status(200).json(entry);
+      }
+      case "PUT": {
+        const entry = await prisma.member.update({
+          where: { id: memberId },
+          data: req.body,
+        });
+        return res.status(200).json(entry);
+      }
+      default:
+        return res.status(405).end(`Method ${req.method} Not Allowed`);
+    }
   } catch (error) {
-    return res.status(500).json({ error });
+    res.status(500).json({ error });
   }
 };
 

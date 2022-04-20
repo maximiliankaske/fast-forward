@@ -18,10 +18,19 @@ const toastMessages = {
       success: "Ok that should never happend",
       error: "You are unauthorized!",
     },
+    create: {
+      loading: "Creating...",
+      success: "Created!",
+      error: "Something went wrong",
+    },
   },
   success: {
     default: "Success!",
     clipboard: "Copied to Clipboard",
+  },
+  blank: {
+    default: "",
+    createProject: "👈 Test it out!",
   },
 };
 
@@ -33,9 +42,13 @@ const promise = (
 const success = (message: keyof typeof toastMessages.success = "default") =>
   toast.success(toastMessages.success[message], toastOptions);
 
+const blank = (message: keyof typeof toastMessages.blank = "default") =>
+  toast(toastMessages.blank[message], toastOptions);
+
 const toasts = {
   promise,
   success,
+  blank,
 };
 
 export default toasts;

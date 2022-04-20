@@ -10,27 +10,40 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
     switch (req.method) {
       case "GET": {
-        const entries = await prisma.widgetProject.findMany({
+        const members = await prisma.member.findMany({
+          where: { userId: session?.user.id },
+        });
+        const projects = await prisma.project.findMany({
           where: {
-            userId: session?.user.id,
-          },
-          orderBy: {
-            createdAt: "asc",
+            OR: [
+              {
+                userId: session?.user.id,
+              },
+              {
+                teamId: {
+                  in: members.map((m) => m.teamId),
+                },
+              },
+            ],
           },
           include: {
             feedbacks: true,
           },
+          orderBy: {
+            createdAt: "desc",
+          },
         });
-        return res.status(200).json(entries);
+        return res.status(200).json(projects);
       }
       case "POST": {
-        const newEntry = await prisma.widgetProject.create({
+        // FIXME: errors are not getting resolved correctly
+        const newEntry = await prisma.project.create({
           data: {
             userId: session.user.id,
+            teamId: session.user.teamId,
             name: req.body.name || "",
           },
         });
-        console.log(newEntry);
         return res.status(200).json(newEntry);
       }
       default:

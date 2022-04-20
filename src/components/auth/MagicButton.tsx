@@ -1,5 +1,6 @@
 import { signIn, SignInOptions } from "next-auth/react";
 import React from "react";
+import Button from "../ui/Button";
 
 interface Props {
   options?: SignInOptions;
@@ -28,9 +29,9 @@ const MagicButton = ({ options }: Props) => {
           required
         />
       </div>
-      <div>
-        <button type="submit">Submit</button>
-      </div>
+      <Button variant="none" type="submit">
+        Submit
+      </Button>
     </form>
   );
 };

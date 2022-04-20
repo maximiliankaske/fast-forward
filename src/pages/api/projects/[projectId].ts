@@ -10,7 +10,7 @@ export default async function handler(
     const session = await getSession({ req });
     const { projectId } = req.query as { projectId: string };
 
-    const entry = await prisma.widgetProject.findUnique({
+    const entry = await prisma.project.findUnique({
       where: {
         id: String(projectId),
       },
@@ -28,7 +28,7 @@ export default async function handler(
         return res.status(200).json(entry);
       }
       case "PUT": {
-        const newEntry = await prisma.widgetProject.update({
+        const newEntry = await prisma.project.update({
           where: {
             id: projectId,
           },
@@ -37,7 +37,7 @@ export default async function handler(
         return res.status(200).json(newEntry);
       }
       case "DELETE": {
-        const deleteEntry = await prisma.widgetProject.delete({
+        const deleteEntry = await prisma.project.delete({
           where: {
             id: projectId,
           },

@@ -4,6 +4,7 @@ import Link from "../ui/Link";
 const emojiDB = {
   projects: "🚀",
   settings: "⚙️",
+  team: "👨‍👩‍👧‍👦",
 };
 
 export interface BreadcrumbsProps {

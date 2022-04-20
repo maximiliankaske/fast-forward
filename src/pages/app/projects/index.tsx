@@ -9,16 +9,19 @@ import LinkContainer from "@/components/common/LinkContainer";
 import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { WidgetProject, Feedback } from ".prisma/client";
+import { Project, Feedback } from ".prisma/client";
 import { FolderAddIcon } from "@heroicons/react/outline";
 import EmptyState from "@/components/common/EmptyState";
 import { formatDistance } from "date-fns";
+import { useRouter } from "next/router";
+import Card from "@/components/project/Card";
 
 const Projects: ComponentWithAuth = ({
   fallbackData,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const router = useRouter();
   const { data: projects, mutate } = useSWR<
-    (WidgetProject & { feedbacks: Feedback[] })[]
+    (Project & { feedbacks: Feedback[] })[]
   >("/api/projects", fetcher, {
     fallbackData,
   });
@@ -34,7 +37,12 @@ const Projects: ComponentWithAuth = ({
     };
     try {
       // FIXME: even on error, it will succeed
-      await toasts.promise(creator("/api/projects", newProject));
+      const project = (await toasts.promise(
+        creator("/api/projects", newProject),
+        "create"
+      )) as Project;
+      toasts.blank("createProject");
+      // router.push(`/app/projects/${project.id}`);
       mutate();
     } catch {
       console.warn("Something went wrong");
@@ -50,35 +58,7 @@ const Projects: ComponentWithAuth = ({
           </Button>
           <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2">
             {projects?.map((project, idx) => {
-              console.log(project?.feedbacks);
-              const feedbacks =
-                project.feedbacks?.sort(
-                  (a, b) =>
-                    new Date(b.createdAt).getTime() -
-                    new Date(a.createdAt).getTime()
-                ) || [];
-              return (
-                <LinkContainer
-                  key={project.id}
-                  href={`/app/projects/${project.id}`}
-                >
-                  <LinkContainer.Title>{project.name}</LinkContainer.Title>
-                  <LinkContainer.Description>
-                    last feedback{" "}
-                    <span className="italic">
-                      {feedbacks.length > 0
-                        ? formatDistance(
-                            new Date(feedbacks[0].createdAt),
-                            new Date(),
-                            {
-                              addSuffix: true,
-                            }
-                          )
-                        : "missing"}
-                    </span>
-                  </LinkContainer.Description>
-                </LinkContainer>
-              );
+              return <Card key={project.id} {...{ project }} />;
             })}
           </div>
         </>
@@ -97,15 +77,28 @@ const Projects: ComponentWithAuth = ({
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const session = await getSession(ctx);
-  const projects = await prisma.widgetProject.findMany({
+  const members = await prisma.member.findMany({
+    where: { userId: session?.user.id },
+  });
+  // DISCUSS: keep the OR query?
+  const projects = await prisma.project.findMany({
     where: {
-      userId: session?.user.id,
+      OR: [
+        {
+          userId: session?.user.id,
+        },
+        {
+          teamId: {
+            in: members.map((m) => m.teamId),
+          },
+        },
+      ],
     },
     include: {
       feedbacks: true,
     },
     orderBy: {
-      createdAt: "asc",
+      createdAt: "desc",
     },
   });
 

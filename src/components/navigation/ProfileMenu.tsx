@@ -10,6 +10,10 @@ const nav = [
     href: "/app/organization",
   },
   {
+    label: "team",
+    href: "/app/team",
+  },
+  {
     label: "log out",
     href: "/auth/signout",
   },
