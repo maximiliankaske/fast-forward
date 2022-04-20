@@ -1,10 +1,11 @@
 import React, { FC } from "react";
+import ThemeSelect from "../common/ThemeSelect";
 import Link from "../ui/Link";
 
 const Footer: FC = () => {
   return (
     <footer className="w-full max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-4xl xl:px-0">
-      <div className="pb-16 grid grid-cols-2">
+      <div className="pb-16 gap-8 grid grid-cols-2 sm:grid-cols-3">
         <div className="space-y-4">
           <p className="uppercase text-sm font-semibold">Sitemap</p>
           <div>
@@ -34,6 +35,9 @@ const Footer: FC = () => {
               GitHub
             </Link>
           </div>
+        </div>
+        <div>
+          <ThemeSelect />
         </div>
       </div>
     </footer>

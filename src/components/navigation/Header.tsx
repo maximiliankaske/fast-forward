@@ -4,19 +4,15 @@ import Link from "../ui/Link";
 import cn from "classnames";
 import ProfileMenu from "./ProfileMenu";
 import Widget from "../feedback/Widget";
+import { useSession } from "next-auth/react";
 
 export interface HeaderProps {
   withProfile?: boolean;
 }
 
 const Header: FC<HeaderProps> = ({ children, withProfile = false }) => {
-  const [mounted, setMounted] = useState(false);
-  const { resolvedTheme, setTheme } = useTheme();
-
-  // After mounting, we have access to the theme
-  useEffect(() => setMounted(true), []);
-
-  const isDarkMode = mounted && resolvedTheme === "dark";
+  const session = useSession();
+  // TODO: use session instead of withProfile
   return (
     <header
       className={cn(
@@ -36,12 +32,6 @@ const Header: FC<HeaderProps> = ({ children, withProfile = false }) => {
             ) : (
               <Link href="/auth/signin">Login</Link>
             )}
-            <button
-              className="p-2"
-              onClick={() => setTheme(isDarkMode ? "light" : "dark")}
-            >
-              {isDarkMode ? "🌒" : "🌔"}
-            </button>
           </div>
         </div>
         {children && <div>{children}</div>}

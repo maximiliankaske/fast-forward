@@ -104,17 +104,17 @@ const ProjectPage = ({
                 <Heading as="h4">{feedback.text}</Heading>
                 <div className="grid sm:grid-cols-3 text-sm">
                   <Text className="font-medium">location</Text>
-                  <Text className="col-span-2 font-light text-gray-600 truncate">
+                  <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400 truncate">
                     {feedback.location}
                   </Text>
                   <Text className="font-medium">user agent</Text>
-                  <Text className="col-span-2 font-light text-gray-600 truncate">
+                  <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400 truncate">
                     {`${ua.browser.name}, ${ua.os.name} ${ua.os.version}`}
                   </Text>
                   {feedback.userId ? (
                     <>
                       <Text className="font-medium">user</Text>
-                      <Text className="col-span-2 font-light text-gray-600 truncate">
+                      <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400 truncate">
                         {feedback.userId}
                       </Text>
                     </>
@@ -122,7 +122,7 @@ const ProjectPage = ({
                   {feedback.screenshotURL ? (
                     <>
                       <Text className="font-medium">screenshot</Text>
-                      <Text className="col-span-2 font-light text-gray-600">
+                      <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400">
                         <Link
                           href={feedback.screenshotURL}
                           download
@@ -150,7 +150,7 @@ const ProjectPage = ({
                         Object.keys(feedback.metadata).map((key) => (
                           <li key={key} className="grid grid-cols-3">
                             <Text className="font-medium">{key}</Text>
-                            <Text className="col-span-2 font-light text-gray-600">
+                            <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400">
                               {/* @ts-ignore */}
                               {feedback.metadata![key]}
                             </Text>
@@ -159,7 +159,7 @@ const ProjectPage = ({
                     </ul>
                   </div>
                 ) : null}
-                <div className="text-right">
+                <div className="text-right space-x-3">
                   <Button
                     onClick={() => {
                       const res = confirm("Really want to delete?");
