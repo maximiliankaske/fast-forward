@@ -204,7 +204,7 @@ export const getServerSideProps = async ({
   req,
   params,
 }: GetServerSidePropsContext<{ projectId: string }>) => {
-  const session = getSession({ req });
+  const session = await getSession({ req });
   const project = await prisma.project.findUnique({
     where: {
       id: params?.projectId,
@@ -216,16 +216,25 @@ export const getServerSideProps = async ({
 
   const member = await prisma.member.findFirst({
     where: {
+      userId: session?.user.id,
       teamId: project?.teamId,
     },
   });
 
-  if (!member) {
+  const authorized = member || session?.user.id === project?.userId;
+
+  if (!authorized) {
     return {
       redirect: {
         destination: "/app",
         permanent: false,
       },
+    };
+  }
+
+  if (!project) {
+    return {
+      notFound: true,
     };
   }
 

@@ -19,7 +19,8 @@ import { getSession } from "next-auth/react";
 // Problem: on first render of the Switch Component - it will have no data and so the wrong value
 // Create Indicator and fetch dat first
 
-const Settings: ComponentWithAuth = ({
+// Settings: ComponentWithAuth removed because of ts error
+const Settings = ({
   fallbackData,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
@@ -158,6 +159,12 @@ export const getServerSideProps = async (
         permanent: false,
         // statusCode: 301,
       },
+    };
+  }
+
+  if (!project) {
+    return {
+      notFound: true,
     };
   }
 

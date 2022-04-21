@@ -11,11 +11,13 @@ import Button from "@/components/ui/Button";
 import { useRouter } from "next/router";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
+import Badge from "@/components/ui/Badge";
 
 const TeamPage: ComponentWithAuth = ({
   members,
   memberOf,
   invites,
+  userOfTeamId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: session } = useSession();
   const router = useRouter();
@@ -40,7 +42,7 @@ const TeamPage: ComponentWithAuth = ({
               Invite
             </Button>
           </form>
-          <Heading>Invites</Heading>
+          <Heading as="h3">Invites</Heading>
           <ul>
             {invites.map((invite) => (
               <li key={invite.id}>
@@ -50,7 +52,7 @@ const TeamPage: ComponentWithAuth = ({
           </ul>
         </div>
         <div className="">
-          <Heading>Members</Heading>
+          <Heading as="h3">Members</Heading>
           <ul>
             {members.map((member) => (
               <li key={member.id}>
@@ -60,11 +62,16 @@ const TeamPage: ComponentWithAuth = ({
           </ul>
         </div>
         <div className="">
-          <Heading>Member Of (teamId)</Heading>
+          <Heading as="h3">Team member from</Heading>
           <ul>
             {memberOf.map((member) => (
               <li key={member.id}>
-                <Text>{member.teamId}</Text>
+                <Badge>
+                  {
+                    userOfTeamId?.find(({ teamId }) => teamId === member.teamId)
+                      ?.email
+                  }
+                </Badge>
               </li>
             ))}
           </ul>
@@ -88,11 +95,25 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const memberOf = await prisma.member.findMany({
     where: { userId: id },
   });
+
+  const userOfTeamId = await prisma.member.findMany({
+    where: {
+      teamId: {
+        in: memberOf.map(({ teamId }) => teamId),
+      },
+    },
+    select: {
+      teamId: true,
+      email: true,
+    },
+  });
+
   return {
     props: {
       members,
       invites,
       memberOf,
+      userOfTeamId,
     },
   };
 };
