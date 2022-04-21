@@ -48,16 +48,14 @@ const ProjectPage = ({
   };
 
   return (
-    <DefaultUserLayout
-      messages={{ projectId: project?.name }}
-      nextCrumb={{
-        href: `/app/projects/${projectId}/settings`,
-        name: "settings ⚙️",
-      }}
-    >
+    <DefaultUserLayout messages={{ projectId: project?.name }}>
       <div className="flex justify-between items-center">
         <div>
-          {project?.teamId !== session.data?.user.teamId && <Badge>team</Badge>}
+          {project?.teamId !== session.data?.user.teamId ? (
+            <Badge>team</Badge>
+          ) : (
+            <Link href={`/app/projects/${projectId}/settings`}>settings</Link>
+          )}
         </div>
         <Button onClick={onClipboard} variant="none">
           <span className="font-extralight">id:</span> {projectId}
@@ -226,6 +224,10 @@ export const getStaticProps = async ({
       fallbackData: entry || undefined,
     },
   };
+};
+
+ProjectPage.auth = {
+  role: "member",
 };
 
 export default ProjectPage;

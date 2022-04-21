@@ -28,6 +28,11 @@ const Auth: FC<AuthComponentProps> = ({ children, auth }) => {
     return <LoadingIndicator />;
   }
 
+  if (auth?.role === "admin") {
+    // AND session.user.member === "member"
+    // router.replace(unauthorized)
+  }
+
   return <>{children}</>;
 };
 

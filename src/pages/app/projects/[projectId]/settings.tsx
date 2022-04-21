@@ -14,6 +14,7 @@ import { Feedback, Project } from ".prisma/client";
 import Checkbox from "@/components/ui/Checkbox";
 import Heading from "@/components/ui/Heading";
 import Text from "@/components/ui/Text";
+import { getSession } from "next-auth/react";
 
 // TODO: remove publically as state - use the data.project.private boolean
 // Problem: on first render of the Switch Component - it will have no data and so the wrong value
@@ -143,6 +144,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({
   params,
 }: GetStaticPropsContext<{ projectId: string }>) => {
+  const session = await getSession();
   const entry = await prisma.project.findUnique({
     where: {
       id: params?.projectId,
@@ -152,6 +154,17 @@ export const getStaticProps = async ({
     },
   });
 
+  // redirect user if not project creator
+  if (session?.user.id !== entry?.userId) {
+    return {
+      redirect: {
+        destination: "/app",
+        permanent: false,
+        statusCode: 301,
+      },
+    };
+  }
+
   return {
     props: {
       fallbackData: entry || undefined,
@@ -159,6 +172,8 @@ export const getStaticProps = async ({
   };
 };
 
-// Settings.auth = {};
+Settings.auth = {
+  role: "admin",
+};
 
 export default Settings;

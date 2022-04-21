@@ -10,14 +10,9 @@ const emojiDB = {
 export interface BreadcrumbsProps {
   messages?: Record<string, string | null | undefined>;
   // by knowing the next router, we can display a slightly lighter
-  // TODO: clean up
-  nextCrumb?: {
-    href: string;
-    name: string;
-  };
 }
 
-const Breadcrumbs = ({ messages, nextCrumb }: BreadcrumbsProps) => {
+const Breadcrumbs = ({ messages }: BreadcrumbsProps) => {
   const router = useRouter();
 
   // TODO: clean up - this is so bad
@@ -66,20 +61,6 @@ const Breadcrumbs = ({ messages, nextCrumb }: BreadcrumbsProps) => {
             </li>
           );
         })}
-        {nextCrumb ? (
-          // TODO: Clean up
-          <li className="flex items-center text-sm">
-            <div className="mr-4">
-              <span className="flex-shrink-0">/</span>
-            </div>
-            <Link
-              href={nextCrumb.href}
-              className="opacity-50 hover:opacity-100"
-            >
-              {nextCrumb.name}
-            </Link>
-          </li>
-        ) : null}
       </ol>
     </nav>
   );
