@@ -98,7 +98,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     where: { userId: id },
   });
 
-  const userOfTeamId = await prisma.member.findMany({
+  // should be the "inviter"
+  const userOfTeamId = await prisma.user.findMany({
     where: {
       teamId: {
         in: memberOf.map(({ teamId }) => teamId),
