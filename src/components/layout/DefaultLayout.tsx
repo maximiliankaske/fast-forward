@@ -12,6 +12,7 @@ const DefaultLayout: FC<Props> = ({ children, className, ...props }) => {
     <div className="min-h-screen flex flex-col">
       <Header {...props} />
       <main
+        id="__main"
         className={cn(
           "max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-4xl xl:px-0 py-12 flex-1 w-full",
           className
