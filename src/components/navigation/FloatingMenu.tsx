@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import cn from "classnames";
 
+// TODO: find better use of it!
+
 interface Props {
   buttons?: {
     label: string;

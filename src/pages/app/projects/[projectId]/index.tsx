@@ -16,6 +16,8 @@ import Text from "@/components/ui/Text";
 import parser from "ua-parser-js";
 import Badge from "@/components/ui/Badge";
 import { getSession, useSession } from "next-auth/react";
+import FloatingMenu from "@/components/navigation/FloatingMenu";
+import cn from "classnames";
 
 const ProjectPage = ({
   fallbackData,
@@ -61,19 +63,19 @@ const ProjectPage = ({
           <span className="font-extralight">id:</span> {projectId}
         </Button>
       </div>
-      <div className="flex space-x-3 my-3">
+      {/* <div className="flex space-x-3 my-4 overflow-x-scroll">
         {(["ALL", "ISSUE", "IDEA", "OTHER", "ARCHIVE"] as const).map((k) => (
           <Button
             key={k}
             variant={type === k ? "primary" : "default"}
-            className="lowercase"
+            className="lowercase flex-shrink-0"
             onClick={() => setType(k)}
           >
             {k} {getIcon(k)}
           </Button>
         ))}
-      </div>
-      <ul role="list" className="space-y-4">
+      </div> */}
+      <ul role="list" className="space-y-4 my-4">
         {project?.feedbacks
           ?.filter((f) => {
             if (type === "ALL") {
@@ -196,6 +198,34 @@ const ProjectPage = ({
             );
           })}
       </ul>
+      <div className="sticky bottom-6">
+        <div className="my-6">
+          <div className="flex justify-center space-x-2 py-6 px-5 bg-white dark:bg-black rounded-full border border-gray-200 dark:border-gray-800 shadow-md">
+            {(["ALL", "ISSUE", "IDEA", "OTHER", "ARCHIVE"] as const)
+              .map((k) => ({
+                label: k.toLowerCase(),
+                icon: getIcon(k),
+                onClick: () => setType(k),
+                active: k === type,
+              }))
+              ?.map((value, key) => (
+                <button
+                  key={key}
+                  onClick={value.onClick}
+                  className={cn(
+                    "p-3 -my-3 flex-shrink-0 rounded-full text-sm sm:text-base",
+                    value.active
+                      ? "bg-gray-100 dark:bg-gray-900"
+                      : "hover:bg-gray-50 dark:hover:bg-gray-900"
+                  )}
+                >
+                  {value.icon}
+                  <span className="sr-only sm:not-sr-only">{` ${value.label}`}</span>
+                </button>
+              ))}
+          </div>
+        </div>
+      </div>
     </DefaultUserLayout>
   );
 };
