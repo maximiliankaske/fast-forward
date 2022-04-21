@@ -38,9 +38,11 @@ const TeamPage: ComponentWithAuth = ({
         <div>
           <form onSubmit={handleSubmit} className="space-y-2 mb-4">
             <Input label="Email" name="email" type="email" />
-            <Button variant="none" type="submit">
-              Invite
-            </Button>
+            <div className="text-right">
+              <Button variant="none" type="submit" className="text-right">
+                Invite
+              </Button>
+            </div>
           </form>
           <Heading as="h3">Invites</Heading>
           <ul>

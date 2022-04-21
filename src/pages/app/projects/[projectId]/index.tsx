@@ -221,7 +221,8 @@ export const getServerSideProps = async ({
     },
   });
 
-  const authorized = member || session?.user.id === project?.userId;
+  const authorized =
+    !project?.private || member || session?.user.id === project?.userId;
 
   if (!authorized) {
     return {

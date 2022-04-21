@@ -95,12 +95,12 @@ model Feedback {
 }
 
 model Member {
-  id       String     @id @default(cuid())
-  teamId   String
-  role     MemberRole @default(MEMBER)
-  email    String // TODO: remove
-  userId   String?
-  users    User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String     @id @default(cuid())
+  teamId String
+  role   MemberRole @default(MEMBER)
+  email  String // TODO: remove
+  userId String?
+  users  User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum MemberRole {
@@ -116,6 +116,7 @@ model Invite {
   valid     Boolean    @default(true)
   dueTo     DateTime   @default(now())
   createdAt DateTime   @default(now())
+  teamId    String
   userId    String
   user      User       @relation(fields: [userId], references: [id])
 }

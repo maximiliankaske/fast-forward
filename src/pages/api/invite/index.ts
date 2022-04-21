@@ -24,6 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           data: {
             ...req.body,
             userId: session.user.id,
+            teamId: session.user.teamId,
             // Add two weeks
             dueTo: new Date(now.setDate(now.getDate() + 14)),
           },
