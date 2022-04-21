@@ -7,7 +7,7 @@ import Link from "@/components/ui/Link";
 import toasts from "@/utils/toast";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import { Feedback, Project } from "@prisma/client";
-import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import prisma from "@/lib/prisma";
 import Button from "@/components/ui/Button";
 import { getIcon } from "@/utils/feedback";
@@ -15,11 +15,11 @@ import { formatDistance } from "date-fns";
 import Text from "@/components/ui/Text";
 import parser from "ua-parser-js";
 import Badge from "@/components/ui/Badge";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 
 const ProjectPage = ({
   fallbackData,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // TODO: instead of state, use type inside url query param
   const [type, setType] = useState("ALL"); // TODO: type!
   const router = useRouter();
@@ -200,17 +200,12 @@ const ProjectPage = ({
   );
 };
 
-export const getStaticPaths = async () => {
-  return {
-    paths: [], //indicates that no page needs be created at build time
-    fallback: "blocking", //indicates the type of fallback
-  };
-};
-
-export const getStaticProps = async ({
+export const getServerSideProps = async ({
+  req,
   params,
-}: GetStaticPropsContext<{ projectId: string }>) => {
-  const entry = await prisma.project.findUnique({
+}: GetServerSidePropsContext<{ projectId: string }>) => {
+  const session = getSession({ req });
+  const project = await prisma.project.findUnique({
     where: {
       id: params?.projectId,
     },
@@ -219,9 +214,24 @@ export const getStaticProps = async ({
     },
   });
 
+  const member = await prisma.member.findFirst({
+    where: {
+      teamId: project?.teamId,
+    },
+  });
+
+  if (!member) {
+    return {
+      redirect: {
+        destination: "/app",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
-      fallbackData: entry || undefined,
+      fallbackData: project || undefined,
     },
   };
 };

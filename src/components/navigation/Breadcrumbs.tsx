@@ -44,7 +44,7 @@ const Breadcrumbs = ({ messages }: BreadcrumbsProps) => {
   return (
     <nav className="flex overflow-x-scroll" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center space-x-4 text-sm">
-        <li>
+        <li className="flex-shrink-0">
           <Link href="/app">home 🏡</Link>
         </li>
         {bread.map((page) => {
@@ -53,7 +53,7 @@ const Breadcrumbs = ({ messages }: BreadcrumbsProps) => {
               <div className="mr-4">
                 <span className="flex-shrink-0">/</span>
               </div>
-              <Link href={page.href}>
+              <Link href={page.href} className="flex-shrink-0">
                 {page.name.length > 16
                   ? `${page.name.slice(0, 14)}...`
                   : page.name}

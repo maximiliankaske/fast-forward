@@ -5,10 +5,9 @@ import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import fetcher, { deletor, updator } from "@/utils/fetcher";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import Switch from "@/components/ui/Switch";
 import toasts from "@/utils/toast";
 import { ComponentWithAuth } from "@/components/auth/Auth";
-import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import prisma from "@/lib/prisma";
 import { Feedback, Project } from ".prisma/client";
 import Checkbox from "@/components/ui/Checkbox";
@@ -22,7 +21,7 @@ import { getSession } from "next-auth/react";
 
 const Settings: ComponentWithAuth = ({
   fallbackData,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
   const { projectId } = router.query;
 
@@ -134,40 +133,37 @@ const Settings: ComponentWithAuth = ({
   );
 };
 
-export const getStaticPaths = async () => {
-  return {
-    paths: [], //indicates that no page needs be created at build time
-    fallback: "blocking", //indicates the type of fallback
-  };
-};
-
-export const getStaticProps = async ({
-  params,
-}: GetStaticPropsContext<{ projectId: string }>) => {
-  const session = await getSession();
-  const entry = await prisma.project.findUnique({
+export const getServerSideProps = async (
+  ctx: GetServerSidePropsContext<{ projectId: string }>
+) => {
+  const session = await getSession(ctx);
+  const project = await prisma.project.findUnique({
     where: {
-      id: params?.projectId,
+      id: ctx.params?.projectId,
+      // findUnique only accepts "id"
+      // userId: session?.user?.id, // only creator can access project
     },
     include: {
       feedbacks: true,
     },
   });
 
+  console.log(session, project);
+
   // redirect user if not project creator
-  if (session?.user.id !== entry?.userId) {
+  if (session?.user.id !== project?.userId) {
     return {
       redirect: {
         destination: "/app",
         permanent: false,
-        statusCode: 301,
+        // statusCode: 301,
       },
     };
   }
 
   return {
     props: {
-      fallbackData: entry || undefined,
+      fallbackData: project || undefined,
     },
   };
 };
