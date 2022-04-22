@@ -7,8 +7,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Button from "../ui/Button";
 
-const PROJECT_ID = "cl29f1q9s000009lam74aeq4j";
-
 const Widget: FC = () => {
   const router = useRouter();
   const session = useSession();
@@ -55,7 +53,7 @@ const Widget: FC = () => {
                 <WidgetForm
                   projectId={
                     (router.query.projectId as string | undefined) ||
-                    process.env.DEMO_PROJECT_ID
+                    process.env.NEXT_PUBLIC_DEMO_PROJECT_ID
                   }
                   userId={session.data?.user.email}
                   lang="en"

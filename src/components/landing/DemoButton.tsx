@@ -3,7 +3,7 @@ import React from "react";
 import { ExternalLinkIcon } from "@heroicons/react/solid";
 
 const DemoButton = () => (
-  <Link href={`/app/projects/${process.env.DEMO_PROJECT_ID}`}>
+  <Link href={`/app/projects/${process.env.NEXT_PUBLIC_DEMO_PROJECT_ID}`}>
     <a
       target="_blank"
       className="inline-flex items-center px-4 py-2 text-white bg-gray-900 border rounded-full shadow dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
