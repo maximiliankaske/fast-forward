@@ -202,7 +202,7 @@ const ProjectPage = ({
             );
           })}
       </ul>
-      <div className="sticky bottom-6">
+      <div className="sticky bottom-6 max-w-max mx-auto">
         <div className="my-6">
           <div className="flex justify-center space-x-2 py-6 px-5 bg-white dark:bg-black rounded-full border border-gray-200 dark:border-gray-800 shadow-md">
             {(["ALL", "ISSUE", "IDEA", "OTHER", "ARCHIVE"] as const)
