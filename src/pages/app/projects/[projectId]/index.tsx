@@ -49,13 +49,17 @@ const ProjectPage = ({
       .then(() => toasts.success("clipboard"));
   };
 
+  const ownProject = project?.teamId === session.data?.user.teamId;
+
   return (
     <DefaultUserLayout messages={{ projectId: project?.name }}>
-      <div className="flex justify-between items-center">
-        <div>
-          {project?.teamId !== session.data?.user.teamId ? (
-            <Badge>team</Badge>
-          ) : (
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:space-x-3 space-y-3 sm:space-y-0">
+        <div className="flex items-center justify-between space-x-3">
+          <div className="space-x-3">
+            {!project?.private ? <Badge>public</Badge> : null}
+            {!ownProject ? <Badge>team</Badge> : null}
+          </div>
+          {ownProject && (
             <Link href={`/app/projects/${projectId}/settings`}>settings</Link>
           )}
         </div>

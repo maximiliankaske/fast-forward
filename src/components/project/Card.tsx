@@ -21,6 +21,11 @@ const Card = ({ project }: Props) => {
     <LinkContainer key={project.id} href={`/app/projects/${project.id}`}>
       <LinkContainer.Title>
         {project.name}
+        {!project?.private && (
+          <Badge size="sm" className="ml-2">
+            public
+          </Badge>
+        )}
         {project?.teamId !== session.data?.user.teamId && (
           <Badge size="sm" className="ml-2">
             team
