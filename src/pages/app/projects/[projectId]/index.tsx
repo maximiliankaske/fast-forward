@@ -14,6 +14,7 @@ import Badge from "@/components/ui/Badge";
 import { getSession, useSession } from "next-auth/react";
 import cn from "classnames";
 import Card from "@/components/feedback/Card";
+import Banner from "@/components/common/Banner";
 
 const ProjectPage = ({
   fallbackData,
@@ -39,6 +40,12 @@ const ProjectPage = ({
 
   return (
     <DefaultUserLayout messages={{ projectId: project?.name }}>
+      <Banner id="new-to-projects" className="mb-4">
+        <Banner.Title>{`Want to try it out now?`}</Banner.Title>
+        <Banner.Description>
+          {`Click the 'feedback' button on the top right corner inside one of your projects to automatically send a feedback to yourself!`}
+        </Banner.Description>
+      </Banner>
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:space-x-3 space-y-3 sm:space-y-0">
         <div className="flex items-center justify-between space-x-3">
           <div className="space-x-3">
