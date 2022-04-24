@@ -18,7 +18,7 @@ const Header: FC = ({ children }) => {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-4xl xl:px-0 py-3 space-y-3">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-6 sm:space-x-8">
-            <Link href="/">🙋‍♂️ fast-forward</Link>
+            <Link href="/">fast-forward</Link>
           </div>
           <div className="space-x-5 sm:space-x-6 flex items-center">
             <Link href="/docs">docs</Link>

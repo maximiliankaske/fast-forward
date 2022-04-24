@@ -5,14 +5,12 @@ import Button from "@/components/ui/Button";
 import fetcher, { creator } from "@/utils/fetcher";
 import toasts from "@/utils/toast";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
-import LinkContainer from "@/components/common/LinkContainer";
 import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { Project, Feedback } from ".prisma/client";
 import { FolderAddIcon } from "@heroicons/react/outline";
 import EmptyState from "@/components/common/EmptyState";
-import { formatDistance } from "date-fns";
 import { useRouter } from "next/router";
 import Card from "@/components/project/Card";
 
