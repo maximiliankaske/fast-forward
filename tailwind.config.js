@@ -3,8 +3,7 @@ const colors = require("tailwindcss/colors");
 const { spacing, fontFamily } = defaultTheme;
 
 module.exports = {
-  mode: "jit",
-  purge: ["./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
@@ -14,6 +13,19 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Oxygen", ...fontFamily.sans],
+      },
+      keyframes: {
+        "move-bg": {
+          from: {
+            backgroundPosition: "0% 0",
+          },
+          to: {
+            backgroundPosition: "400% 0",
+          },
+        },
+      },
+      animation: {
+        "move-bg": "move-bg 8s infinite linear",
       },
       typography: (theme) => ({
         DEFAULT: {

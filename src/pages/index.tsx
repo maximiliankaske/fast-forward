@@ -3,7 +3,6 @@ import Heading from "@/components/ui/Heading";
 import React from "react";
 import DemoButton from "@/components/landing/DemoButton";
 import LoginButton from "@/components/landing/LoginButton";
-import ArrowCTA from "@/components/landing/ArrowCTA";
 
 const Home = () => {
   return (
@@ -16,7 +15,7 @@ const Home = () => {
         <div className="md:col-span-3">
           <Heading as="h4">
             {`You want to collect feedback fast, reliable and without any big setup? Welcome to `}
-            <span className="text-indigo-500 dark:text-pink-500 font-extrabold">
+            <span className="animate-move-bg bg-gradient-to-r from-indigo-500 via-pink-500 to-indigo-500 bg-[length:400%] bg-clip-text text-transparent font-extrabold">
               Fast Forward
             </span>
             .
