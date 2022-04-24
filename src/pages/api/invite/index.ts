@@ -1,20 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
+import { withAuth } from "@/lib/middleware";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const session = await getSession({ req });
 
-    if (!session?.user.id) {
-      return res.status(401).end("Not authenticated");
-    }
-
     switch (req.method) {
       case "GET":
         const entries = await prisma.invite.findMany({
           where: {
-            userId: session.user.id!,
+            userId: session!.user.id,
           },
         });
         return res.status(200).json(entries);
@@ -23,8 +20,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const newEntry = await prisma.invite.create({
           data: {
             ...req.body,
-            userId: session.user.id,
-            teamId: session.user.teamId,
+            userId: session!.user.id,
+            teamId: session!.user.teamId,
             // Add two weeks
             dueTo: new Date(now.setDate(now.getDate() + 14)),
           },
@@ -39,4 +36,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default handler;
+export default withAuth(handler);

@@ -280,8 +280,9 @@ export const getServerSideProps = async ({
   };
 };
 
-ProjectPage.auth = {
-  role: "member",
-};
+// TODO: do **not** uncomment. Otherwise the page will be wrapped by <Auth/>
+// ProjectPage.auth = {
+//   role: "member",
+// };
 
 export default ProjectPage;

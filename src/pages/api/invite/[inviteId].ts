@@ -1,3 +1,4 @@
+import { withAuth } from "@/lib/middleware";
 import prisma from "@/lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
@@ -5,10 +6,6 @@ import { getSession } from "next-auth/react";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const session = await getSession({ req });
-
-    if (!session?.user.id) {
-      return res.status(401).end("Not authenticated");
-    }
     const { inviteId } = req.query as { inviteId: string };
     switch (req.method) {
       case "PUT": {
@@ -31,4 +28,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default handler;
+export default withAuth(handler);

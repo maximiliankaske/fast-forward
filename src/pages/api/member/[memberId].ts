@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 import { getSession } from "next-auth/react";
+import { withAuth } from "@/lib/middleware";
 
 // TODO: add organization
 
@@ -8,9 +9,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { memberId } = req.query as { memberId: string };
     const session = await getSession({ req });
-    if (!session?.user.id) {
-      return res.status(401).end("Not authenticated");
-    }
     switch (req.method) {
       case "GET": {
         const entry = await prisma.member.findUnique({
@@ -35,4 +33,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default handler;
+export default withAuth(handler);

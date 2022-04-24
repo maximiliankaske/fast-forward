@@ -10,7 +10,7 @@ export default async function handler(
     const session = await getSession({ req });
     const { projectId } = req.query as { projectId: string };
 
-    const entry = await prisma.project.findUnique({
+    const project = await prisma.project.findUnique({
       where: {
         id: String(projectId),
       },
@@ -19,15 +19,19 @@ export default async function handler(
       },
     });
 
-    if (!session?.user.id && entry?.private) {
-      return res.status(401).end("Not authenticated");
-    }
+    const ownProject = session?.user.id === project?.userId;
 
     switch (req.method) {
       case "GET": {
-        return res.status(200).json(entry);
+        if (!session?.user.id && project?.private) {
+          return res.status(401).end("Not authenticated");
+        }
+        return res.status(200).json(project);
       }
       case "PUT": {
+        if (!ownProject) {
+          return res.status(401).end("Not authenticated");
+        }
         const newEntry = await prisma.project.update({
           where: {
             id: projectId,
@@ -37,6 +41,9 @@ export default async function handler(
         return res.status(200).json(newEntry);
       }
       case "DELETE": {
+        if (!ownProject) {
+          return res.status(401).end("Not authenticated");
+        }
         const deleteEntry = await prisma.project.delete({
           where: {
             id: projectId,

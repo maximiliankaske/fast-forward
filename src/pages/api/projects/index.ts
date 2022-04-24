@@ -5,9 +5,6 @@ import { getSession } from "next-auth/react";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const session = await getSession({ req });
-    if (!session?.user.id) {
-      return res.status(401).end("Not authenticated");
-    }
     switch (req.method) {
       case "GET": {
         const members = await prisma.member.findMany({
@@ -39,8 +36,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         // FIXME: errors are not getting resolved correctly
         const newEntry = await prisma.project.create({
           data: {
-            userId: session.user.id,
-            teamId: session.user.teamId,
+            userId: session!.user.id,
+            teamId: session!.user.teamId,
             name: req.body.name || "",
           },
         });

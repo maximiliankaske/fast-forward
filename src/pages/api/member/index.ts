@@ -1,19 +1,17 @@
+import { withAuth } from "@/lib/middleware";
 import prisma from "@/lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 
-const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const session = await getSession({ req });
-    if (!session?.user.teamId) {
-      return res.status(401).end("Not authenticated");
-    }
 
     switch (req.method) {
       case "GET":
         const entries = await prisma.member.findMany({
           where: {
-            teamId: session?.user.teamId,
+            teamId: session!.user.teamId,
           },
         });
         return res.status(200).json(entries);
@@ -31,4 +29,4 @@ const projectsApi = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default projectsApi;
+export default withAuth(handler);

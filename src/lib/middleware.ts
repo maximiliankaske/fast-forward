@@ -1,31 +1,28 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
 
 export type NextApiRequestWithToken = NextApiRequest & {
   token: string;
 };
 
-export function withProjectAuth(
+export function withAuth(
   handler: (
     req: NextApiRequestWithToken,
     res: NextApiResponse
-  ) => void | Promise<void>
+  ) => Promise<void | NextApiResponse<any>>
 ) {
   return async (req: NextApiRequestWithToken, res: NextApiResponse) => {
     try {
-      // const { project } = await getProject(req.query.projectId as string);
-      // if (project.private) {
-      //   const { uid } = await auth.verifyIdToken(req.headers.token as string);
-      //   if (!uid) {
-      //     return res.status(401).end("Not authenticated");
-      //   }
-      //   if (uid !== project?.authorId) {
-      //     return res.status(401).end("Not authorized");
-      //   }
+      const session = await getSession({ req });
+      if (!session?.user.id) {
+        return res.status(401).end("Not authenticated");
+      }
+      // else if (session?.user.teamId) {
+      //    return res.status(401).end("Not authorized");
       // }
     } catch (error) {
       return res.status(500).json({ error });
     }
-
     return handler(req, res);
   };
 }
