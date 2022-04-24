@@ -91,6 +91,7 @@ model Feedback {
   screenshotURL String?
   metadata      Json?
   archived      Boolean      @default(false)
+  starred Boolean @default(false)
   createdAt     DateTime     @default(now())
 }
 

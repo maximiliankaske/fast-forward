@@ -8,7 +8,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       case "POST":
         const location = req.headers.referer;
         const userAgent = req.headers["user-agent"];
-        console.log(req.body);
         const entry = await prisma.feedback.create({
           data: {
             ...req.body,
@@ -16,7 +15,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             ...(userAgent && { userAgent }),
           },
         });
-        console.log("POST done");
         return res.status(200).json(entry);
       default:
         return res.status(405).end(`Method ${req.method} Not Allowed`);

@@ -9,6 +9,7 @@ const styles = {
     primary: "bg-gray-900 hover:bg-gray-800 text-white",
     danger: "text-white bg-red-500 hover:bg-red-600",
     danger2: "border-transparent dark:hover:border-red-500 text-red-500",
+    star: "text-yellow-500 border-transparent dark:hover:border-yellow-500",
   },
   size: {
     sm: "px-1 py-px",

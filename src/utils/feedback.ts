@@ -15,7 +15,7 @@ function getBadgeColor(type: FeedbackType | "ALL" | "ARCHIVE") {
   }
 }
 
-function getIcon(type: FeedbackType | "ALL" | "ARCHIVE") {
+function getIcon(type: FeedbackType | "ALL" | "ARCHIVE" | "STAR") {
   switch (type) {
     case "ALL":
       return "👋";
@@ -27,6 +27,8 @@ function getIcon(type: FeedbackType | "ALL" | "ARCHIVE") {
       return "💬";
     case "ARCHIVE":
       return "🗃";
+    case "STAR":
+      return "⭐️";
     default:
       return "";
   }

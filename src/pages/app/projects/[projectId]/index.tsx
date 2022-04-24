@@ -33,13 +33,18 @@ const ProjectPage = ({
     { fallbackData }
   );
 
-  const handleArchive = async (id: string, data: Partial<Feedback>) => {
+  const handleUpdate = async (id: string, data: Partial<Feedback>) => {
     try {
-      toasts.promise(
-        updator<Feedback>(`/api/feedback/${id}`, data).then(() => mutate())
-      );
+      toasts.promise(updator(`/api/feedback/${id}`, data).then(() => mutate()));
     } catch {
       console.warn("Probably unsufficient authorization");
+    }
+  };
+
+  const handleDelete = (id: string) => {
+    const res = confirm("Really want to delete?");
+    if (res) {
+      toasts.promise(deletor(`/api/feedback/${id}`).then(() => mutate()));
     }
   };
 
@@ -67,18 +72,6 @@ const ProjectPage = ({
           <span className="font-extralight">id:</span> {projectId}
         </Button>
       </div>
-      {/* <div className="flex space-x-3 my-4 overflow-x-scroll">
-        {(["ALL", "ISSUE", "IDEA", "OTHER", "ARCHIVE"] as const).map((k) => (
-          <Button
-            key={k}
-            variant={type === k ? "primary" : "default"}
-            className="lowercase flex-shrink-0"
-            onClick={() => setType(k)}
-          >
-            {k} {getIcon(k)}
-          </Button>
-        ))}
-      </div> */}
       <ul role="list" className="space-y-4 my-4">
         {project?.feedbacks
           ?.filter((f) => {
@@ -86,6 +79,8 @@ const ProjectPage = ({
               return !f.archived;
             } else if (type === "ARCHIVE") {
               return f.archived;
+            } else if (type === "STAR" && f.starred) {
+              return true;
             } else if (type === f.type) {
               return true && !f.archived;
             } else {
@@ -173,23 +168,24 @@ const ProjectPage = ({
                 ) : null}
                 <div className="text-right space-x-3">
                   <Button
-                    onClick={() => {
-                      const res = confirm("Really want to delete?");
-                      if (res) {
-                        toasts.promise(
-                          deletor(`/api/feedback/${feedback.id}`).then(() =>
-                            router.reload()
-                          )
-                        );
-                      }
-                    }}
+                    onClick={() => handleDelete(feedback.id)}
                     variant="danger2"
                   >
                     delete
                   </Button>
                   <Button
                     onClick={() =>
-                      handleArchive(feedback.id, {
+                      handleUpdate(feedback.id, {
+                        starred: !feedback.starred,
+                      })
+                    }
+                    variant="star"
+                  >
+                    {feedback.starred ? "unstar" : "star"}
+                  </Button>
+                  <Button
+                    onClick={() =>
+                      handleUpdate(feedback.id, {
                         archived: !feedback.archived,
                       })
                     }
@@ -205,7 +201,7 @@ const ProjectPage = ({
       <div className="sticky bottom-6 max-w-max mx-auto">
         <div className="my-6">
           <div className="flex justify-center space-x-2 py-6 px-5 bg-white dark:bg-black rounded-full border border-gray-200 dark:border-gray-800 shadow-md">
-            {(["ALL", "ISSUE", "IDEA", "OTHER", "ARCHIVE"] as const)
+            {(["ALL", "ISSUE", "IDEA", "OTHER", "STAR", "ARCHIVE"] as const)
               .map((k) => ({
                 label: k.toLowerCase(),
                 icon: getIcon(k),

@@ -12,6 +12,8 @@ import LoadingIcon from "../icon/Loading";
 import { CheckIcon } from "@heroicons/react/solid";
 import { FeedbackType } from "@prisma/client";
 import RadioCard from "../ui/RadioCard";
+import useSWR from "swr";
+import fetcher from "@/utils/fetcher";
 
 // Basic WidgetForm with Screenshot button
 
@@ -38,6 +40,7 @@ const WidgetForm = ({
   const formRef = useRef<HTMLFormElement>(null);
   const [screenshotURL, setScreenshotURL] = useState<string>();
   const [text, setText] = useState<string>("");
+  const { mutate } = useSWR(`/api/projects/${projectId}`, fetcher);
 
   useEffect(() => {
     let timer: undefined | NodeJS.Timeout;
@@ -64,7 +67,8 @@ const WidgetForm = ({
     setText("");
     setScreenshotURL(undefined);
     setForm("success");
-  }, []);
+    mutate();
+  }, [mutate]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -73,7 +77,6 @@ const WidgetForm = ({
       text: { value: string };
       type: { value: FeedbackType };
     };
-    console.log(target);
     try {
       // REMINDER: remove sendFeedbackPromiseToast later
       await fetch(`${domain || ""}/api/feedback`, {
@@ -146,7 +149,8 @@ const WidgetForm = ({
           <RadioCard
             key={key}
             name="type"
-            id={value.label}
+            id={value.value}
+            value={value.value}
             size="sm"
             className="lowercase"
             defaultChecked={value?.defaultChecked}
