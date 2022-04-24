@@ -40,7 +40,7 @@ const Widget: FC = () => {
             ref={setPopperElement}
             style={styles.popper}
             {...attributes.popper}
-            data-html2canvas-ignore
+            // data-html2canvas-ignore FIXME: back if screenshots are allowed
           >
             {({ close }) => (
               <div className="relative bg-white dark:bg-black border border-gray-100 dark:border-gray-900 rounded-xl shadow-lg m-2 p-3 w-72">

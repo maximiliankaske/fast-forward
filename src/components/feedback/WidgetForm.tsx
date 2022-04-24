@@ -11,6 +11,7 @@ import { formattedMessages } from "./translations";
 import LoadingIcon from "../icon/Loading";
 import { CheckIcon } from "@heroicons/react/solid";
 import { FeedbackType } from "@prisma/client";
+import RadioCard from "../ui/RadioCard";
 
 // Basic WidgetForm with Screenshot button
 
@@ -121,14 +122,38 @@ const WidgetForm = ({
       label: messages.type.options.issue.label,
       defaultChecked: true,
       value: "ISSUE",
+      icon: "🚧",
     },
-    idea: { label: messages.type.options.idea.label, value: "IDEA" },
-    other: { label: messages.type.options.other.label, value: "OTHER" },
+    idea: {
+      label: messages.type.options.idea.label,
+      defaultChecked: false,
+      value: "IDEA",
+      icon: "💡",
+    },
+    other: {
+      label: messages.type.options.other.label,
+      defaultChecked: false,
+      value: "OTHER",
+      icon: "💬",
+    },
   };
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
-      <Radios label={messages.type.label} name="type" options={types} srOnly />
+      {/* <Radios label={messages.type.label} name="type" options={types} srOnly /> */}
+      <div className="flex space-x-2">
+        {Object.entries(types).map(([key, value]) => (
+          <RadioCard
+            key={key}
+            name="type"
+            id={value.label}
+            size="sm"
+            defaultChecked={value?.defaultChecked}
+          >
+            {`${value.label} ${value.icon}`}
+          </RadioCard>
+        ))}
+      </div>
       <label className="sr-only" htmlFor="text">
         Message
       </label>
