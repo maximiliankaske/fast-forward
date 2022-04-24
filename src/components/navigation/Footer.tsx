@@ -9,10 +9,10 @@ const Footer: FC = () => {
         <div className="space-y-4">
           <p className="uppercase text-sm font-semibold">Sitemap</p>
           <div>
-            <Link href="/">Home</Link>
+            <Link href="/">home</Link>
           </div>
           <div>
-            <Link href="/imprint">Imprint</Link>
+            <Link href="/imprint">imprint</Link>
           </div>
         </div>
         <div className="space-y-4">
@@ -23,7 +23,7 @@ const Footer: FC = () => {
               target="_blank"
               rel="noreferrer"
             >
-              Twitter
+              twitter
             </Link>
           </div>
           <div>
@@ -32,7 +32,7 @@ const Footer: FC = () => {
               target="_blank"
               rel="noreferrer"
             >
-              GitHub
+              github
             </Link>
           </div>
         </div>
