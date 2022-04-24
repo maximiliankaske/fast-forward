@@ -13,6 +13,7 @@ const GitHubButton = ({ options }: Props) => {
         await signIn("github", options);
       }}
       variant="primary"
+      className="w-full"
     >
       Log In with GitHub
     </Button>

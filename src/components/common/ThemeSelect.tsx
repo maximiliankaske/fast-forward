@@ -16,9 +16,9 @@ const ThemeSelect = () => {
         defaultValue={theme}
         className="text-sm focus:ring-2 bg-transparent rounded-md border border-gray-300 dark:border-gray-700"
       >
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
-        <option value="system">System</option>
+        <option value="dark">dark</option>
+        <option value="light">light</option>
+        <option value="system">system</option>
       </select>
     );
   }

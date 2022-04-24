@@ -4,7 +4,7 @@ import cn from "classnames";
 const styles = {
   base: "inline-flex items-center rounded-full",
   color: {
-    default: "bg-gray-200 text-gray-800",
+    default: "bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-100",
     primary:
       "bg-indigo-200 dark:bg-pink-200 text-indigo-800 dark:text-pink-800",
     secondary: "bg-yellow-200 text-yellow-800",

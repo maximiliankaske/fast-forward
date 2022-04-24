@@ -19,17 +19,15 @@ const MagicButton = ({ options }: Props) => {
           ...options,
         });
       }}
-      className="space-y-2"
+      className="space-y-2 w-full"
     >
-      <div>
-        <input
-          type="email"
-          name="email"
-          className="px-1 py-1 bg-transparent border border-gray-200 rounded dark:border-gray-800 text-md"
-          required
-        />
-      </div>
-      <Button variant="none" type="submit">
+      <input
+        type="email"
+        name="email"
+        className="w-full px-1 py-1 bg-transparent border border-gray-200 rounded dark:border-gray-800 text-md"
+        required
+      />
+      <Button variant="none" type="submit" className="w-full">
         Submit
       </Button>
     </form>
