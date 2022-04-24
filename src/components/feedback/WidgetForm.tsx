@@ -148,6 +148,7 @@ const WidgetForm = ({
             name="type"
             id={value.label}
             size="sm"
+            className="lowercase"
             defaultChecked={value?.defaultChecked}
           >
             {`${value.label} ${value.icon}`}

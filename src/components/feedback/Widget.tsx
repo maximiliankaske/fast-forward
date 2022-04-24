@@ -28,7 +28,7 @@ const Widget: FC = () => {
             className="relative"
             ref={setReferenceElement}
           >
-            <Button>Feedback</Button>
+            <Button>feedback</Button>
             {!open ? (
               <span className="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gray-700 dark:bg-gray-300 opacity-75"></span>
