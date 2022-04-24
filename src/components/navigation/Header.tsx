@@ -26,11 +26,12 @@ const Header: FC<HeaderProps> = ({ children, withProfile = false }) => {
             <Link href="/">🙋‍♂️ fast-forward</Link>
           </div>
           <div className="space-x-5 sm:space-x-6 flex items-center">
+            <Link href="/docs">docs</Link>
             <Widget />
             {withProfile ? (
               <ProfileMenu />
             ) : (
-              <Link href="/auth/signin">Login</Link>
+              <Link href="/auth/signin">login</Link>
             )}
           </div>
         </div>

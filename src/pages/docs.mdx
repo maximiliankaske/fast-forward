@@ -4,7 +4,7 @@ export default (props) => <Layout {...props} />;
 
 # Getting Started
 
-> Quick reminder that this is an **experimental project**.
+> Quick reminder that this is an experimental project.
 
 ## How to collect data
 
@@ -26,7 +26,34 @@ fetch("https://fast-forward.app/api/feedback", {
 });
 ```
 
-If you are interested in how I created the floating _Widget_ form, feel free to check out the [GitHub repository](https://github.com/maximiliankaske/fast-forward/blob/main/components/widget/WidgetFABExample.tsx). Following libraries have been used:
+Raw Example of the Widget
+
+```tsx
+const Widget = () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const target = event.target as typeof event.target & {
+      text: { value: string };
+      type: { value: string };
+    };
+    await fetch(...)
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="radio" name="type" id="other" />
+      <label htmlFor="other">other</label>
+      <input type="radio" name="type" id="issue" />
+      <label htmlFor="issue">issue</label>
+      <input type="radio" name="type" id="idea" />
+      <label htmlFor="idea">idea</label>
+      <textarea rows={3} name="message" message="Tell us about..." />
+      <button type="submit">submit</button>
+    </form>
+  );
+};
+```
+
+If you are interested in how I created the floating _Widget_ form, feel free to check out the [GitHub repository](https://github.com/mxkaske/fast-forward/blob/main/components/feedback/Widget.tsx). Following libraries have been used:
 
 - [tailwindcss](https://tailwindcss.com/) for **styling**
 - [headlessui](https://headlessui.dev/) for **Dialog (Modal)** Box
