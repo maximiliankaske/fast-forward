@@ -3,8 +3,13 @@ import React, { Fragment } from "react";
 import cn from "classnames";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 const nav = [
+  {
+    label: "projects",
+    href: "/app/projects",
+  },
   {
     label: "team",
     href: "/app/team",
@@ -20,7 +25,7 @@ const ProfileMenu = () => {
   return (
     <Menu as="div" className="ml-3 relative">
       <div>
-        <Menu.Button className="bg-gray-50 dark:bg-black flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-black focus:ring-indigo-500">
+        <Menu.Button className="bg-gray-100 dark:bg-gray-900 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-black focus:ring-indigo-500">
           <span className="sr-only">Open user menu</span>
           <div className="h-8 w-8 rounded-full relative">
             {session.data?.user?.image && (
@@ -46,20 +51,21 @@ const ProfileMenu = () => {
       >
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-md py-1 bg-white dark:bg-black dark:border dark:border-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none">
           {nav.map(({ href, label }) => (
-            <Menu.Item key={href}>
-              {({ active }) => (
-                // FIXME: with <Link href={href}> wrapper, it won't accept right active state
-                <a
-                  href={href}
-                  className={cn(
-                    active && "bg-pink-50/30 dark:bg-pink-900/5 text-pink-500",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  {label}
-                </a>
-              )}
-            </Menu.Item>
+            <Link key={href} href={href} passHref>
+              <Menu.Item as="a">
+                {({ active }) => (
+                  <span
+                    className={cn(
+                      active &&
+                        "bg-pink-50/30 dark:bg-pink-900/5 text-pink-500",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    {label}
+                  </span>
+                )}
+              </Menu.Item>
+            </Link>
           ))}
         </Menu.Items>
       </Transition>
