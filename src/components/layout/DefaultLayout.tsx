@@ -1,16 +1,16 @@
 import React, { FC } from "react";
 import cn from "classnames";
 import Footer from "../navigation/Footer";
-import Header, { HeaderProps } from "../navigation/Header";
+import Header from "../navigation/Header";
 
-interface Props extends HeaderProps {
+interface Props {
   className?: string;
 }
 
-const DefaultLayout: FC<Props> = ({ children, className, ...props }) => {
+const DefaultLayout: FC<Props> = ({ children, className }) => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header {...props} />
+      <Header />
       <main
         id="__main"
         className={cn(

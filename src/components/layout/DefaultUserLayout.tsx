@@ -8,7 +8,7 @@ interface Props extends BreadcrumbsProps {}
 const DefaultUserLayout: FC<Props> = ({ children, ...props }) => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header withProfile>
+      <Header>
         <Breadcrumbs {...props} />
       </Header>
       <main

@@ -1,16 +1,11 @@
-import { useTheme } from "next-themes";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import Link from "../ui/Link";
 import cn from "classnames";
 import ProfileMenu from "./ProfileMenu";
 import Widget from "../feedback/Widget";
 import { useSession } from "next-auth/react";
 
-export interface HeaderProps {
-  withProfile?: boolean;
-}
-
-const Header: FC<HeaderProps> = ({ children, withProfile = false }) => {
+const Header: FC = ({ children }) => {
   const session = useSession();
   // TODO: use session instead of withProfile
   return (
@@ -28,7 +23,7 @@ const Header: FC<HeaderProps> = ({ children, withProfile = false }) => {
           <div className="space-x-5 sm:space-x-6 flex items-center">
             <Link href="/docs">docs</Link>
             <Widget />
-            {withProfile ? (
+            {session.data?.user.id ? (
               <ProfileMenu />
             ) : (
               <Link href="/auth/signin">login</Link>
