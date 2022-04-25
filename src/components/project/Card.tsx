@@ -22,12 +22,12 @@ const Card = ({ project }: Props) => {
       <LinkContainer.Title>
         {project.name}
         {!project?.private && (
-          <Badge size="sm" className="ml-2">
+          <Badge size="sm" className="ml-2" color="primary">
             public
           </Badge>
         )}
         {project?.teamId !== session.data?.user.teamId && (
-          <Badge size="sm" className="ml-2">
+          <Badge size="sm" className="ml-2" color="primary">
             team
           </Badge>
         )}

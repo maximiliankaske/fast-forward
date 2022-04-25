@@ -3,7 +3,7 @@ import React, { AnchorHTMLAttributes, FC } from "react";
 import NextLink from "next/link";
 
 const styles = {
-  base: "hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:rounded",
+  base: "hover:text-indigo-500 dark:hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:rounded",
   variant: {
     default: "hover:underline",
   },
