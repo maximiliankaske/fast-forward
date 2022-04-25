@@ -84,6 +84,7 @@ export const getServerSideProps = async () => {
     include: {
       feedbacks: {
         where: {
+          archived: false,
           deleted: false,
         },
         orderBy: {
