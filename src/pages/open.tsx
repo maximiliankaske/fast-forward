@@ -18,7 +18,7 @@ const OpenPage = (
     <DefaultLayout className="space-y-3">
       <Heading>Open</Heading>
       <div>
-        <Heading as="h3">App</Heading>
+        <Heading as="h3">Data</Heading>
         <ul className="grid grid-cols-2 sm:grid-cols-4">
           {(["projects", "feedbacks"] as const).map((i) => (
             <li key={i} className="flex items-end space-x-2">

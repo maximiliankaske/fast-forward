@@ -36,7 +36,8 @@ const Footer: FC = () => {
             </Link>
           </div>
         </div>
-        <div>
+        <div className="space-y-4">
+          <p className="uppercase text-sm font-semibold">Theme</p>
           <ThemeSelect />
         </div>
       </div>
