@@ -39,12 +39,12 @@ const Card = ({ feedback, className }: Props) => {
   return (
     <div
       className={cn(
-        "px-4 py-3 space-y-3 rounded-md bg-gray-50 dark:bg-black dark:border border-gray-900",
+        "px-4 py-3 space-y-3 rounded-md bg-gray-50 dark:bg-gray-900 dark:border border-gray-900",
         className
       )}
     >
       <div className="flex justify-between">
-        <p className="p-2 text-sm rounded-full bg-gray-100 dark:bg-gray-900">
+        <p className="p-2 text-sm rounded-full bg-gray-100 dark:bg-gray-800">
           {getIcon(feedback.type)}
         </p>
         <Text variant="description">
@@ -57,7 +57,7 @@ const Card = ({ feedback, className }: Props) => {
       <div className="grid sm:grid-cols-3 text-sm">
         <Text className="font-medium">location</Text>
         <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400 truncate">
-          {feedback.location}
+          {feedback.location?.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")}
         </Text>
         <Text className="font-medium">user agent</Text>
         <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400 truncate">

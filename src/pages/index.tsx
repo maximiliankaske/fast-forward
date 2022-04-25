@@ -18,7 +18,7 @@ const styles = {
 };
 
 const Home = ({
-  feedbacks,
+  feedback,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const session = useSession();
   const exists = session?.data?.user.id;
@@ -61,12 +61,16 @@ const Home = ({
             </Link>
           </div>
         </div>
-        {/* TODO: Play with the starred feedbacks */}
-        {/* <div className="col-span-full grid md:grid-cols-2 gap-4">
-          {feedbacks?.map((f) => (
-            <Card key={f.id} feedback={f} />
-          ))}
-        </div> */}
+        <div className="col-span-full">
+          {feedback && (
+            <div className="ml-auto mt-8 lg:-mt-8 lg:-mr-16 w-full sm:w-3/4 md:w-3/5">
+              <Heading as="h4" className="text-right">
+                Latest Feedback 👇
+              </Heading>
+              <Card feedback={feedback} />
+            </div>
+          )}
+        </div>
       </div>
     </DefaultLayout>
   );
@@ -82,13 +86,16 @@ export const getServerSideProps = async () => {
         where: {
           deleted: false,
         },
+        orderBy: {
+          createdAt: "desc",
+        },
       },
     },
   });
 
   return {
     props: {
-      feedbacks: project?.feedbacks.filter((f) => f.starred),
+      feedback: project?.feedbacks?.[0],
     },
   };
 };
