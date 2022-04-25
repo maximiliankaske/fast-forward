@@ -10,7 +10,7 @@
 
 ## Todo
 
-- [ ] redirect `my.fast-forward.app` to `/pages/app`
+- [ ] redirect `my.fast-forward.app` to `/pages/*`
 - [ ] update tailwind(/typography)
 - [ ] replace `popper` with `floating-ui`
 
