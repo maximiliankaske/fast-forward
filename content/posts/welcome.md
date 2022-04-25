@@ -39,7 +39,7 @@ from the request so I don't have to worry about it.
 
 And after checking the feedback, it would be good to archive them to keep track of what has been seen and revised or not. So therefore, we have an archive bucket to but old feedbacks in.
 
-To **[show the demo](http://fast-forward.com/app/VWJU7eJdIEYGmoyKW4rp)**, you have the possibility to make your project _publically available_ so that you can share the project link and others have access to the feedback.
+To **[show the demo](http://fast-forward.com/VWJU7eJdIEYGmoyKW4rp)**, you have the possibility to make your project _publically available_ so that you can share the project link and others have access to the feedback.
 
 > Even though buttons like "archive" are visible, the functionality is prohibited by the `firebase.rules`.
 

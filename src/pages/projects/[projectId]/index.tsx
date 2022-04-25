@@ -53,7 +53,7 @@ const ProjectPage = ({
             {!ownProject ? <Badge>team</Badge> : null}
           </div>
           {ownProject && (
-            <Link href={`/app/projects/${projectId}/settings`}>settings</Link>
+            <Link href={`/projects/${projectId}/settings`}>settings</Link>
           )}
         </div>
         <Button onClick={onClipboard} variant="none">
@@ -150,7 +150,7 @@ export const getServerSideProps = async ({
   if (!authorized) {
     return {
       redirect: {
-        destination: "/app",
+        destination: "/project",
         permanent: false,
       },
     };

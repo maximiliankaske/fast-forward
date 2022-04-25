@@ -46,14 +46,14 @@ const Home = ({
           <div className="space-x-4 mt-6">
             <a
               target="_blank"
-              href={`/app/projects/${process.env.NEXT_PUBLIC_DEMO_PROJECT_ID}`}
+              href={`/projects/${process.env.NEXT_PUBLIC_DEMO_PROJECT_ID}`}
               rel="noreferrer"
               className={cn(styles.btn.base, styles.btn.demo)}
             >
               Try the Demo
               <ExternalLinkIcon className="w-5 h-5 ml-2" />
             </a>
-            <Link href={exists ? "/app" : "/auth/signin"}>
+            <Link href={exists ? "/projects" : "/auth/signin"}>
               <a className={cn(styles.btn.base, styles.btn.login)}>
                 {exists ? "Dashboard" : "Login"}
                 <LoginIcon className="h-5 w-5 ml-2" />

@@ -40,7 +40,7 @@ const Projects: ComponentWithAuth = ({
         "create"
       )) as Project;
       toasts.blank("createProject");
-      // router.push(`/app/projects/${project.id}`);
+      // router.push(`/projects/${project.id}`);
       mutate();
     } catch {
       console.warn("Something went wrong");

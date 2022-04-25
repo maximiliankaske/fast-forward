@@ -21,7 +21,7 @@ const Breadcrumbs = ({ messages }: BreadcrumbsProps) => {
   const paths = router.isReady ? routeString.split("/") : [];
 
   // because it starts with "/..."
-  const [e, a, ...crumbs] = paths.map((path) => ({
+  const [e, ...crumbs] = paths.map((path) => ({
     href: router.asPath.slice(0, router.asPath.indexOf(path) + path.length),
     name: Object.keys(emojiDB).includes(path)
       ? // append emoji
@@ -44,9 +44,7 @@ const Breadcrumbs = ({ messages }: BreadcrumbsProps) => {
   return (
     <nav className="flex overflow-x-scroll" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center space-x-4 text-sm">
-        <li className="flex-shrink-0">
-          <Link href="/app">home 🏡</Link>
-        </li>
+        <li className="flex-shrink-0">🏡</li>
         {bread.map((page) => {
           return (
             <li key={page.name} className="flex items-center text-sm">

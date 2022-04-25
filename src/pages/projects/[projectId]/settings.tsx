@@ -44,7 +44,7 @@ const Settings = ({
   const _delete = useCallback(() => {
     toasts.promise(
       deletor(`/api/projects/${projectId}`).then(() =>
-        router.replace("/app/projects")
+        router.replace("/projects")
       )
     );
   }, [projectId, router]);
@@ -160,7 +160,7 @@ export const getServerSideProps = async (
   if (session?.user.id !== project?.userId) {
     return {
       redirect: {
-        destination: "/app",
+        destination: "/projects",
         permanent: false,
         // statusCode: 301,
       },

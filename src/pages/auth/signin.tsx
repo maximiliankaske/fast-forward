@@ -14,7 +14,7 @@ const Login = () => {
 
   useEffect(() => {
     if (session.data?.user && router.isReady) {
-      router.replace("/app");
+      router.replace("/projects");
     }
   }, [session, router]);
 
@@ -33,10 +33,10 @@ const Login = () => {
         </div>
         {/* IDEA: make it flex-row on desktop */}
         <div className="flex flex-col items-center max-w-xs mx-auto space-y-4">
-          <GitHubButton options={{ callbackUrl: "/app" }} />
-          {/* <GoogleButton redirect="/app" /> */}
+          <GitHubButton options={{ callbackUrl: "/projects" }} />
+          {/* <GoogleButton redirect="/projects" /> */}
           <div className="w-full h-px bg-gray-200 dark:bg-gray-800" />
-          <MagicButton options={{ callbackUrl: "/app" }} />
+          <MagicButton options={{ callbackUrl: "/projects" }} />
         </div>
       </div>
     </DefaultLayout>

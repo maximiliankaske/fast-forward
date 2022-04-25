@@ -8,11 +8,11 @@ import Link from "next/link";
 const nav = [
   {
     label: "projects",
-    href: "/app/projects",
+    href: "/projects",
   },
   {
     label: "team",
-    href: "/app/team",
+    href: "/team",
   },
   {
     label: "log out",

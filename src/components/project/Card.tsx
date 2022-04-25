@@ -18,7 +18,7 @@ const Card = ({ project }: Props) => {
     ) || [];
   console.log(feedbacks);
   return (
-    <LinkContainer key={project.id} href={`/app/projects/${project.id}`}>
+    <LinkContainer key={project.id} href={`/projects/${project.id}`}>
       <LinkContainer.Title>
         {project.name}
         {!project?.private && (
