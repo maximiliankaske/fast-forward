@@ -55,7 +55,7 @@ const Home = ({
             </a>
             <Link href={exists ? "/projects" : "/auth/signin"}>
               <a className={cn(styles.btn.base, styles.btn.login)}>
-                {exists ? "Dashboard" : "Login"}
+                {exists ? "Projects" : "Login"}
                 <LoginIcon className="h-5 w-5 ml-2" />
               </a>
             </Link>
