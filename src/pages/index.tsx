@@ -67,7 +67,7 @@ const Home = ({
               <Heading as="h4" className="text-right">
                 Latest Feedback 👇
               </Heading>
-              <Card feedback={feedback} />
+              <Card feedback={feedback} hideUser />
             </div>
           )}
         </div>

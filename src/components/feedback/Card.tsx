@@ -15,9 +15,10 @@ import cn from "classnames";
 interface Props {
   feedback: Feedback;
   className?: string;
+  hideUser?: boolean;
 }
 
-const Card = ({ feedback, className }: Props) => {
+const Card = ({ feedback, className, hideUser = false }: Props) => {
   const { mutate } = useSWR(`/api/projects/${feedback.projectId}`, fetcher);
   const handleUpdate = async (id: string, data: Partial<Feedback>) => {
     try {
@@ -67,7 +68,12 @@ const Card = ({ feedback, className }: Props) => {
           <>
             <Text className="font-medium">user</Text>
             <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400 truncate">
-              {feedback.userId}
+              {hideUser
+                ? feedback.userId.replace(
+                    /(\w{2})[\w.-]+@([\w.]+\w)/,
+                    "$1***@$2"
+                  )
+                : feedback.userId}
             </Text>
           </>
         ) : null}
