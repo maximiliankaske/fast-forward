@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { XIcon } from "@heroicons/react/outline";
-import Button from "../ui/Button";
 import Text from "../ui/Text";
 import cn from "classnames";
 
@@ -13,8 +12,22 @@ interface Props extends Base {
   id: string;
 }
 
-const Banner = ({ children, className }: Props) => {
-  // TODO: check localStorage for id and display Banner based on value
+// TODO: instead of localStorage, store in db for cross device
+const Banner = ({ id, children, className }: Props) => {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (window) {
+      const item = window.localStorage.getItem(id);
+      if (!item) {
+        setOpen(true);
+      }
+    }
+  }, [id]);
+
+  if (!open) {
+    return null;
+  }
+
   return (
     <div
       className={cn(
@@ -26,10 +39,18 @@ const Banner = ({ children, className }: Props) => {
         <div className="w-0 flex-1 flex flex-col justify-center">
           {children}
         </div>
-        <div className="order-2 flex-shrink-0 sm:order-3 sm:ml-2">
-          <Button type="button" variant="none">
+        <div className="ml-1 flex-shrink-0">
+          <button
+            onClick={() => {
+              if (window) {
+                window.localStorage.setItem(id, "true");
+                setOpen(false);
+              }
+            }}
+            className="p-2"
+          >
             <XIcon className="h-5 w-5" />
-          </Button>
+          </button>
         </div>
       </div>
     </div>

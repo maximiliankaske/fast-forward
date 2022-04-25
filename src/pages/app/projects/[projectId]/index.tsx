@@ -40,7 +40,7 @@ const ProjectPage = ({
 
   return (
     <DefaultUserLayout messages={{ projectId: project?.name }}>
-      <Banner id="new-to-projects" className="mb-4">
+      <Banner id="new-projects" className="mb-4">
         <Banner.Title>{`Want to try it out now?`}</Banner.Title>
         <Banner.Description>
           {`Click the 'feedback' button on the top right corner inside one of your projects to automatically send a feedback to yourself!`}
