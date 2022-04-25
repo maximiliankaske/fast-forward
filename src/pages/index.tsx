@@ -78,7 +78,11 @@ export const getServerSideProps = async () => {
       id: process.env.NEXT_PUBLIC_DEMO_PROJECT_ID,
     },
     include: {
-      feedbacks: true,
+      feedbacks: {
+        where: {
+          deleted: false,
+        },
+      },
     },
   });
 

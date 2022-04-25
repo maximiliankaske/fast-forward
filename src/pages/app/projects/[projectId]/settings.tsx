@@ -144,8 +144,13 @@ export const getServerSideProps = async (
       // findUnique only accepts "id"
       // userId: session?.user?.id, // only creator can access project
     },
+    // FIXME: remove this... no need
     include: {
-      feedbacks: true,
+      feedbacks: {
+        where: {
+          deleted: false,
+        },
+      },
     },
   });
 

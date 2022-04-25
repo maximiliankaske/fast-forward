@@ -84,11 +84,13 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
       OR: [
         {
           userId: session?.user.id,
+          deleted: false,
         },
         {
           teamId: {
             in: members.map((m) => m.teamId),
           },
+          deleted: false,
         },
       ],
     },

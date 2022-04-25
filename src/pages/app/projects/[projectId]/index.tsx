@@ -129,7 +129,11 @@ export const getServerSideProps = async ({
       id: params?.projectId,
     },
     include: {
-      feedbacks: true,
+      feedbacks: {
+        where: {
+          deleted: false,
+        },
+      },
     },
   });
 

@@ -15,11 +15,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             OR: [
               {
                 userId: session?.user.id,
+                deleted: false,
               },
               {
                 teamId: {
                   in: members.map((m) => m.teamId),
                 },
+                deleted: false,
               },
             ],
           },

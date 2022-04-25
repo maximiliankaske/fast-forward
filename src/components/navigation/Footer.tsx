@@ -9,7 +9,7 @@ const Footer: FC = () => {
         <div className="space-y-4">
           <p className="uppercase text-sm font-semibold">Sitemap</p>
           <div>
-            <Link href="/">home</Link>
+            <Link href="/open">open</Link>
           </div>
           <div>
             <Link href="/imprint">imprint</Link>

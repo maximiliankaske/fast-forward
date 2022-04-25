@@ -41,9 +41,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json(newEntry);
       }
       case "DELETE": {
-        const deleteEntry = await prisma.feedback.delete({
+        const deleteEntry = await prisma.feedback.update({
           where: {
             id: String(req.query.feedbackId),
+          },
+          data: {
+            deleted: true,
           },
         });
         return res.status(200).json(deleteEntry);

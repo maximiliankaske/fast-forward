@@ -15,7 +15,11 @@ export default async function handler(
         id: String(projectId),
       },
       include: {
-        feedbacks: true,
+        feedbacks: {
+          where: {
+            deleted: false,
+          },
+        },
       },
     });
 
@@ -44,9 +48,12 @@ export default async function handler(
         if (!ownProject) {
           return res.status(401).end("Not authenticated");
         }
-        const deleteEntry = await prisma.project.delete({
+        const deleteEntry = await prisma.project.update({
           where: {
             id: projectId,
+          },
+          data: {
+            deleted: true,
           },
         });
         return res.status(200).json(deleteEntry);
