@@ -11,6 +11,8 @@ import Link from "../ui/Link";
 import Text from "../ui/Text";
 import parser from "ua-parser-js";
 import cn from "classnames";
+import { StarIcon as SolidStarIcon } from "@heroicons/react/solid";
+import { StarIcon } from "@heroicons/react/outline";
 
 interface Props {
   feedback: Feedback;
@@ -48,11 +50,27 @@ const Card = ({ feedback, className, hideUser = false }: Props) => {
         <p className="p-2 text-sm rounded-full bg-gray-100 dark:bg-gray-800">
           {getIcon(feedback.type)}
         </p>
-        <Text variant="description">
-          {formatDistance(new Date(feedback.createdAt), new Date(), {
-            addSuffix: true,
-          })}
-        </Text>
+        <div className="flex items-center space-x-1 md:space-x-2 -mb-1">
+          <button
+            onClick={() =>
+              handleUpdate(feedback.id, {
+                starred: !feedback.starred,
+              })
+            }
+            className="p-1 text-yellow-500 mb-1"
+          >
+            {feedback.starred ? (
+              <SolidStarIcon className="h-5 w-5" />
+            ) : (
+              <StarIcon className="h-5 w-5" />
+            )}
+          </button>
+          <Text variant="description">
+            {formatDistance(new Date(feedback.createdAt), new Date(), {
+              addSuffix: true,
+            })}
+          </Text>
+        </div>
       </div>
       <Heading as="h4">{feedback.text}</Heading>
       <div className="grid sm:grid-cols-3 text-sm">
@@ -117,16 +135,6 @@ const Card = ({ feedback, className, hideUser = false }: Props) => {
       <div className="text-right space-x-3">
         <Button onClick={() => handleDelete(feedback.id)} variant="danger2">
           delete
-        </Button>
-        <Button
-          onClick={() =>
-            handleUpdate(feedback.id, {
-              starred: !feedback.starred,
-            })
-          }
-          variant="star"
-        >
-          {feedback.starred ? "unstar" : "star"}
         </Button>
         <Button
           onClick={() =>
