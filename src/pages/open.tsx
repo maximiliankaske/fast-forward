@@ -20,7 +20,7 @@ const OpenPage = (
       <div>
         <Heading as="h3">Data</Heading>
         <ul className="grid grid-cols-2 sm:grid-cols-4">
-          {(["projects", "feedbacks"] as const).map((i) => (
+          {(["projects", "feedbacks", "users"] as const).map((i) => (
             <li key={i} className="flex items-end space-x-2">
               <Heading as="h4">
                 {props[i]}{" "}
@@ -50,10 +50,12 @@ const OpenPage = (
 export const getServerSideProps = async () => {
   const projects = await prisma.project.findMany();
   const feedbacks = await prisma.feedback.findMany();
+  const users = await prisma.user.findMany();
   return {
     props: {
       projects: projects.length,
       feedbacks: feedbacks.length,
+      users: users.length,
     },
   };
 };
