@@ -5,6 +5,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
 import { sendVerificationRequest } from "@/lib/mailer";
 import { signInEvent } from "@/lib/next-auth";
+import { config } from "@/lib/nodemailer";
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -14,16 +15,7 @@ export default NextAuth({
       clientSecret: process.env.GITHUB_OAUTH_CLIENT_SECRET,
     }),
     EmailProvider({
-      // server: process.env.EMAIL_SERVER,
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        // @ts-ignore
-        port: process.env.EMAIL_SERVER_PORT,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
-        },
-      },
+      server: config.server,
       from: process.env.EMAIL_FROM,
       sendVerificationRequest,
     }),
