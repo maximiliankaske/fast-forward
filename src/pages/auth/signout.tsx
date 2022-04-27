@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import Loading from "@/components/icon/Loading";
 import { signOut } from "next-auth/react";
+import DefaultLayout from "@/components/layout/DefaultLayout";
+import LoadingIndicator from "@/components/common/LoadingIndicator";
 
 const Logout = () => {
   const router = useRouter();
@@ -10,7 +11,7 @@ const Logout = () => {
     signOut({ callbackUrl: "/" });
   }, [router]);
 
-  return <Loading className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />;
+  return <LoadingIndicator />;
 };
 
 export default Logout;
