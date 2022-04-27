@@ -8,6 +8,7 @@ import cn from "classnames";
 import prisma from "@/lib/prisma";
 import { InferGetServerSidePropsType } from "next";
 import Card from "@/components/feedback/Card";
+import useSWR from "swr";
 
 const styles = {
   btn: {
@@ -18,9 +19,16 @@ const styles = {
 };
 
 const Home = ({
-  feedback,
+  fallbackData,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const session = useSession();
+  const { data: project } = useSWR(
+    `/api/projects/${process.env.NEXT_PUBLIC_DEMO_PROJECT_ID}`,
+    { fallbackData }
+  );
+
+  const feedback = project?.feedbacks.filter((i) => !i.archived)?.[0];
+
   const exists = session?.data?.user.id;
   return (
     <DefaultLayout>
@@ -96,7 +104,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      feedback: project?.feedbacks?.[0],
+      fallbackData: project,
     },
   };
 };

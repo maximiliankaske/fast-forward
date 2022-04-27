@@ -19,6 +19,9 @@ export default async function handler(
           where: {
             deleted: false,
           },
+          orderBy: {
+            createdAt: "desc",
+          },
         },
       },
     });
