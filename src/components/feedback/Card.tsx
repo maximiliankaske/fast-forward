@@ -133,7 +133,7 @@ const Card = ({ feedback, className, hideUser = false }: Props) => {
         </div>
       ) : null}
       <div className="text-right space-x-3">
-        <Button onClick={() => handleDelete(feedback.id)} variant="danger2">
+        <Button onClick={() => handleDelete(feedback.id)} variant="danger">
           delete
         </Button>
         <Button

@@ -83,7 +83,7 @@ const Settings = ({
       <form onSubmit={onSubmit} className="max-w-md">
         <Input name="name" label="Name" defaultValue={data?.name} />
         <div className="text-right">
-          <Button type="submit" variant="none">
+          <Button type="submit" variant="primary">
             Save
           </Button>
         </div>
@@ -110,7 +110,7 @@ const Settings = ({
           Removes all feedbacks but keeps the configuration:
         </Text>
         <div className="text-right">
-          <Button onClick={handleReset} variant="danger2">
+          <Button onClick={handleReset} variant="danger">
             Reset
           </Button>
         </div>
@@ -123,7 +123,7 @@ const Settings = ({
         <div className="text-right">
           <Button
             onClick={handleDelete}
-            variant="danger2"
+            variant="danger"
             className="text-right"
           >
             Delete

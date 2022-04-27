@@ -14,7 +14,7 @@ const ThemeSelect = () => {
       <select
         onChange={(e) => setTheme(e.target.value)}
         defaultValue={theme}
-        className="text-sm focus:ring-2 bg-transparent rounded-md border border-gray-300 dark:border-gray-700"
+        className="text-sm focus:ring-2 bg-transparent rounded-md border border-gray-200 hover:border-gray-300 dark:hover:border-gray-700 dark:border-gray-800"
       >
         <option value="dark">dark</option>
         <option value="light">light</option>

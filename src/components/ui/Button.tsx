@@ -5,10 +5,10 @@ const styles = {
   base: "rounded-md border dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500",
   variant: {
     none: "border-transparent hover:bg-gray-50 dark:hover:bg-gray-800",
-    default: "border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800",
-    primary: "bg-gray-900 hover:bg-gray-800 text-white",
-    danger: "text-white bg-red-500 hover:bg-red-600",
-    danger2: "border-transparent dark:hover:border-red-500 text-red-500",
+    default: "",
+    primary:
+      "border-gray-200 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700",
+    danger: "dark:hover:border-red-600 hover:border-red-400 text-red-500",
     star: "text-yellow-500 border-transparent dark:hover:border-yellow-500",
   },
   size: {
