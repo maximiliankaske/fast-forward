@@ -4,7 +4,7 @@ import cn from "classnames";
 const styles = {
   base: "rounded-md border dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500",
   variant: {
-    none: "border-transparent hover:bg-gray-50 dark:hover:bg-gray-800",
+    none: "border-transparent dark:border-transparent hover:bg-gray-100 dark:hover:bg-gray-800",
     default: "",
     primary:
       "border-gray-200 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700",
