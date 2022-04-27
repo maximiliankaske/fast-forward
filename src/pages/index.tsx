@@ -12,9 +12,10 @@ import useSWR from "swr";
 
 const styles = {
   btn: {
-    base: "inline-flex items-center px-4 py-2 border border-gray-200 rounded-full shadow dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black",
+    base: "inline-flex items-center px-4 py-2 border border-gray-200 rounded-full dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black",
     demo: "text-white bg-gray-900 dark:bg-white dark:text-gray-900",
-    login: "text-gray-900 bg-white dark:bg-gray-900 dark:text-white",
+    login:
+      "text-gray-900 bg-white dark:bg-black dark:text-white hover:border-gray-300 dark:hover:border-gray-700",
   },
 };
 

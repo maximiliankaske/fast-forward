@@ -5,7 +5,6 @@ import { usePopper } from "react-popper";
 import WidgetForm from "./WidgetForm";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import Button from "../ui/Button";
 
 const Widget: FC = () => {
   const router = useRouter();
@@ -25,13 +24,15 @@ const Widget: FC = () => {
         <>
           <Popover.Button
             as="div"
-            className="relative"
+            className="relative group"
             ref={setReferenceElement}
           >
-            <Button>feedback</Button>
+            <button className="border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700">
+              feedback
+            </button>
             {!open ? (
               <span className="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gray-700 dark:bg-gray-300 opacity-75"></span>
+                <span className="animate-ping group-hover:animate-none absolute inline-flex h-full w-full rounded-full bg-gray-700 dark:bg-gray-300 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-gray-700 dark:bg-gray-300"></span>
               </span>
             ) : null}

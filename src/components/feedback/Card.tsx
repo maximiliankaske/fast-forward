@@ -42,7 +42,7 @@ const Card = ({ feedback, className, hideUser = false }: Props) => {
   return (
     <div
       className={cn(
-        "px-4 py-3 space-y-3 rounded-md bg-gray-50 dark:bg-gray-900 dark:border border-gray-900",
+        "px-4 py-3 space-y-3 rounded-md bg-gray-50 dark:bg-black dark:border border-gray-800",
         className
       )}
     >
