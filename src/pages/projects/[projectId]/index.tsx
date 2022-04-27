@@ -38,8 +38,12 @@ const ProjectPage = ({
 
   const ownProject = project?.teamId === session.data?.user.teamId;
 
+  const badges = [];
+  if (!project?.private) badges.push("private");
+  if (!ownProject) badges.push("team");
+
   return (
-    <DefaultUserLayout messages={{ projectId: project?.name }}>
+    <DefaultUserLayout messages={{ projectId: project?.name }} badges={badges}>
       <Banner id="new-projects" className="mb-4">
         <Banner.Title>{`Want to try it out now?`}</Banner.Title>
         <Banner.Description>
@@ -48,10 +52,6 @@ const ProjectPage = ({
       </Banner>
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:space-x-3 space-y-3 sm:space-y-0">
         <div className="flex items-center justify-between space-x-3">
-          <div className="space-x-3">
-            {!project?.private ? <Badge color="primary">public</Badge> : null}
-            {!ownProject ? <Badge color="primary">team</Badge> : null}
-          </div>
           {ownProject && (
             <Link href={`/projects/${projectId}/settings`}>settings</Link>
           )}

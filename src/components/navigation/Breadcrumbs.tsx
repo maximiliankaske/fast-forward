@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Badge from "../ui/Badge";
 import Link from "../ui/Link";
 
 const emojiDB = {
@@ -9,10 +10,11 @@ const emojiDB = {
 
 export interface BreadcrumbsProps {
   messages?: Record<string, string | null | undefined>;
+  badges?: string[];
   // by knowing the next router, we can display a slightly lighter
 }
 
-const Breadcrumbs = ({ messages }: BreadcrumbsProps) => {
+const Breadcrumbs = ({ messages, badges }: BreadcrumbsProps) => {
   const router = useRouter();
 
   // TODO: clean up - this is so bad
@@ -59,6 +61,13 @@ const Breadcrumbs = ({ messages }: BreadcrumbsProps) => {
             </li>
           );
         })}
+        <li className="flex space-x-2">
+          {badges?.map((i) => (
+            <Badge key={i} color="primary" size="sm">
+              {i}
+            </Badge>
+          ))}
+        </li>
       </ol>
     </nav>
   );
