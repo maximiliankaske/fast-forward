@@ -10,37 +10,45 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import prisma from "@/lib/prisma";
 import Button from "@/components/ui/Button";
 import { getIcon } from "@/utils/feedback";
-import Badge from "@/components/ui/Badge";
 import { getSession, useSession } from "next-auth/react";
 import cn from "classnames";
 import Card from "@/components/feedback/Card";
 import Banner from "@/components/common/Banner";
+import { LinkIcon } from "@heroicons/react/outline";
+
+const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? process.env.VERCEL_URL
+    : "http://localhost:3000";
 
 const ProjectPage = ({
   fallbackData,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+}: // session,
+InferGetServerSidePropsType<typeof getServerSideProps>) => {
   // TODO: instead of state, use type inside url query param
   const [type, setType] = useState("ALL"); // TODO: type!
-  const router = useRouter();
   const session = useSession();
+  const router = useRouter();
   const projectId = router.query.projectId as string;
-  const { data: project, mutate } = useSWR<Project & { feedbacks: Feedback[] }>(
-    `/api/projects/${projectId}`,
-    fetcher,
-    { fallbackData }
-  );
+  const { data: project, mutate } = useSWR<
+    (Project & { feedbacks: Feedback[] }) | null
+  >(`/api/projects/${projectId}`, fetcher, { fallbackData });
 
-  const onClipboard = () => {
-    navigator.clipboard
-      .writeText(projectId || "")
-      .then(() => toasts.success("clipboard"));
+  const onClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => toasts.success("clipboard"));
   };
 
-  const ownProject = project?.teamId === session.data?.user.teamId;
+  console.log(project, session);
+  const ownProject = project?.teamId === session?.data?.user.teamId;
 
+  // FIXME: the badges get rendered immediately after page load
   const badges = [];
-  if (!project?.private) badges.push("private");
+  if (!project?.private) badges.push("public");
   if (!ownProject) badges.push("team");
+
+  const sortByDate = (a: Date, b: Date) => {
+    return new Date(b).getTime() - new Date(a).getTime();
+  };
 
   return (
     <DefaultUserLayout messages={{ projectId: project?.name }} badges={badges}>
@@ -55,8 +63,18 @@ const ProjectPage = ({
           {ownProject && (
             <Link href={`/projects/${projectId}/settings`}>settings</Link>
           )}
+          {!project?.private && (
+            <Button
+              className="inline-flex items-center"
+              variant="primary"
+              size="sm"
+              onClick={() => onClipboard(`${BASE_URL}/projects/${projectId}`)}
+            >
+              <LinkIcon className="h-4 w-4 mr-1" /> copy link
+            </Button>
+          )}
         </div>
-        <Button onClick={onClipboard} variant="none">
+        <Button onClick={() => onClipboard(projectId || "")} variant="none">
           <span className="font-extralight">id:</span> {projectId}
         </Button>
       </div>
@@ -75,10 +93,14 @@ const ProjectPage = ({
               return false;
             }
           })
-          .sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          )
+          .sort((a, b) => {
+            if (type === "ARCHIVE") {
+              // sorts by last updated time
+              return sortByDate(a.updatedAt, b.updatedAt);
+            } else {
+              return sortByDate(a.createdAt, b.createdAt);
+            }
+          })
           .map((feedback) => {
             return (
               <li key={feedback.id}>
@@ -156,15 +178,22 @@ export const getServerSideProps = async ({
     };
   }
 
+  console.log(session);
+
   if (!project) {
     return {
       notFound: true,
+      props: {
+        fallbackData: undefined,
+        // session,
+      },
     };
   }
 
   return {
     props: {
       fallbackData: project || undefined,
+      // session,
     },
   };
 };

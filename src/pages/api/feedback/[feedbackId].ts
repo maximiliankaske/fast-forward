@@ -36,7 +36,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           where: {
             id: String(req.query.feedbackId),
           },
-          data: req.body,
+          data: {
+            ...req.body,
+            updatedAt: new Date(),
+          },
         });
         return res.status(200).json(newEntry);
       }

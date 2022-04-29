@@ -61,22 +61,29 @@ const Settings = ({
   );
 
   const handleDelete = useCallback(async () => {
-    const res = confirm("Delete?");
+    const res = confirm("Do you want to delete this project?");
     if (res) _delete();
   }, [_delete]);
 
   const handleReset = useCallback(() => {
-    const res = confirm("Reset");
+    const res = confirm("Do you want to reset this project?");
     if (res) {
       toasts.promise(
         Promise.all(
-          data?.feedbacks.map(async (feedback) => {
-            await deletor(`/api/feedback/${feedback.id}`);
-          }) || []
+          data
+            ? [
+                ...data.feedbacks.map(async (feedback) => {
+                  await deletor(`/api/feedback/${feedback.id}`);
+                }),
+                updator(`/api/projects/${projectId}`, {
+                  reseted: data.reseted + 1,
+                }).then(() => mutate()),
+              ]
+            : []
         )
       );
     }
-  }, [data?.feedbacks]);
+  }, [data, mutate, projectId]);
 
   return (
     <DefaultUserLayout messages={{ projectId: data?.name }}>

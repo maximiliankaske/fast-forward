@@ -20,7 +20,7 @@ const OpenPage = (
       <div>
         <Heading as="h3">Data</Heading>
         <ul className="grid grid-cols-2 sm:grid-cols-4">
-          {(["projects", "feedbacks", "users"] as const).map((i) => (
+          {(["projects", "feedbacks", "users", "resets"] as const).map((i) => (
             <li key={i} className="flex items-end space-x-2">
               <Heading as="h4">
                 {props[i]}{" "}
@@ -56,6 +56,7 @@ export const getServerSideProps = async () => {
       projects: projects.length,
       feedbacks: feedbacks.length,
       users: users.length,
+      resets: projects.reduce((prev, curr) => curr.reseted + prev, 0),
     },
   };
 };
