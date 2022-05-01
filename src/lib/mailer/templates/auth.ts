@@ -1,30 +1,9 @@
-import { EmailConfig } from "next-auth/providers";
-import { transport } from "./nodemailer";
-type SendVerificationRequestType = {
-  identifier: string;
-  url: string;
-  expires: Date;
-  provider: EmailConfig;
-  token: string;
-};
-
-async function sendVerificationRequest({
-  identifier: email,
-  url,
-  provider: { server, from },
-}: SendVerificationRequestType) {
-  const { host } = new URL(url);
-  await transport.sendMail({
-    to: email,
-    from,
-    subject: `Sign in to ${host}`,
-    text: text({ url, host }),
-    html: html({ url, host, email }),
-  });
-}
-
 // Email HTML body
-function html({ url, host, email }: Record<"url" | "host" | "email", string>) {
+export function html({
+  url,
+  host,
+  email,
+}: Record<"url" | "host" | "email", string>) {
   // Insert invisible space into domains and email address to prevent both the
   // email address and the domain from being turned into a hyperlink by email
   // clients like Outlook and Apple mail, as this is confusing because it seems
@@ -75,8 +54,6 @@ function html({ url, host, email }: Record<"url" | "host" | "email", string>) {
 }
 
 // Email Text body (fallback for email clients that don't render HTML, e.g. feature phones)
-function text({ url, host }: Record<"url" | "host", string>) {
+export function text({ url, host }: Record<"url" | "host", string>) {
   return `Sign in to ${host}\n${url}\n\n`;
 }
-
-export { sendVerificationRequest };

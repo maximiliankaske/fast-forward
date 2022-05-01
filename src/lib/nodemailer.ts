@@ -2,7 +2,9 @@ import nodemailer from "nodemailer";
 
 const config = {
   sender: {
-    email: "hello@fast-forward.app",
+    // TODO: create an email provider for fast-forward
+    email: process.env.EMAIL_SERVER_USER,
+    // email: "hello@fast-forward.app",
     name: "Fast Forward",
   },
   server: {
@@ -17,6 +19,9 @@ const config = {
   },
 };
 
-const transport = nodemailer.createTransport(config.server);
+const transport = nodemailer.createTransport({
+  ...config.server,
+  pool: true,
+});
 
 export { transport, config };

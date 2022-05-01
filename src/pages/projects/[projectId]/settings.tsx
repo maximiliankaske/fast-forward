@@ -105,10 +105,24 @@ const Settings = ({
           </span>
         </Text>
         <Checkbox
-          label="Private project"
+          label="private project"
           name="private-project"
           checked={!!data?.private}
           onChange={() => update({ private: !data?.private })}
+        />
+      </div>
+      <div className="my-4">
+        <Text variant="description">
+          Notifications are{" "}
+          <span className="font-medium text-gray-900 dark:text-white">
+            {data?.notifications ? "on" : "off"}
+          </span>
+        </Text>
+        <Checkbox
+          label="toggle notifications"
+          name="notifications-project"
+          checked={data?.notifications}
+          onChange={() => update({ notifications: !data?.notifications })}
         />
       </div>
       <Heading as="h4">Danger Zone</Heading>
