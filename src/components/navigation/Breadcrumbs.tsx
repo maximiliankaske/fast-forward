@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Badge from "../ui/Badge";
 import Link from "../ui/Link";
@@ -62,7 +63,7 @@ const Breadcrumbs = ({ messages, badges }: BreadcrumbsProps) => {
             </li>
           );
         })}
-        <li className="flex space-x-2">
+        <li className="flex space-x-2 ml-2">
           {badges?.map((i) => (
             <Badge key={i} color="primary" size="sm">
               {i}

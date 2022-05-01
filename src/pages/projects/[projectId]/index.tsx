@@ -38,13 +38,18 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
     navigator.clipboard.writeText(text).then(() => toasts.success("clipboard"));
   };
 
-  console.log(project, session);
-  const ownProject = project?.teamId === session?.data?.user.teamId;
+  const ownProject =
+    session.status !== "loading"
+      ? project?.teamId === session?.data?.user.teamId
+      : true;
+  const _public = !project?.private;
 
   // FIXME: the badges get rendered immediately after page load
   const badges = [];
-  if (!project?.private) badges.push("public");
-  if (!ownProject) badges.push("team");
+  if (project && project && _public) badges.push("public");
+  if (project && !ownProject) badges.push("team");
+
+  console.log(badges, ownProject, _public);
 
   const sortByDate = (a: Date, b: Date) => {
     return new Date(b).getTime() - new Date(a).getTime();
