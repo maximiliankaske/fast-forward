@@ -45,15 +45,16 @@ const Breadcrumbs = ({ messages, badges }: BreadcrumbsProps) => {
 
   return (
     <nav className="flex overflow-x-scroll" aria-label="Breadcrumb">
-      <ol role="list" className="flex items-center space-x-4 text-sm">
+      <ol role="list" className="flex items-center text-sm">
         <li className="flex-shrink-0">🏡</li>
         {bread.map((page) => {
           return (
-            <li key={page.name} className="flex items-center text-sm">
-              <div className="mr-4">
-                <span className="flex-shrink-0">/</span>
-              </div>
-              <Link href={page.href} className="flex-shrink-0">
+            <li
+              key={page.name}
+              className="flex items-center text-sm flex-shrink-0"
+            >
+              <div className="mx-4">/</div>
+              <Link href={page.href}>
                 {page.name.length > 16
                   ? `${page.name.slice(0, 14)}...`
                   : page.name}
