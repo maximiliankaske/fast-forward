@@ -49,8 +49,6 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
   if (project && project && _public) badges.push("public");
   if (project && !ownProject) badges.push("team");
 
-  console.log(badges, ownProject, _public);
-
   const sortByDate = (a: Date, b: Date) => {
     return new Date(b).getTime() - new Date(a).getTime();
   };

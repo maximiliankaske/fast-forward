@@ -32,7 +32,6 @@ const Breadcrumbs = ({ messages, badges }: BreadcrumbsProps) => {
       : path,
   }));
 
-  console.log(crumbs);
   // we convert the params into readable messages
   const bread = crumbs.map((c) => {
     const value = c;
