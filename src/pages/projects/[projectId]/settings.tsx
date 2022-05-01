@@ -77,10 +77,10 @@ const Settings = ({
                 }),
                 updator(`/api/projects/${projectId}`, {
                   reseted: data.reseted + 1,
-                }).then(() => mutate()),
+                }),
               ]
             : []
-        )
+        ).then(() => mutate())
       );
     }
   }, [data, mutate, projectId]);
