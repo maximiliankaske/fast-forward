@@ -8,7 +8,7 @@ import React, {
 import Button from "../ui/Button";
 import { formattedMessages } from "./translations";
 import LoadingIcon from "../icon/Loading";
-import { CheckIcon, PhotographIcon, XIcon } from "@heroicons/react/solid";
+import { CheckIcon, CameraIcon, XIcon } from "@heroicons/react/solid";
 import { FeedbackType } from "@prisma/client";
 import RadioCard from "../ui/RadioCard";
 import useSWR from "swr";
@@ -223,7 +223,7 @@ const WidgetForm = ({
                   type="button"
                   onClick={onScreenshot}
                 >
-                  <PhotographIcon className="h-5 w-5" />
+                  <CameraIcon className="h-5 w-5" />
                 </button>
               );
             case "pending":
