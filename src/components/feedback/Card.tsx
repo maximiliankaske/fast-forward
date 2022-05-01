@@ -13,6 +13,7 @@ import parser from "ua-parser-js";
 import cn from "classnames";
 import { StarIcon as SolidStarIcon } from "@heroicons/react/solid";
 import { StarIcon } from "@heroicons/react/outline";
+import Image from "next/image";
 
 interface Props {
   feedback: Feedback;
@@ -98,16 +99,21 @@ const Card = ({ feedback, className, hideUser = false }: Props) => {
         {feedback.screenshotURL ? (
           <>
             <Text className="font-medium">screenshot</Text>
-            <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400">
-              <Link
+            <div className="col-span-2">
+              <a
                 href={feedback.screenshotURL}
-                download
                 target="_blank"
                 rel="noreferrer"
+                className="block rounded-md border border-gray-200 dark:border-gray-800 overflow-hidden relative h-10 w-10"
               >
-                download
-              </Link>
-            </Text>
+                <Image
+                  layout="fill"
+                  objectFit="cover"
+                  src={feedback.screenshotURL}
+                  alt=""
+                />
+              </a>
+            </div>
           </>
         ) : null}
       </div>

@@ -9,6 +9,7 @@ const pricing = {
   planetscale: "free",
   github: "free",
   domain: "$20/year",
+  cloudinary: "free",
 } as const;
 
 const OpenPage = (
@@ -31,7 +32,7 @@ const OpenPage = (
         </ul>
       </div>
       <div>
-        <Heading as="h3">Pricing</Heading>
+        <Heading as="h3">Costs</Heading>
         <ul className="grid grid-cols-2 sm:grid-cols-4">
           {Object.entries(pricing).map(([k, v]) => (
             <li key={k} className="flex items-center space-x-2">

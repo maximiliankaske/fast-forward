@@ -39,6 +39,7 @@ const Widget: FC = () => {
           </Popover.Button>
           <Popover.Panel
             ref={setPopperElement}
+            id="widget"
             style={styles.popper}
             {...attributes.popper}
             // data-html2canvas-ignore FIXME: back if screenshots are allowed
