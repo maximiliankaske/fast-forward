@@ -1,7 +1,7 @@
 import { Feedback, Project } from "@prisma/client";
 import { EmailConfig } from "next-auth/providers";
 import { config, transport } from "../nodemailer";
-import { html, text } from "./templates/auth";
+// import { html, text } from "./templates/auth";
 
 const BASE_URL =
   process.env.NODE_ENV === "development"
@@ -19,16 +19,23 @@ type SendVerificationRequestType = {
 async function sendVerificationRequest({
   identifier: email,
   url,
-  provider: { server, from },
-}: SendVerificationRequestType) {
-  const { host } = new URL(url);
-  await transport.sendMail({
-    to: email,
-    from,
-    subject: `Sign in to ${host}`,
-    text: text({ url, host }),
-    html: html({ url, host, email }),
-  });
+}: // provider: { server, from },
+SendVerificationRequestType) {
+  try {
+    const { host } = new URL(url);
+    await transport.sendMail({
+      to: email,
+      from: config.sender.email, // from
+      subject: `Sign in to ${host}`,
+      text: `Sign in to ${host}\n${url}\n\n`,
+      html: `
+      <p>Log in to fast-forward with your magic link.</p>
+      <p>Click <a href="${url}" target="_blank">here</a> to start.</p>
+      `,
+    });
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 type SendFeedbackNotificationType = {
@@ -57,7 +64,7 @@ async function sendFeedbackNotification({
     });
     console.log(res);
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 }
 

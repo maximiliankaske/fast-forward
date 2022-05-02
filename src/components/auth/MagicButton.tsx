@@ -1,3 +1,4 @@
+import toasts from "@/utils/toast";
 import { signIn, SignInOptions } from "next-auth/react";
 import React from "react";
 import Button from "../ui/Button";
@@ -14,10 +15,12 @@ const MagicButton = ({ options }: Props) => {
         const target = e.target as typeof e.target & {
           email: { value: string };
         };
-        signIn("email", {
-          email: target.email.value,
-          ...options,
-        });
+        toasts.promise(
+          signIn("email", {
+            email: target.email.value,
+            ...options,
+          })
+        );
       }}
       className="space-y-2 w-full"
     >
