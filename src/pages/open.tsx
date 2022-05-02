@@ -3,13 +3,33 @@ import Heading from "@/components/ui/Heading";
 import React from "react";
 import prisma from "@/lib/prisma";
 import { InferGetServerSidePropsType } from "next";
+import Link from "next/link";
 
 const pricing = {
-  vercel: "free",
-  planetscale: "free",
-  github: "free",
-  domain: "$20/year",
-  cloudinary: "free",
+  vercel: {
+    href: "vercel.com",
+    cost: "free",
+  },
+  planetscale: {
+    href: "planetscale.com",
+    cost: "free",
+  },
+  github: {
+    href: "github.com",
+    cost: "free",
+  },
+  domain: {
+    href: "vercel.com",
+    cost: "$20/year",
+  },
+  cloudinary: {
+    href: "cloudinary.com",
+    cost: "free",
+  },
+  // crisp: {
+  //   href: "crisp.chat",
+  //   cost: "free",
+  // },
 } as const;
 
 const OpenPage = (
@@ -37,8 +57,12 @@ const OpenPage = (
           {Object.entries(pricing).map(([k, v]) => (
             <li key={k} className="flex items-center space-x-2">
               <Heading as="h4">
-                {v}{" "}
-                <span className="text-gray-600 dark:text-gray-400">{k}</span>
+                {`${v.cost} `}
+                <Link href={v.href}>
+                  <a className="text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                    {k}
+                  </a>
+                </Link>
               </Heading>
             </li>
           ))}
