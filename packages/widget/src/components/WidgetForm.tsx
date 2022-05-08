@@ -1,23 +1,15 @@
-import React, {
-  FormEvent,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import Button from "../ui/Button";
-import { formattedMessages } from "./translations";
-import LoadingIcon from "../icon/Loading";
+import * as React from "react";
+import Button from "./Button";
+import { formattedMessages } from "../utils/translations";
+import LoadingIcon from "./LoadingIcon";
 import { CheckIcon, CameraIcon, XIcon } from "@heroicons/react/solid";
-import { FeedbackType } from "@prisma/client";
-import RadioCard from "../ui/RadioCard";
-import useSWR from "swr";
-import fetcher from "@/utils/fetcher";
+import RadioCard from "./RadioCard";
 import { toPng } from "html-to-image";
 import { CloudUploadIcon } from "@heroicons/react/outline";
-import Image from "next/image";
 
-// Basic WidgetForm with Screenshot button
+type FormType = "idle" | "pending" | "error" | "success";
+type FeedbackType = "ISSUE" | "IDEA" | "OTHER";
+type UploadStateType = "idle" | "pending" | "error" | "success";
 
 interface Props {
   userId?: string | null;
@@ -36,19 +28,16 @@ const WidgetForm = ({
   metadata,
   domain,
 }: Props) => {
-  const [form, setForm] = useState<"idle" | "pending" | "error" | "success">(
-    "idle"
-  );
-  const formRef = useRef<HTMLFormElement>(null);
-  const [uploadState, setUploadState] = useState<
-    "idle" | "pending" | "error" | "success"
-  >("idle");
-  const [screenshotURL, setScreenshotURL] = useState<string | undefined>();
+  const [form, setForm] = React.useState<FormType>("idle");
+  const formRef = React.useRef<HTMLFormElement>(null);
+  const [uploadState, setUploadState] = React.useState<UploadStateType>("idle");
+  const [screenshotURL, setScreenshotURL] = React.useState<
+    string | undefined
+  >();
   // "https://res.cloudinary.com/deh02ip3x/image/upload/v1651418026/wb7iv4svvwm4n6ndkkwj.png"
-  const [text, setText] = useState<string>("");
-  const { mutate } = useSWR(`/api/projects/${projectId}`, fetcher);
+  const [text, setText] = React.useState<string>("");
 
-  useEffect(() => {
+  React.useEffect(() => {
     let timer: undefined | NodeJS.Timeout;
     if (form === "success") {
       timer = setTimeout(() => {
@@ -62,22 +51,21 @@ const WidgetForm = ({
     };
   }, [form, closePanel]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (text !== "" && form !== "idle") {
       setForm("idle");
     }
   }, [text, form]);
 
-  const handleReset = useCallback(() => {
+  const handleReset = React.useCallback(() => {
     formRef.current?.reset();
     setText("");
     setUploadState("idle");
     setScreenshotURL(undefined);
     setForm("success");
-    mutate();
-  }, [mutate]);
+  }, []);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setForm("pending");
     const target = event.target as typeof event.target & {
@@ -85,7 +73,6 @@ const WidgetForm = ({
       type: { value: FeedbackType };
     };
     try {
-      // REMINDER: remove sendFeedbackPromiseToast later
       await fetch(`${domain || ""}/api/feedback`, {
         method: "POST",
         headers: new Headers({
@@ -162,6 +149,7 @@ const WidgetForm = ({
         },
       })
         .then(function (dataUrl) {
+          // TODO: use correct domain name here
           fetch(`/api/cloudinary`, {
             method: "POST",
             body: JSON.stringify({
@@ -170,7 +158,7 @@ const WidgetForm = ({
           })
             .then((res) => res.json())
             .then((json) => {
-              // missing Cloudinary types
+              // FIXME: missing Cloudinary types
               setScreenshotURL(json.secure_url);
               setUploadState("success");
             })
@@ -186,7 +174,6 @@ const WidgetForm = ({
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
-      {/* <Radios label={messages.type.label} name="type" options={types} srOnly /> */}
       <div className="flex space-x-2">
         {Object.entries(types).map(([key, value]) => (
           <RadioCard
@@ -242,12 +229,8 @@ const WidgetForm = ({
                     rel="noreferrer"
                     className="block h-full w-full"
                   >
-                    <Image
-                      layout="fill"
-                      alt=""
-                      src={screenshotURL!}
-                      objectFit="cover"
-                    />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img alt="" src={screenshotURL!} />
                   </a>
                   <button
                     type="button"

@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import Link from "../ui/Link";
 import cn from "classnames";
 import ProfileMenu from "./ProfileMenu";
-import Widget from "../feedback/Widget";
 import { useSession } from "next-auth/react";
+import { Widget } from "widget";
 
 const Header: FC = ({ children }) => {
   const session = useSession();
@@ -22,7 +22,7 @@ const Header: FC = ({ children }) => {
           </div>
           <div className="space-x-5 sm:space-x-6 flex items-center">
             <Link href="/docs">docs</Link>
-            <Widget />
+            <Widget userId={session?.data?.user.email} />
             {session.data?.user.id ? (
               <ProfileMenu />
             ) : (

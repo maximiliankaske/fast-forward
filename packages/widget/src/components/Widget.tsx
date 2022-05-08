@@ -1,19 +1,22 @@
-import React, { FC, useState } from "react";
+import * as React from "react";
 import { Popover } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { usePopper } from "react-popper";
 import WidgetForm from "./WidgetForm";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 
-const Widget: FC = () => {
-  const router = useRouter();
-  const session = useSession();
+interface Props {
+  projectId?: string;
+  userId?: string;
+}
+
+const Widget = ({
+  userId,
+  projectId = process.env.NEXT_PUBLIC_DEMO_PROJECT_ID,
+}: Props) => {
   const [referenceElement, setReferenceElement] =
-    useState<HTMLDivElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
-    null
-  );
+    React.useState<HTMLDivElement | null>(null);
+  const [popperElement, setPopperElement] =
+    React.useState<HTMLDivElement | null>(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     // placement: "top",
     modifiers: [{ name: "offset", options: { offset: [0, 8] } }],
@@ -53,11 +56,8 @@ const Widget: FC = () => {
                   <XIcon className="h-5 w-5 text-gray-500" />
                 </button>
                 <WidgetForm
-                  projectId={
-                    (router.query.projectId as string | undefined) ||
-                    process.env.NEXT_PUBLIC_DEMO_PROJECT_ID
-                  }
-                  userId={session.data?.user.email}
+                  projectId={projectId}
+                  userId={userId}
                   lang="en"
                   closePanel={close}
                 />

@@ -1,0 +1,34 @@
+{
+  "name": "widget",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "license": "MIT",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external @headlessui/react --external react-popper",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --external @headlessui/react --external react-popper",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "@headlessui/react": "^1.4.1",
+    "@heroicons/react": "^1.0.1",
+    "@types/react": "^17.0.13",
+    "@types/react-dom": "^17.0.8",
+    "eslint-config": "*",
+    "html-to-image": "^1.9.0",
+    "react": "^17.0.2",
+    "react-popper": "^2.2.5",
+    "tsup": "^5.10.1",
+    "ts-config": "*",
+    "typescript": "^4.5.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

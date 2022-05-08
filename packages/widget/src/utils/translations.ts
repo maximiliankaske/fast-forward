@@ -1,28 +1,6 @@
-// TODO: make it available through API
+import { Translation } from "../types";
 
-const translations: Record<
-  "en" | "de" | "fr",
-  {
-    // title: string;
-    type: {
-      label: string;
-      options: {
-        issue: { label: string };
-        idea: { label: string };
-        other: { label: string };
-      };
-    };
-    comment: { label: string; placeholder: string };
-    submit: {
-      label: string;
-      state: {
-        loading: string;
-        success: string;
-        error: string;
-      };
-    };
-  }
-> = {
+const translations: Record<"en" | "de" | "fr", Translation> = {
   en: {
     // title: "What comes to your mind?"
     type: {
