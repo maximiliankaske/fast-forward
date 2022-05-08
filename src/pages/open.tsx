@@ -30,6 +30,10 @@ const pricing = {
   //   href: "crisp.chat",
   //   cost: "free",
   // },
+  postmarkapp: {
+    href: "postmarkapp.com",
+    cost: "free",
+  },
 } as const;
 
 const OpenPage = (

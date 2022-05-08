@@ -2,9 +2,7 @@ import nodemailer from "nodemailer";
 
 const config = {
   sender: {
-    // TODO: create an email provider for fast-forward
-    email: process.env.EMAIL_SERVER_USER,
-    // email: "hello@fast-forward.app",
+    email: process.env.EMAIL_FROM,
     name: "Fast Forward",
   },
   server: {
