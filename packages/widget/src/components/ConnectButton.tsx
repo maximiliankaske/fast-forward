@@ -3,15 +3,19 @@ import { FeedbackBase } from "../types";
 import Form from "./archive/Form";
 import Portal from "./Portal";
 
-const DEMO_PROJECT_ID = "cl2dnfmpg00788jik7de0lhz2";
-
-interface ConnectButtonProps
-  extends React.ComponentProps<"button">,
-    FeedbackBase {
+interface ConnectButtonProps extends FeedbackBase {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
   theme?: string;
 }
 
-const ConnectButton = ({ children, onClick, ...props }: ConnectButtonProps) => {
+const ConnectButton = ({
+  children,
+  onClick,
+  className,
+  ...props
+}: ConnectButtonProps) => {
   const [open, toggle] = React.useReducer((s) => !s, false);
 
   return (
@@ -19,15 +23,15 @@ const ConnectButton = ({ children, onClick, ...props }: ConnectButtonProps) => {
       <button
         onClick={(e) => {
           toggle();
-          onClick?.(e);
+          onClick?.();
         }}
-        {...props}
+        className={className}
       >
         {children}
       </button>
       {open ? (
         <Portal {...{ toggle, open }}>
-          <Form projectId={DEMO_PROJECT_ID} close={toggle} />
+          <Form close={toggle} {...props} />
         </Portal>
       ) : null}
     </>

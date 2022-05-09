@@ -3,7 +3,7 @@ import Link from "../ui/Link";
 import cn from "classnames";
 import ProfileMenu from "./ProfileMenu";
 import { useSession } from "next-auth/react";
-import { Widget, ConnectButton } from "widget";
+import { ConnectButton } from "widget";
 
 const Header: FC = ({ children }) => {
   const session = useSession();
@@ -22,8 +22,18 @@ const Header: FC = ({ children }) => {
           </div>
           <div className="space-x-5 sm:space-x-6 flex items-center">
             <Link href="/docs">docs</Link>
-            {/* <Widget userId={session?.data?.user.email} /> */}
-            <ConnectButton>feedback</ConnectButton>
+            <div className="relative group">
+              <ConnectButton
+                projectId={process.env.NEXT_PUBLIC_DEMO_PROJECT_ID}
+                className="border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700"
+              >
+                feedback
+              </ConnectButton>
+              <span className="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
+                <span className="animate-ping group-hover:animate-none absolute inline-flex h-full w-full rounded-full bg-gray-700 dark:bg-gray-300 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-gray-700 dark:bg-gray-300"></span>
+              </span>
+            </div>
             {session.data?.user.id ? (
               <ProfileMenu />
             ) : (
