@@ -210,8 +210,8 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
             case "idle":
               return (
                 <button
-                  className="p-1 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md"
                   type="button"
+                  className="p-1 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md"
                   onClick={onScreenshot}
                 >
                   <CameraIcon className="h-5 w-5" />

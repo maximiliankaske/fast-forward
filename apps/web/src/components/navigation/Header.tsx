@@ -7,7 +7,6 @@ import { ConnectButton } from "widget";
 
 const Header: FC = ({ children }) => {
   const session = useSession();
-  // TODO: use session instead of withProfile
   return (
     <header
       className={cn(
@@ -25,6 +24,7 @@ const Header: FC = ({ children }) => {
             <div className="relative group">
               <ConnectButton
                 projectId={process.env.NEXT_PUBLIC_DEMO_PROJECT_ID}
+                userId={session?.data?.user.email}
                 className="border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700"
               >
                 feedback
