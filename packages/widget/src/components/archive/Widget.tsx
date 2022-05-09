@@ -2,17 +2,14 @@ import * as React from "react";
 import { Popover } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { usePopper } from "react-popper";
-import WidgetForm from "./WidgetForm";
+import Form from "./Form";
 
 interface Props {
-  projectId?: string;
+  projectId: string;
   userId?: string;
 }
 
-const Widget = ({
-  userId,
-  projectId = process.env.NEXT_PUBLIC_DEMO_PROJECT_ID,
-}: Props) => {
+const Widget = ({ userId, projectId }: Props) => {
   const [referenceElement, setReferenceElement] =
     React.useState<HTMLDivElement | null>(null);
   const [popperElement, setPopperElement] =
@@ -55,11 +52,11 @@ const Widget = ({
                 >
                   <XIcon className="h-5 w-5 text-gray-500" />
                 </button>
-                <WidgetForm
+                <Form
                   projectId={projectId}
                   userId={userId}
                   lang="en"
-                  closePanel={close}
+                  close={close}
                 />
               </div>
             )}

@@ -1,33 +1,26 @@
 import * as React from "react";
 import Button from "./Button";
-import { formattedMessages } from "../utils/translations";
+import { formattedMessages } from "../../utils/translations";
 import LoadingIcon from "./LoadingIcon";
 import { CheckIcon, CameraIcon, XIcon } from "@heroicons/react/solid";
 import RadioCard from "./RadioCard";
 import { toPng } from "html-to-image";
 import { CloudUploadIcon } from "@heroicons/react/outline";
+import { FeedbackType } from "../../types";
 
 type FormType = "idle" | "pending" | "error" | "success";
-type FeedbackType = "ISSUE" | "IDEA" | "OTHER";
 type UploadStateType = "idle" | "pending" | "error" | "success";
 
 interface Props {
   userId?: string | null;
-  projectId?: string;
+  projectId: string;
   lang?: string;
   metadata?: Record<string, string | null | undefined | number>;
   domain?: string;
-  closePanel: () => void;
+  close: () => void;
 }
 
-const WidgetForm = ({
-  closePanel,
-  userId,
-  lang,
-  projectId,
-  metadata,
-  domain,
-}: Props) => {
+const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
   const [form, setForm] = React.useState<FormType>("idle");
   const formRef = React.useRef<HTMLFormElement>(null);
   const [uploadState, setUploadState] = React.useState<UploadStateType>("idle");
@@ -41,7 +34,7 @@ const WidgetForm = ({
     let timer: undefined | NodeJS.Timeout;
     if (form === "success") {
       timer = setTimeout(() => {
-        closePanel();
+        close();
       }, 2000);
     }
     return () => {
@@ -49,7 +42,7 @@ const WidgetForm = ({
         clearTimeout(timer);
       }
     };
-  }, [form, closePanel]);
+  }, [form, close]);
 
   React.useEffect(() => {
     if (text !== "" && form !== "idle") {
@@ -173,7 +166,11 @@ const WidgetForm = ({
   };
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      className="bg-white dark:bg-black space-y-3 p-2 border rounded-md border-gray-200 shadow dark:border-gray-800"
+    >
       <div className="flex space-x-2">
         {Object.entries(types).map(([key, value]) => (
           <RadioCard
@@ -181,13 +178,19 @@ const WidgetForm = ({
             name="type"
             id={value.value}
             value={value.value}
-            size="sm"
             className="lowercase"
             defaultChecked={value?.defaultChecked}
           >
             {`${value.label} ${value.icon}`}
           </RadioCard>
         ))}
+        <button
+          type="button"
+          onClick={close}
+          className="text-gray-600 dark:text-gray-400"
+        >
+          <XIcon className="ml-1 h-4 w-4" />
+        </button>
       </div>
       <label className="sr-only" htmlFor="text">
         Message
@@ -199,6 +202,7 @@ const WidgetForm = ({
         rows={3}
         value={text}
         onChange={(event) => setText(event.target.value)}
+        autoFocus
       />
       <div className="flex space-x-2 items-center">
         {(() => {
@@ -245,13 +249,7 @@ const WidgetForm = ({
               return null;
           }
         })()}
-        <Button
-          variant="primary"
-          type="submit"
-          className="w-full"
-          disabled={text === ""}
-          size="sm"
-        >
+        <Button type="submit" className="w-full" disabled={text === ""}>
           {renderState()}
         </Button>
       </div>
@@ -259,4 +257,4 @@ const WidgetForm = ({
   );
 };
 
-export default WidgetForm;
+export default Form;

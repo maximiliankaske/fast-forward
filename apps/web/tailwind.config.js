@@ -3,7 +3,11 @@ const colors = require("tailwindcss/colors");
 const { spacing, fontFamily } = defaultTheme;
 
 module.exports = {
-  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+    // FIXME: create own tailwind config
+    "../../packages/widget/**/*.{js,ts,jsx,tsx}",
+  ],
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {

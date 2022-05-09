@@ -1,3 +1,19 @@
+export type FeedbackBase = {
+  userId?: string | null;
+  projectId: string;
+  lang?: string;
+  metadata?: Record<string, string | null | undefined | number>;
+  domain?: string;
+};
+
+export type FeedbackForm = {
+  text: string;
+  type: FeedbackType;
+  screeshotURL?: string;
+};
+
+export type FeedbackType = "ISSUE" | "IDEA" | "OTHER";
+
 export type Translation = {
   // title: string;
   type: {
