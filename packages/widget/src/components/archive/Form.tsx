@@ -110,7 +110,7 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
   const types = {
     issue: {
       label: messages.type.options.issue.label,
-      defaultChecked: true,
+      defaultChecked: false,
       value: "ISSUE",
       icon: "🚧",
     },
@@ -122,7 +122,7 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
     },
     other: {
       label: messages.type.options.other.label,
-      defaultChecked: false,
+      defaultChecked: true,
       value: "OTHER",
       icon: "💬",
     },
