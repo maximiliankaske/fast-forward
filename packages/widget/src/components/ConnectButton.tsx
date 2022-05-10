@@ -5,7 +5,7 @@ import Portal from "./Portal";
 
 interface ConnectButtonProps extends FeedbackBase {
   children: React.ReactNode;
-  as: React.ElementType;
+  as?: React.ElementType;
   onClick?: () => void;
   className?: string;
   theme?: string;
