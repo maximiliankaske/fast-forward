@@ -9,7 +9,7 @@ const Widget = () => {
       <Heading>Widget</Heading>
       <Script src="./js/widget.js"></Script>
       {/* @ts-ignore */}
-      <feedback-widget username="mxkaske" />
+      <feedback-widget username="mxkaske">feedback</feedback-widget>
     </DefaultLayout>
   );
 };
