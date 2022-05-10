@@ -197,7 +197,7 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
       </label>
       <textarea
         name="text"
-        className="px-2 py-1 text-sm resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-100 dark:border-gray-900 rounded-md bg-transparent"
+        className="px-2 py-1 resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-100 dark:border-gray-900 rounded-md bg-transparent"
         placeholder={messages.comment.placeholder}
         rows={3}
         value={text}

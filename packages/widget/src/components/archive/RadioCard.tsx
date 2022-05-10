@@ -2,7 +2,7 @@ import * as React from "react";
 import cn from "classnames";
 
 const styles = {
-  base: "py-1 px-2 text-sm inline-flex items-center border border-gray-300 dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600 rounded-md cursor-pointer focus:outline-none",
+  base: "py-1 px-2 inline-flex items-center border border-gray-300 dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600 rounded-md cursor-pointer focus:outline-none",
   checked:
     "peer-checked:bg-gray-900 dark:peer-checked:bg-gray-800 peer-checked:text-white",
   focus: "peer-focus:ring-gray-900 peer-focus:ring-2 peer-focus:ring-offset-2",

@@ -5,6 +5,7 @@ import Portal from "./Portal";
 
 interface ConnectButtonProps extends FeedbackBase {
   children: React.ReactNode;
+  as: React.ElementType;
   onClick?: () => void;
   className?: string;
   theme?: string;
@@ -13,22 +14,24 @@ interface ConnectButtonProps extends FeedbackBase {
 const ConnectButton = ({
   children,
   onClick,
+  as = "button",
   className,
   ...props
 }: ConnectButtonProps) => {
   const [open, toggle] = React.useReducer((s) => !s, false);
+  const Element = (props: React.HTMLAttributes<HTMLButtonElement>) =>
+    React.createElement(as, props, children);
 
   return (
     <>
-      <button
+      <Element
         onClick={(e) => {
           toggle();
           onClick?.();
         }}
         className={className}
-      >
-        {children}
-      </button>
+        // TODO: add more props
+      />
       {open ? (
         <Portal {...{ toggle, open }}>
           <Form close={toggle} {...props} />
