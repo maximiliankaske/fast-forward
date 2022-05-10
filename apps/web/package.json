@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "tsc": "tsc",
-    "clean": "rm -rf .next && rm -rf .turbo && rm -rf node_modules"
+    "clean": "rm -rf .next && rm -rf .turbo && rm -rf node_modules",
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
