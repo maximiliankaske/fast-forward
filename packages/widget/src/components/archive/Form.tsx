@@ -66,7 +66,11 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
       type: { value: FeedbackType };
     };
     try {
-      await fetch(`${domain || ""}/api/feedback`, {
+      const currentDomain =
+        domain || process.env.NODE_ENV === "production"
+          ? "https://staging.fast-forward.app"
+          : "";
+      await fetch(`${currentDomain || ""}/api/feedback`, {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
