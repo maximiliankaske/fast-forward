@@ -43,7 +43,7 @@ function Portal({ children, toggle, open, ...props }: PortalProps) {
 
   return ReactDOM.createPortal(
     <div
-      id="portal"
+      id="widget"
       className="fixed inset-0 z-[99] flex items-center justify-center"
       {...props}
     >
