@@ -50,7 +50,7 @@ function Portal({ children, toggle, open, ...props }: PortalProps) {
       <div
         ref={overlayRef}
         // onClick={toggle}
-        className="fixed inset-0 bg-gray-500 dark:bg-black dark:bg-opacity-75 bg-opacity-75"
+        className="fixed inset-0 bg-wGray-500 dark:bg-wBlack dark:bg-opacity-75 bg-opacity-75"
       />
       <div ref={protectedAreaRef} className="z-10 max-w-xl m-2">
         {children}

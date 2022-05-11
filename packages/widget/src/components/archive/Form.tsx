@@ -30,6 +30,11 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
   // "https://res.cloudinary.com/deh02ip3x/image/upload/v1651418026/wb7iv4svvwm4n6ndkkwj.png"
   const [text, setText] = React.useState<string>("");
 
+  const currentDomain =
+    domain || process.env.NODE_ENV === "production"
+      ? "https://staging.fast-forward.app"
+      : "http://localhost:3000";
+
   React.useEffect(() => {
     let timer: undefined | NodeJS.Timeout;
     if (form === "success") {
@@ -66,10 +71,6 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
       type: { value: FeedbackType };
     };
     try {
-      const currentDomain =
-        domain || process.env.NODE_ENV === "production"
-          ? "https://staging.fast-forward.app"
-          : "";
       await fetch(`${currentDomain || ""}/api/feedback`, {
         method: "POST",
         headers: new Headers({
@@ -102,12 +103,12 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
         return messages.submit.label;
       case "pending":
         return (
-          <LoadingIcon className="w-4 h-4 mx-auto my-1 text-gray-500 animate-spin" />
+          <LoadingIcon className="w-4 h-4 mx-auto my-1 text-wGray-500 animate-spin" />
         );
       case "error":
         return "error";
       case "success":
-        return <CheckIcon className="w-4 h-4 mx-auto my-1 text-green-500" />;
+        return <CheckIcon className="w-4 h-4 mx-auto my-1 text-wGreen-500" />;
     }
   };
 
@@ -147,7 +148,7 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
       })
         .then(function (dataUrl) {
           // TODO: use correct domain name here
-          fetch(`/api/cloudinary`, {
+          fetch(`${currentDomain}/api/cloudinary`, {
             method: "POST",
             body: JSON.stringify({
               screenshot: dataUrl,
@@ -173,7 +174,7 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="bg-white dark:bg-black space-y-3 p-2 border rounded-md border-gray-200 shadow dark:border-gray-800"
+      className="bg-wWhite dark:bg-wBlack space-y-3 p-2 border rounded-md border-wGray-200 shadow dark:border-wGray-800"
     >
       <div className="flex space-x-2">
         {Object.entries(types).map(([key, value]) => (
@@ -191,7 +192,7 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
         <button
           type="button"
           onClick={close}
-          className="text-gray-600 dark:text-gray-400"
+          className="text-wGray-600 dark:text-wGray-400"
         >
           <XIcon className="ml-1 h-4 w-4" />
         </button>
@@ -201,21 +202,21 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
       </label>
       <textarea
         name="text"
-        className="px-2 py-1 resize-none shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-100 dark:border-gray-900 rounded-md bg-transparent"
+        className="text-wBlack dark:text-wWhite px-2 py-1 resize-none shadow-sm focus:ring-wPrimary-500 focus:border-wPrimary-500 block w-full sm:text-sm border-wGray-100 dark:border-gray-900 rounded-md bg-transparent"
         placeholder={messages.comment.placeholder}
         rows={3}
         value={text}
         onChange={(event) => setText(event.target.value)}
         autoFocus
       />
-      <div className="flex space-x-2 items-center">
+      <div className="flex space-x-2 items-center text-wBlack dark:text-wWhite">
         {(() => {
           switch (uploadState) {
             case "idle":
               return (
                 <button
                   type="button"
-                  className="p-1 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-md"
+                  className="p-1 hover:bg-wGray-50 dark:hover:bg-wGray-900 rounded-md"
                   onClick={onScreenshot}
                 >
                   <CameraIcon className="h-5 w-5" />
@@ -243,7 +244,7 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
                   <button
                     type="button"
                     onClick={resetScreenshot}
-                    className="absolute -right-1 -top-1 p-[2px] rounded-full bg-red-500 text-white dark:text-black"
+                    className="absolute -right-1 -top-1 p-[2px] rounded-full bg-red-500 text-wWhite dark:text-wBlack"
                   >
                     <XIcon className="h-2 w-2" />
                   </button>

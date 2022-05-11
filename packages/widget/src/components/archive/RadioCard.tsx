@@ -2,10 +2,10 @@ import * as React from "react";
 import cn from "classnames";
 
 const styles = {
-  base: "py-1 px-2 inline-flex items-center border border-gray-300 dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600 rounded-md cursor-pointer focus:outline-none",
+  base: "dark:text-wWhite text-wBlack py-1 px-2 inline-flex items-center border border-wGray-300 dark:border-wGray-800 hover:border-wGray-400 dark:hover:border-wGray-600 rounded-md cursor-pointer focus:outline-none",
   checked:
-    "peer-checked:bg-gray-900 dark:peer-checked:bg-gray-800 peer-checked:text-white",
-  focus: "peer-focus:ring-gray-900 peer-focus:ring-2 peer-focus:ring-offset-2",
+    "peer-checked:bg-wGray-900 dark:peer-checked:bg-wGray-800 peer-checked:text-wWhite",
+  focus: "peer-focus:ring-wGray-900 peer-focus:ring-2 peer-focus:ring-offset-2",
 };
 
 export interface RadioCardProps

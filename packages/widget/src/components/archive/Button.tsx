@@ -2,7 +2,7 @@ import * as React from "react";
 import cn from "classnames";
 
 const styles = {
-  base: "rounded-md border dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500 px-1 py-px border-gray-200 hover:border-gray-300 dark:border-gray-800 dark:hover:border-gray-700",
+  base: "text-wBlack dark:text-wWhite rounded-md border dark:border-wGray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-wPrimary-500 px-1 py-px border-wGray-200 hover:border-wGray-300 dark:border-wGray-800 dark:hover:border-wGray-700",
   disabled: "pointer-events-none",
 };
 

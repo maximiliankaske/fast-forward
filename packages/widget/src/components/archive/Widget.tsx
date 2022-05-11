@@ -27,13 +27,13 @@ const Widget = ({ userId, projectId }: Props) => {
             className="relative group"
             ref={setReferenceElement}
           >
-            <button className="border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700">
+            <button className="border rounded-md px-2 py-1 hover:border-wGray-300 dark:border-wGray-800 hover:dark:border-wGray-700">
               feedback
             </button>
             {!open ? (
               <span className="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
-                <span className="animate-ping group-hover:animate-none absolute inline-flex h-full w-full rounded-full bg-gray-700 dark:bg-gray-300 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-gray-700 dark:bg-gray-300"></span>
+                <span className="animate-ping group-hover:animate-none absolute inline-flex h-full w-full rounded-full bg-wGray-700 dark:bg-wGray-300 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-wGray-700 dark:bg-wGray-300"></span>
               </span>
             ) : null}
           </Popover.Button>
@@ -45,12 +45,12 @@ const Widget = ({ userId, projectId }: Props) => {
             // data-html2canvas-ignore FIXME: back if screenshots are allowed
           >
             {({ close }) => (
-              <div className="relative bg-white dark:bg-black border border-gray-100 dark:border-gray-900 rounded-xl shadow-lg m-2 p-3 w-72">
+              <div className="relative bg-wWhite dark:bg-wBlack border border-wGray-100 dark:border-wGray-900 rounded-xl shadow-lg m-2 p-3 w-72">
                 <button
                   onClick={() => close()}
-                  className="absolute right-2 top-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="absolute right-2 top-2 rounded focus:outline-none focus:ring-2 focus:ring-wPrimary-500"
                 >
-                  <XIcon className="h-5 w-5 text-gray-500" />
+                  <XIcon className="h-5 w-5 text-wGray-500" />
                 </button>
                 <Form
                   projectId={projectId}

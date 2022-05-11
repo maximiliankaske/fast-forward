@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import cloudinary from "cloudinary";
+import { allowCors } from "@/lib/middleware";
 
 // @ts-ignore
 cloudinary.config({
@@ -25,4 +26,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default handler;
+export default allowCors(handler);
