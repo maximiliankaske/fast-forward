@@ -77,7 +77,9 @@ const Card = ({ feedback, className, hideUser = false }: Props) => {
       <div className="grid sm:grid-cols-3 text-sm">
         <Text className="font-medium">location</Text>
         <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400 truncate">
-          {feedback.location?.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")}
+          <Link target="_blank" rel="noopener" href={feedback.location}>
+            {feedback.location?.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")}
+          </Link>
         </Text>
         <Text className="font-medium">user agent</Text>
         <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400 truncate">
