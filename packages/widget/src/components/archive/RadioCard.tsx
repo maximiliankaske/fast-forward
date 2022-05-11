@@ -4,7 +4,7 @@ import cn from "classnames";
 const styles = {
   base: "dark:text-wWhite text-wBlack py-1 px-2 inline-flex items-center border border-wGray-300 dark:border-wGray-800 hover:border-wGray-400 dark:hover:border-wGray-600 rounded-md cursor-pointer focus:outline-none",
   checked:
-    "peer-checked:bg-wGray-900 dark:peer-checked:bg-wGray-800 peer-checked:text-wWhite",
+    "peer-checked:bg-wGray-300 dark:peer-checked:bg-wGray-800 dark:peer-checked:text-wWhite",
   focus: "peer-focus:ring-wGray-900 peer-focus:ring-2 peer-focus:ring-offset-2",
 };
 

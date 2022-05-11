@@ -1,15 +1,16 @@
+import "widget/dist/build.css"; // REMINDER: has to be before the globals from tailwindcss
+import "../styles/globals.css";
+import "../styles/prism.css";
+import "../styles/nprogress.css";
 import { MDXProvider } from "@mdx-js/react";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
-import "tailwindcss/tailwind.css";
-import "../styles/prism.css";
 import { Toaster } from "react-hot-toast";
 import { NextComponentType, NextPageContext } from "next";
 import Auth, { AuthComponentProps } from "@/components/auth/Auth";
 import { DefaultSeo } from "next-seo";
 import SEO from "@/config/next-seo.config";
 import { SessionProvider } from "next-auth/react";
-import "../styles/nprogress.css";
 import Router from "next/router";
 import NProgress from "nprogress";
 
