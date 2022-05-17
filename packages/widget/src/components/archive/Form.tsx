@@ -184,7 +184,7 @@ const Form = ({
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="bg-wWhite dark:bg-wBlack space-y-3 p-2 border rounded-md border-wGray-200 shadow dark:border-wGray-800"
+      className="bg-wWhite dark:bg-wBlack space-y-3 p-3 border rounded-md border-wGray-200 shadow dark:border-wGray-800"
     >
       <div className="flex space-x-2">
         {Object.entries(types).map(([key, value]) => (
@@ -202,9 +202,9 @@ const Form = ({
         <button
           type="button"
           onClick={close}
-          className="text-wGray-600 dark:text-wGray-400"
+          className="ml-1 rounded-md text-wGray-600 dark:text-wGray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900"
         >
-          <XIcon className="ml-1 h-4 w-4" />
+          <XIcon className="h-5 w-5" />
         </button>
       </div>
       <label className="sr-only" htmlFor="text">
@@ -212,7 +212,7 @@ const Form = ({
       </label>
       <textarea
         name="text"
-        className="text-wBlack dark:text-wWhite px-2 py-1 resize-none shadow-sm focus:ring-wPrimary-500 focus:border-wPrimary-500 block w-full sm:text-sm border-wGray-100 dark:border-gray-900 rounded-md bg-transparent"
+        className="text-wBlack dark:text-wWhite px-2 py-1 resize-none shadow-sm border focus:border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900 block w-full sm:text-sm border-wGray-100 dark:border-gray-900 rounded-md bg-transparent"
         placeholder={messages.comment.placeholder}
         rows={3}
         value={text}
@@ -226,7 +226,7 @@ const Form = ({
               return (
                 <button
                   type="button"
-                  className="p-1 hover:bg-wGray-50 dark:hover:bg-wGray-900 rounded-md"
+                  className="p-1 hover:bg-wGray-50 dark:hover:bg-wGray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900"
                   onClick={onScreenshot}
                 >
                   <CameraIcon className="h-5 w-5" />

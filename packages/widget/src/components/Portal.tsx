@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import FocusTrap from "focus-trap-react";
 
 interface PortalProps extends React.ComponentProps<"div"> {
   open: boolean;
   toggle: () => void;
+  // type?: "modal" | "popup"
 }
 
 function Portal({ children, toggle, open, ...props }: PortalProps) {
@@ -42,21 +44,24 @@ function Portal({ children, toggle, open, ...props }: PortalProps) {
   }, [open, toggle]);
 
   return ReactDOM.createPortal(
-    <div
-      id="widget"
-      className="fixed inset-0 z-[99] flex items-center justify-center"
-      {...props}
-    >
+    <FocusTrap active={open}>
       <div
-        ref={overlayRef}
-        // onClick={toggle}
-        className="fixed inset-0 bg-wGray-500 dark:bg-wBlack dark:bg-opacity-75 bg-opacity-75"
-      />
-      <div ref={protectedAreaRef} className="z-10 max-w-xl m-2">
-        {children}
+        id="widget"
+        className="fixed inset-0 z-[99] flex items-center justify-center"
+        {...props}
+      >
+        <div
+          ref={overlayRef}
+          // onClick={toggle}
+          className="fixed inset-0 bg-wGray-500 dark:bg-wBlack dark:bg-opacity-75 bg-opacity-75"
+        />
+        <div ref={protectedAreaRef} className="z-10 max-w-xl m-2">
+          {children}
+        </div>
       </div>
-    </div>,
+    </FocusTrap>,
     document.body
+    // type === "modal" ? document.body : document.getElementById("widget-connect-button")
   );
 }
 
