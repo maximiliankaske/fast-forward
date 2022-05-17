@@ -10,7 +10,7 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external react-dom && npm run build:css",
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external react-dom --external focus-trap-react && npm run build:css",
     "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --external react-dom --external focus-trap-react",
     "lint": "TIMING=1 eslint src/**/*.ts* --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
