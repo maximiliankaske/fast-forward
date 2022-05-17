@@ -9,6 +9,7 @@ interface ConnectButtonProps extends FeedbackBase {
   onClick?: () => void;
   className?: string;
   theme?: string;
+  onSubmit?: () => void;
 }
 
 const ConnectButton = ({
@@ -25,6 +26,7 @@ const ConnectButton = ({
   return (
     <>
       <Element
+        id="widget-connect-button"
         onClick={(e) => {
           toggle();
           onClick?.();

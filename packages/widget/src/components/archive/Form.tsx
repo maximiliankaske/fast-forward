@@ -18,9 +18,18 @@ interface Props {
   metadata?: Record<string, string | null | undefined | number>;
   domain?: string;
   close: () => void;
+  onSubmit?: () => void;
 }
 
-const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
+const Form = ({
+  close,
+  userId,
+  lang,
+  projectId,
+  metadata,
+  domain,
+  onSubmit,
+}: Props) => {
   const [form, setForm] = React.useState<FormType>("idle");
   const formRef = React.useRef<HTMLFormElement>(null);
   const [uploadState, setUploadState] = React.useState<UploadStateType>("idle");
@@ -87,6 +96,7 @@ const Form = ({ close, userId, lang, projectId, metadata, domain }: Props) => {
           screenshotURL,
         }),
       });
+      onSubmit?.();
       handleReset();
     } catch (error) {
       setForm("error");

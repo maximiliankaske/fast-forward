@@ -4,9 +4,17 @@ import cn from "classnames";
 import ProfileMenu from "./ProfileMenu";
 import { useSession } from "next-auth/react";
 import { ConnectButton } from "widget";
+import { useRouter } from "next/router";
+import useSWR from "swr";
+import fetcher from "@/utils/fetcher";
 
 const Header: FC = ({ children }) => {
   const session = useSession();
+  const router = useRouter();
+  const projectId =
+    (router.query?.projectId as string) ||
+    process.env.NEXT_PUBLIC_DEMO_PROJECT_ID;
+  const { mutate } = useSWR(`/api/projects/${projectId}`, fetcher);
   return (
     <header
       className={cn(
@@ -23,8 +31,12 @@ const Header: FC = ({ children }) => {
             <Link href="/docs">docs</Link>
             <div className="relative group">
               <ConnectButton
-                projectId={process.env.NEXT_PUBLIC_DEMO_PROJECT_ID}
+                projectId={projectId}
                 userId={session?.data?.user.email}
+                onSubmit={() => {
+                  console.log("submitted");
+                  mutate();
+                }}
                 className="border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700"
               >
                 feedback
