@@ -7,23 +7,23 @@ import Link from "next/link";
 
 const pricing = {
   vercel: {
-    href: "vercel.com",
+    href: "https://vercel.com",
     cost: "free",
   },
   planetscale: {
-    href: "planetscale.com",
+    href: "https://planetscale.com",
     cost: "free",
   },
   github: {
-    href: "github.com",
+    href: "https://github.com",
     cost: "free",
   },
   domain: {
-    href: "vercel.com",
+    href: "https://vercel.com",
     cost: "$20/year",
   },
   cloudinary: {
-    href: "cloudinary.com",
+    href: "https://cloudinary.com",
     cost: "free",
   },
   // crisp: {
@@ -31,7 +31,7 @@ const pricing = {
   //   cost: "free",
   // },
   postmarkapp: {
-    href: "postmarkapp.com",
+    href: "https://postmarkapp.com",
     cost: "free",
   },
 } as const;
@@ -63,7 +63,11 @@ const OpenPage = (
               <Heading as="h4">
                 {`${v.cost} `}
                 <Link href={v.href}>
-                  <a className="text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                  <a
+                    target="_blank"
+                    rel="noopener"
+                    className="text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                  >
                     {k}
                   </a>
                 </Link>
