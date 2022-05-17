@@ -48,9 +48,11 @@ const Card = ({ feedback, className, hideUser = false }: Props) => {
       )}
     >
       <div className="flex justify-between">
-        <p className="p-2 text-sm rounded-full bg-gray-100 dark:bg-gray-800">
-          {getIcon(feedback.type)}
-        </p>
+        <div className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+          <div className="h-5 w-5 text-center text-sm leading-normal">
+            {getIcon(feedback.type)}
+          </div>
+        </div>
         <div className="flex items-center space-x-1 md:space-x-2 -mb-1">
           <button
             onClick={() =>
