@@ -15,6 +15,11 @@ import cn from "classnames";
 import Card from "@/components/feedback/Card";
 import Banner from "@/components/common/Banner";
 import { LinkIcon } from "@heroicons/react/outline";
+import { useRef } from "react";
+import { useEffect } from "react";
+
+const scrollToRef = (ref: React.MutableRefObject<HTMLElement>) =>
+  window.scrollTo(0, ref.current.offsetTop);
 
 const BASE_URL =
   process.env.NODE_ENV === "production"
@@ -29,10 +34,15 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [type, setType] = useState("ALL"); // TODO: type!
   const session = useSession();
   const router = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
   const projectId = router.query.projectId as string;
   const { data: project, mutate } = useSWR<
     (Project & { feedbacks: Feedback[] }) | null
   >(`/api/projects/${projectId}`, fetcher, { fallbackData });
+
+  useEffect(() => {
+    scrollToRef(ref);
+  }, [type]);
 
   const onClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(() => toasts.success("clipboard"));
@@ -54,7 +64,11 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
   };
 
   return (
-    <DefaultUserLayout messages={{ projectId: project?.name }} badges={badges}>
+    <DefaultUserLayout
+      ref={ref}
+      messages={{ projectId: project?.name }}
+      badges={badges}
+    >
       <Banner id="new-projects" className="mb-4">
         <Banner.Title>{`Want to try it out now?`}</Banner.Title>
         <Banner.Description>
@@ -175,13 +189,11 @@ export const getServerSideProps = async ({
   if (!authorized) {
     return {
       redirect: {
-        destination: "/project",
+        destination: "/projects",
         permanent: false,
       },
     };
   }
-
-  console.log(session);
 
   if (!project) {
     return {
