@@ -81,15 +81,16 @@ const OpenPage = (
   );
 };
 
-const BASE_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : process.env.VERCEL_URL;
-
 export const getServerSideProps = async () => {
   const projects = await prisma.project.findMany();
   const feedbacks = await prisma.feedback.findMany();
   const users = await prisma.user.findMany();
+
+  const BASE_URL =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : process.env.VERCEL_URL;
+
   const screenshots = await fetcher(`${BASE_URL}/api/cloudinary`);
   return {
     props: {
