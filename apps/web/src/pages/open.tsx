@@ -89,7 +89,7 @@ export const getServerSideProps = async () => {
   const BASE_URL =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
-      : process.env.VERCEL_URL;
+      : `https://${process.env.VERCEL_URL}`;
 
   const screenshots = await fetcher(`${BASE_URL}/api/cloudinary`);
   return {
