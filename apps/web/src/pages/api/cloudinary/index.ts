@@ -11,16 +11,23 @@ cloudinary.config({
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const response = await cloudinary.v2.uploader.upload(
-      // base64 image
-      JSON.parse(req.body).screenshot,
-      {
-        resource_type: "auto",
-        folder: `screenshots`,
-      },
-      function (error, result) {}
-    );
-    return res.json(response);
+    if (req.method === "POST") {
+      const response = await cloudinary.v2.uploader.upload(
+        // base64 image
+        JSON.parse(req.body).screenshot,
+        {
+          resource_type: "auto",
+          folder: `screenshots`,
+        },
+        function (error, result) {}
+      );
+      return res.json(response);
+    } else if (req.method === "GET") {
+      const response = await cloudinary.v2.search
+        .expression("folder:screenshots/*")
+        .execute();
+      return res.json(response.total_count);
+    }
   } catch (error) {
     return res.status(500).json({ error });
   }
