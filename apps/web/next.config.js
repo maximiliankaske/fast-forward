@@ -1,9 +1,14 @@
+const withPlugins = require("next-compose-plugins");
+
 const withMDX = require("@next/mdx")({
   extension: /\.mdx$/,
 });
 
-module.exports = withMDX({
-  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+const mdxConfig = { pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"] };
+
+const withTM = require("next-transpile-modules")(["widget"]);
+
+const config = {
   reactStrictMode: true,
   images: {
     domains: [
@@ -34,4 +39,6 @@ module.exports = withMDX({
       },
     ];
   },
-});
+};
+
+module.exports = withPlugins([withTM, withMDX(mdxConfig)], config);
