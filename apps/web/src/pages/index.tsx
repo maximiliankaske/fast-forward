@@ -9,6 +9,7 @@ import prisma from "@/lib/prisma";
 import { InferGetServerSidePropsType } from "next";
 import Card from "@/components/feedback/Card";
 import useSWR from "swr";
+import { allFeatures } from "contentlayer/generated";
 import FAQ from "@/components/landing/FAQ";
 import Features from "@/components/landing/Features";
 
@@ -34,8 +35,8 @@ const Home = ({
 
   const exists = session?.data?.user.id;
   return (
-    <DefaultLayout>
-      <div className="grid md:grid-cols-6 gap-x-0 md:gap-x-6 pt-6 md:pt-12 pb-24 md:pb-40">
+    <DefaultLayout className="space-y-6">
+      <div className="grid md:grid-cols-6 gap-x-0 md:gap-x-6 py-6 md:py-12 lg:py-16">
         <div className="md:col-span-4">
           <Heading as="h1">
             The easiest way to collect{" "}
@@ -83,8 +84,8 @@ const Home = ({
           )}
         </div>
       </div>
-      {/* <Features /> */}
-      {/* <FAQ /> */}
+      <Features />
+      <FAQ />
     </DefaultLayout>
   );
 };
