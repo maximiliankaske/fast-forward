@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         wPrimary: colors.indigo,
+        wSecondary: colors.pink,
         wGray: colors.gray,
         wWhite: colors.white,
         wBlack: colors.black,

@@ -58,6 +58,7 @@ function Portal({ children, toggle, open, ...props }: PortalProps) {
         <div ref={protectedAreaRef} className="z-10 max-w-xl m-2">
           {children}
         </div>
+        <div></div>
       </div>
     </FocusTrap>,
     document.body

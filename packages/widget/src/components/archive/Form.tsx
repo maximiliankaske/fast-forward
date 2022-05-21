@@ -184,90 +184,102 @@ const Form = ({
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="bg-wWhite dark:bg-wBlack space-y-3 p-3 border rounded-md border-wGray-200 shadow dark:border-wGray-800"
+      className="bg-wWhite dark:bg-wBlack px-3 py-4 sm:px-4 sm:py-5 border rounded-lg border-wGray-200 shadow dark:border-wGray-800"
     >
-      <div className="flex space-x-2">
-        {Object.entries(types).map(([key, value]) => (
-          <RadioCard
-            key={key}
-            name="type"
-            id={value.value}
-            value={value.value}
-            className="lowercase"
-            defaultChecked={value?.defaultChecked}
+      <div className="space-y-3 sm:space-y-4">
+        <div className="flex space-x-2 sm:space-x-3">
+          {Object.entries(types).map(([key, value]) => (
+            <RadioCard
+              key={key}
+              name="type"
+              id={value.value}
+              value={value.value}
+              defaultChecked={value?.defaultChecked}
+            >
+              {`${value.label} ${value.icon}`}
+            </RadioCard>
+          ))}
+          <button
+            type="button"
+            onClick={close}
+            className="ml-1 rounded-md text-wGray-600 dark:text-wGray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900"
           >
-            {`${value.label} ${value.icon}`}
-          </RadioCard>
-        ))}
-        <button
-          type="button"
-          onClick={close}
-          className="ml-1 rounded-md text-wGray-600 dark:text-wGray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900"
-        >
-          <XIcon className="h-5 w-5" />
-        </button>
-      </div>
-      <label className="sr-only" htmlFor="text">
-        Message
-      </label>
-      <textarea
-        name="text"
-        className="text-wBlack dark:text-wWhite px-2 py-1 resize-none shadow-sm border focus:border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900 block w-full sm:text-sm border-wGray-100 dark:border-gray-900 rounded-md bg-transparent"
-        placeholder={messages.comment.placeholder}
-        rows={3}
-        value={text}
-        onChange={(event) => setText(event.target.value)}
-        autoFocus
-      />
-      <div className="flex space-x-2 items-center text-wBlack dark:text-wWhite">
-        {(() => {
-          switch (uploadState) {
-            case "idle":
-              return (
-                <button
-                  type="button"
-                  className="p-1 hover:bg-wGray-50 dark:hover:bg-wGray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900"
-                  onClick={onScreenshot}
-                >
-                  <CameraIcon className="h-5 w-5" />
-                </button>
-              );
-            case "pending":
-              return (
-                <span className="p-1">
-                  <CloudUploadIcon className="h-5 w-5" />
-                </span>
-              );
-            // case "error"
-            case "success":
-              return (
-                <div className="relative h-[28px] max-w-[28px] min-w-[28px]">
-                  <a
-                    href={screenshotURL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block h-full w-full overflow-hidden"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img alt="" src={screenshotURL!} />
-                  </a>
+            <XIcon className="h-5 w-5" />
+          </button>
+        </div>
+        <label className="sr-only" htmlFor="text">
+          Message
+        </label>
+        <textarea
+          name="text"
+          className="sm:text-lg text-wBlack dark:text-wWhite px-2 py-1 resize-none shadow-sm border focus:border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900 block w-full border-wGray-100 dark:border-gray-900 rounded-md bg-transparent"
+          placeholder={messages.comment.placeholder}
+          rows={3}
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+          autoFocus
+        />
+        <div className="flex space-x-2 items-center text-wBlack dark:text-wWhite">
+          {(() => {
+            switch (uploadState) {
+              case "idle":
+                return (
                   <button
                     type="button"
-                    onClick={resetScreenshot}
-                    className="absolute -right-1 -top-1 p-[2px] rounded-full bg-red-500 text-wWhite dark:text-wBlack"
+                    className="p-1 hover:bg-wGray-50 dark:hover:bg-wGray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900"
+                    onClick={onScreenshot}
                   >
-                    <XIcon className="h-2 w-2" />
+                    <CameraIcon className="h-6 w-6" />
                   </button>
-                </div>
-              );
-            default:
-              return null;
-          }
-        })()}
-        <Button type="submit" className="w-full" disabled={text === ""}>
-          {renderState()}
-        </Button>
+                );
+              case "pending":
+                return (
+                  <span className="p-1">
+                    <CloudUploadIcon className="h-6 w-6" />
+                  </span>
+                );
+              // case "error"
+              case "success":
+                return (
+                  <div className="relative h-[28px] max-w-[28px] min-w-[28px]">
+                    <a
+                      href={screenshotURL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="block h-full w-full overflow-hidden"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img alt="" src={screenshotURL!} />
+                    </a>
+                    <button
+                      type="button"
+                      onClick={resetScreenshot}
+                      className="absolute -right-1 -top-1 p-[2px] rounded-full bg-red-500 text-wWhite dark:text-wBlack"
+                    >
+                      <XIcon className="h-2 w-2" />
+                    </button>
+                  </div>
+                );
+              default:
+                return null;
+            }
+          })()}
+          <Button type="submit" className="w-full" disabled={text === ""}>
+            {renderState()}
+          </Button>
+        </div>
       </div>
+      <p className="text-center mt-2 -mb-2 text-[9px] leading-[9px] text-wGray-600 dark:text-wGray-400">
+        powered by{" "}
+        <a
+          href="https://fast-forward.app"
+          className="text-wPrimary-500 dark:text-wSecondary-500"
+          target="_blank"
+          rel="noreferrer"
+        >
+          fast-forward.app
+        </a>
+      </p>
     </form>
   );
 };
