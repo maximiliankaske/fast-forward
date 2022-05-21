@@ -19,6 +19,10 @@ const faqs = [
     q: "How long will it be free?",
     a: "There is no plan to make the product premium. The current expenses can be found on the /open page with the services and plans being used. I’ll cover all the basic costs to keep the services up and running (database and website). As soon as I extend the pricing and if you’ve already been a user, you will get notified early enough.",
   },
+  {
+    q: "How to get notifications about new feedbacks?",
+    a: "We support email notifications for every incoming feedback. If you use Slack, checkout (plausible how they deal with it) and create an email to also get notified in the corresponding slack channel.",
+  },
 ];
 
 const styles = {

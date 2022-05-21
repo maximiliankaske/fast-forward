@@ -10,6 +10,7 @@ import { InferGetServerSidePropsType } from "next";
 import Card from "@/components/feedback/Card";
 import useSWR from "swr";
 import FAQ from "@/components/landing/FAQ";
+import Features from "@/components/landing/Features";
 
 const styles = {
   btn: {
@@ -82,6 +83,7 @@ const Home = ({
           )}
         </div>
       </div>
+      {/* <Features /> */}
       {/* <FAQ /> */}
     </DefaultLayout>
   );
