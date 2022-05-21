@@ -246,7 +246,7 @@ const Form = ({
                     href={screenshotURL}
                     target="_blank"
                     rel="noreferrer"
-                    className="block h-full w-full"
+                    className="block h-full w-full overflow-hidden"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img alt="" src={screenshotURL!} />

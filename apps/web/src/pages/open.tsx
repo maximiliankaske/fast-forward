@@ -4,7 +4,7 @@ import React from "react";
 import prisma from "@/lib/prisma";
 import { InferGetServerSidePropsType } from "next";
 import Link from "next/link";
-import fetcher from "@/utils/fetcher";
+import cloudinary from "@/lib/cloudinary";
 
 const pricing = {
   vercel: {
@@ -86,19 +86,17 @@ export const getServerSideProps = async () => {
   const feedbacks = await prisma.feedback.findMany();
   const users = await prisma.user.findMany();
 
-  const BASE_URL =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : `https://${process.env.VERCEL_URL}`;
+  const exec = await cloudinary.v2.search
+    .expression("folder:screenshots/*")
+    .execute();
 
-  const screenshots = await fetcher(`${BASE_URL}/api/cloudinary`);
   return {
     props: {
       projects: projects.length,
       feedbacks: feedbacks.length,
       users: users.length,
       resets: projects.reduce((prev, curr) => curr.reseted + prev, 0),
-      screenshots: screenshots as number,
+      screenshots: exec.total_count as number,
     },
   };
 };

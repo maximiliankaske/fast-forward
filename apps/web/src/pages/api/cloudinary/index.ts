@@ -1,13 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import cloudinary from "cloudinary";
+import cloudinary from "@/lib/cloudinary";
 import { allowCors } from "@/lib/middleware";
 
-// @ts-ignore
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
-});
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "5mb", // Set desired value here
+    },
+  },
+};
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -22,11 +23,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         function (error, result) {}
       );
       return res.json(response);
-    } else if (req.method === "GET") {
-      const response = await cloudinary.v2.search
-        .expression("folder:screenshots/*")
-        .execute();
-      return res.json(response.total_count);
+    } else {
+      return (
+        res
+          .status(405)
+          // FIXME: if replacing with .end, ts allowCors error
+          .json({ message: `Method ${req.method} Not Allowed` })
+      );
     }
   } catch (error) {
     return res.status(500).json({ error });

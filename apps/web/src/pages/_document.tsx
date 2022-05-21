@@ -6,6 +6,7 @@ class MyDocument extends Document {
       <Html className="scroll-smooth">
         <Head>
           <link
+            crossOrigin="anonymous"
             href="https://fonts.googleapis.com/css2?family=Oswald&display=optional"
             rel="stylesheet"
           />
