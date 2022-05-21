@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "@/components/ui/Button";
+import { Button } from "@fast-forward/ui";
 import { signIn, SignInOptions } from "next-auth/react";
 
 interface Props {

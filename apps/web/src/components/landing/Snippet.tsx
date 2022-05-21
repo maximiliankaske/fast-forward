@@ -1,5 +1,5 @@
 import React from "react";
-import Heading from "../ui/Heading";
+import { Heading } from "@fast-forward/ui";
 
 const Snippet = () => {
   return (

@@ -3,7 +3,7 @@ import { formatDistance } from "date-fns";
 import { useSession } from "next-auth/react";
 import React from "react";
 import LinkContainer from "../common/LinkContainer";
-import Badge from "../ui/Badge";
+import { Badge } from "@fast-forward/ui";
 
 interface Props {
   project: Project & { feedbacks: Feedback[] };

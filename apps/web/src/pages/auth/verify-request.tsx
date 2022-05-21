@@ -1,6 +1,5 @@
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import Header from "@/components/navigation/Header";
-import Heading from "@/components/ui/Heading";
+import { Heading } from "@fast-forward/ui";
 import React from "react";
 
 const VerifyRequest = () => {

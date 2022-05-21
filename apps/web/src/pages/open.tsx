@@ -1,5 +1,5 @@
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import Heading from "@/components/ui/Heading";
+import { Heading } from "@fast-forward/ui";
 import React from "react";
 import prisma from "@/lib/prisma";
 import { InferGetServerSidePropsType } from "next";

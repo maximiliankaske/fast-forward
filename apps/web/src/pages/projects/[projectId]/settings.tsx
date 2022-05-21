@@ -3,16 +3,12 @@ import React, { useCallback, FormEvent } from "react";
 import useSWR from "swr";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import fetcher, { deletor, updator } from "@/utils/fetcher";
-import Input from "@/components/ui/Input";
-import Button from "@/components/ui/Button";
+
 import toasts from "@/utils/toast";
-import { ComponentWithAuth } from "@/components/auth/Auth";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import prisma from "@/lib/prisma";
 import { Feedback, Project } from ".prisma/client";
-import Checkbox from "@/components/ui/Checkbox";
-import Heading from "@/components/ui/Heading";
-import Text from "@/components/ui/Text";
+import { Checkbox, Heading, Text, Input, Button } from "@fast-forward/ui";
 import { getSession } from "next-auth/react";
 
 // TODO: remove publically as state - use the data.project.private boolean

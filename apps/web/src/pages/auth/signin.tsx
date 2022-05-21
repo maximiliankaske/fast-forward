@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import Heading from "@/components/ui/Heading";
+import { Heading } from "@fast-forward/ui";
 import GitHubButton from "@/components/auth/GitHubButton";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import MagicButton from "@/components/auth/MagicButton";
-import GoogleButton from "@/components/auth/GoogleButton";
-import Link from "@/components/ui/Link";
 import { useRouter } from "next/router";
 
 const Login = () => {

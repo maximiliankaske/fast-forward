@@ -1,7 +1,7 @@
 import toasts from "@/utils/toast";
 import { signIn, SignInOptions } from "next-auth/react";
 import React from "react";
-import Button from "../ui/Button";
+import { Button } from "@fast-forward/ui";
 
 interface Props {
   options?: SignInOptions;

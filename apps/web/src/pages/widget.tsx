@@ -1,5 +1,5 @@
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import Heading from "@/components/ui/Heading";
+import { Heading } from "@fast-forward/ui";
 import Script from "next/script";
 import React from "react";
 

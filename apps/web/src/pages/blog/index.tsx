@@ -2,7 +2,7 @@ import { InferGetStaticPropsType } from "next";
 import React from "react";
 import Thumbnail from "@/components/blog/Thumbnail";
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import Heading from "@/components/ui/Heading";
+import { Heading } from "@fast-forward/ui";
 import { getAllPosts } from "@/lib/api";
 
 const AllPosts = ({

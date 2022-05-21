@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { FC } from "react";
 import type { Post } from "@/types/index";
-import Divider from "../ui/Divider";
+import { Divider } from "@fast-forward/ui";
 
 const Header: FC<Post> = ({ title, date, section, content, coverImage }) => {
   return (

@@ -8,7 +8,7 @@ import DefaultUserLayout from "@/components/layout/DefaultUserLayout";
 import { Feedback, Project } from "@prisma/client";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import prisma from "@/lib/prisma";
-import Button from "@/components/ui/Button";
+import { Button } from "@fast-forward/ui";
 import { getIcon } from "@/utils/feedback";
 import { getSession, useSession } from "next-auth/react";
 import cn from "classnames";

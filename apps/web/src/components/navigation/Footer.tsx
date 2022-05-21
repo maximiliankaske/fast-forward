@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import ThemeSelect from "../common/ThemeSelect";
-import Link from "../ui/Link";
+import Link from "@/components/ui/Link";
 
 const Footer: FC = () => {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "@/components/ui/Button";
+import { Button } from "@fast-forward/ui";
 import GoogleIcon from "../icon/Google";
 import { signIn } from "next-auth/react";
 

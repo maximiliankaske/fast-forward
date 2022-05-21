@@ -1,7 +1,6 @@
 import React, { SVGProps } from "react";
 import { PlusIcon } from "@heroicons/react/solid";
-import { FolderAddIcon } from "@heroicons/react/outline";
-import Button from "../ui/Button";
+import { Button } from "@fast-forward/ui";
 
 interface Props {
   onClick: () => void;

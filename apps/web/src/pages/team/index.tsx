@@ -6,12 +6,8 @@ import toasts from "@/utils/toast";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getSession, useSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
-import Input from "@/components/ui/Input";
-import Button from "@/components/ui/Button";
 import { useRouter } from "next/router";
-import Heading from "@/components/ui/Heading";
-import Text from "@/components/ui/Text";
-import Badge from "@/components/ui/Badge";
+import { Badge, Text, Heading, Button, Input } from "@fast-forward/ui";
 
 const TeamPage: ComponentWithAuth = ({
   members,

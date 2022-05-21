@@ -1,7 +1,5 @@
 import React, { FormEvent, useCallback, useRef, useState } from "react";
-import Button from "../ui/Button";
-import Heading from "../ui/Heading";
-import Input from "../ui/Input";
+import { Button, Heading, Input } from "@fast-forward/ui";
 
 const Newsletter = () => {
   const formRef = useRef<HTMLFormElement>(null);

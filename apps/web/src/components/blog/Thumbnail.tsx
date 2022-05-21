@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { FC } from "react";
 import { format } from "date-fns";
 import { Post } from "@/types/index";
-import Heading from "../ui/Heading";
+import { Heading } from "@fast-forward/ui";
 import Image from "next/image";
 
 const Thumbnail: FC<Post> = ({

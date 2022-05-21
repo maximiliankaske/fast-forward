@@ -1,8 +1,7 @@
 import { ChevronLeftIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import React, { FC } from "react";
-import Badge from "../ui/Badge";
-import Divider from "../ui/Divider";
+import { Badge, Divider } from "@fast-forward/ui";
 
 const tags = [
   "default",

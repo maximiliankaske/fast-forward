@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { signOut } from "next-auth/react";
-import DefaultLayout from "@/components/layout/DefaultLayout";
 import LoadingIndicator from "@/components/common/LoadingIndicator";
 
 const Logout = () => {

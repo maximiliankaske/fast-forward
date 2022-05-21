@@ -1,7 +1,6 @@
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import Badge from "../ui/Badge";
-import Link from "../ui/Link";
+import { Badge } from "@fast-forward/ui";
+import Link from "@/components/ui/Link";
 
 const emojiDB = {
   projects: "🚀",

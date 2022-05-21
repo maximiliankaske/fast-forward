@@ -1,7 +1,7 @@
 import React from "react";
 import useSWR from "swr";
 import type { ComponentWithAuth } from "@/components/auth/Auth";
-import Button from "@/components/ui/Button";
+import { Button } from "@fast-forward/ui";
 import fetcher, { creator } from "@/utils/fetcher";
 import toasts from "@/utils/toast";
 import DefaultUserLayout from "@/components/layout/DefaultUserLayout";

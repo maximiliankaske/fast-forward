@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Link from "../ui/Link";
+import Link from "@/components/ui/Link";
 import cn from "classnames";
 import ProfileMenu from "./ProfileMenu";
 import { useSession } from "next-auth/react";

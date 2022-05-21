@@ -1,34 +1,11 @@
-import cn from "classnames";
-import React, { AnchorHTMLAttributes, FC } from "react";
+import React, { FC } from "react";
 import NextLink from "next/link";
+import { Link as UiLink, LinkProps } from "@fast-forward/ui";
 
-const styles = {
-  base: "hover:text-indigo-500 dark:hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:rounded",
-  variant: {
-    default: "hover:underline",
-  },
-};
-
-export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  variant?: keyof typeof styles.variant;
-}
-
-const Link: FC<LinkProps> = ({
-  children,
-  href,
-  variant = "default",
-  className,
-  ...props
-}) => {
+const Link: FC<LinkProps> = ({ children, href, ...props }) => {
   return (
-    // FIXME: wtf
-    <NextLink href={href as any}>
-      <a
-        className={cn(className, styles.base, styles.variant[variant])}
-        {...props}
-      >
-        {children}
-      </a>
+    <NextLink href={href} passHref>
+      <UiLink {...props}>{children}</UiLink>
     </NextLink>
   );
 };

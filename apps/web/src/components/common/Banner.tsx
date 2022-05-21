@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { XIcon } from "@heroicons/react/outline";
-import Text from "../ui/Text";
+import { Text } from "@fast-forward/ui";
 import cn from "classnames";
 
 interface Base {
