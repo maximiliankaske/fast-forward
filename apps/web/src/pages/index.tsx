@@ -9,6 +9,7 @@ import prisma from "@/lib/prisma";
 import { InferGetServerSidePropsType } from "next";
 import Card from "@/components/feedback/Card";
 import useSWR from "swr";
+import FAQ from "@/components/landing/FAQ";
 
 const styles = {
   btn: {
@@ -81,6 +82,7 @@ const Home = ({
           )}
         </div>
       </div>
+      {/* <FAQ /> */}
     </DefaultLayout>
   );
 };
