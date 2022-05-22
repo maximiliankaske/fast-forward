@@ -20,7 +20,7 @@ const Feature = ({
       </Head>
       <DefaultLayout>
         {/* <Link href="/">back to home</Link> */}
-        <article className="flex-1 mt-6">
+        <article className="flex-1">
           <IconBg>{feature.emoji}</IconBg>
           <Heading className="mt-3">{feature.title}</Heading>
           <div
@@ -28,22 +28,22 @@ const Feature = ({
             dangerouslySetInnerHTML={{ __html: feature.body.html }}
           />
         </article>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 pt-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 pt-8">
           {prev && (
             <div className="col-start-1">
               <NextLink href={prev.url} passHref>
                 <a className="rounded-md border border-gray-200 dark:border-gray-800 p-2 block hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500">
-                  <Text>Prev</Text>
+                  <Text className="mb-0">Prev</Text>
                   <Text variant="description">{prev.title}</Text>
                 </a>
               </NextLink>
             </div>
           )}
           {next && (
-            <div className="col-start-2 md:col-start-3">
+            <div className="col-start-2 sm:col-start-3">
               <NextLink href={next.url} passHref>
                 <a className="rounded-md border border-gray-200 dark:border-gray-800 p-2 block hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500">
-                  <Text>Next</Text>
+                  <Text className="mb-0">Next</Text>
                   <Text variant="description">{next.title}</Text>
                 </a>
               </NextLink>

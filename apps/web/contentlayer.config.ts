@@ -2,7 +2,7 @@ import { defineDocumentType, makeSource } from "contentlayer/source-files";
 
 export const Feature = defineDocumentType(() => ({
   name: "Feature",
-  filePathPattern: `**/*.md`,
+  filePathPattern: `features/**/*.md`,
   fields: {
     title: {
       type: "string",
@@ -23,16 +23,39 @@ export const Feature = defineDocumentType(() => ({
   computedFields: {
     url: {
       type: "string",
-      resolve: (feature) => `/features/${feature._raw.flattenedPath}`,
+      resolve: (feature) => `/${feature._raw.flattenedPath}`,
     },
     slug: {
       type: "string",
-      resolve: (_) => _._raw.flattenedPath,
+      resolve: (_) => _._raw.sourceFileName.replace(/\.[^.$]+$/, ""),
+    },
+  },
+}));
+
+export const FAQ = defineDocumentType(() => ({
+  name: "Question",
+  filePathPattern: `faqs/**/*.md`,
+  fields: {
+    title: {
+      type: "string",
+      description: "The title of the question",
+      required: true,
+    },
+    emoji: {
+      type: "string",
+      description: "The emoji of the question",
+      required: true,
+    },
+  },
+  computedFields: {
+    slug: {
+      type: "string",
+      resolve: (_) => _._raw.sourceFileName.replace(/\.[^.$]+$/, ""),
     },
   },
 }));
 
 export default makeSource({
-  contentDirPath: "content/features",
-  documentTypes: [Feature],
+  contentDirPath: "content",
+  documentTypes: [Feature, FAQ],
 });

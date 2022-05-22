@@ -11,10 +11,15 @@ const Features = () => {
       <div className="grid md:grid-cols-2 gap-6 md:gap-12">
         {allFeatures.map(({ emoji, title, excerpt, url }) => (
           <Link key={title} href={url}>
-            <a className="p-3 -mx-3 rounded-md hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500">
+            <a className="group p-3 -mx-3 rounded-md hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500">
               <IconBg>{emoji}</IconBg>
               <Heading as="h3">{title}</Heading>
-              <Text variant="description">{excerpt}</Text>
+              <Text
+                variant="description"
+                className="group-hover:text-gray-800 dark:group-hover:text-gray-200"
+              >
+                {excerpt}
+              </Text>
             </a>
           </Link>
         ))}

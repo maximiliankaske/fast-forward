@@ -1,6 +1,7 @@
 import React from "react";
 import cn from "classnames";
 import { Heading, Text } from "@fast-forward/ui";
+import { allQuestions } from "contentlayer/generated";
 
 const faqs = [
   {
@@ -29,6 +30,7 @@ const styles = {
   focus:
     "rounded focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500",
   open: "rounded-md border border-transparent open:border-gray-200 dark:open:border-gray-800 open:shadow",
+  hover: "hover:border-gray-200 dark:hover:border-gray-800",
 };
 
 const FAQ = () => {
@@ -38,12 +40,19 @@ const FAQ = () => {
         Frequent Asked Questions
       </Heading>
       <div className="space-y-2">
-        {faqs.map(({ q, a }) => (
-          <details key={q} className={cn("p-3 -mx-3", styles.open)}>
-            <summary className={cn("font-semibold", styles.focus)}>{q}</summary>
-            <Text variant="description" className="mt-3">
-              {a}
-            </Text>
+        {allQuestions.map(({ emoji, title, body, slug }) => (
+          <details
+            key={slug}
+            className={cn("p-3 -mx-3", styles.open, styles.hover)}
+          >
+            <summary className={cn("font-semibold", styles.focus)}>
+              {/* TODO: discuss about `emoji` */}
+              {title}
+            </summary>
+            <div
+              className="mt-3 prose dark:prose-dark max-w-none"
+              dangerouslySetInnerHTML={{ __html: body.html }}
+            />
           </details>
         ))}
       </div>
