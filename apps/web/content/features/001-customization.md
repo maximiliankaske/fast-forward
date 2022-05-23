@@ -1,7 +1,7 @@
 ---
 title: Custom Form
 emoji: 💅
-excerpt: Not interested in the widget? Create your own form and use the API to send the feedback from wherever you want.
+excerpt: Create your own form and use the API to send the feedback from wherever you want.
 ---
 
 Ullamco et nostrud magna commodo nostrud occaecat quis pariatur id ipsum. Ipsum

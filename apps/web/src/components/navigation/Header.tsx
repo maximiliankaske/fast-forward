@@ -7,6 +7,7 @@ import { ConnectButton } from "widget";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import fetcher from "@/utils/fetcher";
+import FeaturesPopover from "./FeaturesPopover";
 
 const Header: FC = ({ children }) => {
   const session = useSession();
@@ -28,7 +29,8 @@ const Header: FC = ({ children }) => {
             <Link href="/">fast-forward</Link>
           </div>
           <div className="space-x-5 sm:space-x-6 flex items-center">
-            <Link href="/docs">docs</Link>
+            {/* <Link href="/docs">docs</Link> */}
+            <FeaturesPopover />
             <div className="relative group">
               <ConnectButton
                 projectId={projectId}

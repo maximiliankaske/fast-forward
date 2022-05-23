@@ -84,7 +84,7 @@ const Home = ({
           )}
         </div>
       </div>
-      <Features />
+      {/* <Features /> */}
       <FAQ />
     </DefaultLayout>
   );
