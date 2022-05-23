@@ -21,13 +21,14 @@ export const Feature = defineDocumentType(() => ({
     },
   },
   computedFields: {
-    url: {
-      type: "string",
-      resolve: (feature) => `/${feature._raw.flattenedPath}`,
-    },
-    slug: {
-      type: "string",
-      resolve: (_) => _._raw.sourceFileName.replace(/\.[^.$]+$/, ""),
+    path: {
+      type: "json",
+      resolve: (_) => {
+        const [dir, fileName] = _._raw.flattenedPath.split("/");
+        const [, , orderStr, slug] = fileName.match(/^((\d+)-)?(.*)$/) ?? [];
+        const order = orderStr ? parseInt(orderStr) : 0;
+        return { order, slug, url: `/${dir}/${slug}` };
+      },
     },
   },
 }));

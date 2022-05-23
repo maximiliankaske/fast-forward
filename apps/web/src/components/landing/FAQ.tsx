@@ -16,7 +16,7 @@ const FAQ = () => {
       <Heading as="h2" className="text-center">
         Frequent Asked Questions
       </Heading>
-      <div className="space-y-2">
+      <div className="space-y-2 mt-6">
         {allQuestions.map(({ emoji, title, body, slug }) => (
           <details
             key={slug}
