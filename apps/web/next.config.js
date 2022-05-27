@@ -42,6 +42,6 @@ const config = {
 };
 
 module.exports = withPlugins(
-  [withTM(["widget-react"]), cl.withContentlayer({}), withMDX(mdxConfig)],
+  [withTM(["@fdbk/widget-react"]), cl.withContentlayer({}), withMDX(mdxConfig)],
   config
 );

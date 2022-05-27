@@ -1,5 +1,5 @@
 {
-  "name": "widget-react",
+  "name": "@fdbk/widget-react",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -38,5 +38,7 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "description": "react widget (alpha)",
+  "author": "Maximilian Kaske"
 }
