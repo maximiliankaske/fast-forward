@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Link from "@/components/ui/Link";
 import cn from "classnames";
 import ProfileMenu from "./ProfileMenu";
@@ -9,13 +9,28 @@ import useSWR from "swr";
 import fetcher from "@/utils/fetcher";
 import FeaturesPopover from "./FeaturesPopover";
 
+const THRESHOLD = 500;
+
 const Header: FC = ({ children }) => {
+  const [size, setSize] = useState<{ width: number; height: number }>(
+    undefined
+  );
   const session = useSession();
   const router = useRouter();
   const projectId =
     (router.query?.projectId as string) ||
     process.env.NEXT_PUBLIC_DEMO_PROJECT_ID;
   const { mutate } = useSWR(`/api/projects/${projectId}`, fetcher);
+
+  useEffect(() => {
+    function updateSize() {
+      setSize({ width: window.innerWidth, height: window.innerHeight });
+    }
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
   return (
     <header
       className={cn(
@@ -41,7 +56,7 @@ const Header: FC = ({ children }) => {
                 }}
                 className="border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700"
               >
-                feedback
+                {size?.width > THRESHOLD ? "feedback" : "fdbk"}
               </ConnectButton>
               <span className="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
                 <span className="animate-ping group-hover:animate-none absolute inline-flex h-full w-full rounded-full bg-gray-700 dark:bg-gray-300 opacity-75"></span>

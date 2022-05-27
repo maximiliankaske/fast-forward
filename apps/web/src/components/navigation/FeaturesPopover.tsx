@@ -30,7 +30,7 @@ const FeaturesPopover = () => {
                       <a
                         key={item._id}
                         href={item.path.url}
-                        className="group -m-3 flex rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-900"
+                        className="group -m-3 flex items-center rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-900"
                       >
                         <div className="shrink-0">
                           <IconBg>{item.emoji}</IconBg>
@@ -41,7 +41,7 @@ const FeaturesPopover = () => {
                           </Text>
                           <Text
                             variant="description"
-                            className="mb-0 group-hover:text-gray-800 dark:group-hover:text-gray-200"
+                            className="line-clamp-1 sm:line-clamp-2 md:line-clamp-none mb-0 group-hover:text-gray-800 dark:group-hover:text-gray-200"
                           >
                             {item.excerpt}
                           </Text>
