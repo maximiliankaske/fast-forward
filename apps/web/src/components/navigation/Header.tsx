@@ -3,7 +3,7 @@ import Link from "@/components/ui/Link";
 import cn from "classnames";
 import ProfileMenu from "./ProfileMenu";
 import { useSession } from "next-auth/react";
-import { ConnectButton } from "widget";
+import { ConnectButton } from "widget-react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import fetcher from "@/utils/fetcher";

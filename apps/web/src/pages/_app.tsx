@@ -1,4 +1,4 @@
-import "widget/dist/build.css"; // REMINDER: has to be before the globals from tailwindcss
+import "widget-react/dist/build.css"; // REMINDER: has to be before the globals from tailwindcss
 import "../styles/globals.css";
 import "../styles/prism.css";
 import "../styles/nprogress.css";
