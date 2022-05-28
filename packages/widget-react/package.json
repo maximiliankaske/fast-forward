@@ -11,10 +11,12 @@
   ],
   "scripts": {
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external react-dom --external focus-trap-react && npm run build:css",
-    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --external react-dom --external focus-trap-react",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --external react-dom --external focus-trap-react && npm run watch:css",
     "lint": "TIMING=1 eslint src/**/*.ts* --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "build:css": "npx tailwindcss -i src/styles/globals.css -o dist/build.css --minify"
+    "build:css": "npx tailwindcss -i src/styles/globals.css -o dist/build.css --minify",
+    "postinstall": "npm run build:css",
+    "watch:css": "npx tailwindcss -i src/styles/globals.css -o dist/build.css --watch"
   },
   "devDependencies": {
     "@headlessui/react": "^1.4.1",
