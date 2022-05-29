@@ -1,6 +1,6 @@
 import * as React from "react";
 import Button from "./Button";
-import { formattedMessages } from "../../utils/translations";
+import { formattedMessages, LanguageCode } from "../../utils/translations";
 import LoadingIcon from "./LoadingIcon";
 import { CheckIcon, CameraIcon, XIcon } from "@heroicons/react/solid";
 import RadioCard from "./RadioCard";
@@ -14,7 +14,7 @@ type UploadStateType = "idle" | "pending" | "error" | "success";
 interface Props {
   userId?: string | null;
   projectId: string;
-  lang?: string;
+  lang?: LanguageCode;
   metadata?: Record<string, string | null | undefined | number>;
   domain?: string;
   close: () => void;
@@ -36,13 +36,10 @@ const Form = ({
   const [screenshotURL, setScreenshotURL] = React.useState<
     string | undefined
   >();
-  // "https://res.cloudinary.com/deh02ip3x/image/upload/v1651418026/wb7iv4svvwm4n6ndkkwj.png"
   const [text, setText] = React.useState<string>("");
 
-  const currentDomain =
-    domain || process.env.NODE_ENV === "production"
-      ? "https://staging.fast-forward.app"
-      : "http://localhost:3000";
+  // FIXME: update to https://fast-forward.app
+  const currentDomain = domain || "https://staging.fast-forward.app";
 
   React.useEffect(() => {
     let timer: undefined | NodeJS.Timeout;

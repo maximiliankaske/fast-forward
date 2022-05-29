@@ -65,7 +65,7 @@ const translations: Record<"en" | "de" | "fr", Translation> = {
       },
     },
   },
-};
+} as const;
 
 export type LanguageCode = keyof typeof translations;
 

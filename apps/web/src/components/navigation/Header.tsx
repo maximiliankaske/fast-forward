@@ -10,6 +10,10 @@ import fetcher from "@/utils/fetcher";
 import FeaturesPopover from "./FeaturesPopover";
 
 const THRESHOLD = 500;
+const DOMAIN =
+  process.env.NODE_ENV === "production"
+    ? process.env.VERCEL_URL
+    : "http://localhost:3000";
 
 const Header: FC = ({ children }) => {
   const [size, setSize] = useState<{ width: number; height: number }>(
@@ -54,6 +58,7 @@ const Header: FC = ({ children }) => {
                   console.log("submitted");
                   mutate();
                 }}
+                domain={DOMAIN}
                 className="border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700"
               >
                 {size?.width > THRESHOLD ? "feedback" : "fdbk"}
