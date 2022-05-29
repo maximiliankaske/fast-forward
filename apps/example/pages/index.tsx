@@ -1,6 +1,8 @@
 import type { NextPage } from "next";
 import { useState } from "react";
-import { ConnectButton } from "widget";
+import { ConnectButton } from "@fdbk/widget-react";
+
+// TODO: use ui package instead
 
 const locales = ["en", "de", "fr"] as const;
 
