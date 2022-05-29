@@ -1,22 +1,17 @@
 import * as React from "react";
 import Button from "./Button";
-import { formattedMessages, LanguageCode } from "../../utils/translations";
+import { formattedMessages } from "../../utils/translations";
 import LoadingIcon from "./LoadingIcon";
 import { CheckIcon, CameraIcon, XIcon } from "@heroicons/react/solid";
 import RadioCard from "./RadioCard";
 import { toPng } from "html-to-image";
 import { CloudUploadIcon } from "@heroicons/react/outline";
-import { FeedbackType } from "../../types";
+import { FeedbackBase, FeedbackType } from "../../types";
 
 type FormType = "idle" | "pending" | "error" | "success";
 type UploadStateType = "idle" | "pending" | "error" | "success";
 
-interface Props {
-  userId?: string | null;
-  projectId: string;
-  lang?: LanguageCode;
-  metadata?: Record<string, string | null | undefined | number>;
-  domain?: string;
+interface Props extends FeedbackBase {
   close: () => void;
   onSubmit?: () => void;
 }

@@ -1,7 +1,9 @@
+import { LanguageCode } from "../utils/translations";
+
 export type FeedbackBase = {
   userId?: string | null;
   projectId: string;
-  lang?: string;
+  lang?: LanguageCode;
   metadata?: Record<string, string | null | undefined | number>;
   domain?: string;
 };
