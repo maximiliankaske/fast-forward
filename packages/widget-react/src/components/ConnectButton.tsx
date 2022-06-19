@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FeedbackBase } from "../types";
-import Form from "./archive/Form";
+import Form from "./Form";
 import Portal from "./Portal";
 
 interface ConnectButtonProps extends FeedbackBase {

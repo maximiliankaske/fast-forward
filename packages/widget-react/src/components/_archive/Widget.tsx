@@ -2,7 +2,7 @@ import * as React from "react";
 import { Popover } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { usePopper } from "react-popper";
-import Form from "./Form";
+import Form from "../Form";
 
 interface Props {
   projectId: string;

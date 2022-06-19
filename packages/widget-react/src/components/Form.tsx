@@ -1,12 +1,12 @@
 import * as React from "react";
-import Button from "./Button";
-import { formattedMessages } from "../../utils/translations";
+import SubmitButton from "./SubmitButton";
+import { formattedMessages } from "../utils/translations";
 import LoadingIcon from "./LoadingIcon";
 import { CheckIcon, CameraIcon, XIcon } from "@heroicons/react/solid";
 import RadioCard from "./RadioCard";
 import { toPng } from "html-to-image";
 import { CloudUploadIcon } from "@heroicons/react/outline";
-import { FeedbackBase, FeedbackType } from "../../types";
+import { FeedbackBase, FeedbackType } from "../types";
 
 type FormType = "idle" | "pending" | "error" | "success";
 type UploadStateType = "idle" | "pending" | "error" | "success";
@@ -256,9 +256,7 @@ const Form = ({
                 return null;
             }
           })()}
-          <Button type="submit" className="w-full" disabled={text === ""}>
-            {renderState()}
-          </Button>
+          <SubmitButton disabled={text === ""}>{renderState()}</SubmitButton>
         </div>
       </div>
       <p className="text-center mt-2 -mb-2 text-[9px] leading-[9px] text-wGray-600 dark:text-wGray-400">
