@@ -7,7 +7,7 @@
 /* TODO: rename with prefix --ff-color-* to avoid duplications */
 
 @layer base {
-  .theme-light {
+  #ff-widget.theme-light {
     --ff-color-primary: 79 70 229;
     --ff-color-fill: 255 255 255;
     --ff-color-text: 0 0 0;
@@ -15,7 +15,7 @@
     --ff-color-button: 243 244 246;
   }
 
-  .theme-dark {
+  #ff-widget.theme-dark {
     --ff-color-text: 255 255 255;
     --ff-color-fill: 17 24 39;
     --ff-color-border: 31 41 55;

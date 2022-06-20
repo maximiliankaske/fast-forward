@@ -49,7 +49,7 @@ function Portal({ children, toggle, open, theme, ...props }: PortalProps) {
   return ReactDOM.createPortal(
     <FocusTrap active={open}>
       <div
-        id="widget"
+        id="ff-widget"
         className={cn(
           theme || "theme-light",
           "fixed inset-0 z-[99] flex items-center justify-center"
