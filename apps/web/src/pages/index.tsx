@@ -88,7 +88,11 @@ const Home = ({
         <p>
           <a
             target="_blank"
-            href={"https://example.fast-forward.app"}
+            href={
+              process.env.NODE_ENV === "production"
+                ? "https://example.fast-forward.app"
+                : "http://localhost:3001"
+            }
             rel="noreferrer"
             className={cn(styles.btn.base, styles.btn.demo)}
           >
