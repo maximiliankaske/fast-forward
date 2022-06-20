@@ -96,7 +96,7 @@ const Home = ({
             rel="noreferrer"
             className={cn(styles.btn.base, styles.btn.demo)}
           >
-            Example Configuration
+            Playground Configuration
             <ExternalLinkIcon className="w-5 h-5 ml-2" />
           </a>
         </p>

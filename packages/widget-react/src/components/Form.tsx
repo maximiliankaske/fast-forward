@@ -14,6 +14,9 @@ type UploadStateType = "idle" | "pending" | "error" | "success";
 interface Props extends FeedbackBase {
   close: () => void;
   onSubmit?: () => void;
+  // TODO: only needed for playground theme update support
+  // extend React.CSSProperties!
+  themeColors?: { "--ff-color-primary": string };
 }
 
 const Form = ({
@@ -24,6 +27,7 @@ const Form = ({
   metadata,
   domain,
   onSubmit,
+  themeColors,
 }: Props) => {
   const [form, setForm] = React.useState<FormType>("idle");
   const formRef = React.useRef<HTMLFormElement>(null);
@@ -177,6 +181,7 @@ const Form = ({
       ref={formRef}
       onSubmit={handleSubmit}
       className="bg-theme-fill border border-theme-base px-3 py-4 sm:px-4 sm:py-5 rounded-lg"
+      style={{ ...(themeColors as React.CSSProperties) }}
     >
       <div className="space-y-3 sm:space-y-4">
         <div className="flex space-x-2 sm:space-x-3">

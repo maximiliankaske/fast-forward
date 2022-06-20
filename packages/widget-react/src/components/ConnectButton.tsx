@@ -11,6 +11,10 @@ interface ConnectButtonProps extends FeedbackBase {
   onClick?: () => void;
   className?: string;
   theme?: Themes;
+  // TODO: only needed for playground theme update support
+  // Much better would be Record<Themes, WidgetTheme>
+  // Avoid passing css var - instead assign them later!
+  themeColors?: { "--ff-color-primary": string };
   onSubmit?: () => void;
 }
 
@@ -29,7 +33,7 @@ const ConnectButton = ({
   return (
     <>
       <Element
-        id="widget-connect-button"
+        id="ff-widget-button"
         onClick={(e) => {
           toggle();
           onClick?.();

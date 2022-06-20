@@ -1,35 +1,51 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ConnectButton } from "@fdbk/widget-react";
 import { RadioCard, Heading } from "@fast-forward/ui";
 import cn from "classnames";
+
+// TODO: Make it automatically visible
+// No need to press the button to toggle modal box
 
 const config = {
   locale: ["en", "de", "fr"],
   theme: ["theme-light", "theme-dark"],
 } as const;
 
+const styles = {
+  indigo: "79 70 229",
+  pink: "236 72 153",
+  teal: "20 184 166",
+  orange: "249 115 22",
+};
+
 const Home: NextPage = () => {
   const [form, setForm] = useState<{
     locale: typeof config.locale[number];
     theme: typeof config.theme[number];
+    // style?: keyof typeof config.style // React.CSSProperties;
   }>({
     locale: "en",
     theme: "theme-light",
   });
+  const [style, setStyle] = useState<keyof typeof styles>("indigo");
 
   return (
     <main className="flex flex-col min-h-screen min-w-screen justify-center items-center">
       <div className="space-y-6">
         <div className="flex flex-col items-center">
           <ConnectButton
-            projectId={"cl2dnfmpg00788jik7de0lhz2"}
+            projectId={process.env.NEXT_PUBLIC_DEMO_PROJECT_ID!}
             lang={form.locale}
             theme={form.theme}
             // show locale only if not default
             metadata={
               form.locale !== "en" ? { locale: form.locale } : undefined
             }
+            // TODO: extend theme with the ThemeCSS | keyof theme | undefined
+            themeColors={{
+              "--ff-color-primary": styles[style],
+            }}
             className="bg-indigo-500 rounded-full text-white px-3 py-2"
           >
             feedback
@@ -64,10 +80,25 @@ const Home: NextPage = () => {
               </div>
             );
           })}
+          <div>
+            <Heading>Style</Heading>
+            <div className="flex">
+              {Object.keys(styles).map((s) => (
+                <RadioCard
+                  id={s}
+                  key={s}
+                  onClick={() => setStyle(s as keyof typeof styles)}
+                  className={cn(
+                    "mr-2",
+                    style === s ? "bg-indigo-500 text-white" : "text-black"
+                  )}
+                >
+                  {s}
+                </RadioCard>
+              ))}
+            </div>
+          </div>
         </form>
-        <div>
-          <Heading>TODO: Copy & Paste</Heading>
-        </div>
       </div>
     </main>
   );
