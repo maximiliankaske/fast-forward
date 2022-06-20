@@ -84,6 +84,19 @@ const Home = ({
           )}
         </div>
       </div>
+      <div className="flex justify-center py-3">
+        <p>
+          <a
+            target="_blank"
+            href={"https://example.fast-forward.app"}
+            rel="noreferrer"
+            className={cn(styles.btn.base, styles.btn.demo)}
+          >
+            Example Configuration
+            <ExternalLinkIcon className="w-5 h-5 ml-2" />
+          </a>
+        </p>
+      </div>
       {/* <Features /> */}
       <FAQ />
     </DefaultLayout>

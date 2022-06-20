@@ -6,7 +6,7 @@ module.exports = {
         theme: {
           base: "rgb(var(--ff-color-text) / <alpha-value>)",
           inverted: "rgb(var(--ff-color-fill) / <alpha-value>)",
-          primary: "rgb(var(--color-primary) / <alpha-value>)",
+          primary: "rgb(var(--ff-color-primary) / <alpha-value>)",
         },
       },
       backgroundColor: {
