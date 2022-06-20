@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import fetcher from "@/utils/fetcher";
 import FeaturesPopover from "./FeaturesPopover";
+import { useTheme } from "next-themes";
 
 const THRESHOLD = 500;
 const DOMAIN =
@@ -19,6 +20,7 @@ const Header: FC = ({ children }) => {
   const [size, setSize] = useState<{ width: number; height: number }>(
     undefined
   );
+  const { resolvedTheme } = useTheme();
   const session = useSession();
   const router = useRouter();
   const projectId =
@@ -58,6 +60,7 @@ const Header: FC = ({ children }) => {
                   console.log("submitted");
                   mutate();
                 }}
+                theme={resolvedTheme === "dark" ? "theme-dark" : "theme-light"}
                 domain={DOMAIN}
                 className="border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700"
               >
