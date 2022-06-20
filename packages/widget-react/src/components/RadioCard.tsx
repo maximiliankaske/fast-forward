@@ -2,10 +2,10 @@ import * as React from "react";
 import cn from "classnames";
 
 const styles = {
-  base: "sm:text-lg dark:text-wWhite text-wBlack py-1 px-2 inline-flex items-center border border-wGray-300 dark:border-wGray-800 hover:border-wGray-400 dark:hover:border-wGray-600 rounded-md cursor-pointer focus:outline-none",
-  checked:
-    "peer-checked:bg-wGray-300 dark:peer-checked:bg-wGray-800 dark:peer-checked:text-wWhite",
-  focus: "peer-focus:ring-wGray-900 peer-focus:ring-2 peer-focus:ring-offset-2",
+  base: "sm:text-lg text-theme-base py-1 px-2 inline-flex items-center rounded-md cursor-pointer focus:outline-none",
+  checked: "peer-checked:bg-theme-inverted peer-checked:text-theme-inverted",
+  hover: "peer-hover:bg-theme-button-hover",
+  focus: "peer-focus:ring-2 peer-focus:ring-offset-2", // initial ring color
 };
 
 export interface RadioCardProps
@@ -27,7 +27,13 @@ const RadioCard = ({
       <input className={"sr-only peer"} {...{ type, id, ...props }} />
       <label
         htmlFor={id}
-        className={cn(styles.base, styles.checked, styles.focus, className)}
+        className={cn(
+          styles.base,
+          styles.checked,
+          styles.hover,
+          styles.focus,
+          className
+        )}
       >
         {children}
       </label>

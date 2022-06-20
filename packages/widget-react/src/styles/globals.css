@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* TODO: refactor to hex and remove ability to use opacity (see withOpacity config func) */
+
+@layer base {
+  .theme-light {
+    --color-text-base: 17, 24, 39;
+    --color-text-muted: 107 114 128;
+    --color-text-inverted: 255, 255, 255;
+    --color-text-primary: 79, 70, 229;
+    --color-text-danger: 220, 38, 38;
+    --color-fill: 255, 255, 255;
+    --color-inverted: 0, 0, 0;
+    --color-primary: 79, 70, 229;
+    --color-danger: 220, 38, 38;
+    --color-button: 255, 255, 255;
+    --color-button-hover: 243, 244, 246;
+    --color-button-accent: 17, 24, 39;
+    /* --color-button-disabled: 255, 255, 255; */
+  }
+  .theme-dark {
+    --color-text-base: 255, 255, 255;
+    --color-text-muted: 107 114 128;
+    --color-text-inverted: 17, 24, 39;
+    --color-text-primary: 219, 39, 119;
+    --color-text-danger: 220, 38, 38;
+    --color-fill: 17, 24, 39;
+    --color-inverted: 255, 255, 255;
+    --color-primary: 219, 39, 119;
+    --color-danger: 220, 38, 38;
+    --color-button: 17, 24, 39;
+    --color-button-hover: 31, 41, 55;
+    --color-button-accent: 17, 24, 39;
+    /* --color-button-disabled: 17, 24, 39; */
+  }
+}

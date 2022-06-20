@@ -176,7 +176,7 @@ const Form = ({
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="bg-wWhite dark:bg-wBlack px-3 py-4 sm:px-4 sm:py-5 border rounded-lg border-wGray-200 shadow dark:border-wGray-800"
+      className="bg-theme-fill px-3 py-4 sm:px-4 sm:py-5 rounded-lg"
     >
       <div className="space-y-3 sm:space-y-4">
         <div className="flex space-x-2 sm:space-x-3">
@@ -194,7 +194,7 @@ const Form = ({
           <button
             type="button"
             onClick={close}
-            className="ml-1 rounded-md text-wGray-600 dark:text-wGray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900"
+            className="ml-1 rounded-md text-theme-base"
           >
             <XIcon className="h-5 w-5" />
           </button>
@@ -204,21 +204,21 @@ const Form = ({
         </label>
         <textarea
           name="text"
-          className="sm:text-lg text-wBlack dark:text-wWhite px-2 py-1 resize-none shadow-sm border focus:border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900 block w-full border-wGray-100 dark:border-gray-900 rounded-md bg-transparent"
+          className="sm:text-lg text-theme-base px-2 py-1 resize-none rounded-md bg-transparent w-full"
           placeholder={messages.comment.placeholder}
           rows={3}
           value={text}
           onChange={(event) => setText(event.target.value)}
           autoFocus
         />
-        <div className="flex space-x-2 items-center text-wBlack dark:text-wWhite">
+        <div className="flex space-x-2 items-center text-theme-base">
           {(() => {
             switch (uploadState) {
               case "idle":
                 return (
                   <button
                     type="button"
-                    className="p-1 hover:bg-wGray-50 dark:hover:bg-wGray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-wGray-900"
+                    className="p-1 bg-theme-button hover:bg-theme-button-hover rounded-md"
                     onClick={onScreenshot}
                   >
                     <CameraIcon className="h-6 w-6" />
@@ -246,7 +246,7 @@ const Form = ({
                     <button
                       type="button"
                       onClick={resetScreenshot}
-                      className="absolute -right-1 -top-1 p-[2px] rounded-full bg-red-500 text-wWhite dark:text-wBlack"
+                      className="absolute -right-1 -top-1 p-[2px] rounded-full bg-theme-danger text-theme-base"
                     >
                       <XIcon className="h-2 w-2" />
                     </button>
@@ -259,11 +259,11 @@ const Form = ({
           <SubmitButton disabled={text === ""}>{renderState()}</SubmitButton>
         </div>
       </div>
-      <p className="text-center mt-2 -mb-2 text-[9px] leading-[9px] text-wGray-600 dark:text-wGray-400">
+      <p className="text-center mt-2 -mb-2 text-[9px] leading-[9px] text-theme-base">
         powered by{" "}
         <a
           href="https://fast-forward.app"
-          className="text-wPrimary-500 dark:text-wSecondary-500"
+          className="text-theme-primary"
           target="_blank"
           rel="noreferrer"
         >

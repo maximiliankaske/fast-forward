@@ -3,6 +3,7 @@ import cn from "classnames";
 
 const styles = {
   base: "inline-flex items-center border border-gray-300 dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600 rounded-md cursor-pointer focus:outline-none",
+  // FIXME: styles not applied
   checked:
     "peer-checked:bg-gray-900 dark:peer-checked:bg-gray-800 peer-checked:text-white",
   focus: "peer-focus:ring-gray-900 peer-focus:ring-2 peer-focus:ring-offset-2",

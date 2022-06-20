@@ -1,14 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import FocusTrap from "focus-trap-react";
+import { Themes } from "../themes";
+import cn from "classnames";
 
 interface PortalProps extends React.ComponentProps<"div"> {
   open: boolean;
   toggle: () => void;
+  theme?: Themes; // TODO: create ContextProvider
   // type?: "modal" | "popup"
 }
 
-function Portal({ children, toggle, open, ...props }: PortalProps) {
+function Portal({ children, toggle, open, theme, ...props }: PortalProps) {
   const protectedAreaRef = React.useRef<HTMLDivElement>(null);
   const overlayRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
@@ -47,13 +50,16 @@ function Portal({ children, toggle, open, ...props }: PortalProps) {
     <FocusTrap active={open}>
       <div
         id="widget"
-        className="fixed inset-0 z-[99] flex items-center justify-center"
+        className={cn(
+          theme || "theme-light",
+          "fixed inset-0 z-[99] flex items-center justify-center"
+        )}
         {...props}
       >
         <div
           ref={overlayRef}
           // onClick={toggle}
-          className="fixed inset-0 bg-wGray-500 dark:bg-wBlack dark:bg-opacity-75 bg-opacity-75"
+          className="fixed inset-0 bg-theme-fill bg-opacity-75"
         />
         <div ref={protectedAreaRef} className="z-10 max-w-xl m-2">
           {children}
