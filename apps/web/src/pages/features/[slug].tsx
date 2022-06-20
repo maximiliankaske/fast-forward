@@ -35,8 +35,15 @@ const Feature = ({
             <div className="col-start-1">
               <NextLink href={prev.path.url} passHref>
                 <a className="rounded-md border border-gray-200 dark:border-gray-800 p-2 block hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500">
-                  <Text className="mb-0">Prev</Text>
-                  <Text variant="description">{prev.title}</Text>
+                  <div className="flex justify-start items-center space-x-2">
+                    <IconBg>{prev.emoji}</IconBg>
+                    <div>
+                      <Text variant="description" className="mb-0">
+                        Previous
+                      </Text>
+                      <Text>{prev.title}</Text>
+                    </div>
+                  </div>
                 </a>
               </NextLink>
             </div>
@@ -45,8 +52,15 @@ const Feature = ({
             <div className="col-start-2 sm:col-start-3">
               <NextLink href={next.path.url} passHref>
                 <a className="rounded-md border border-gray-200 dark:border-gray-800 p-2 block hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500">
-                  <Text className="mb-0">Next</Text>
-                  <Text variant="description">{next.title}</Text>
+                  <div className="flex justify-end items-center space-x-2">
+                    <div className="text-right">
+                      <Text variant="description" className="mb-0">
+                        Next
+                      </Text>
+                      <Text>{next.title}</Text>
+                    </div>
+                    <IconBg>{next.emoji}</IconBg>
+                  </div>
                 </a>
               </NextLink>
             </div>
