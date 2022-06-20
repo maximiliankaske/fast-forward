@@ -3,9 +3,9 @@ import cn from "classnames";
 
 const styles = {
   base: "sm:text-lg text-theme-base border border-transparent py-1 px-2 inline-flex items-center rounded-md cursor-pointer focus:outline-none",
-  checked: "peer-checked:bg-theme-inverted peer-checked:text-theme-inverted",
+  checked: "peer-checked:bg-theme-primary peer-checked:text-theme-inverted",
   // TODO: allow hover if not peer-checked
-  hover: "peer-hover:border-theme-light",
+  hover: "peer-hover:border-theme-base",
   focus:
     "peer-focus:ring-2 peer-focus:ring-offset-2 peer-focus:ring-theme-primary", // initial ring color
 };

@@ -2,36 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TODO: refactor to hex and remove ability to use opacity (see withOpacity config func) */
+/* TODO: reduce number of colors */
+
+/* TODO: rename with prefix --ff-color-* to avoid duplications */
 
 @layer base {
   .theme-light {
-    --color-text-base: 17 24 39;
-    --color-text-muted: 107 114 128;
-    --color-text-inverted: 255 255 255;
-    --color-fill: 255 255 255;
-    --color-fill-light: 229 231 235;
-    --color-inverted: 0 0 0;
-    --color-primary: 79 70 229;
-    --color-danger: 220 38 38;
-    --color-button: 255 255 255;
-    --color-button-hover: 243 244 246;
-    --color-button-accent: 17 24 39;
-    /* --color-button-disabled: 255 255 255; */
+    --ff-color-primary: 79 70 229;
+    --ff-color-fill: 255 255 255;
+    --ff-color-text: 0 0 0;
+    --ff-color-border: 229 231 235;
+    --ff-color-button: 243 244 246;
   }
 
   .theme-dark {
-    --color-text-base: 255 255 255;
-    --color-text-muted: 107 114 128;
-    --color-text-inverted: 17 24 39;
-    --color-fill: 17 24 39;
-    --color-fill-light: 31 41 55;
-    --color-inverted: 255 255 255;
-    --color-primary: 219 39 119;
-    --color-danger: 220 38 38;
-    --color-button: 17 24 39;
-    --color-button-hover: 31 41 55;
-    --color-button-accent: 17 24 39;
-    /* --color-button-disabled: 17 24 39; */
+    --ff-color-text: 255 255 255;
+    --ff-color-fill: 17 24 39;
+    --ff-color-border: 31 41 55;
+    --ff-color-primary: 244 114 182;
+    --ff-color-button: 31 41 55;
   }
 }

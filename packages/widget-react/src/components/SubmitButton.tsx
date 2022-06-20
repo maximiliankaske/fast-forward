@@ -2,9 +2,10 @@ import * as React from "react";
 import cn from "classnames";
 
 const styles = {
-  base: "w-full sm:text-lg text-theme-base bg-theme-button hover:bg-theme-button-hover rounded-md px-1 py-px",
+  base: "w-full sm:text-lg rounded-md px-1 py-1",
   focus: "focus:ring-2 focus:ring-offset-2 focus:ring-theme-primary",
-  disabled: "pointer-events-none",
+  active: "text-theme-inverted bg-theme-primary",
+  disabled: "pointer-events-none text-theme-base bg-theme-button",
 };
 
 const SubmitButton = ({
@@ -16,7 +17,7 @@ const SubmitButton = ({
   const rootClassName = cn(
     styles.base,
     styles.focus,
-    { [styles.disabled]: disabled },
+    disabled ? styles.disabled : styles.active,
     className
   );
   return (
