@@ -1,50 +1,40 @@
-const colors = require("tailwindcss/colors");
-
-function withOpacity(variableName) {
-  return ({ opacityValue }) => {
-    if (opacityValue !== undefined) {
-      return `rgba(var(${variableName}), ${opacityValue})`;
-    }
-    return `rgb(var(${variableName}))`;
-  };
-}
-
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: "class",
   theme: {
     extend: {
-      colors: {
-        wPrimary: colors.indigo,
-        wSecondary: colors.pink,
-        wGray: colors.gray,
-        wWhite: colors.white,
-        wBlack: colors.black,
-        wGreen: colors.green,
-      },
       textColor: {
         theme: {
-          base: withOpacity("--color-text-base"),
-          muted: withOpacity("--color-text-muted"),
-          inverted: withOpacity("--color-text-inverted"),
-          primary: withOpacity("--color-text-primary"),
-          danger: withOpacity("--color-text-danger"),
+          base: "rgb(var(--color-text-base) / <alpha-value>)",
+          muted: "rgb(var(--color-text-muted) / <alpha-value>)",
+          inverted: "rgb(var(--color-text-inverted) / <alpha-value>)",
+          primary: "rgb(var(--color-primary) / <alpha-value>)",
+          danger: "rgb(var(--color-text-danger) / <alpha-value>)",
         },
       },
       backgroundColor: {
         theme: {
-          fill: withOpacity("--color-fill"),
-          primary: withOpacity("--color-primary"),
-          inverted: withOpacity("--color-inverted"),
-          danger: withOpacity("--color-danger"),
-          button: withOpacity("--color-button"),
-          "button-hover": withOpacity("--color-button-hover"),
-          "button-accent": withOpacity("--color-button-accent"),
+          fill: "rgb(var(--color-fill) / <alpha-value>)",
+          primary: "rgb(var(--color-primary) / <alpha-value>)",
+          inverted: "rgb(var(--color-inverted) / <alpha-value>)",
+          danger: "rgb(var(--color-danger) / <alpha-value>)",
+          button: "rgb(var(--color-button) / <alpha-value>)",
+          "button-hover": "rgb(var(--color-button-hover) / <alpha-value>)",
+          "button-accent": "rgb(var(--color-button-accent) / <alpha-value>)",
+        },
+      },
+      ringColor: {
+        theme: {
+          primary: "rgb(var(--color-primary) / <alpha-value>)",
+        },
+      },
+      borderColor: {
+        theme: {
+          light: "rgb(var(--color-fill-light) / <alpha-value>)",
         },
       },
       gradientColorStops: {
         theme: {
-          hue: withOpacity("--color-fill"),
+          hue: "rgb(var(--color-fill) / <alpha-value>)",
         },
       },
     },

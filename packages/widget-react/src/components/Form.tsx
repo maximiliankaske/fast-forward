@@ -176,7 +176,7 @@ const Form = ({
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="bg-theme-fill px-3 py-4 sm:px-4 sm:py-5 rounded-lg"
+      className="bg-theme-fill border border-theme-light px-3 py-4 sm:px-4 sm:py-5 rounded-lg"
     >
       <div className="space-y-3 sm:space-y-4">
         <div className="flex space-x-2 sm:space-x-3">
@@ -194,7 +194,7 @@ const Form = ({
           <button
             type="button"
             onClick={close}
-            className="ml-1 rounded-md text-theme-base"
+            className="ml-1 rounded-md text-theme-base focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-theme-primary"
           >
             <XIcon className="h-5 w-5" />
           </button>
@@ -204,7 +204,7 @@ const Form = ({
         </label>
         <textarea
           name="text"
-          className="sm:text-lg text-theme-base px-2 py-1 resize-none rounded-md bg-transparent w-full"
+          className="sm:text-lg text-theme-base px-2 py-1 resize-none border border-theme-light focus:border-theme-light rounded-md bg-transparent w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-theme-primary"
           placeholder={messages.comment.placeholder}
           rows={3}
           value={text}
@@ -218,7 +218,7 @@ const Form = ({
                 return (
                   <button
                     type="button"
-                    className="p-1 bg-theme-button hover:bg-theme-button-hover rounded-md"
+                    className="p-1 bg-theme-button hover:bg-theme-button-hover rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-theme-primary"
                     onClick={onScreenshot}
                   >
                     <CameraIcon className="h-6 w-6" />
@@ -246,7 +246,7 @@ const Form = ({
                     <button
                       type="button"
                       onClick={resetScreenshot}
-                      className="absolute -right-1 -top-1 p-[2px] rounded-full bg-theme-danger text-theme-base"
+                      className="absolute -right-1 -top-1 p-[2px] rounded-full bg-theme-danger text-theme-base focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-theme-primary"
                     >
                       <XIcon className="h-2 w-2" />
                     </button>
@@ -259,11 +259,11 @@ const Form = ({
           <SubmitButton disabled={text === ""}>{renderState()}</SubmitButton>
         </div>
       </div>
-      <p className="text-center mt-2 -mb-2 text-[9px] leading-[9px] text-theme-base">
+      <p className="text-center -mb-2 text-[9px] leading-[9px] text-theme-base">
         powered by{" "}
         <a
           href="https://fast-forward.app"
-          className="text-theme-primary"
+          className="text-theme-primary rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-theme-primary"
           target="_blank"
           rel="noreferrer"
         >
