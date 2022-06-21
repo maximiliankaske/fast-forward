@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { allFeatures } from ".contentlayer/generated";
 import { Button, Text } from "@fast-forward/ui";
 import IconBg from "../ui/IconBg";
+import Link from "next/link";
 
 const FeaturesPopover = () => {
   return (
@@ -27,26 +28,27 @@ const FeaturesPopover = () => {
                   {allFeatures
                     .sort((a, b) => a.path.order - b.path.order)
                     .map((item) => (
-                      <a
-                        key={item._id}
-                        href={item.path.url}
-                        className="group -m-3 flex items-center rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-900"
-                      >
-                        <div className="shrink-0">
-                          <IconBg>{item.emoji}</IconBg>
-                        </div>
-                        <div className="ml-4">
-                          <Text className="font-semibold mb-0">
-                            {item.title}
-                          </Text>
-                          <Text
-                            variant="description"
-                            className="line-clamp-1 sm:line-clamp-2 md:line-clamp-none mb-0 group-hover:text-gray-800 dark:group-hover:text-gray-200"
-                          >
-                            {item.excerpt}
-                          </Text>
-                        </div>
-                      </a>
+                      <Link key={item._id} href={item.path.url}>
+                        <a
+                          href={item.path.url}
+                          className="group -m-3 flex items-center rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-900"
+                        >
+                          <div className="shrink-0">
+                            <IconBg>{item.emoji}</IconBg>
+                          </div>
+                          <div className="ml-4">
+                            <Text className="font-semibold mb-0">
+                              {item.title}
+                            </Text>
+                            <Text
+                              variant="description"
+                              className="line-clamp-1 sm:line-clamp-2 md:line-clamp-none mb-0 group-hover:text-gray-800 dark:group-hover:text-gray-200"
+                            >
+                              {item.excerpt}
+                            </Text>
+                          </div>
+                        </a>
+                      </Link>
                     ))}
                 </div>
               </div>
