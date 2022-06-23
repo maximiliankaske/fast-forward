@@ -10,8 +10,8 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external react-dom --external focus-trap-react && npm run build:css",
-    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --external react-dom --external focus-trap-react && npm run watch:css",
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react --external react-dom --external && npm run build:css",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react --external react-dom --external && npm run watch:css",
     "lint": "TIMING=1 eslint src/**/*.ts* --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "build:css": "npx tailwindcss -i src/styles/globals.css -o dist/build.css --minify",
@@ -19,7 +19,7 @@
     "watch:css": "npx tailwindcss -i src/styles/globals.css -o dist/build.css --watch"
   },
   "devDependencies": {
-    "@headlessui/react": "^1.4.1",
+    "@floating-ui/react-dom-interactions": "^0.6.5",
     "@heroicons/react": "^1.0.1",
     "@tailwindcss/forms": "^0.5.1",
     "@types/react": "^17.0.13",
@@ -27,7 +27,6 @@
     "autoprefixer": "^10.4.7",
     "classnames": "^2.3.1",
     "eslint-config": "*",
-    "focus-trap-react": "^8.11.1",
     "html-to-image": "^1.9.0",
     "postcss": "^8.4.13",
     "react": "^17.0.2",

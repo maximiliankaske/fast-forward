@@ -2,12 +2,13 @@ import * as React from "react";
 import { Themes } from "../themes";
 import { FeedbackBase } from "../types";
 import Form from "./Form";
-import Portal from "./Portal";
 import cn from "classnames";
+import { Popover } from "./Popover";
+
+// TODO: pass floating-ui placement props to `Popover`
 
 interface ConnectButtonProps extends FeedbackBase {
   children: React.ReactNode;
-  as?: React.ElementType;
   onClick?: () => void;
   className?: string;
   theme?: Themes;
@@ -21,32 +22,25 @@ interface ConnectButtonProps extends FeedbackBase {
 const ConnectButton = ({
   children,
   onClick,
-  as = "button",
   className,
   theme,
   ...props
 }: ConnectButtonProps) => {
-  const [open, toggle] = React.useReducer((s) => !s, false);
-  const Element = (props: React.HTMLAttributes<HTMLButtonElement>) =>
-    React.createElement(as, props, children);
-
   return (
-    <>
-      <Element
-        id="ff-widget-button"
-        onClick={(e) => {
-          toggle();
-          onClick?.();
-        }}
-        className={className}
-        // TODO: add more props
-      />
-      {open ? (
-        <Portal {...{ toggle, open, theme }}>
-          <Form close={toggle} {...props} />
-        </Portal>
-      ) : null}
-    </>
+    <Popover
+      render={({ close, labelId, descriptionId }) => (
+        <div
+          id="ff-widget"
+          className={cn(theme || "theme-light", "min-w-[350px]")}
+        >
+          <Form close={close} {...props} />
+        </div>
+      )}
+    >
+      <button id="ff-widget-button" className={className}>
+        {children}
+      </button>
+    </Popover>
   );
 };
 

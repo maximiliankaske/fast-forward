@@ -149,7 +149,7 @@ const Form = ({
       setUploadState("pending");
       toPng(document.getElementsByTagName("body")[0], {
         filter: (node) => {
-          return node.id !== "widget";
+          return node.id !== "ff-widget";
         },
       })
         .then(function (dataUrl) {
@@ -180,7 +180,7 @@ const Form = ({
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="bg-theme-fill border border-theme-base px-3 py-4 sm:px-4 sm:py-5 rounded-lg"
+      className="bg-theme-fill border border-theme-base px-3 py-4 sm:px-4 sm:py-5 rounded-lg min-w-lg"
       style={{ ...(themeColors as React.CSSProperties) }}
     >
       <div className="space-y-3 sm:space-y-4">
