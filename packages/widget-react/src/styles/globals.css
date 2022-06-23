@@ -6,6 +6,14 @@
 
 /* TODO: rename with prefix --ff-color-* to avoid duplications */
 
+:root {
+  --ff-black: 0 0 0;
+  --ff-gray-light: 229 231 235;
+  --ff-gray: 55 65 81;
+  --ff-primary: 79 70 229;
+  --ff-green: 34 197 94;
+}
+
 @layer base {
   #ff-widget.theme-light {
     --ff-color-primary: 79 70 229;

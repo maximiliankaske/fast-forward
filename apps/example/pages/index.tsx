@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import React, { useState } from "react";
-import { ConnectButton } from "@fdbk/widget-react";
+import { ConnectButton, Dribbbble } from "@fdbk/widget-react";
 import { RadioCard, Heading } from "@fast-forward/ui";
 import cn from "classnames";
 
@@ -100,6 +100,7 @@ const Home: NextPage = () => {
           </div>
         </form>
       </div>
+      <Dribbbble />
     </main>
   );
 };
