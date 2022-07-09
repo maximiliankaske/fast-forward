@@ -56,13 +56,16 @@ const Header: FC = ({ children }) => {
               <ConnectButton
                 projectId={projectId}
                 userId={session?.data?.user.email}
-                onSubmit={() => {
-                  console.log("submitted");
-                  mutate();
+                buttonProps={{
+                  onClick: () => {
+                    console.log("submitted");
+                    mutate();
+                  },
+                  className:
+                    "border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700",
                 }}
                 theme={resolvedTheme === "dark" ? "theme-dark" : "theme-light"}
                 domain={DOMAIN}
-                className="border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700"
               >
                 {size?.width > THRESHOLD ? "feedback" : "fdbk"}
               </ConnectButton>

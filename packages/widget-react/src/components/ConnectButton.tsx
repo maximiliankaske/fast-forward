@@ -1,43 +1,46 @@
 import * as React from "react";
-import { Themes } from "../themes";
-import { FeedbackBase } from "../types";
+import { FeedbackBase, Themes } from "../types";
 import Form from "./Form";
 import cn from "classnames";
 import { Popover } from "./Popover";
+import WidgetProvider from "../contexts/WidgetContext";
 
 // TODO: pass floating-ui placement props to `Popover`
+// FIXME: refactor lang to locale
 
 interface ConnectButtonProps extends FeedbackBase {
   children: React.ReactNode;
-  onClick?: () => void;
-  className?: string;
   theme?: Themes;
   // TODO: only needed for playground theme update support
   // Much better would be Record<Themes, WidgetTheme>
   // Avoid passing css var - instead assign them later!
   themeColors?: { "--ff-color-primary": string };
-  onSubmit?: () => void;
+  as?: React.ElementType;
+  buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 const ConnectButton = ({
   children,
-  onClick,
-  className,
+  as = "button",
   theme,
+  lang,
+  buttonProps,
   ...props
 }: ConnectButtonProps) => {
+  const Element = (props: React.HTMLAttributes<HTMLButtonElement>) =>
+    React.createElement(as, props, children); // FIXME: props
+
   return (
     <Popover
       render={({ close, labelId, descriptionId }) => (
-        <div
-          id="ff-widget"
-          className={cn(theme || "theme-light", "min-w-[350px]")}
-        >
-          <Form close={close} {...props} />
-        </div>
+        <WidgetProvider theme={theme} locale={lang}>
+          <Form close={close} lang={lang} {...props} />
+        </WidgetProvider>
       )}
     >
-      <button id="ff-widget-button" className={className}>
+      {/* TODO: If React.createElement, we have to pass ref to element */}
+      {/* <Element id="ff-widget-button" /> */}
+      <button id="ff-widget-button" {...buttonProps}>
         {children}
       </button>
     </Popover>

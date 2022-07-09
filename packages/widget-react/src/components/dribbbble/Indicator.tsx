@@ -1,20 +1,31 @@
 import * as React from "react";
 import cn from "classnames";
+import { useFFContext } from "./Provider";
 
-const steps = [0, 1];
+// TODO: allow button clicks!
 
-const Indicator = ({ active }: { active: typeof steps[number] }) => {
+const styles = {
+  base: "rounded-full h-[5px]",
+  active: "bg-black w-16",
+  inactive: "bg-gray-light w-12",
+};
+
+const Indicator = () => {
+  const { state } = useFFContext();
   return (
     <div className="flex space-x-1">
-      {steps.map((_, i) => (
-        <div
-          key={i}
-          className={cn(
-            "rounded-full h-[5px]",
-            i === active ? "bg-black w-16" : "bg-gray-light w-12"
-          )}
-        />
-      ))}
+      <button
+        className={cn(
+          styles.base,
+          state === "type" ? styles.active : styles.inactive
+        )}
+      />
+      <button
+        className={cn(
+          styles.base,
+          state === "feedback" ? styles.active : styles.inactive
+        )}
+      />
     </div>
   );
 };

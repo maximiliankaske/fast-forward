@@ -36,3 +36,5 @@ export type Translation = {
     };
   };
 };
+
+export type Themes = "theme-dark" | "theme-light" | undefined;

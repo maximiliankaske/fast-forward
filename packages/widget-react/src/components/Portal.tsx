@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 // import FocusTrap from "focus-trap-react";
-import { Themes } from "../themes";
+import { Themes } from "../types";
 import cn from "classnames";
 
 interface PortalProps extends React.ComponentProps<"div"> {

@@ -46,7 +46,9 @@ const Home: NextPage = () => {
             themeColors={{
               "--ff-color-primary": styles[style],
             }}
-            className="bg-indigo-500 rounded-full text-white px-3 py-2"
+            buttonProps={{
+              className: `bg-indigo-500 rounded-full text-white px-3 py-2`,
+            }}
           >
             feedback
           </ConnectButton>

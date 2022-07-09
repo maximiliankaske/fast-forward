@@ -3,13 +3,19 @@ import cn from "classnames";
 import { StarIcon } from "@heroicons/react/solid";
 import Container from "./Container";
 import Indicator from "./Indicator";
+import { useFFContext } from "./Provider";
 
 const Feedback = () => {
+  const { setState } = useFFContext();
+
+  const handleClick = () => {
+    setState("success");
+  };
   return (
     <Container>
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <Indicator active={1} />
+          <Indicator />
           <div className="flex space-x-2 items-center">
             <StarIcon className="h-5 w-5 text-green" />
             <p className="text-gray font-medium tracking-wide">Stars</p>
@@ -25,7 +31,10 @@ const Feedback = () => {
           autoFocus
         />
         <div>
-          <button className="bg-black text-white px-5 py-2 rounded-md">
+          <button
+            onClick={handleClick}
+            className="bg-black text-white px-5 py-2 rounded-md"
+          >
             Submit
           </button>
         </div>
