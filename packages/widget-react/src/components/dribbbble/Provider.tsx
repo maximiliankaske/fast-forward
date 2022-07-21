@@ -1,5 +1,6 @@
 import * as React from "react";
 import cn from "classnames";
+import { FeedbackBase } from "../../types";
 
 // translation / locale , theme, style, active step...
 
@@ -15,6 +16,7 @@ interface ContextProps {
   setState: React.Dispatch<React.SetStateAction<State>>;
   type: Type;
   setType: React.Dispatch<React.SetStateAction<Type>>;
+  widgetProps: FeedbackBase;
 }
 
 const Context = React.createContext<ContextProps | null>(null);
@@ -27,14 +29,14 @@ export const useFFContext = () => {
   return ctx;
 };
 
-interface ProviderProps {
+interface ProviderProps extends FeedbackBase {
   children: React.ReactNode;
 }
 
-const Provider = ({ children }: ProviderProps) => {
+const Provider = ({ children, ...props }: ProviderProps) => {
   const [state, setState] = React.useState<State>("type");
   const [type, setType] = React.useState<Type>();
-  const value = { state, setState, type, setType };
+  const value = { state, setState, type, setType, widgetProps: props };
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 

@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import React, { useState } from "react";
-import { ConnectButton, Dribbbble } from "@fdbk/widget-react";
+import { ConnectButton, DribbbbleConnectButton } from "@fdbk/widget-react";
 import { RadioCard, Heading } from "@fast-forward/ui";
 import cn from "classnames";
 
@@ -102,7 +102,16 @@ const Home: NextPage = () => {
           </div>
         </form>
       </div>
-      <Dribbbble />
+      <DribbbbleConnectButton
+        projectId={process.env.NEXT_PUBLIC_DEMO_PROJECT_ID!}
+        lang={form.locale}
+        metadata={form.locale !== "en" ? { locale: form.locale } : undefined}
+        buttonProps={{
+          className: `bg-black rounded-full text-white px-3 py-2 mt-6`,
+        }}
+      >
+        feedback
+      </DribbbbleConnectButton>
     </main>
   );
 };

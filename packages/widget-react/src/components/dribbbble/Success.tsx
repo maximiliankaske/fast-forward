@@ -4,7 +4,11 @@ import { CheckCircleIcon } from "@heroicons/react/solid";
 import Container from "./Container";
 import { useFFContext } from "./Provider";
 
-const Success = () => {
+interface Props {
+  close: () => void;
+}
+
+const Success = ({ close }: Props) => {
   const { setState, setType } = useFFContext();
 
   React.useEffect(() => {
@@ -12,6 +16,7 @@ const Success = () => {
     timer = setTimeout(() => {
       setState("type");
       setType(undefined);
+      close();
     }, 2000);
     return () => {
       if (timer) {

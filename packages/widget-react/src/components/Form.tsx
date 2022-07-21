@@ -1,7 +1,7 @@
 import * as React from "react";
 import SubmitButton from "./SubmitButton";
 import { formattedMessages } from "../utils/translations";
-import LoadingIcon from "./LoadingIcon";
+import LoadingIcon from "./icons/LoadingIcon";
 import { CheckIcon, CameraIcon, XIcon } from "@heroicons/react/solid";
 import RadioCard from "./RadioCard";
 import { toPng } from "html-to-image";

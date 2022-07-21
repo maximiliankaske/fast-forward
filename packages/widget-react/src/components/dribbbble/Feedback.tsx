@@ -1,19 +1,49 @@
 import * as React from "react";
 import cn from "classnames";
-import { StarIcon } from "@heroicons/react/solid";
 import Container from "./Container";
 import Indicator from "./Indicator";
 import { useFFContext } from "./Provider";
 import TypeEmoji from "./TypeEmoji";
+import LoadingIcon from "../icons/LoadingIcon";
+
+// TODO: screenshotURL
 
 const Feedback = () => {
-  const { setState, type } = useFFContext();
+  const [loading, setLoading] = React.useState(false);
+  const { setState, type, widgetProps } = useFFContext();
+  const { domain, ...props } = widgetProps;
 
-  const handleClick = () => {
-    setState("success");
+  // FIXME: update to https://fast-forward.app
+  const currentDomain = domain || "https://staging.fast-forward.app";
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    event.preventDefault();
+    const target = event.target as typeof event.target & {
+      message: { value: string };
+    };
+    try {
+      const body = JSON.stringify({
+        text: target.message.value,
+        type: type,
+        ...props,
+        // screenshotURL,
+      });
+      console.log(body);
+      await fetch(`${currentDomain}/api/feedback`, {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+        body,
+      });
+      // FIXME: catch error on fetch
+      setState("success");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  console.log(type);
   return (
     <Container>
       <div className="space-y-2">
@@ -30,19 +60,34 @@ const Feedback = () => {
         <p className="font-medium text-black tracking-wide">
           Anything that can be improved?
         </p>
-        <textarea
-          className="rounded-md border border-gray-light resize-none w-full"
-          placeholder="Tell us about..."
-          rows={3}
-          required
-          autoFocus
-        />
-        <button
-          onClick={handleClick}
-          className="bg-black text-white px-5 py-2 rounded-md !mt-0"
-        >
-          Submit
-        </button>
+        <form onSubmit={handleSubmit} className="space-y-2">
+          <textarea
+            className="rounded-md border border-gray-light resize-none w-full"
+            placeholder="Tell us about..."
+            id="message"
+            name="message"
+            rows={3}
+            required
+            autoFocus
+          />
+          {/* TODO: add loading state when submitted */}
+          <button
+            type="submit"
+            disabled={loading}
+            className={cn(
+              "bg-black text-white px-5 py-2 rounded-md !mt-0 h-[40px]",
+              {
+                "cursor-not-allowed": loading,
+              }
+            )}
+          >
+            {loading ? (
+              <LoadingIcon className="w-4 h-4 animate-spin" />
+            ) : (
+              "Submit"
+            )}
+          </button>
+        </form>
       </div>
     </Container>
   );
