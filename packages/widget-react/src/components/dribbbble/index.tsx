@@ -15,7 +15,7 @@ const Dribbbble = () => {
 const Content = () => {
   const { state } = useFFContext();
   return (
-    <div className="space-y-3 mt-6 min-w-[500px]">
+    <div className="space-y-3 mt-6 min-w-[350px]">
       {state === "type" ? <Type /> : undefined}
       {state === "feedback" ? <Feedback /> : undefined}
       {state === "success" ? <Success /> : undefined}

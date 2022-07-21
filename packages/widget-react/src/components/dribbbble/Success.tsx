@@ -5,11 +5,14 @@ import Container from "./Container";
 import { useFFContext } from "./Provider";
 
 const Success = () => {
-  const { setState } = useFFContext();
+  const { setState, setType } = useFFContext();
 
   React.useEffect(() => {
     let timer: undefined | NodeJS.Timeout;
-    timer = setTimeout(() => setState("type"), 2000);
+    timer = setTimeout(() => {
+      setState("type");
+      setType(undefined);
+    }, 2000);
     return () => {
       if (timer) {
         clearTimeout(timer);

@@ -1,46 +1,41 @@
 import * as React from "react";
 import cn from "classnames";
-import { StarIcon } from "@heroicons/react/solid";
 import Container from "./Container";
 import Indicator from "./Indicator";
-import { useFFContext } from "./Provider";
+import { Type, types, useFFContext } from "./Provider";
+import TypeEmoji from "./TypeEmoji";
 
 const Type = () => {
-  const [active, setActive] = React.useState<number>();
-  const { setState } = useFFContext();
-
-  const handleClick = () => {
-    setActive(active);
-    setTimeout(() => setState("feedback"), 500);
-  };
+  const { setState, type, setType } = useFFContext();
 
   return (
     <Container>
-      <div className="space-y-3">
+      <div className="space-y-2">
         <Indicator />
         <p className="font-medium text-black tracking-wide">
-          Rate your experience with our product...
+          What is in your mind?
         </p>
         <div className="flex space-x-4">
           <div className="flex space-x-1">
-            {[1, 2, 3, 4, 5].map((star) => (
+            {types.map((t) => (
               <button
-                key={star}
-                onClick={handleClick}
+                key={t}
+                onClick={() => {
+                  setType(t);
+                  setState("feedback");
+                  // setTimeout(() => setState("feedback"), 1000);
+                }}
                 className={cn(
-                  "border border-gray-light py-2 px-4 rounded-md",
-                  active === star
+                  "border border-gray-light py-2 px-5 rounded-md",
+                  type === t
                     ? "bg-black text-white"
-                    : "hover:bg-black hover:text-white text-gray bg-white" // active => bg-primary
+                    : "hover:bg-black hover:text-white text-gray bg-white" // type => bg-primary
                 )}
               >
-                {star}
+                <TypeEmoji type={t} className="mr-1" />
+                {t}
               </button>
             ))}
-          </div>
-          <div className="flex space-x-2 items-center">
-            <StarIcon className="h-5 w-5 text-green" />
-            <p className="text-gray font-medium tracking-wide">Stars</p>
           </div>
         </div>
       </div>

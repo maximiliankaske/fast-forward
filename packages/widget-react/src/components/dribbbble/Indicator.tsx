@@ -11,7 +11,7 @@ const styles = {
 };
 
 const Indicator = () => {
-  const { state } = useFFContext();
+  const { state, setState } = useFFContext();
   return (
     <div className="flex space-x-1">
       <button
@@ -19,8 +19,10 @@ const Indicator = () => {
           styles.base,
           state === "type" ? styles.active : styles.inactive
         )}
+        onClick={() => setState("type")}
+        disabled={state === "type"}
       />
-      <button
+      <div
         className={cn(
           styles.base,
           state === "feedback" ? styles.active : styles.inactive
