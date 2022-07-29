@@ -75,7 +75,7 @@ const Feedback = () => {
             type="submit"
             disabled={loading}
             className={cn(
-              "bg-black text-white px-5 py-2 rounded-md !mt-0 h-[40px]",
+              "!bg-black text-white px-5 py-2 rounded-md !mt-0 h-[40px]",
               {
                 "cursor-not-allowed": loading,
               }
