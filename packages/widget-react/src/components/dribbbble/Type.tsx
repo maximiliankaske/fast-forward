@@ -26,7 +26,7 @@ const Type = () => {
                   // setTimeout(() => setState("feedback"), 1000);
                 }}
                 className={cn(
-                  "border border-gray-light py-2 px-5 rounded-md",
+                  "border border-gray-light py-2 px-5 rounded-md lowercase",
                   type === t
                     ? "bg-black text-white"
                     : "hover:bg-black hover:text-white text-gray bg-white" // type => bg-primary

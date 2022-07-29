@@ -104,6 +104,11 @@ const Home: NextPage = () => {
       </div>
       <DribbbbleConnectButton
         projectId={process.env.NEXT_PUBLIC_DEMO_PROJECT_ID!}
+        domain={
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : undefined
+        }
         lang={form.locale}
         metadata={form.locale !== "en" ? { locale: form.locale } : undefined}
         buttonProps={{

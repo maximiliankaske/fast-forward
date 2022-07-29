@@ -10,11 +10,11 @@ const TypeEmoji = ({ type, ...props }: Props) => {
     <span {...props}>
       {(() => {
         switch (type) {
-          case "bug":
+          case "BUG":
             return "🐞";
-          case "issue":
+          case "ISSUE":
             return "⚠️";
-          case "other":
+          case "OTHER":
             return "💬";
           default:
             return "";

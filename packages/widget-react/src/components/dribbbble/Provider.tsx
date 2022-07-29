@@ -5,7 +5,7 @@ import { FeedbackBase } from "../../types";
 // translation / locale , theme, style, active step...
 
 export const states = ["type", "feedback", "success"] as const;
-export const types = ["issue", "bug", "other"] as const;
+export const types = ["ISSUE", "BUG", "OTHER"] as const; // has to be same as prisma enum
 
 export type State = typeof states[number];
 export type Type = typeof types[number] | undefined;

@@ -11,7 +11,7 @@ import LoadingIcon from "../icons/LoadingIcon";
 const Feedback = () => {
   const [loading, setLoading] = React.useState(false);
   const { setState, type, widgetProps } = useFFContext();
-  const { domain, ...props } = widgetProps;
+  const { domain, lang, ...props } = widgetProps;
 
   // FIXME: update to https://fast-forward.app
   const currentDomain = domain || "https://staging.fast-forward.app";

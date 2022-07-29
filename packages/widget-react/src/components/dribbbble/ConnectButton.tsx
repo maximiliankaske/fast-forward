@@ -9,18 +9,18 @@ import Dribbbble from "./index";
 
 interface ConnectButtonProps extends FeedbackBase {
   children: React.ReactNode;
-  as?: React.ElementType;
+  // as?: React.ElementType;
   buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 const ConnectButton = ({
   children,
-  as = "button",
+  // as = "button",
   buttonProps,
   ...props
 }: ConnectButtonProps) => {
-  const Element = (props: React.HTMLAttributes<HTMLButtonElement>) =>
-    React.createElement(as, props, children); // FIXME: props
+  // const Element = (props: React.HTMLAttributes<HTMLButtonElement>) =>
+  //   React.createElement(as, props, children); // FIXME: props
 
   return (
     <Popover

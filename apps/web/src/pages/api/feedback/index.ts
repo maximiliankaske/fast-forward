@@ -8,12 +8,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
       case "POST":
         const project = await prisma.project.findUnique({
-          where: {
-            id: req.body.projectId,
-          },
-          include: {
-            user: true,
-          },
+          where: { id: req.body.projectId },
+          include: { user: true },
         });
 
         if (!project) {
