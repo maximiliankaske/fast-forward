@@ -17,7 +17,7 @@ module.exports = {
         lime: colors.lime,
       },
       fontFamily: {
-        sans: ["Oxygen", ...fontFamily.sans],
+        sans: ["Montserrat", ...fontFamily.sans],
       },
       keyframes: {
         "move-bg": {
