@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Success = ({ close }: Props) => {
-  const { setState, setType } = useFFContext();
+  const { setState, setType, messages } = useFFContext();
 
   React.useEffect(() => {
     let timer: undefined | NodeJS.Timeout;
@@ -31,7 +31,7 @@ const Success = ({ close }: Props) => {
       <div className="flex items-center space-x-2">
         <CheckCircleIcon className="h-7 w-7 text-green" />
         <p className="font-medium text-black tracking-wide">
-          Thanks for the feedback!
+          {messages.submit.state.success}
         </p>
       </div>
     </Container>

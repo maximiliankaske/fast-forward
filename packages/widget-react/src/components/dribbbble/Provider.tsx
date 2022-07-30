@@ -1,11 +1,12 @@
 import * as React from "react";
 import cn from "classnames";
 import { FeedbackBase } from "../../types";
+import translations, { formattedMessages, Messages } from "./translations";
 
 // translation / locale , theme, style, active step...
 
 export const states = ["type", "feedback", "success"] as const;
-export const types = ["ISSUE", "BUG", "OTHER"] as const; // has to be same as prisma enum
+export const types = ["ISSUE", "IDEA", "OTHER"] as const; // has to be same as prisma enum
 
 export type State = typeof states[number];
 export type Type = typeof types[number] | undefined;
@@ -17,6 +18,7 @@ interface ContextProps {
   type: Type;
   setType: React.Dispatch<React.SetStateAction<Type>>;
   widgetProps: FeedbackBase;
+  messages: Messages;
 }
 
 const Context = React.createContext<ContextProps | null>(null);
@@ -36,7 +38,15 @@ interface ProviderProps extends FeedbackBase {
 const Provider = ({ children, ...props }: ProviderProps) => {
   const [state, setState] = React.useState<State>("type");
   const [type, setType] = React.useState<Type>();
-  const value = { state, setState, type, setType, widgetProps: props };
+  const messages = formattedMessages(props.lang);
+  const value = {
+    state,
+    setState,
+    type,
+    setType,
+    widgetProps: props,
+    messages,
+  };
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 

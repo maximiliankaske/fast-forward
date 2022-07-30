@@ -84,8 +84,8 @@ const Header: FC = ({ children }) => {
                 {size?.width > THRESHOLD ? "feedback" : "fdbk"}
               </DribbbbleConnectButton>
               <span className="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
-                <span className="animate-ping group-hover:animate-none absolute inline-flex h-full w-full rounded-full bg-gray-700 dark:bg-gray-300 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-gray-700 dark:bg-gray-300"></span>
+                <span className="animate-ping group-hover:animate-none absolute inline-flex h-full w-full rounded-full bg-purple-500 dark:bg-emerald-300 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-purple-500 dark:bg-emerald-300"></span>
               </span>
             </div>
             {session.data?.user.id ? (
