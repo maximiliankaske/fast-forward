@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes } from "react";
 import cn from "classnames";
 
 const styles = {
-  base: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded",
+  base: "focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300 rounded",
 };
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {

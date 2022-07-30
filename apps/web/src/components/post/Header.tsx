@@ -19,7 +19,7 @@ const Header: FC<Post> = ({ title, date, section, content, coverImage }) => {
         />
       </div>
       <h1>
-        <span className="block text-base text-center text-indigo-600 dark:text-pink-500 font-semibold tracking-wide uppercase">
+        <span className="block text-base text-center text-purple-600 dark:text-emerald-500 font-semibold tracking-wide uppercase">
           {section}
         </span>
         <span className="mt-2 block text-5xl text-center font-extrabold tracking-tight">

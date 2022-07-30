@@ -3,7 +3,7 @@ import cn from "classnames";
 import Label from "./Label";
 
 const styles = {
-  base: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-100 dark:border-gray-900 rounded-md bg-transparent",
+  base: "shadow-sm focus:ring-purple-500 focus:border-purple-500 block w-full sm:text-sm border-gray-100 dark:border-gray-900 rounded-md bg-transparent",
 };
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {

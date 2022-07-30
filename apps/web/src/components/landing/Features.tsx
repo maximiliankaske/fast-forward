@@ -13,7 +13,7 @@ const Features = () => {
           .sort((a, b) => a.path.order - b.path.order)
           .map(({ emoji, title, excerpt, path }) => (
             <Link key={title} href={path.url}>
-              <a className="group p-3 -mx-3 rounded-md hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500">
+              <a className="group p-3 -mx-3 rounded-md hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-purple-500">
                 <IconBg>{emoji}</IconBg>
                 <Heading as="h3">{title}</Heading>
                 <Text

@@ -25,7 +25,7 @@ const ProfileMenu = () => {
   return (
     <Menu as="div" className="ml-3 relative">
       <div>
-        <Menu.Button className="bg-gray-100 dark:bg-gray-900 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-black focus:ring-indigo-500">
+        <Menu.Button className="bg-gray-100 dark:bg-gray-900 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-black focus:ring-purple-500">
           <span className="sr-only">Open user menu</span>
           <div className="h-8 w-8 rounded-full relative">
             {session.data?.user?.image && (
@@ -57,7 +57,7 @@ const ProfileMenu = () => {
                   <span
                     className={cn(
                       active &&
-                        "bg-pink-50/30 dark:bg-pink-900/5 text-pink-500",
+                        "bg-emerald-50/30 dark:bg-emerald-900/5 text-emerald-500",
                       "block px-4 py-2 text-sm"
                     )}
                   >

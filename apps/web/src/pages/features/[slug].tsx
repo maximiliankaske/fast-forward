@@ -34,7 +34,7 @@ const Feature = ({
           {prev && (
             <div className="col-start-1">
               <NextLink href={prev.path.url} passHref>
-                <a className="rounded-md border border-gray-200 dark:border-gray-800 p-2 block hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500">
+                <a className="rounded-md border border-gray-200 dark:border-gray-800 p-2 block hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-purple-500">
                   <div className="flex justify-start items-center space-x-2">
                     <IconBg>{prev.emoji}</IconBg>
                     <div>
@@ -51,7 +51,7 @@ const Feature = ({
           {next && (
             <div className="col-start-2 sm:col-start-3">
               <NextLink href={next.path.url} passHref>
-                <a className="rounded-md border border-gray-200 dark:border-gray-800 p-2 block hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500">
+                <a className="rounded-md border border-gray-200 dark:border-gray-800 p-2 block hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-purple-500">
                   <div className="flex justify-end items-center space-x-2">
                     <div className="text-right">
                       <Text variant="description" className="mb-0">

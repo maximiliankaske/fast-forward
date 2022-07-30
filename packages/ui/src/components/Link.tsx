@@ -2,7 +2,7 @@ import cn from "classnames";
 import React, { AnchorHTMLAttributes, FC } from "react";
 
 const styles = {
-  base: "hover:text-indigo-500 dark:hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:rounded",
+  base: "hover:text-purple-500 dark:hover:text-emerald-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 focus:rounded",
   variant: {
     default: "hover:underline",
   },

@@ -39,7 +39,7 @@ const Radios = <
                 // key works as value very good!
                 value={value || key}
                 className={cn(
-                  "mr-2 focus:outline-none focus:ring-2 focus:ring-indigo-500",
+                  "mr-2 focus:outline-none focus:ring-2 focus:ring-purple-500",
                   className
                 )}
                 {...props}

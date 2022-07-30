@@ -5,7 +5,7 @@ import { allQuestions } from "contentlayer/generated";
 
 const styles = {
   focus:
-    "rounded focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500",
+    "rounded focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-purple-500",
   open: "rounded-md border border-transparent open:border-gray-200 dark:open:border-gray-800 open:shadow",
   hover: "hover:border-gray-200 dark:hover:border-gray-800",
 };

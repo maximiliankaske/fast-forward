@@ -6,7 +6,7 @@ const styles = {
   color: {
     default: "bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-100",
     primary:
-      "bg-indigo-200 dark:bg-pink-700 text-indigo-800 dark:text-pink-100",
+      "bg-purple-200 dark:bg-emerald-700 text-purple-800 dark:text-emerald-100",
     secondary: "bg-yellow-200 text-yellow-800",
     ternary: "bg-red-200 text-red-800",
     quantery: "bg-lime-200 text-lime-800",

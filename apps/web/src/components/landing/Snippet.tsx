@@ -12,7 +12,7 @@ const Snippet = () => {
         POST request to <code>https://fast-forward.app/api/feedback</code> that
         looks like:
       </p>
-      <pre className="max-w-xl mx-auto overflow-x-scroll rounded-md border shadow-md border-indigo-500 dark:border-pink-500 p-8">
+      <pre className="max-w-xl mx-auto overflow-x-scroll rounded-md border shadow-md border-purple-500 dark:border-emerald-500 p-8">
         <code>
           {`fetch("https://fast-forward.app/api/feedback", {
   method: "POST",

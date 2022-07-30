@@ -2,7 +2,7 @@ import React, { ButtonHTMLAttributes, FC } from "react";
 import cn from "classnames";
 
 const styles = {
-  base: "rounded-md border dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500",
+  base: "rounded-md border dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-purple-500",
   variant: {
     none: "border-transparent dark:border-transparent hover:bg-gray-100 dark:hover:bg-gray-900",
     default: "",

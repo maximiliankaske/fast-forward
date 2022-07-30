@@ -40,7 +40,7 @@ const Home = ({
         <div className="md:col-span-4">
           <Heading as="h1">
             The easiest way to collect{" "}
-            <span className="animate-move-bg bg-gradient-to-r from-indigo-500 via-pink-500 to-indigo-500 bg-[length:400%] bg-clip-text text-transparent font-extrabold">
+            <span className="animate-move-bg bg-gradient-to-r from-purple-500 via-emerald-500 to-purple-500 bg-[length:400%] bg-clip-text text-transparent font-extrabold">
               Feedback
             </span>
             .
@@ -50,7 +50,7 @@ const Home = ({
         <div className="md:col-span-4">
           <Heading as="h3">
             {`You want to collect feedback fast, reliable and without any big setup? Welcome to `}
-            <span className="font-extrabold text-indigo-500 dark:text-pink-500">
+            <span className="font-extrabold text-purple-500 dark:text-emerald-500">
               Fast Forward
             </span>
             .

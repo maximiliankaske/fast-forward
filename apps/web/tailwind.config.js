@@ -2,6 +2,8 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
 const { spacing, fontFamily } = defaultTheme;
 
+// TODO:FIXME: don't forget to extend the colors in packages/ui!
+
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",

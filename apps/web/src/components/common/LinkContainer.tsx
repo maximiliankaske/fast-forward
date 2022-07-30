@@ -10,7 +10,7 @@ interface Props {
 const LinkContainer = ({ href, children }: Props) => {
   return (
     <Link href={href}>
-      <a className="flex items-center justify-between px-3 py-2 rounded-md border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-indigo-500">
+      <a className="flex items-center justify-between px-3 py-2 rounded-md border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black focus:ring-purple-500">
         {/* self-start */}
         <div className="mr-4">
           {React.Children.toArray(children).filter(
