@@ -8,7 +8,7 @@ import WidgetProvider from "../contexts/WidgetContext";
 // TODO: pass floating-ui placement props to `Popover`
 // FIXME: refactor lang to locale
 
-interface ConnectButtonProps extends FeedbackBase {
+interface ConnectButtonProps extends Omit<FeedbackBase, "themeColors"> {
   children: React.ReactNode;
   theme?: Themes;
   // TODO: only needed for playground theme update support

@@ -6,6 +6,7 @@ export type FeedbackBase = {
   lang?: LanguageCode;
   metadata?: Record<string, string | null | undefined | number>;
   domain?: string;
+  themeColors?: ThemeColors;
 };
 
 export type FeedbackForm = {
@@ -38,3 +39,13 @@ export type Translation = {
 };
 
 export type Themes = "theme-dark" | "theme-light" | undefined;
+
+export type Colors =
+  | "--ff-black"
+  | "--ff-white"
+  | "--ff-gray-light"
+  | "--ff-gray"
+  | "--ff-primary"
+  | "--ff-green";
+
+export type ThemeColors = Partial<Record<Colors, string>>;

@@ -8,6 +8,7 @@
 
 :root {
   --ff-black: 0 0 0;
+  --ff-white: 255 255 255;
   --ff-gray-light: 229 231 235;
   --ff-gray: 55 65 81;
   --ff-primary: 79 70 229;

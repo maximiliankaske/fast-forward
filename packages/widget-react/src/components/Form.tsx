@@ -11,7 +11,7 @@ import { FeedbackBase, FeedbackType } from "../types";
 type FormType = "idle" | "pending" | "error" | "success";
 type UploadStateType = "idle" | "pending" | "error" | "success";
 
-interface Props extends FeedbackBase {
+interface Props extends Omit<FeedbackBase, "themeColors"> {
   close: () => void;
   onSubmit?: () => void;
   // TODO: only needed for playground theme update support

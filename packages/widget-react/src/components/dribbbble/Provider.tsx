@@ -11,12 +11,13 @@ export const types = ["ISSUE", "IDEA", "OTHER"] as const; // has to be same as p
 export type State = typeof states[number];
 export type Type = typeof types[number] | undefined;
 
-// FIXME: refactor types
 interface ContextProps {
+  // FIXME: refactor types
   state: State;
   setState: React.Dispatch<React.SetStateAction<State>>;
   type: Type;
   setType: React.Dispatch<React.SetStateAction<Type>>;
+  // can be done via useReducer?
   widgetProps: FeedbackBase;
   messages: Messages;
 }

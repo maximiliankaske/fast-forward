@@ -62,7 +62,7 @@ const Feedback = () => {
         </p>
         <form onSubmit={handleSubmit} className="space-y-2">
           <textarea
-            className="rounded-md border border-gray-light resize-none w-full"
+            className="rounded-md border border-gray-light resize-none w-full bg-white text-black"
             placeholder={messages.placeholder}
             id="message"
             name="message"

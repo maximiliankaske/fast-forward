@@ -20,9 +20,12 @@ const Dribbbble = ({ close, ...props }: Props) => {
 };
 
 const Content = ({ close }: PopupProps) => {
-  const { state } = useFFContext();
+  const {
+    state,
+    widgetProps: { themeColors },
+  } = useFFContext();
   return (
-    <div className="min-w-[350px]">
+    <div className="min-w-[350px]" style={themeColors as React.CSSProperties}>
       {state === "type" ? <Type /> : undefined}
       {state === "feedback" ? <Feedback /> : undefined}
       {state === "success" ? <Success close={close} /> : undefined}
