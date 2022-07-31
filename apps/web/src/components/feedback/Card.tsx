@@ -78,7 +78,7 @@ const Card = ({ feedback, className, hideUser = false }: Props) => {
             {feedback.location?.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")}
           </Link>
         </Text>
-        <Text className="font-medium">user agent</Text>
+        <Text className="font-medium">device</Text>
         <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400 truncate">
           {`${ua.browser.name}, ${ua.os.name} ${ua.os.version}`}
         </Text>
@@ -127,8 +127,8 @@ const Card = ({ feedback, className, hideUser = false }: Props) => {
               !Array.isArray(feedback.metadata) &&
               Object.keys(feedback.metadata).map((key) => (
                 <li key={key} className="grid grid-cols-3">
-                  <Text className="font-medium">{key}</Text>
-                  <Text className="col-span-2 font-light text-gray-600 dark:text-gray-400">
+                  <Text className="font-medium text-sm">{key}</Text>
+                  <Text className="text-sm col-span-2 font-light text-gray-600 dark:text-gray-400">
                     {/* @ts-ignore */}
                     {feedback.metadata![key]}
                   </Text>
