@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FeedbackBase } from "../../types";
 import Feedback from "./Feedback";
+import PoweredBy from "./PoweredBy";
 import Provider, { useFFContext } from "./Provider";
 import Success from "./Success";
 import Type from "./Type";

@@ -78,6 +78,7 @@ const Home: NextPage = () => {
                     "--ff-white": "0 0 0",
                     "--ff-gray": "229 231 235",
                     "--ff-gray-light": "55 65 81",
+                    "--ff-primary": "0 243 177",
                   }
                 : undefined
             }

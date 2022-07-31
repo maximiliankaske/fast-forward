@@ -52,7 +52,7 @@ const Feedback = () => {
           {/* TODO: missing bg-gray-lightest color */}
           <button
             onClick={() => setState("type")}
-            className="rounded-full p-1 absolute right-0 -top-1 hover:bg-gray-light/20"
+            className="rounded-full p-1 absolute right-0 -top-1 bg-gray-light/30 hover:bg-gray-light/50"
           >
             <TypeEmoji className="" type={type} />
           </button>
