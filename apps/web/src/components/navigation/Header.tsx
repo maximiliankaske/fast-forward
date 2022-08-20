@@ -3,7 +3,7 @@ import Link from "@/components/ui/Link";
 import cn from "classnames";
 import ProfileMenu from "./ProfileMenu";
 import { useSession } from "next-auth/react";
-import { ConnectButton, DribbbbleConnectButton } from "@fdbk/widget-react";
+import { ConnectButton } from "@fdbk/widget-react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import fetcher from "@/utils/fetcher";
@@ -53,23 +53,7 @@ const Header: FC = ({ children }) => {
             {/* <Link href="/docs">docs</Link> */}
             <FeaturesPopover />
             <div className="relative group">
-              {/* <ConnectButton
-                projectId={projectId}
-                userId={session?.data?.user.email}
-                buttonProps={{
-                  onClick: () => {
-                    console.log("submitted");
-                    mutate();
-                  },
-                  className:
-                    "border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700",
-                }}
-                theme={resolvedTheme === "dark" ? "theme-dark" : "theme-light"}
-                domain={DOMAIN}
-              >
-                {size?.width > THRESHOLD ? "feedback" : "fdbk"}
-              </ConnectButton> */}
-              <DribbbbleConnectButton
+              <ConnectButton
                 projectId={projectId}
                 userId={session?.data?.user.email}
                 buttonProps={{
@@ -82,7 +66,7 @@ const Header: FC = ({ children }) => {
                 domain={DOMAIN}
               >
                 {size?.width > THRESHOLD ? "feedback" : "fdbk"}
-              </DribbbbleConnectButton>
+              </ConnectButton>
               <span className="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
                 <span className="animate-ping group-hover:animate-none absolute inline-flex h-full w-full rounded-full bg-purple-500 dark:bg-emerald-300 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-purple-500 dark:bg-emerald-300"></span>

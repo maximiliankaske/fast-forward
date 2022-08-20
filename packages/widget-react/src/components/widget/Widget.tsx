@@ -12,7 +12,7 @@ interface PopupProps {
 
 interface Props extends FeedbackBase, PopupProps {}
 
-const Dribbbble = ({ close, ...props }: Props) => {
+const Widget = ({ close, ...props }: Props) => {
   return (
     <Provider {...props}>
       <Content close={close} />
@@ -34,4 +34,4 @@ const Content = ({ close }: PopupProps) => {
   );
 };
 
-export default Dribbbble;
+export default Widget;
