@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TODO: reduce number of colors */
+
+/* TODO: rename with prefix --ff-color-* to avoid duplications */
+
+:root {
+  --ff-black: 0 0 0;
+  --ff-white: 255 255 255;
+  --ff-gray-light: 229 231 235;
+  --ff-gray: 55 65 81;
+  --ff-primary: 154 0 197;
+  --ff-green: 34 197 94;
+}
