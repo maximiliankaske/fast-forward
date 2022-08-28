@@ -13,8 +13,7 @@ const Feedback = () => {
   const { setState, type, widgetProps, messages } = useFFContext();
   const { domain, lang, ...props } = widgetProps;
 
-  // FIXME: update to https://fast-forward.app
-  const currentDomain = domain || "https://staging.fast-forward.app";
+  const currentDomain = domain || "https://fast-forward.app";
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);

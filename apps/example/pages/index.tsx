@@ -60,12 +60,11 @@ const Home: NextPage = () => {
         <div className="flex items-center justify-center">
           <ConnectButton
             projectId={process.env.NEXT_PUBLIC_DEMO_PROJECT_ID!}
-            // FIXME: uncomment after being online - otherwise use staging.fast-forward.app
-            // domain={
-            //   process.env.NODE_ENV === "development"
-            //     ? "http://localhost:3000"
-            //     : undefined
-            // }
+            domain={
+              process.env.NODE_ENV === "development"
+                ? "http://localhost:3000"
+                : undefined
+            }
             lang={form.locale}
             metadata={
               // TODO: add theme to metadata
