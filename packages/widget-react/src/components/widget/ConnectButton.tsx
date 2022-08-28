@@ -1,8 +1,8 @@
 import * as React from "react";
 import { FeedbackBase, Themes } from "../../types";
 import cn from "classnames";
-import { Popover } from "../Popover";
-import Dribbbble from "./index";
+import Popover from "./Popover";
+import Widget from "./Widget";
 
 // TODO: pass floating-ui placement props to `Popover`
 // FIXME: refactor lang to locale
@@ -25,7 +25,7 @@ const ConnectButton = ({
   return (
     <Popover
       render={({ close, labelId, descriptionId }) => (
-        <Dribbbble close={close} {...props} />
+        <Widget close={close} {...props} />
       )}
     >
       {/* TODO: If React.createElement, we have to pass ref to element */}

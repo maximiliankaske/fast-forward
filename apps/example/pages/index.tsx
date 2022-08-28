@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import React, { useState } from "react";
-import { DribbbbleConnectButton } from "@fdbk/widget-react";
+import { ConnectButton } from "@fdbk/widget-react";
 import { RadioCard, Heading, Label } from "@fast-forward/ui";
 import cn from "classnames";
 
@@ -20,6 +20,7 @@ const Home: NextPage = () => {
     locale: "en",
     theme: "light",
   });
+
   return (
     <main className="flex flex-col min-h-screen min-w-screen justify-center items-center">
       <Heading as="h4" className="text-center mb-4">
@@ -57,15 +58,17 @@ const Home: NextPage = () => {
           })}
         </form>
         <div className="flex items-center justify-center">
-          <DribbbbleConnectButton
+          <ConnectButton
             projectId={process.env.NEXT_PUBLIC_DEMO_PROJECT_ID!}
-            domain={
-              process.env.NODE_ENV === "development"
-                ? "http://localhost:3000"
-                : undefined
-            }
+            // FIXME: uncomment after being online - otherwise use staging.fast-forward.app
+            // domain={
+            //   process.env.NODE_ENV === "development"
+            //     ? "http://localhost:3000"
+            //     : undefined
+            // }
             lang={form.locale}
             metadata={
+              // TODO: add theme to metadata
               form.locale !== "en" ? { locale: form.locale } : undefined
             }
             buttonProps={{
@@ -84,7 +87,7 @@ const Home: NextPage = () => {
             }
           >
             Click Me!
-          </DribbbbleConnectButton>
+          </ConnectButton>
         </div>
       </div>
     </main>

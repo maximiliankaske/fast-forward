@@ -29,7 +29,7 @@ interface Props {
   children: JSX.Element;
 }
 
-export const Popover = ({ children, render, placement }: Props) => {
+const Popover = ({ children, render, placement }: Props) => {
   const [open, setOpen] = useState(false);
 
   const { x, y, reference, floating, strategy, context } = useFloating({
@@ -92,3 +92,5 @@ export const Popover = ({ children, render, placement }: Props) => {
     </>
   );
 };
+
+export default Popover;
