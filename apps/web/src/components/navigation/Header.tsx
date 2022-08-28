@@ -12,9 +12,7 @@ import { useTheme } from "next-themes";
 
 const THRESHOLD = 500;
 const DOMAIN =
-  process.env.NODE_ENV === "production"
-    ? process.env.VERCEL_URL
-    : "http://localhost:3000";
+  process.env.NODE_ENV === "development" ? "http://localhost:3000" : undefined;
 
 const Header: FC = ({ children }) => {
   const [size, setSize] = useState<{ width: number; height: number }>(

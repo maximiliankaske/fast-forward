@@ -13,7 +13,9 @@ const Feedback = () => {
   const { setState, type, widgetProps, messages } = useFFContext();
   const { domain, lang, ...props } = widgetProps;
 
-  const currentDomain = domain || "https://fast-forward.app";
+  // ATTENTION: because vercel redirects fast-forward.app to www.fast-forward.app
+  // the domain needs "www" - otherwise gets preflight failure
+  const currentDomain = domain || "https://www.fast-forward.app";
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
