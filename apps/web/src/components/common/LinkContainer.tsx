@@ -19,6 +19,9 @@ const LinkContainer = ({ href, children }: Props) => {
           {React.Children.toArray(children).filter(
             (child) => React.isValidElement(child) && child.type === Description
           )}
+          {React.Children.toArray(children).filter(
+            (child) => React.isValidElement(child) && child.type === Block
+          )}
         </div>
         <div>
           <ArrowRightIcon className="h-4 w-4 ml-1" />
@@ -39,7 +42,12 @@ const Description: FC = ({ children }) => {
   return <p className="text-sm text-gray-600 dark:text-gray-400">{children}</p>;
 };
 
+const Block: FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+  return <div {...props} />;
+};
+
 LinkContainer.Title = Title;
 LinkContainer.Description = Description;
+LinkContainer.Block = Block;
 
 export default LinkContainer;

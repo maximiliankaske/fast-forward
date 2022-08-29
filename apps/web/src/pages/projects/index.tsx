@@ -54,7 +54,7 @@ const Projects: ComponentWithAuth = ({
           <Button onClick={handleCreate} variant="primary">
             new project
           </Button>
-          <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 mt-6">
             {projects?.map((project, idx) => {
               return <Card key={project.id} {...{ project }} />;
             })}
