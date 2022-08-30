@@ -7,3 +7,6 @@
 ## Demo
 
 [fast-forward.app](https://fast-forward.app)
+
+TODO:
+[ ] BIG TASK: Highlight area on click and only record that bit on screenshot

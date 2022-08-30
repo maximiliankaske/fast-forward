@@ -1,8 +1,8 @@
 import { ChevronLeftIcon } from "@heroicons/react/solid";
 import Link from "@/components/ui/Link";
 import React, { FC } from "react";
-import type { Post } from "@/types/index";
 import { Badge, Divider } from "@fast-forward/ui";
+import { Post } from "contentlayer/generated";
 
 const tags = [
   "default",

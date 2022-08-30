@@ -1,13 +1,11 @@
 import ErrorPage from "next/error";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import React from "react";
-import markdownToHtml from "@/lib/markdownToHtml";
-import { getPostBySlug, getAllPosts } from "@/lib/api";
 import Header from "@/components/post/Header";
 import PostLayout from "@/components/layout/PostLayout";
 import { NextSeo } from "next-seo";
+import { allPosts } from "contentlayer/generated";
 
 const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
@@ -27,7 +25,7 @@ const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
           <Header {...post} />
           <div
             className="prose dark:prose-dark prose-lg mx-auto pb-12"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: post.body.html }}
           />
         </>
       )}
@@ -36,38 +34,15 @@ const Posts = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const post = getPostBySlug(params?.slug as string, [
-    "title",
-    "excerpt",
-    "date",
-    "slug",
-    "section",
-    "content",
-    "coverImage",
-  ]);
-  const content = await markdownToHtml(post.content);
-  console.log(content);
-
-  return {
-    props: {
-      post: {
-        ...post,
-        content,
-      },
-    },
-  };
+  const post = allPosts.find((post) => post.slug === params.slug);
+  console.log(params);
+  return { props: { post } };
 };
 
 export const getStaticPaths = async () => {
-  const posts = getAllPosts(["slug", "date"]);
+  const paths = allPosts.map((post) => post.url);
   return {
-    paths: posts.map((post) => {
-      return {
-        params: {
-          slug: post.slug,
-        },
-      };
-    }),
+    paths,
     fallback: false,
   };
 };
