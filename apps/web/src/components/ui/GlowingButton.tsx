@@ -6,12 +6,23 @@ const styles = {
 };
 
 const GlowingButton = () => {
-  const className = cn(styles.base);
   return (
-    <div className="relative my-6">
-      <div className="absolute -inset-0.5 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg blur opacity-75"></div>
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg"></div>
-      <button className={cn(styles.base)}>Get a Demo</button>
+    <div>
+      <div className="relative my-6">
+        <div className="animate-hero-bg-1">
+          <div className="absolute -inset-0.5 bg-gradient-to-br from-sky-500 to-indigo-500 rounded-lg blur opacity-75"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-sky-500 to-indigo-500 rounded-lg"></div>
+        </div>
+        <div className="animate-hero-bg-2">
+          <div className="absolute -inset-0.5 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg blur opacity-75"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg"></div>
+        </div>
+        <div className="animate-hero-bg-3">
+          <div className="absolute -inset-0.5 bg-gradient-to-br from-green-500 to-lime-500 rounded-lg blur opacity-75"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-lime-500 rounded-lg"></div>
+        </div>
+        <button className={cn(styles.base)}>Get a Demo</button>
+      </div>
     </div>
   );
 };
