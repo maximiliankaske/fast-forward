@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { DefaultToastOptions } from "react-hot-toast/dist/core/types";
+import { DefaultToastOptions } from "react-hot-toast";
 
 const toastOptions: DefaultToastOptions = {
   className:

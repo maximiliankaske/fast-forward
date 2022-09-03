@@ -2,7 +2,6 @@ import "@fdbk/widget-react/dist/build.css"; // REMINDER: has to be before the gl
 import "../styles/globals.css";
 import "../styles/prism.css";
 import "../styles/nprogress.css";
-import { MDXProvider } from "@mdx-js/react";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "react-hot-toast";
@@ -45,17 +44,15 @@ function MyApp({
   return (
     <SessionProvider session={session}>
       <ThemeProvider attribute="class">
-        <MDXProvider components={components}>
-          <DefaultSeo {...SEO} />
-          {Component.auth ? (
-            <Auth auth={Component.auth}>
-              <Component {...pageProps} />
-            </Auth>
-          ) : (
+        <DefaultSeo {...SEO} />
+        {Component.auth ? (
+          <Auth auth={Component.auth}>
             <Component {...pageProps} />
-          )}
-          <Toaster position="top-right" />
-        </MDXProvider>
+          </Auth>
+        ) : (
+          <Component {...pageProps} />
+        )}
+        <Toaster position="top-right" />
       </ThemeProvider>
     </SessionProvider>
   );

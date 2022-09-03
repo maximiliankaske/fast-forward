@@ -2,12 +2,6 @@ const withTM = require("next-transpile-modules");
 const withPlugins = require("next-compose-plugins");
 const cl = require("next-contentlayer");
 
-const withMDX = require("@next/mdx")({
-  extension: /\.mdx$/,
-});
-
-const mdxConfig = { pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"] };
-
 const config = {
   reactStrictMode: true,
   images: {
@@ -42,6 +36,6 @@ const config = {
 };
 
 module.exports = withPlugins(
-  [withTM(["@fdbk/widget-react"]), cl.withContentlayer({}), withMDX(mdxConfig)],
+  [withTM(["@fdbk/widget-react"]), cl.withContentlayer({})],
   config
 );
