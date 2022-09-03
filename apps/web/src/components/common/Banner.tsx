@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { XIcon } from "@heroicons/react/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Text } from "@fast-forward/ui";
 import cn from "classnames";
 
@@ -49,7 +49,7 @@ const Banner = ({ id, children, className }: Props) => {
             }}
             className="p-2"
           >
-            <XIcon className="h-5 w-5" />
+            <XMarkIcon className="h-5 w-5" />
           </button>
         </div>
       </div>

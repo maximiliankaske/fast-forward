@@ -2,7 +2,10 @@ import DefaultLayout from "@/components/layout/DefaultLayout";
 import { Heading } from "@fast-forward/ui";
 import React from "react";
 import Link from "next/link";
-import { ExternalLinkIcon, LoginIcon } from "@heroicons/react/outline";
+import {
+  ArrowTopRightOnSquareIcon,
+  ArrowLeftOnRectangleIcon,
+} from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
 import cn from "classnames";
 import prisma from "@/lib/prisma";
@@ -63,12 +66,12 @@ const Home = ({
               className={cn(styles.btn.base, styles.btn.demo)}
             >
               Try the Demo
-              <ExternalLinkIcon className="w-5 h-5 ml-2" />
+              <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
             </a>
             <Link href={exists ? "/projects" : "/auth/signin"}>
               <a className={cn(styles.btn.base, styles.btn.login)}>
                 {exists ? "Projects" : "Login"}
-                <LoginIcon className="h-5 w-5 ml-2" />
+                <ArrowLeftOnRectangleIcon className="h-5 w-5 ml-2" />
               </a>
             </Link>
           </div>
@@ -97,7 +100,7 @@ const Home = ({
             className={cn(styles.btn.base, styles.btn.demo)}
           >
             Playground Configuration
-            <ExternalLinkIcon className="w-5 h-5 ml-2" />
+            <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
           </a>
         </p>
       </div>

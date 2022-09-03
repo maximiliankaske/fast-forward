@@ -9,7 +9,7 @@ import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { Project, Feedback } from ".prisma/client";
-import { FolderAddIcon } from "@heroicons/react/outline";
+import { FolderPlusIcon } from "@heroicons/react/24/outline";
 import EmptyState from "@/components/common/EmptyState";
 import { useRouter } from "next/router";
 import Card from "@/components/project/Card";
@@ -66,7 +66,7 @@ const Projects: ComponentWithAuth = ({
           description="Get started by creating a new project."
           onClick={handleCreate}
           buttonTitle={"New Project"}
-          icon={FolderAddIcon}
+          icon={FolderPlusIcon}
         />
       )}
     </DefaultUserLayout>

@@ -1,5 +1,5 @@
 import React, { SVGProps } from "react";
-import { PlusIcon } from "@heroicons/react/solid";
+import { PlusIcon } from "@heroicons/react/24/solid";
 import { Button } from "@fast-forward/ui";
 
 interface Props {

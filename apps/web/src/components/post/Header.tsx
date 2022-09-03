@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from "@heroicons/react/solid";
+import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { format } from "date-fns";
 import readingTime from "reading-time";
 import Link from "next/link";

@@ -1,6 +1,6 @@
 import React, { FC, HTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRightIcon } from "@heroicons/react/outline";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   href: string;

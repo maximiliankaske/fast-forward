@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from "@heroicons/react/solid";
+import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import Link from "@/components/ui/Link";
 import React, { FC } from "react";
 import { Badge, Divider } from "@fast-forward/ui";
