@@ -39,7 +39,8 @@ const Projects: ComponentWithAuth = ({
         creator("/api/projects", newProject),
         "create"
       )) as Project;
-      toasts.blank("createProject");
+      // FIXME: can be removed
+      // toasts.blank("createProject");
       // router.push(`/projects/${project.id}`);
       mutate();
     } catch {
