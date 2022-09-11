@@ -1,13 +1,20 @@
-import { ChevronLeftIcon } from "@heroicons/react/solid";
+import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { format } from "date-fns";
 import readingTime from "reading-time";
 import Link from "next/link";
 import Image from "next/image";
 import React, { FC } from "react";
-import type { Post } from "@/types/index";
 import { Divider } from "@fast-forward/ui";
+import type { Post } from "contentlayer/generated";
 
-const Header: FC<Post> = ({ title, date, section, content, coverImage }) => {
+const Header: FC<Post> = ({
+  title,
+  date,
+  section,
+  body,
+  coverImage,
+  readingTime,
+}) => {
   return (
     <div className="text-lg flex flex-col mx-auto">
       <div className="text-center max-w-3xl mx-auto w-full h-48 relative rounded-md overflow-hidden my-8 md:my-12">
@@ -31,7 +38,7 @@ const Header: FC<Post> = ({ title, date, section, content, coverImage }) => {
           {format(new Date(date), "dd.MM.yyyy")}
         </time>
         <span aria-hidden="true">&middot;</span>
-        <span>{readingTime(content).text}</span>
+        <span>{readingTime}</span>
       </div>
       <div className="pt-6">
         <Link href="/blog">

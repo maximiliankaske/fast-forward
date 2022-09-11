@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, FC } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { XIcon } from "@heroicons/react/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import cn from "classnames";
 
 interface Props {
@@ -67,7 +67,7 @@ const Modal: FC<Props> = ({ open, onClose, children, fullscreen = false }) => {
                     ref={cancelButtonRef}
                   >
                     <span className="sr-only">Close</span>
-                    <XIcon className="h-6 w-6" aria-hidden="true" />
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
                 <div className="sm:flex sm:items-start">

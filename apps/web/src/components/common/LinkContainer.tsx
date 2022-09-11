@@ -1,6 +1,6 @@
 import React, { FC, HTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRightIcon } from "@heroicons/react/outline";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   href: string;
@@ -18,6 +18,9 @@ const LinkContainer = ({ href, children }: Props) => {
           )}
           {React.Children.toArray(children).filter(
             (child) => React.isValidElement(child) && child.type === Description
+          )}
+          {React.Children.toArray(children).filter(
+            (child) => React.isValidElement(child) && child.type === Block
           )}
         </div>
         <div>
@@ -39,7 +42,12 @@ const Description: FC = ({ children }) => {
   return <p className="text-sm text-gray-600 dark:text-gray-400">{children}</p>;
 };
 
+const Block: FC<HTMLAttributes<HTMLDivElement>> = ({ ...props }) => {
+  return <div {...props} />;
+};
+
 LinkContainer.Title = Title;
 LinkContainer.Description = Description;
+LinkContainer.Block = Block;
 
 export default LinkContainer;

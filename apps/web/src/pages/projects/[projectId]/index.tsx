@@ -14,7 +14,7 @@ import { getSession, useSession } from "next-auth/react";
 import cn from "classnames";
 import Card from "@/components/feedback/Card";
 import Banner from "@/components/common/Banner";
-import { LinkIcon } from "@heroicons/react/outline";
+import { LinkIcon } from "@heroicons/react/24/outline";
 import { useRef } from "react";
 import { useEffect } from "react";
 

@@ -1,18 +1,18 @@
 import Link from "next/link";
 import React, { FC } from "react";
 import { format } from "date-fns";
-import { Post } from "@/types/index";
 import { Heading } from "@fast-forward/ui";
 import Image from "next/image";
+import type { Post } from "contentlayer/generated";
 
-const Thumbnail: FC<Post> = ({
+const Thumbnail = ({
   slug,
   title,
   section,
   date,
   excerpt,
   coverImage,
-}) => {
+}: Post) => {
   return (
     <article className="group overflow-hidden rounded-md border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-black focus-within:ring-purple-500">
       <Link href={`/blog/${slug}`}>

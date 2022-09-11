@@ -56,9 +56,36 @@ module.exports = {
             backgroundPosition: "400% 0",
           },
         },
+        "hero-bg-1": {
+          "0%, 16.667%, to": {
+            opacity: 1,
+          },
+          "33%, 83.333%": {
+            opacity: 0,
+          },
+        },
+        "hero-bg-2": {
+          "0%, 16.667%, 66.667%, to": {
+            opacity: 0,
+          },
+          "33.333%, 50%": {
+            opacity: 1,
+          },
+        },
+        "hero-bg-3": {
+          "0%, 50%, to": {
+            opacity: 0,
+          },
+          "66.667%, 83.333%": {
+            opacity: 1,
+          },
+        },
       },
       animation: {
         "move-bg": "move-bg 8s infinite linear",
+        "hero-bg-1": "hero-bg-1 8s infinite",
+        "hero-bg-2": "hero-bg-2 8s infinite",
+        "hero-bg-3": "hero-bg-3 8s infinite",
       },
       typography: (theme) => ({
         DEFAULT: {

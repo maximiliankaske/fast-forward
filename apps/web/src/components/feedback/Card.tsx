@@ -9,8 +9,8 @@ import { Button, Heading, Text } from "@fast-forward/ui";
 import Link from "@/components/ui/Link";
 import parser from "ua-parser-js";
 import cn from "classnames";
-import { StarIcon as SolidStarIcon } from "@heroicons/react/solid";
-import { StarIcon } from "@heroicons/react/outline";
+import { StarIcon as SolidStarIcon } from "@heroicons/react/24/solid";
+import { StarIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import IconBg from "../ui/IconBg";
 
