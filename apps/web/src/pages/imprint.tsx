@@ -19,6 +19,10 @@ const contacts = {
     label: "+4915773121555",
     url: "tel:+4915773121555",
   },
+  website: {
+    label: "mxkaske.dev",
+    url: "https://mxkaske.dev",
+  },
 } as const;
 
 const ImprintPage = () => {
