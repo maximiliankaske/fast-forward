@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { toPng } from "html-to-image";
 
+// FIXME: scrolling will only move the page, not the absolute positioned box
+// FIXME: mouseover not working on touch devices
+
 const BASE_URL =
   process.env.NODE_ENV === "production"
     ? "https://www.fast-forward.app"
@@ -73,23 +76,43 @@ function Portal({ toggle, open }: PortalProps) {
   return ReactDOM.createPortal(
     <>
       {open ? (
-        <div
-          ref={ref}
-          style={{
-            pointerEvents: "none",
-            zIndex: 100000,
-            position: "fixed",
-            top: rect?.top,
-            bottom: rect?.bottom,
-            left: rect?.left,
-            right: rect?.right,
-            height: rect?.height,
-            width: rect?.width,
-            // backgroundColor: "rgb(154 0 197 / 100%)",
-            border: "3px solid rgb(154 0 197 / 100%)",
-            opacity: 0.5,
-          }}
-        />
+        <>
+          {/* <div
+            ref={ref}
+            style={{
+              pointerEvents: "none",
+              zIndex: 100000,
+              position: "fixed",
+              top: rect?.top,
+              bottom: rect?.bottom,
+              left: rect?.left,
+              right: rect?.right,
+              height: rect?.height,
+              width: rect?.width,
+              // backgroundColor: "rgb(154 0 197 / 100%)",
+              border: "3px solid rgb(154 0 197 / 100%)",
+              opacity: 0.5,
+            }}
+          /> */}
+          <div
+            style={
+              {
+                "--windowposition-x": `${rect?.left}px`,
+                "--windowposition-y": `${rect?.top}px`,
+                "--windowposition-height": `${rect?.height}px`,
+                "--windowposition-width": `${rect?.width}px`,
+                pointerEvents: "none",
+                zIndex: 1000,
+                inset: 0,
+                position: "fixed",
+                backgroundColor: "black",
+                opacity: 0.5,
+                clipPath:
+                  "polygon(0% 0%, 0% 100%, var(--windowposition-x) 100%, var(--windowposition-x) var(--windowposition-y), calc(var(--windowposition-x) + var(--windowposition-width)) var(--windowposition-y), calc(var(--windowposition-x) + var(--windowposition-width)) calc(var(--windowposition-y) + var(--windowposition-height)), var(--windowposition-x) calc(var(--windowposition-y) + var(--windowposition-height)), var(--windowposition-x) 100%, 100% 100%, 100% 0%)",
+              } as React.CSSProperties
+            }
+          />
+        </>
       ) : undefined}
     </>,
     document.body

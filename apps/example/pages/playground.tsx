@@ -39,6 +39,20 @@ const Playground = () => {
             Pellentesque rutrum velit ac orci maximus porta. Maecenas iaculis
             luctus bibendum. Phasellus quis luctus dolor.
           </Text>
+          <Text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+            semper mollis est non dignissim. Cras sed ultricies nulla.
+            Pellentesque a posuere augue, nec pellentesque ligula. Pellentesque
+            mattis interdum varius. Pellentesque dictum, erat id faucibus
+            blandit, ipsum orci tincidunt ex, at sagittis mauris urna sit amet
+            nunc. Maecenas convallis dictum pretium. Nullam accumsan mi velit,
+            et malesuada magna cursus eget. Pellentesque fermentum, urna a
+            faucibus ullamcorper, odio lacus suscipit orci, et porta dui enim
+            quis nibh. Donec sagittis arcu lacus, eget egestas tellus dapibus
+            ac. Etiam tempus a leo sed egestas. Duis quis massa diam.
+            Pellentesque rutrum velit ac orci maximus porta. Maecenas iaculis
+            luctus bibendum. Phasellus quis luctus dolor.
+          </Text>
         </div>
       </main>
       <DynamicPortalWithNoSSR {...{ open, toggle }} />
