@@ -9,6 +9,7 @@ module.exports = {
         "gray-light": "rgb(var(--ff-gray-light) / <alpha-value>)",
         primary: "rgb(var(--ff-primary) / <alpha-value>)",
         green: "rgb(var(--ff-green) / <alpha-value>)",
+        red: "rgb(var(--ff-red) / <alpha-value>)",
       },
       backgroundColor: {
         black: "rgb(var(--ff-black) / <alpha-value>)",
@@ -17,6 +18,7 @@ module.exports = {
         "gray-light": "rgb(var(--ff-gray-light) / <alpha-value>)",
         primary: "rgb(var(--ff-primary) / <alpha-value>)",
         green: "rgb(var(--ff-green) / <alpha-value>)",
+        red: "rgb(var(--ff-red) / <alpha-value>)",
       },
       ringColor: {
         primary: "rgb(var(--ff-primary) / <alpha-value>)",

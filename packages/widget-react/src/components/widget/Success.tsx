@@ -1,8 +1,8 @@
 import * as React from "react";
 import cn from "classnames";
-import { CheckCircleIcon } from "@heroicons/react/solid";
 import Container from "./Container";
 import { useFFContext } from "./Provider";
+import CheckCircleIcon from "../icons/CheckCircleIcon";
 
 interface Props {
   close: () => void;

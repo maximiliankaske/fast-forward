@@ -61,7 +61,7 @@ const Popover = ({ children, render, placement }: Props) => {
         children,
         getReferenceProps({ ref: reference, ...children.props })
       )}
-      <FloatingPortal>
+      <FloatingPortal id="ff-widget-portal">
         {open && (
           <FloatingFocusManager context={context}>
             <div

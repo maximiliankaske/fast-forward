@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import * as React from "react";
 import cn from "classnames";
 import Container from "./Container";
@@ -5,11 +6,20 @@ import Indicator from "./Indicator";
 import { useFFContext } from "./Provider";
 import TypeEmoji from "./TypeEmoji";
 import LoadingIcon from "../icons/LoadingIcon";
+import CameraIcon from "../icons/CameraIcon";
+import { toPng } from "html-to-image";
+import XIcon from "../icons/XIcon";
 
-// TODO: screenshotURL
+const filter = (node: HTMLElement) => {
+  const exclusionIds = ["ff-widget-portal"];
+  return !exclusionIds.some((ids) => node.id === ids);
+};
 
 const Feedback = () => {
   const [loading, setLoading] = React.useState(false);
+  const [screenshotURL, setScreenshotURL] = React.useState<string | undefined>(
+    undefined
+  );
   const { setState, type, widgetProps, messages } = useFFContext();
   const { domain, lang, ...props } = widgetProps;
 
@@ -26,9 +36,9 @@ const Feedback = () => {
     try {
       const body = JSON.stringify({
         text: target.message.value,
-        type: type,
+        type,
+        screenshotURL,
         ...props,
-        // screenshotURL,
       });
       console.log(body);
       await fetch(`${currentDomain}/api/feedback`, {
@@ -42,6 +52,26 @@ const Feedback = () => {
       setState("success");
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleScreenshot = async () => {
+    const body = document.body;
+    try {
+      const dataUrl = await toPng(body, { cacheBust: true, filter });
+      // console.log(dataUrl);
+      const res = await fetch(`${currentDomain}/api/cloudinary`, {
+        method: "POST",
+        body: JSON.stringify({ screenshot: dataUrl }),
+      });
+      if (res.ok) {
+        const json = await res.json(); // FIXME: not typed - tRPC?
+        setScreenshotURL(json.url as string);
+      } else {
+        setScreenshotURL(undefined);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -61,7 +91,7 @@ const Feedback = () => {
         <p className="font-medium text-black tracking-wide">
           {messages.questions.feedback}
         </p>
-        <form onSubmit={handleSubmit} className="space-y-2">
+        <form onSubmit={handleSubmit}>
           <textarea
             className="rounded-md border border-gray-light resize-none w-full bg-white text-black"
             placeholder={messages.placeholder}
@@ -72,22 +102,53 @@ const Feedback = () => {
             autoFocus
           />
           {/* TODO: add loading state when submitted */}
-          <button
-            type="submit"
-            disabled={loading}
-            className={cn(
-              "!bg-black text-white px-5 py-2 rounded-md !mt-0 h-[40px]",
-              {
-                "cursor-not-allowed": loading,
-              }
-            )}
-          >
-            {loading ? (
-              <LoadingIcon className="w-4 h-4 animate-spin" />
+          <div className="flex items-center space-x-2">
+            <div className="flex-1">
+              <button
+                type="submit"
+                disabled={loading}
+                className={cn(
+                  "!bg-black text-white px-5 py-2 rounded-md h-[40px] w-full",
+                  {
+                    "cursor-not-allowed": loading,
+                  }
+                )}
+              >
+                {loading ? (
+                  <LoadingIcon className="w-4 h-4 animate-spin mx-auto" />
+                ) : (
+                  messages.submit.label
+                )}
+              </button>
+            </div>
+            {!screenshotURL ? (
+              <button
+                type="button"
+                className="text-black px-1"
+                onClick={handleScreenshot}
+                disabled={loading}
+              >
+                <CameraIcon className="h-8 w-8" />
+              </button>
             ) : (
-              messages.submit.label
+              <div className="rounded-md bg-gray/10 relative mx-1">
+                <button
+                  type="button"
+                  className="absolute -top-1 -right-1 rounded-full bg-red p-0.5"
+                  onClick={() => setScreenshotURL(undefined)}
+                >
+                  <XIcon className="w-3 h-3 text-white" />
+                </button>
+                <a href={screenshotURL} target="_blank" rel="noreferrer">
+                  <img
+                    src={screenshotURL}
+                    alt=""
+                    className="h-[40px] w-[40px]"
+                  />
+                </a>
+              </div>
             )}
-          </button>
+          </div>
         </form>
       </div>
     </Container>
