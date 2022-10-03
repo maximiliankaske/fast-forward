@@ -62,6 +62,22 @@ const Header: FC = ({ children }) => {
                     "border rounded-md px-2 py-1 hover:border-gray-300 dark:border-gray-800 hover:dark:border-gray-700",
                 }}
                 domain={DOMAIN}
+                themeColors={
+                  resolvedTheme === "dark"
+                    ? {
+                        "--ff-black": "255 255 255",
+                        "--ff-white": "0 0 0",
+                        "--ff-gray": "229 231 235",
+                        "--ff-gray-light": "55 65 81",
+                        "--ff-primary": "0 243 177",
+                      }
+                    : undefined
+                }
+                metadata={
+                  resolvedTheme === "dark"
+                    ? { theme: resolvedTheme }
+                    : undefined
+                }
               >
                 {size?.width > THRESHOLD ? "feedback" : "fdbk"}
               </ConnectButton>
