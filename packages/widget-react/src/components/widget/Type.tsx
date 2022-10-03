@@ -12,7 +12,7 @@ const Type = () => {
     <Container>
       <div className="space-y-2">
         <Indicator />
-        <p className="font-medium text-black tracking-wide">
+        <p className="font-medium text-ff-black tracking-wide text-sm">
           {messages.questions.type}
         </p>
         <div className="flex space-x-4">
@@ -26,10 +26,10 @@ const Type = () => {
                   // setTimeout(() => setState("feedback"), 1000);
                 }}
                 className={cn(
-                  "border border-gray-light py-2 px-5 rounded-md",
+                  "border border-ff-gray-light py-1 px-4 rounded-md text-sm",
                   type === t
-                    ? "bg-black text-white"
-                    : "hover:bg-black hover:text-white text-gray bg-white" // type => bg-primary
+                    ? "bg-ff-black text-ff-white"
+                    : "hover:bg-ff-gray-light/50 text-ff-gray bg-ff-white"
                 )}
               >
                 <TypeEmoji type={t} className="mr-1" />

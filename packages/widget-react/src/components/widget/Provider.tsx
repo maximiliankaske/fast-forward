@@ -17,6 +17,7 @@ interface ContextProps {
   setState: React.Dispatch<React.SetStateAction<State>>;
   type: Type;
   setType: React.Dispatch<React.SetStateAction<Type>>;
+  reset: () => void;
   // can be done via useReducer?
   widgetProps: FeedbackBase;
   messages: Messages;
@@ -39,6 +40,10 @@ interface ProviderProps extends FeedbackBase {
 const Provider = ({ children, ...props }: ProviderProps) => {
   const [state, setState] = React.useState<State>("type");
   const [type, setType] = React.useState<Type>();
+  const reset = () => {
+    setState("type");
+    setType(undefined);
+  };
   const messages = formattedMessages(props.lang);
   const value = {
     state,
@@ -47,6 +52,7 @@ const Provider = ({ children, ...props }: ProviderProps) => {
     setType,
     widgetProps: props,
     messages,
+    reset,
   };
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };

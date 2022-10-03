@@ -29,8 +29,8 @@ const Success = ({ close }: Props) => {
   return (
     <Container>
       <div className="flex items-center space-x-2">
-        <CheckCircleIcon className="h-7 w-7 text-green" />
-        <p className="font-medium text-black tracking-wide">
+        <CheckCircleIcon className="h-7 w-7 text-ff-green" />
+        <p className="font-medium text-ff-black tracking-wide text-sm">
           {messages.submit.state.success}
         </p>
       </div>

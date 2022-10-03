@@ -6,12 +6,12 @@ import { useFFContext } from "./Provider";
 
 const styles = {
   base: "rounded-full h-[5px]",
-  active: "bg-black w-16",
-  inactive: "bg-gray-light w-12",
+  active: "bg-ff-black w-16",
+  inactive: "bg-ff-gray-light w-12",
 };
 
 const Indicator = () => {
-  const { state, setState } = useFFContext();
+  const { state, reset } = useFFContext();
   return (
     <div className="flex space-x-1">
       <button
@@ -19,7 +19,7 @@ const Indicator = () => {
           styles.base,
           state === "type" ? styles.active : styles.inactive
         )}
-        onClick={() => setState("type")}
+        onClick={reset}
         disabled={state === "type"}
       />
       <div
