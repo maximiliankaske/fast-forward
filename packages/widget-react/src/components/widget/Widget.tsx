@@ -26,7 +26,7 @@ const Content = ({ close }: PopupProps) => {
     widgetProps: { themeColors },
   } = useFFContext();
   return (
-    <div className="min-w-[350px]" style={themeColors as React.CSSProperties}>
+    <div className="min-w-[300px]" style={themeColors as React.CSSProperties}>
       {state === "type" ? <Type /> : undefined}
       {state === "feedback" ? <Feedback /> : undefined}
       {state === "success" ? <Success close={close} /> : undefined}

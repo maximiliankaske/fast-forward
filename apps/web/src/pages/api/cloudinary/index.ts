@@ -2,6 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import cloudinary from "@/lib/cloudinary";
 import { allowCors } from "@/lib/middleware";
 
+// TODO: for each project, create a separate folder to put the screenshots in.
+// That way, they will always stay in one context.
+
 export const config = {
   api: {
     bodyParser: {
