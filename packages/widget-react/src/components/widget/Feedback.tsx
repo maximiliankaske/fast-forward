@@ -22,7 +22,7 @@ const Feedback = () => {
     undefined
   );
   const { setState, type, widgetProps, messages, reset } = useFFContext();
-  const { domain, lang, ...props } = widgetProps;
+  const { domain, lang, themeColors, ...props } = widgetProps;
 
   // ATTENTION: because vercel redirects fast-forward.app to www.fast-forward.app
   // the domain needs "www" - otherwise gets preflight failure
